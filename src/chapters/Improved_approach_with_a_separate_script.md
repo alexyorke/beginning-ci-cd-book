@@ -20,7 +20,7 @@ push:
 
 branches:
 
-\- main
+- main
 
 jobs:
 
@@ -30,14 +30,12 @@ runs-on: ubuntu-latest
 
 steps:
 
-\- name: Checkout Code
+- name: Checkout Code
 
 uses: actions/checkout@v3
 
-\- name: Configure ConfigMap
+- name: Configure ConfigMap
 
 run: ./configure_configmap.sh \'ps -ef \| grep nginx\'
 
 We pass the command to configure_configmap.sh as an argument, allowing us to use single quotes around it without complex escaping. This approach significantly improves the readability and maintainability of your GitHub Actions workflow.
-
-

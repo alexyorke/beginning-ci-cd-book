@@ -1128,7 +1128,7 @@ push:
 
 branches:
 
-\- main \# Trigger deployment on push to main branch
+- main \# Trigger deployment on push to main branch
 
 jobs:
 
@@ -1138,11 +1138,11 @@ runs-on: ubuntu-latest
 
 steps:
 
-\- name: Checkout code
+- name: Checkout code
 
 uses: actions/checkout@v3
 
-\- name: Azure Login
+- name: Azure Login
 
 uses: azure/login@v1
 
@@ -1150,7 +1150,7 @@ with:
 
 creds: \${{ secrets.AZURE_CREDENTIALS }}
 
-\- name: Upload to Azure Blob Storage
+- name: Upload to Azure Blob Storage
 
 uses: azure/storage-blob-upload@v1
 

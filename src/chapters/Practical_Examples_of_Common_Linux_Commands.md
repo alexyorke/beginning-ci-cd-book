@@ -66,11 +66,11 @@ If you cd into a directory and then use tar -cf archive.tar \* to create an arch
 
 directory/
 
-\- file1.txt
+- file1.txt
 
-\- subdirectory/
+- subdirectory/
 
-\- file2.txt
+- file2.txt
 
 content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487).
 
@@ -78,11 +78,11 @@ The archive.tar will have a similar structure when extracted:
 
 extracted/
 
-\- file1.txt
+- file1.txt
 
-\- subdirectory/
+- subdirectory/
 
-\- file2.txt
+- file2.txt
 
 content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487).
 

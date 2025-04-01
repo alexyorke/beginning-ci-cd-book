@@ -62,37 +62,37 @@ To create a new GitHub Enterprise repository, you first need to set up an accoun
 
 ### 1. Sign Up for GitHub
 
-\- Go to \[GitHub\](https://github.com/).
+- Go to \[GitHub\](https://github.com/).
 
-\- Click on the \"Sign up\" button at the top right corner of the page.
+- Click on the \"Sign up\" button at the top right corner of the page.
 
-\- Fill in your details, including a username, email address, and password.
+- Fill in your details, including a username, email address, and password.
 
-\- Verify your account by following the email verification link sent to your email.
+- Verify your account by following the email verification link sent to your email.
 
 ### 2. Join or Set Up GitHub Enterprise
 
-\- **If your organization already has GitHub Enterprise**: You will need an invitation to join from your organization's GitHub Enterprise admin. Once invited, you can log in using the credentials or SSO (Single Sign-On) method prescribed by your organization.
+- **If your organization already has GitHub Enterprise**: You will need an invitation to join from your organization's GitHub Enterprise admin. Once invited, you can log in using the credentials or SSO (Single Sign-On) method prescribed by your organization.
 
-\- **If you are setting up a new GitHub Enterprise**: You can start a trial or purchase it by visiting the \[GitHub Enterprise page\](https://github.com/enterprise). Setting up GitHub Enterprise usually requires more extensive IT involvement to handle the installation on cloud or on-premises infrastructure.
+- **If you are setting up a new GitHub Enterprise**: You can start a trial or purchase it by visiting the \[GitHub Enterprise page\](https://github.com/enterprise). Setting up GitHub Enterprise usually requires more extensive IT involvement to handle the installation on cloud or on-premises infrastructure.
 
 ### 3. Create a New Repository
 
 Once you have access to GitHub (and GitHub Enterprise if using):
 
-\- Click on your profile photo in the upper right corner, then click **Your repositories**.
+- Click on your profile photo in the upper right corner, then click **Your repositories**.
 
-\- Click the green **New** button, or if you are on your organization\'s GitHub Enterprise account, you may need to select the organization context first.
+- Click the green **New** button, or if you are on your organization\'s GitHub Enterprise account, you may need to select the organization context first.
 
-\- Enter a repository name, description (optional), and decide if the repository will be public or private.
+- Enter a repository name, description (optional), and decide if the repository will be public or private.
 
-\- Configure other settings like adding a README file, .gitignore, or a license according to your project needs.
+- Configure other settings like adding a README file, .gitignore, or a license according to your project needs.
 
-\- Click **Create repository**.
+- Click **Create repository**.
 
 ### 4. Clone the Repository
 
-\- After creating your repository, clone it to your local machine to start working on the project. You can do this by opening your command line or terminal and running:
+- After creating your repository, clone it to your local machine to start working on the project. You can do this by opening your command line or terminal and running:
 
 ```bash
 
@@ -104,7 +104,7 @@ Replace `username` and `repository-name` with your GitHub username and the new r
 
 ### 5. Start Pushing Code
 
-\- After cloning the repository, you can start pushing your code to the GitHub repository by using:
+- After cloning the repository, you can start pushing your code to the GitHub repository by using:
 
 ```bash
 
@@ -168,7 +168,7 @@ runs-on: ubuntu-latest
 
 steps:
 
-\- name: Say Hello
+- name: Say Hello
 
 run: echo \"Hello world!\"
 

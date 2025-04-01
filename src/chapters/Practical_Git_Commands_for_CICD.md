@@ -4,7 +4,7 @@ Here are practical examples of common git commands used in CI/CD pipelines, spec
 
 **1. Cloning a Repository:**
 
-\- name: Checkout Code
+- name: Checkout Code
 
 uses: actions/checkout@v3
 
@@ -18,7 +18,7 @@ This step uses the official actions/checkout action to clone the specified repos
 
 **2. Setting up User Information:**
 
-\- name: Configure Git User
+- name: Configure Git User
 
 run: \|
 
@@ -30,7 +30,7 @@ These commands set the user name and email for git commits made during the workf
 
 **3. Adding a File:**
 
-\- name: Add Updated File
+- name: Add Updated File
 
 run: git add path/to/your/file.txt
 
@@ -38,7 +38,7 @@ This adds the specified file to the staging area, preparing it for the commit.Yo
 
 **4. Committing Changes:**
 
-\- name: Commit Changes
+- name: Commit Changes
 
 run: git commit -m \"Automated update: \[Description of changes\]\"
 
@@ -46,7 +46,7 @@ This commits the staged changes with a descriptive commit message.
 
 **5. Pushing to Branch (e.g., for a PR):**
 
-\- name: Push Changes
+- name: Push Changes
 
 run: git push origin your-branch
 
@@ -54,11 +54,11 @@ This pushes the committed changes back to the specified branch on the origin rem
 
 **6. Creating and Pushing Tags:**
 
-\- name: Create Tag
+- name: Create Tag
 
 run: git tag -a v1.2.3 -m \"Release v1.2.3\"
 
-\- name: Push Tag
+- name: Push Tag
 
 run: git push origin v1.2.3
 
@@ -74,7 +74,7 @@ push:
 
 branches:
 
-\- main
+- main
 
 jobs:
 
@@ -84,11 +84,11 @@ runs-on: ubuntu-latest
 
 steps:
 
-\- name: Checkout Code
+- name: Checkout Code
 
 uses: actions/checkout@v3
 
-\- name: Configure Git User
+- name: Configure Git User
 
 run: \|
 
@@ -98,26 +98,24 @@ git config user.email \"actions@github.com\"
 
 \# \... Your CI/CD steps to modify files \...
 
-\- name: Add Updated File
+- name: Add Updated File
 
 run: git add path/to/your/file.txt
 
-\- name: Commit Changes
+- name: Commit Changes
 
 run: git commit -m \"Automated update: \[Description of changes\]\"
 
-\- name: Push Changes
+- name: Push Changes
 
 run: git push origin main
 
-\- name: Create Tag
+- name: Create Tag
 
 run: git tag -a v1.2.3 -m \"Release v1.2.3\"
 
-\- name: Push Tag
+- name: Push Tag
 
 run: git push origin v1.2.3
 
 This example demonstrates a typical workflow where the code is checked out, modifications are made, changes are committed and pushed back to the main branch, and finally, a new tag is created and pushed to the repository. Remember to adapt these commands to your specific CI/CD needs and repository structure.
-
-

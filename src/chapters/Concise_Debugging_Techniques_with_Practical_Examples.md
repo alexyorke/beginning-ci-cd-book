@@ -10,11 +10,11 @@ runs-on: ubuntu-latest
 
 steps:
 
-\- name: Checkout code
+- name: Checkout code
 
 uses: actions/checkout@v3
 
-\- name: Build project
+- name: Build project
 
 run: \|
 
@@ -22,7 +22,7 @@ run: \|
 
 npm run build
 
-\- name: Run tests
+- name: Run tests
 
 run: \|
 
@@ -40,17 +40,17 @@ if: failure()
 
 steps:
 
-\- name: Checkout code
+- name: Checkout code
 
 uses: actions/checkout@v3
 
-\- name: Print environment variables
+- name: Print environment variables
 
 run: \|
 
 env
 
-\- name: Print debug information
+- name: Print debug information
 
 run: \|
 
@@ -68,7 +68,7 @@ echo \"Here\'s some information that might help:\"
 
 \# npm run debug \--verbose
 
-\- name: Upload artifacts
+- name: Upload artifacts
 
 uses: actions/upload-artifact@v3
 
@@ -96,36 +96,34 @@ error.log
 
 4.  **Steps within debug**:
 
-    -   **Checkout code**: Checks out the code again for access within this job.
+    - **Checkout code**: Checks out the code again for access within this job.
 
-    -   **Print environment variables**: Prints environment variables, which might contain clues about the failure.
+    - **Print environment variables**: Prints environment variables, which might contain clues about the failure.
 
-    -   **Print debug information**:
+    - **Print debug information**:
 
-        -   Provides a starting point for printing custom debugging information.
+      - Provides a starting point for printing custom debugging information.
 
-        -   You can add commands to:
+      - You can add commands to:
 
-            -   List files (ls -l).
+        - List files (ls -l).
 
-            -   Display content of specific files (cat error.log).
+        - Display content of specific files (cat error.log).
 
-            -   Run debugging scripts (npm run debug \--verbose).
+        - Run debugging scripts (npm run debug \--verbose).
 
-        -   
+      -
 
-    -   
+    -
 
-    -   **Upload artifacts**:
+    - **Upload artifacts**:
 
-        -   Uses the actions/upload-artifact action to store relevant files as downloadable artifacts.
+      - Uses the actions/upload-artifact action to store relevant files as downloadable artifacts.
 
-        -   This allows you to examine these files later for detailed analysis.
+      - This allows you to examine these files later for detailed analysis.
 
 **How to use:**
 
 1.  **Customize the Print debug information step**: Replace the placeholder comments with specific commands that generate valuable debugging output for your project.
 
 2.  **Tailor path in Upload artifacts**: Specify the directory or files that hold crucial information for debugging.
-
-

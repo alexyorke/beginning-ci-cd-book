@@ -32,7 +32,7 @@ Imagine wearing a project manager\'s hat and envisioning potential features for 
 
 **Application Hosting and User Engagement:**
 
-\- User features will include account creation and subscription to event forecasts. A backend batch job will manage notifications through a queuing system, supporting large-scale user notifications with email tracking.
+- User features will include account creation and subscription to event forecasts. A backend batch job will manage notifications through a queuing system, supporting large-scale user notifications with email tracking.
 
 ![](./images/image62.png){width="5.463542213473316in" height="4.118670166229221in"}
 
@@ -82,13 +82,13 @@ This provides a nice name we can use later and helps us inventory and group our 
 
 1\. **Install Node.js and npm:**
 
-\- Visit \[Node.js\'s website\](https://nodejs.org/) and download the installer for your operating system. This will also install npm (Node Package Manager) which is essential for managing JavaScript packages.
+- Visit \[Node.js\'s website\](https://nodejs.org/) and download the installer for your operating system. This will also install npm (Node Package Manager) which is essential for managing JavaScript packages.
 
-\- To verify the installation, run `node -v` and `npm -v` in your terminal or command prompt. **This should display the current versions of Node.js and npm installed. Keep a note of this as you\'ll need it for later.**
+- To verify the installation, run `node -v` and `npm -v` in your terminal or command prompt. **This should display the current versions of Node.js and npm installed. Keep a note of this as you\'ll need it for later.**
 
 2\. **Install a Code Editor:**
 
-\- A code editor will help you to write your code more efficiently. \[Visual Studio Code\](https://code.visualstudio.com/) is a popular choice among developers because it supports JavaScript and React out of the box, along with many useful extensions.
+- A code editor will help you to write your code more efficiently. \[Visual Studio Code\](https://code.visualstudio.com/) is a popular choice among developers because it supports JavaScript and React out of the box, along with many useful extensions.
 
 ### Installing Git
 
@@ -96,25 +96,25 @@ This provides a nice name we can use later and helps us inventory and group our 
 
 1\. **Download the Installer:**
 
-\- Visit the official Git website: \[Git Downloads\](https://git-scm.com/downloads).
+- Visit the official Git website: \[Git Downloads\](https://git-scm.com/downloads).
 
-\- Click on \"Windows\" to download the latest version of Git for Windows.
+- Click on \"Windows\" to download the latest version of Git for Windows.
 
 2\. **Run the Installer:**
 
-\- Once the download is complete, open the installer.
+- Once the download is complete, open the installer.
 
-\- Proceed through the installation wizard. You can accept the default settings, which are suitable for most users. However, you may choose to customize the components to install, the default editor for Git, and other options depending on your preference.
+- Proceed through the installation wizard. You can accept the default settings, which are suitable for most users. However, you may choose to customize the components to install, the default editor for Git, and other options depending on your preference.
 
 3\. **Verify Installation:**
 
-\- Open Command Prompt (cmd) and type `git \--version`. This command will display the installed version of Git if the installation was successful.
+- Open Command Prompt (cmd) and type `git \--version`. This command will display the installed version of Git if the installation was successful.
 
 **macOS:**
 
 1\. **Install using Homebrew (recommended):**
 
-\- First, install Homebrew by opening Terminal and running:
+- First, install Homebrew by opening Terminal and running:
 
 ```
 
@@ -122,7 +122,7 @@ This provides a nice name we can use later and helps us inventory and group our 
 
 ```
 
-\- Once Homebrew is installed, install Git by typing:
+- Once Homebrew is installed, install Git by typing:
 
 ```
 
@@ -132,15 +132,15 @@ brew install git
 
 2\. **Verify Installation:**
 
-\- In the Terminal, type `git \--version` to confirm that Git is installed.
+- In the Terminal, type `git \--version` to confirm that Git is installed.
 
 **Linux:**
 
 1\. **Install Git:**
 
-\- Open a terminal.
+- Open a terminal.
 
-\- For Debian/Ubuntu based distributions, use:
+- For Debian/Ubuntu based distributions, use:
 
 ```
 
@@ -150,7 +150,7 @@ sudo apt-get install git
 
 ```
 
-\- For Fedora, use:
+- For Fedora, use:
 
 ```
 
@@ -158,11 +158,11 @@ sudo dnf install git
 
 ```
 
-\- For other distributions, use the package manager accordingly.
+- For other distributions, use the package manager accordingly.
 
 2\. **Verify Installation:**
 
-\- Type `git \--version` in the terminal to check the installed version.
+- Type `git \--version` in the terminal to check the installed version.
 
 ### Installing GitHub Desktop (optional)
 
@@ -170,29 +170,29 @@ sudo dnf install git
 
 1\. **Download GitHub Desktop:**
 
-\- Visit the GitHub Desktop download page: \[GitHub Desktop\](https://desktop.github.com/).
+- Visit the GitHub Desktop download page: \[GitHub Desktop\](https://desktop.github.com/).
 
-\- Click on the download link for Windows or macOS, depending on your operating system.
+- Click on the download link for Windows or macOS, depending on your operating system.
 
 2\. **Install GitHub Desktop:**
 
-\- **Windows:**
+- **Windows:**
 
-\- After downloading, run the GitHub Desktop setup file.
+- After downloading, run the GitHub Desktop setup file.
 
-\- Follow the installation instructions to complete the setup.
+- Follow the installation instructions to complete the setup.
 
-\- **macOS:**
+- **macOS:**
 
-\- Open the downloaded `.dmg` file and drag the GitHub Desktop application to your Applications folder.
+- Open the downloaded `.dmg` file and drag the GitHub Desktop application to your Applications folder.
 
 3\. **Verify Installation:**
 
-\- Open GitHub Desktop. The application should launch and prompt you to log in with your GitHub credentials.
+- Open GitHub Desktop. The application should launch and prompt you to log in with your GitHub credentials.
 
 4\. **Setup GitHub Desktop:**
 
-\- After logging in, you can configure GitHub Desktop to connect with your GitHub repositories. You can clone existing repositories, create new ones, or add local repositories.
+- After logging in, you can configure GitHub Desktop to connect with your GitHub repositories. You can clone existing repositories, create new ones, or add local repositories.
 
 When you install Git, it typically comes with a tool called Git Credential Manager, which helps with authentication. If you\'re working in an interactive shell, you might see a pop-up from this tool when you try to access a repository. In a more basic command prompt environment, without a graphical interface, you\'ll need to follow specific instructions for accessing GitHub repositories. These instructions could involve pasting a link into a web browser or registering a device, using OAuth for authorization.
 
@@ -220,9 +220,9 @@ Make sure that you have at least NPM 10.8.0 installed. You can update it by typi
 
 1\. **Use Create React App:**
 
-\- Open your terminal or command prompt.
+- Open your terminal or command prompt.
 
-\- Run the following command to create a new React application named `weather-app`:
+- Run the following command to create a new React application named `weather-app`:
 
 ```bash
 
@@ -230,15 +230,15 @@ npx create-react-app weather-app
 
 ```
 
-\- This command sets up a new React project with all the necessary build configurations.
+- This command sets up a new React project with all the necessary build configurations.
 
 2\. **Navigate into your project directory:**
 
-\- Change into the newly created project directory with `cd weather-app`.
+- Change into the newly created project directory with `cd weather-app`.
 
 ### Step 3: Run the React Application
 
-\- Inside the project directory, start the development server by running:
+- Inside the project directory, start the development server by running:
 
 ```bash
 
@@ -246,17 +246,17 @@ npm start
 
 ```
 
-\- This command runs the app in development mode. Open `http://localhost:3000` to view it in the browser. The page will reload if you make edits.
+- This command runs the app in development mode. Open `http://localhost:3000` to view it in the browser. The page will reload if you make edits.
 
 ### Step 4: Integrate Weather Data
 
 1\. **Choose a Weather API:**
 
-\- For real-time weather data, you can use APIs like \[OpenWeatherMap\](https://openweathermap.org/) or \[WeatherAPI\](https://www.weatherapi.com/). You will need to sign up and obtain an API key.
+- For real-time weather data, you can use APIs like \[OpenWeatherMap\](https://openweathermap.org/) or \[WeatherAPI\](https://www.weatherapi.com/). You will need to sign up and obtain an API key.
 
 2\. **Install Axios:**
 
-\- While you can use the native `fetch` API, Axios makes it easier to perform API requests. Install Axios by running:
+- While you can use the native `fetch` API, Axios makes it easier to perform API requests. Install Axios by running:
 
 ```bash
 
@@ -274,9 +274,9 @@ Later, we will explore solutions for safely using the API key in a production en
 
 ### Understanding the Build Process:
 
-\- **Compiled Files**: The files in the `dist` folder are the result of the compilation process. For example, if you\'re using a framework like React, the `npm run build` command transforms React code into plain JavaScript. This is necessary because browsers cannot interpret React code directly; they only understand JavaScript.
+- **Compiled Files**: The files in the `dist` folder are the result of the compilation process. For example, if you\'re using a framework like React, the `npm run build` command transforms React code into plain JavaScript. This is necessary because browsers cannot interpret React code directly; they only understand JavaScript.
 
-\- **Deployment Preparation**: The `dist` folder contains the compiled version of your application, which is what you will deploy. This folder holds all the static files required to run your application on any standard web server.
+- **Deployment Preparation**: The `dist` folder contains the compiled version of your application, which is what you will deploy. This folder holds all the static files required to run your application on any standard web server.
 
 ### Why Compilation Matters:
 
@@ -294,9 +294,9 @@ Then make sure to add the .env.local file to your .gitignore file. Do not commit
 
 3\. **Create a Component to Fetch Weather Data:**
 
-\- In the `src` folder, create a new file called `Weather.js`.
+- In the `src` folder, create a new file called `Weather.js`.
 
-\- Use Axios to fetch weather data from your chosen API and display it. Here's a simple example using OpenWeatherMap:
+- Use Axios to fetch weather data from your chosen API and display it. Here's a simple example using OpenWeatherMap:
 
 ```jsx
 
@@ -366,9 +366,9 @@ export default Weather;
 
 ### Step 5: Include the Weather Component in Your App
 
-\- Open `src/App.js`.
+- Open `src/App.js`.
 
-\- Import and use your `Weather` component:
+- Import and use your `Weather` component:
 
 ```jsx
 
@@ -450,17 +450,17 @@ Here\'s how to set this up using Azure API Management Service:
 
 5\. **Configure API and Testing**: In the API Management Service:
 
-\- Go to \'APIs\' and create a new HTTP API, such as a \'Get Weather\'.
+- Go to \'APIs\' and create a new HTTP API, such as a \'Get Weather\'.
 
-\- The endpoint is just "/".
+- The endpoint is just "/".
 
-\- Initially, use `https://httpbin.org` for testing to ensure the setup is correct.
+- Initially, use `https://httpbin.org` for testing to ensure the setup is correct.
 
-\- Select "Test" tab and then "Send". You should get a 200 OK response containing the content of the httpbin website homepage.
+- Select "Test" tab and then "Send". You should get a 200 OK response containing the content of the httpbin website homepage.
 
 6\. **Key Injection and Endpoint Configuration**: Adjust the backend settings to append the API key to incoming requests:
 
-\- Modify the service URL to `http://httpbin.org/anything` and save the changes.
+- Modify the service URL to `http://httpbin.org/anything` and save the changes.
 
 In the below example, use the pretend API key listed below. This is because we are just testing our endpoint with a public server and we don't want to leak our actual API key.
 
@@ -468,13 +468,13 @@ Add the following policy to the inbound request:
 
 \<!\--
 
-\- Policies are applied in the order they appear.
+- Policies are applied in the order they appear.
 
-\- Position \<base/\> inside a section to inherit policies from the outer scope.
+- Position \<base/\> inside a section to inherit policies from the outer scope.
 
-\- Comments within policies are not preserved.
+- Comments within policies are not preserved.
 
-\--\>
+--\>
 
 \<!\-- Add policies as children to the \<inbound\>, \<outbound\>, \<backend\>, and \<on-error\> elements \--\>
 
@@ -590,61 +590,61 @@ Here's how to do that.
 
 1\. **Create the Key Vault**:
 
-\- Navigate back to your resource group, specifically the CI-CD-Book-int one.
+- Navigate back to your resource group, specifically the CI-CD-Book-int one.
 
-\- Click on \"Create New Azure Resource\", search for \"Key Vault\", and select it.
+- Click on \"Create New Azure Resource\", search for \"Key Vault\", and select it.
 
-\- Name your Key Vault as \"CI_CD_Book_KV\" and leave the default settings intact.
+- Name your Key Vault as \"CI_CD_Book_KV\" and leave the default settings intact.
 
-\- Proceed to create the vault by clicking on \"View and Create\", then \"Create\".
+- Proceed to create the vault by clicking on \"View and Create\", then \"Create\".
 
 2\. **Configure Access Permissions**:
 
-\- After creation, go to \"Access Control (IAM)\" on the left-hand side of the Key Vault.
+- After creation, go to \"Access Control (IAM)\" on the left-hand side of the Key Vault.
 
-\- Click \"Add Role Assignment\", search for \"Key Vault Administrator\", and add yourself by selecting your user profile.
+- Click \"Add Role Assignment\", search for \"Key Vault Administrator\", and add yourself by selecting your user profile.
 
-\- Review and confirm the role assignment.
+- Review and confirm the role assignment.
 
 3\. **Manage Secrets**:
 
-\- Once access is granted, navigate to the \"Secrets\" tab within the Key Vault.
+- Once access is granted, navigate to the \"Secrets\" tab within the Key Vault.
 
-\- Click on \"Generate or Import\" to create a new secret. For instance, name it \"weather-API-key\" and set its value to \"5934672295\", then create the secret.
+- Click on \"Generate or Import\" to create a new secret. For instance, name it \"weather-API-key\" and set its value to \"5934672295\", then create the secret.
 
 **Integrating Key Vault with API Management Service**
 
 1\. **Link the Key Vault to API Management**:
 
-\- In your API Management Service, locate the \"Named Values\" option under the subscriptions section.
+- In your API Management Service, locate the \"Named Values\" option under the subscriptions section.
 
-\- Add a new named value titled \"weather-api-key\" with the type set to \"Key Vault\".
+- Add a new named value titled \"weather-api-key\" with the type set to \"Key Vault\".
 
-\- Select the \"CICD Key Vault\" and link the \"weather-API-key\" as the secret.
+- Select the \"CICD Key Vault\" and link the \"weather-API-key\" as the secret.
 
-\- Set the identity as the system assigned managed identity and save your changes.
+- Set the identity as the system assigned managed identity and save your changes.
 
-\- Confirm when prompted about adding the Key Vault secret User role to the IAM of this KV.
+- Confirm when prompted about adding the Key Vault secret User role to the IAM of this KV.
 
 2\. **Update API Policy**:
 
-\- Navigate to \"APIs\", select the \"Weather API\", and go to \"Get Weather\".
+- Navigate to \"APIs\", select the \"Weather API\", and go to \"Get Weather\".
 
-\- Edit the policy using the policy editor. Insert the named value by typing \"{{weather-api-key}}\" into the appropriate field to dynamically insert the API key into API requests.
+- Edit the policy using the policy editor. Insert the named value by typing \"{{weather-api-key}}\" into the appropriate field to dynamically insert the API key into API requests.
 
-\- Save your changes.
+- Save your changes.
 
 Now, update the policy to the following:
 
 \<!\--
 
-\- Policies are applied in the order they appear.
+- Policies are applied in the order they appear.
 
-\- Position \<base/\> inside a section to inherit policies from the outer scope.
+- Position \<base/\> inside a section to inherit policies from the outer scope.
 
-\- Comments within policies are not preserved.
+- Comments within policies are not preserved.
 
-\--\>
+--\>
 
 \<!\-- Add policies as children to the \<inbound\>, \<outbound\>, \<backend\>, and \<on-error\> elements \--\>
 
@@ -998,9 +998,9 @@ When it comes to handling errors in your workflow, encountering a syntax error p
 
 **Setting Up Notifications**:
 
-\- **Email Notifications**: Configure GitHub Actions to send email notifications to a designated recipient when the workflow fails.
+- **Email Notifications**: Configure GitHub Actions to send email notifications to a designated recipient when the workflow fails.
 
-\- **Integration with Messaging Platforms**: You can also integrate the workflow with messaging platforms such as Microsoft Teams, Slack, Discord, and others. Numerous plugins and services are available that notify you through instant messaging or even text messages and phone calls when a build fails.
+- **Integration with Messaging Platforms**: You can also integrate the workflow with messaging platforms such as Microsoft Teams, Slack, Discord, and others. Numerous plugins and services are available that notify you through instant messaging or even text messages and phone calls when a build fails.
 
 Setting up email notifications for a failed GitHub Actions workflow involves a few steps within the GitHub platform, using the available features to send alerts when certain conditions are met. Here's how you can set this up:
 
@@ -1038,7 +1038,7 @@ push:
 
 branches:
 
-\- main \# This trigger for the main branch means that if there is a push to the main branch in the workflow on the main branch will run.Since the workflow dispatch is also a trigger, this means that you can run the workflow manually, which is very useful for debugging purposes.
+- main \# This trigger for the main branch means that if there is a push to the main branch in the workflow on the main branch will run.Since the workflow dispatch is also a trigger, this means that you can run the workflow manually, which is very useful for debugging purposes.
 
 jobs:
 
@@ -1048,9 +1048,9 @@ runs-on: ubuntu-latest
 
 steps:
 
-\- uses: actions/checkout@v2 \# The case that we are using a GitHub Action.Looking into what it GitHub action is a little bit later on.In this case, this GitHub Action is cloning our code.
+- uses: actions/checkout@v2 \# The case that we are using a GitHub Action.Looking into what it GitHub action is a little bit later on.In this case, this GitHub Action is cloning our code.
 
-\- name: Set up Node.js
+- name: Set up Node.js
 
 uses: actions/setup-node@v2 \# Another GitHub action that installs.A version of Node specified by.The.Configuration options that it receives. In this case, the action is set up to receive a configuration called No version. We\'re passing in the version 14 to it. The ADV 2 specifies the version of a workflow and not the version of node.
 
@@ -1058,15 +1058,15 @@ with:
 
 node-version: \'14\' \# Specify your Node.js version, fill it in from the previous step
 
-\- name: Install dependencies
+- name: Install dependencies
 
 run: npm ci
 
-\- name: Build the project
+- name: Build the project
 
 run: npm run build
 
-\- name: test the project
+- name: test the project
 
 run: npm run test
 
@@ -1088,7 +1088,7 @@ Fortunately, GitHub Actions provides a solution through the `actions/upload-arti
 
 Add this code to the end of your workflow.
 
-\- uses: actions/upload-artifact@master
+- uses: actions/upload-artifact@master
 
 with:
 
@@ -1108,19 +1108,19 @@ runs-on: "ubuntu-latest"
 
 steps:
 
-\- name: "Checkout code"
+- name: "Checkout code"
 
 uses: "actions/checkout@v2"
 
-\- name: "Install dependencies"
+- name: "Install dependencies"
 
 run: npm install
 
-\- name: "Run tests"
+- name: "Run tests"
 
 run: npm test
 
-\- name: "Publish artifacts"
+- name: "Publish artifacts"
 
 uses: actions/upload-artifact@v3
 
@@ -1206,33 +1206,33 @@ az login
 
 ### Step 3: Create a Storage Account
 
-\- **Navigate to Storage Accounts**: In the Azure portal, click on \"Create a resource\" and search for \"Storage Account\".
+- **Navigate to Storage Accounts**: In the Azure portal, click on \"Create a resource\" and search for \"Storage Account\".
 
-\- **Set Up Basic Details**:
+- **Set Up Basic Details**:
 
-\- Choose a subscription and select the existing resource group.
+- Choose a subscription and select the existing resource group.
 
-\- Enter a unique name for your storage account.
+- Enter a unique name for your storage account.
 
-\- Select a region close to your target audience to minimize latency.
+- Select a region close to your target audience to minimize latency.
 
-\- Choose \"Standard\" performance, which is adequate for static content.
+- Choose \"Standard\" performance, which is adequate for static content.
 
-\- Select \"StorageV2 (general purpose v2)\" for the account type, as it supports static website hosting.
+- Select \"StorageV2 (general purpose v2)\" for the account type, as it supports static website hosting.
 
-\- **Review and Create**: Review your settings and create the storage account.
+- **Review and Create**: Review your settings and create the storage account.
 
 ### Step 4: Enable Static Website Hosting
 
-\- **Configure Static Website**:
+- **Configure Static Website**:
 
-\- After your storage account is created, go to its overview page.
+- After your storage account is created, go to its overview page.
 
-\- Navigate to the \"Static website\" settings under the \"Data management\" section.
+- Navigate to the \"Static website\" settings under the \"Data management\" section.
 
-\- Enable static website hosting by selecting \"Enabled\".
+- Enable static website hosting by selecting \"Enabled\".
 
-\- Specify \"index.html\" as the index document name and \"404.html\" as the error document path.
+- Specify \"index.html\" as the index document name and \"404.html\" as the error document path.
 
 Make sure to disable storage account key access.This is important because Georgia county keys can be used to access your BLOB container from almost anywhere with.A weak form of authentication. This is just essentially a password. We\'re gonna be using something instead called a managed identity or a Federated credential.
 
@@ -1266,25 +1266,25 @@ az storage blob list \--container-name cicdbookweb \--output table
 
 ### Step 8: Set Up Azure CDN for Faster Content Delivery
 
-\- **Create a CDN Profile**:
+- **Create a CDN Profile**:
 
-\- Go to the Azure portal, click on "Create a resource", find and select "CDN".
+- Go to the Azure portal, click on "Create a resource", find and select "CDN".
 
-\- Choose or create a CDN profile and select a pricing tier (Standard Microsoft is recommended).To defaults and click.Next.
+- Choose or create a CDN profile and select a pricing tier (Standard Microsoft is recommended).To defaults and click.Next.
 
 ![](./images/image27.png){width="5.42397419072616in" height="6.381673228346457in"}
 
-\- **Deployment**: Note that it may take some time for the CDN to propagate globally.
+- **Deployment**: Note that it may take some time for the CDN to propagate globally.
 
 Select review plus create.
 
 ### Step 9: Access Your Deployed Site
 
-\- **Site URL**:
+- **Site URL**:
 
-\- Once the CDN is fully deployed, use the CDN endpoint URL to access your website, available in the CDN endpoint settings in the Azure portal.
+- Once the CDN is fully deployed, use the CDN endpoint URL to access your website, available in the CDN endpoint settings in the Azure portal.
 
-\- If you have configured a custom domain, use that URL instead.
+- If you have configured a custom domain, use that URL instead.
 
 ![](./images/image52.png){width="9.005208880139982in" height="4.304735345581802in"}
 
@@ -1294,7 +1294,7 @@ You navigate to the host and the previous screenshot that you should see your sa
 
 Create a new workflow at .github/workflows/deploy.yml and insert the following content:
 
-\- Add a GitHub Actions workflow file to handle deployment:
+- Add a GitHub Actions workflow file to handle deployment:
 
 ```yaml
 
@@ -1306,7 +1306,7 @@ push:
 
 branches:
 
-\- main
+- main
 
 jobs:
 
@@ -1316,11 +1316,11 @@ runs-on: ubuntu-latest
 
 steps:
 
-\- name: Checkout Repository
+- name: Checkout Repository
 
 uses: actions/checkout@v2
 
-\- name: Download Artifacts
+- name: Download Artifacts
 
 uses: actions/download-artifact@v2
 
@@ -1330,7 +1330,7 @@ name: your-artifact-name \# Specify your artifact name here
 
 path: path/to/artifacts \# Specify path to download the artifacts to
 
-\- name: Deploy to Azure Blob Storage
+- name: Deploy to Azure Blob Storage
 
 uses: Azure/azure-cli@v1.1.0 \# Using official Azure CLI action for deployment
 
@@ -1348,9 +1348,9 @@ AZURE_STORAGE_CONNECTION_STRING: \${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
 
 ```
 
-\- **Secure Your Workflow**:
+- **Secure Your Workflow**:
 
-\- Store your Azure storage connection string in GitHub Secrets to keep it secure.
+- Store your Azure storage connection string in GitHub Secrets to keep it secure.
 
 Now if you go to the URL corresponding to the Azure CDN, potentially after 5 or 6 minutes for the CDN refresh, you should see your React application along with the weather app.
 
@@ -1467,7 +1467,7 @@ If you try to start another instance of this workflow while it is running, then 
 
 You might want something like this,
 
-\- name: Display Release Version
+- name: Display Release Version
 
 run: echo \"Deploying Release Version \$RELEASE_VERSION\"
 
@@ -1483,25 +1483,25 @@ First, you need to set up environments in your GitHub repository where you can s
 
 1\. **Navigate to Your Repository Settings**:
 
-\- Open your GitHub repository, go to \"Settings\" \> \"Environments\" (found in the sidebar under \"Security\").
+- Open your GitHub repository, go to \"Settings\" \> \"Environments\" (found in the sidebar under \"Security\").
 
 2\. **Create a New Environment**:
 
-\- Click on \"New environment\".
+- Click on \"New environment\".
 
-\- Name your environment (e.g., `staging`, `production`).
+- Name your environment (e.g., `staging`, `production`).
 
-\- Click \"Configure environment\".
+- Click \"Configure environment\".
 
 3\. **Set Up Protection Rules**:
 
-\- Under \"Environment protection rules\", you can add required reviewers who must approve deployments to this environment.
+- Under \"Environment protection rules\", you can add required reviewers who must approve deployments to this environment.
 
-\- Add the GitHub usernames of the individuals or teams who should approve deployments. For example, you can add a "QA team" that consists of a few people, and tey either all hae to approve or a single person has to approve.
+- Add the GitHub usernames of the individuals or teams who should approve deployments. For example, you can add a "QA team" that consists of a few people, and tey either all hae to approve or a single person has to approve.
 
-\- You can also specify other settings, such as wait timers or IP address restrictions if needed.
+- You can also specify other settings, such as wait timers or IP address restrictions if needed.
 
-\- Click \"Save protection rules\".
+- Click \"Save protection rules\".
 
 ### Step 2: Update Your GitHub Actions Workflow
 
@@ -1509,13 +1509,13 @@ After setting up your environments with required approvals, you need to modify y
 
 1\. **Edit Your Workflow File**:
 
-\- Go to your repository\'s `.github/workflows` directory.
+- Go to your repository\'s `.github/workflows` directory.
 
-\- Open the YAML file for the workflow you want to add manual approvals to.
+- Open the YAML file for the workflow you want to add manual approvals to.
 
 2\. **Add the Environment to Workflow Jobs**:
 
-\- Identify the job(s) in your workflow that should require approval before they run. Add the `environment` key to those jobs, specifying the name of the environment you configured.
+- Identify the job(s) in your workflow that should require approval before they run. Add the `environment` key to those jobs, specifying the name of the environment you configured.
 
 Here's an example snippet:
 
@@ -1535,11 +1535,11 @@ url: \${{ steps.deploy.outputs.url }} \# Optional: This can show a URL in the Gi
 
 steps:
 
-\- name: Checkout code
+- name: Checkout code
 
 uses: actions/checkout@v2
 
-\- name: Setup Node
+- name: Setup Node
 
 uses: actions/setup-node@v2
 
@@ -1547,11 +1547,11 @@ with:
 
 node-version: \'14\'
 
-\- name: Install dependencies
+- name: Install dependencies
 
 run: npm install
 
-\- name: Build and Deploy
+- name: Build and Deploy
 
 id: deploy
 
@@ -1567,23 +1567,23 @@ echo \"::set-output name=url::http://example.com\" \# Simulated deployment outpu
 
 After editing your workflow file:
 
-\- Commit the changes: Provide a commit message that clearly states you've added environment protections with manual approvals.
+- Commit the changes: Provide a commit message that clearly states you've added environment protections with manual approvals.
 
-\- Push the commit to your branch.
+- Push the commit to your branch.
 
 ### Step 4: Trigger the Workflow
 
 Push or merge a commit that triggers the modified workflow. If the workflow accesses a job that uses the protected environment:
 
-\- The job will pause, and GitHub will require the specified approvers to review and approve the run.
+- The job will pause, and GitHub will require the specified approvers to review and approve the run.
 
-\- Go to the \"Actions\" tab of your repository to see the pending approval.
+- Go to the \"Actions\" tab of your repository to see the pending approval.
 
 ### Step 5: Approve the Workflow
 
-\- Authorized reviewers can go to the \"Actions\" tab, click on the workflow run, and then click \"Review deployments\".
+- Authorized reviewers can go to the \"Actions\" tab, click on the workflow run, and then click \"Review deployments\".
 
-\- They can then approve or reject the deployment.
+- They can then approve or reject the deployment.
 
 ### Step 6: Monitor the Deployment
 

@@ -1639,9 +1639,9 @@ Sure, here\'s a more concise version:
 
 ### **Deployment:**
 
-\- **`/bin`**: Compiled binaries.
+- **`/bin`**: Compiled binaries.
 
-\- **`/bin/Debug`**: Debug build.
+- **`/bin/Debug`**: Debug build.
 
 **- **`/bin/Release`**: Release build for deployment.**
 
@@ -1663,9 +1663,9 @@ Python applications don\'t have as strict a structure as something like a C# sol
 
 ### **Deployment:**
 
-\- Deploy source code and install dependencies from `requirements.txt` using a package manager like `pip`.
+- Deploy source code and install dependencies from `requirements.txt` using a package manager like `pip`.
 
-\- Virtual environments (`/venv` or `/env`) should never be deployed. Instead, use the `requirements.txt` on the deployment server or target environment to recreate the necessary dependencies.
+- Virtual environments (`/venv` or `/env`) should never be deployed. Instead, use the `requirements.txt` on the deployment server or target environment to recreate the necessary dependencies.
 
 Note: Depending on the nature of the Python application (web app, CLI tool, library, etc.), the actual project structure can vary. Always consider the requirements and nature of your specific project.
 
@@ -1681,11 +1681,11 @@ Sure, here\'s a concise overview of a common JavaScript or TypeScript project st
 
 ### **Deployment:**
 
-\- **For web applications: Deploy the `/dist` or `/build` directory contents.**
+- **For web applications: Deploy the `/dist` or `/build` directory contents.**
 
 **- For Node.js apps: Depending on the build process, you might deploy the transpiled output in `/dist` or the raw `/src` if not using a transpiler.**
 
-\- Always exclude `node_modules` from source control. Instead, rely on `package.json` and `package-lock.json` (or `yarn.lock`) to recreate dependencies during deployment.
+- Always exclude `node_modules` from source control. Instead, rely on `package.json` and `package-lock.json` (or `yarn.lock`) to recreate dependencies during deployment.
 
 Remember that JavaScript and TypeScript projects can vary significantly based on the frameworks and tools being used (e.g., Angular, React, Vue, Express, etc.), so the above is a general guide and might not fit all scenarios. Always adapt based on the specific project\'s needs.
 
@@ -1703,9 +1703,9 @@ Certainly! Java projects, especially when using build tools like Maven or Gradle
 
 ### **Deployment:**
 
-\- For standalone applications: JARs from the `/target` or `/build` directory.
+- For standalone applications: JARs from the `/target` or `/build` directory.
 
-\- For web applications: WARs or EARs (found in the same build directories).
+- For web applications: WARs or EARs (found in the same build directories).
 
 Always remember to exclude the `/target` or `/build` directories from version control since these contain compiled bytecode and other artifacts. Instead, rely on the build tool (Maven, Gradle) to produce these during the CI/CD process.
 
@@ -1928,21 +1928,21 @@ For any application, such as a hypothetical weather app, defining clear goals is
 
 Effective monitoring goes beyond just collecting data; it involves:
 
-\- Setting clear definitions of success, such as specific user engagement metrics or performance standards.
+- Setting clear definitions of success, such as specific user engagement metrics or performance standards.
 
-\- Using analytical tools like Google Analytics or custom scripts to track user interactions and satisfaction.
+- Using analytical tools like Google Analytics or custom scripts to track user interactions and satisfaction.
 
-\- Monitoring system performance and user experience through tools like Web Vitals to ensure the application loads efficiently and performs well across different devices.
+- Monitoring system performance and user experience through tools like Web Vitals to ensure the application loads efficiently and performs well across different devices.
 
 ### Importance of Performance Metrics
 
 Understanding the detailed performance metrics helps in making informed decisions about the application\'s health and areas for improvement. These metrics should include:
 
-\- Load times and responsiveness of the application.
+- Load times and responsiveness of the application.
 
-\- Error rates and types, providing insights into potential issues that could affect user experience.
+- Error rates and types, providing insights into potential issues that could affect user experience.
 
-\- Custom metrics tailored to specific actions within the application, like map interactions or search functions.
+- Custom metrics tailored to specific actions within the application, like map interactions or search functions.
 
 ### Practical Application and Error Management
 
@@ -1962,11 +1962,11 @@ When aiming to boost revenue, it's crucial not to focus solely on the numbers bu
 
 Understanding how users interact with the website can provide valuable insights. Metrics to consider include:
 
-\- The duration of the site visit
+- The duration of the site visit
 
-\- Interactions with key features like search, map zoom, and weather forecasts
+- Interactions with key features like search, map zoom, and weather forecasts
 
-\- User actions such as account creation, subscription sign-ups, and sharing links
+- User actions such as account creation, subscription sign-ups, and sharing links
 
 These interactions can give a clear picture of how engaging and useful the site is to its users.
 
@@ -1982,45 +1982,45 @@ Creating effective dashboards is essential for successful project management and
 
 Each project must ensure its dashboards can adequately respond to stakeholder inquiries. Questions to consider include:
 
-\- Who are the stakeholders?
+- Who are the stakeholders?
 
-\- What are their specific informational needs?
+- What are their specific informational needs?
 
-\- Are these stakeholders present in meetings where the dashboard data is discussed?
+- Are these stakeholders present in meetings where the dashboard data is discussed?
 
 Dashboards should align with the project's objectives and should be regularly reviewed to ascertain if modifications are necessary to reflect business KPIs accurately. It\'s crucial to confirm whether these KPIs are visible and whether the dashboard provides a comprehensive view of customer satisfaction.
 
 Key considerations for dashboard implementation include:
 
-\- Integration of telemetry and analytics to support the metrics being tracked.
+- Integration of telemetry and analytics to support the metrics being tracked.
 
-\- Clarity on what constitutes sufficient data points, such as understanding whether having 100 users is indicative of success or not.
+- Clarity on what constitutes sufficient data points, such as understanding whether having 100 users is indicative of success or not.
 
-\- Identification of any unexplained variations in user account activity.
+- Identification of any unexplained variations in user account activity.
 
 Dashboards must also highlight any anomalies or errors clearly and should be designed to emphasize essential data:
 
-\- Use white space strategically to group related data.
+- Use white space strategically to group related data.
 
-\- Include both quantitative and qualitative data, such as a list of outstanding customer issues.
+- Include both quantitative and qualitative data, such as a list of outstanding customer issues.
 
-\- Avoid clutter and unnecessary decorations that detract from the main message.
+- Avoid clutter and unnecessary decorations that detract from the main message.
 
-\- Ensure that critical data stands out, perhaps by using larger text or different colors.
+- Ensure that critical data stands out, perhaps by using larger text or different colors.
 
-\- Design with consistency across similar charts and make meaningful comparisons easy to discern.
+- Design with consistency across similar charts and make meaningful comparisons easy to discern.
 
-\- Implement visual attributes like hue, orientation, and closure to draw attention to important data, using distinctive borders or markers to differentiate between charts.
+- Implement visual attributes like hue, orientation, and closure to draw attention to important data, using distinctive borders or markers to differentiate between charts.
 
 Also, consider the fundamentals of service quality which include:
 
-\- Reliability: Consistency and lack of defects in service.
+- Reliability: Consistency and lack of defects in service.
 
-\- Assurance: Mechanisms in place to maintain and address service quality issues.
+- Assurance: Mechanisms in place to maintain and address service quality issues.
 
-\- Tangibles: The physical or empathetic environment provided to customers.
+- Tangibles: The physical or empathetic environment provided to customers.
 
-\- Responsiveness: The speed and effectiveness with which customer requests are handled.
+- Responsiveness: The speed and effectiveness with which customer requests are handled.
 
 Finally, the dashboard should support error budgeting metrics such as surplus, deficits, burn down, and recovery rates to help prioritize feature work and stability improvements. This ensures that dashboards not only serve as tools for monitoring but also as instruments for strategic decision-making.
 

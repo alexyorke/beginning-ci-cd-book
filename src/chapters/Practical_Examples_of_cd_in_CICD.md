@@ -4,7 +4,7 @@ Here are concrete examples showcasing the various usages of cd within a GitHub A
 
 **1. Going Back a Directory:**
 
-\- name: Move to Parent Directory
+- name: Move to Parent Directory
 
 run: cd ..
 
@@ -12,7 +12,7 @@ This navigates to the parent directory of the current working directory.
 
 **2. Conditional Directory Change:**
 
-\- name: Enter Optional Directory
+- name: Enter Optional Directory
 
 run: cd optional-directory && true
 
@@ -20,7 +20,7 @@ This attempts to change to optional-directory. The && true ensures the step succ
 
 **3. Going Back Two Directories:**
 
-\- name: Move Two Levels Up
+- name: Move Two Levels Up
 
 run: cd ../../
 
@@ -28,7 +28,7 @@ This navigates two levels up in the directory hierarchy.
 
 **4. Home Directory (Workspace):**
 
-\- name: Access Workspace Directory
+- name: Access Workspace Directory
 
 run: \|
 
@@ -40,7 +40,7 @@ This moves to the workspace directory, represented by \~, which is the default d
 
 **5. \"Working-directory\" for Specificity:**
 
-\- name: Build Project
+- name: Build Project
 
 working-directory: ./project-folder
 
@@ -62,7 +62,7 @@ push:
 
 branches:
 
-\- main
+- main
 
 jobs:
 
@@ -72,9 +72,9 @@ runs-on: ubuntu-latest
 
 steps:
 
-\- uses: actions/checkout@v3
+- uses: actions/checkout@v3
 
-\- name: Navigate to Project
+- name: Navigate to Project
 
 working-directory: ./my-project
 
@@ -89,5 +89,3 @@ echo \"Building in directory: \$(pwd)\"
 \# \... build commands \...
 
 This example shows how cd and working-directory can be used to navigate directories and control the context for different steps in your workflow, promoting organization and clarity in your CI/CD processes.
-
-

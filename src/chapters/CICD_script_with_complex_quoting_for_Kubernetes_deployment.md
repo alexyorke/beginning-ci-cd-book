@@ -12,7 +12,7 @@ push:
 
 branches:
 
-\- main
+- main
 
 jobs:
 
@@ -22,11 +22,11 @@ runs-on: ubuntu-latest
 
 steps:
 
-\- name: Checkout Code
+- name: Checkout Code
 
 uses: actions/checkout@v3
 
-\- name: Configure ConfigMap
+- name: Configure ConfigMap
 
 run: \|
 
@@ -36,14 +36,12 @@ kubectl apply -f deployment.yaml
 
 The challenge lies in the kubectl create configmap command:
 
--   We\'re using \--from-literal to set the MY_COMMAND key in the ConfigMap.
+- We\'re using \--from-literal to set the MY_COMMAND key in the ConfigMap.
 
--   The value of this key needs to be a shell command: ps -ef \| grep nginx
+- The value of this key needs to be a shell command: ps -ef \| grep nginx
 
--   This command needs to be enclosed in single quotes for the ConfigMap to interpret it correctly.
+- This command needs to be enclosed in single quotes for the ConfigMap to interpret it correctly.
 
 This leads to the same convoluted escaping we saw in the previous example: \'\"\'\"\'ps -ef \| grep nginx\'\"\'\"\'
 
 This script is hard to read and prone to errors. Anyone trying to understand or modify this workflow would have a difficult time deciphering the quoting.
-
-

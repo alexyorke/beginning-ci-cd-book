@@ -12,13 +12,13 @@ push:
 
 branches:
 
-\- main
+- main
 
 pull_request:
 
 branches:
 
-\- main
+- main
 
 jobs:
 
@@ -28,11 +28,11 @@ runs-on: ubuntu-latest
 
 steps:
 
-\- name: Checkout code
+- name: Checkout code
 
 uses: actions/checkout@v3
 
-\- name: Setup Node.js
+- name: Setup Node.js
 
 uses: actions/setup-node@v3
 
@@ -40,7 +40,7 @@ with:
 
 node-version: \'18\' \# Use your desired Node version
 
-\- name: Install dependencies
+- name: Install dependencies
 
 run: npm install
 
@@ -60,9 +60,7 @@ files: \'src/\*\*/\*.js\'
 
 eslint-path: \'./node_modules/eslint\' \# Adapt if ESLint is installed globally
 
--
-
-**Prettier:** Enforces consistent code formatting:\
+- **Prettier:** Enforces consistent code formatting:\
 
 - name: Run Prettier
 
@@ -72,9 +70,7 @@ with:
 
 files: \'src/\*\*/\*.js\'
 
--
-
-**Stylelint:** Analyzes CSS and SCSS for style errors and inconsistencies:\
+- **Stylelint:** Analyzes CSS and SCSS for style errors and inconsistencies:\
 
 - name: Run Stylelint
 
@@ -86,9 +82,7 @@ configFile: \'.stylelintrc.json\' \# Adjust config file path if necessary
 
 files: \'src/\*\*/\*.{css,scss}\'
 
--
-
-**SonarQube:** Detects bugs, code smells, and security vulnerabilities:\
+- **SonarQube:** Detects bugs, code smells, and security vulnerabilities:\
 
 - name: SonarQube Scan
 
@@ -104,9 +98,7 @@ projectBaseDir: \'.\'
 
 \# Configure SonarQube project settings as needed
 
--
-
-**3. Customize Configuration:**
+- **3. Customize Configuration:**
 
 - Create configuration files (.eslintrc.json, .prettierrc.json, .stylelintrc.json, sonar-project.properties) for each tool in your project root.
 

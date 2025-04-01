@@ -1296,23 +1296,23 @@ When organizing code, there are two main approaches: mono repo and multi repo.
 
 **Mono Repo:**
 
-\- **Advantages:** Simplifies interdependency management, as all components are in one repository. Easier deployment and versioning together.
+- **Advantages:** Simplifies interdependency management, as all components are in one repository. Easier deployment and versioning together.
 
-\- **Disadvantages:** Git clone can become slow over time, though this can be mitigated by partial clones or Git VFS.
+- **Disadvantages:** Git clone can become slow over time, though this can be mitigated by partial clones or Git VFS.
 
 **Multi Repo:**
 
-\- **Advantages:** Each component has its own repository, allowing for independent deployment and versioning. This approach encourages creating public APIs for interaction.
+- **Advantages:** Each component has its own repository, allowing for independent deployment and versioning. This approach encourages creating public APIs for interaction.
 
-\- **Disadvantages:** Managing changes across many repositories can be complex, especially when multiple repositories need simultaneous updates.
+- **Disadvantages:** Managing changes across many repositories can be complex, especially when multiple repositories need simultaneous updates.
 
 **Security:**
 
-\- Multi repo offers better access control, as different repositories can have separate permissions.
+- Multi repo offers better access control, as different repositories can have separate permissions.
 
 **Flexibility:**
 
-\- Switching between mono repo and multi repo setups can be challenging and may disrupt Git history. Splitting a mono repo into multiple repos is generally easier than merging multiple repos into one.
+- Switching between mono repo and multi repo setups can be challenging and may disrupt Git history. Splitting a mono repo into multiple repos is generally easier than merging multiple repos into one.
 
 [[Trace Context Level 3 (w3c.github.io)]{.underline}](https://w3c.github.io/trace-context/)
 
@@ -1366,7 +1366,7 @@ For binary releases, use a coherent branch strategy, often creating a release br
 
 - Balance leadership demands for testing and rapid deployment by understanding incident impact, notifying customers, and conducting post-mortem analyses for continuous improvement. Create a troubleshooting guide to document symptoms, mitigation steps, and communication protocols to streamline issue resolution.
 
-\- Create a script to get a list of changes/commits/prs from the last release to this release, sometimes releases are posted in a chat channel if you are practicing continuous delivery
+- Create a script to get a list of changes/commits/prs from the last release to this release, sometimes releases are posted in a chat channel if you are practicing continuous delivery
 
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | ## [**[ep-3-feature-toggles.mp3]{.underline}**](https://1drv.ms/u/s!AOnf7tByrSaDkzI) {#ep-3-feature-toggles.mp3 .unnumbered} |
@@ -1692,7 +1692,7 @@ Different Integrated Development Environments (IDEs) have varied ways of present
 
 1\. **Visual Studio (for C++/C#)**:
 
-\- **Build Commands**: Visual Studio uses `msbuild` for building its projects. To see the exact build commands:
+- **Build Commands**: Visual Studio uses `msbuild` for building its projects. To see the exact build commands:
 
 1\. Go to the \"Tools\" menu.
 
@@ -1702,7 +1702,7 @@ Different Integrated Development Environments (IDEs) have varied ways of present
 
 4\. In the \"MSBuild project build output verbosity\" dropdown, select \"Detailed\" or \"Diagnostic\" to increase the verbosity of the build output.
 
-\- **Build Order**: The build order can also be observed in the output window when you build the solution, especially if you\'ve set the verbosity to \"Detailed\" or \"Normal.\"
+- **Build Order**: The build order can also be observed in the output window when you build the solution, especially if you\'ve set the verbosity to \"Detailed\" or \"Normal.\"
 
 ![](./images/image45.png){width="6.473958880139983in" height="1.855573053368329in"}
 
@@ -1710,7 +1710,7 @@ The build log might have many things. This is normally useful for troubleshootin
 
 2\. **IntelliJ IDEA (for Java)**:
 
-\- **Build Commands**: IntelliJ IDEA uses its own builder, but you can see the build commands if you\'re using Maven or Gradle by looking at the output when you run the respective build lifecycle or task.
+- **Build Commands**: IntelliJ IDEA uses its own builder, but you can see the build commands if you\'re using Maven or Gradle by looking at the output when you run the respective build lifecycle or task.
 
 1\. Open the \"Terminal\" tab (usually at the bottom).
 
@@ -1718,11 +1718,11 @@ The build log might have many things. This is normally useful for troubleshootin
 
 3\. The executed commands will be printed in the terminal.
 
-\- **Build Order**: If you\'re using a build tool like Maven, the build lifecycle phases determine the order. For a default Java project in IntelliJ, the IDE handles this, and you can infer the order by observing the messages in the \"Build\" tool window.
+- **Build Order**: If you\'re using a build tool like Maven, the build lifecycle phases determine the order. For a default Java project in IntelliJ, the IDE handles this, and you can infer the order by observing the messages in the \"Build\" tool window.
 
 3\. **Eclipse (for Java)**:
 
-\- **Build Commands**: Eclipse uses its own builder for Java. To see detailed build info:
+- **Build Commands**: Eclipse uses its own builder for Java. To see detailed build info:
 
 1\. Go to \"Window\" -\> \"Preferences.\"
 
@@ -1730,11 +1730,11 @@ The build log might have many things. This is normally useful for troubleshootin
 
 3\. Check \"Enable verbose output for the build.\"
 
-\- **Build Order**: Eclipse handles the order internally for Java builds. For more detailed projects, you\'d likely be using a tool like Maven, in which case the build lifecycle phases determine the order.
+- **Build Order**: Eclipse handles the order internally for Java builds. For more detailed projects, you\'d likely be using a tool like Maven, in which case the build lifecycle phases determine the order.
 
 4\. **Xcode (for C++/Swift/Objective-C)**:
 
-\- **Build Commands**:
+- **Build Commands**:
 
 1\. Go to \"Xcode\" in the top menu.
 
@@ -1746,7 +1746,7 @@ The build log might have many things. This is normally useful for troubleshootin
 
 5\. After building, in the \"Report Navigator\" (rightmost tab in the left pane), you can see the build logs. Click on the latest build under the \"Build\" section.
 
-\- **Build Order**: This is determined by the dependencies set up in your project. You can observe this order in the build logs in the \"Report Navigator\" after a build.
+- **Build Order**: This is determined by the dependencies set up in your project. You can observe this order in the build logs in the \"Report Navigator\" after a build.
 
 For all these IDEs, reading the output or log pane during a build will give you a good sense of the commands executed and their sequence.
 

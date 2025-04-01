@@ -131,7 +131,7 @@ By implementing these strategies, you can improve the security and manageability
 Most workflows have been updated to correctly use GitHub Secrets, which are encrypted environment variables created in a repository\'s settings. The correct syntax is `\${{ secrets.SECRET_NAME }}`. For example:
 
 ```yaml
-\- name: Deploy
+- name: Deploy
 
 run: surge ./build myproject.surge.sh \--token \${{ secrets.SURGE_TOKEN }}
 ```
@@ -143,7 +143,7 @@ In the above example, `SURGE_TOKEN` is a secret that\'s used to authenticate wit
 Credentials for package repositories and external services need to be handled securely. `TWINE_USERNAME` and `TWINE_PASSWORD` for Twine, used to upload packages to PyPI, or `NPM_TOKEN` for npm, are set in the workflow file:
 
 ```yaml
-\- name: Publish package
+- name: Publish package
 
 run: twine upload dist/\*
 
@@ -161,7 +161,7 @@ Here, the `PYPI_API_TOKEN` is used as a password to publish the package to PyPI 
 The GitHub token is used to authenticate various actions requiring GitHub API access, such as pushing changes or creating releases. The correct passing of this token is crucial:
 
 ```yaml
-\- name: Create GitHub release
+- name: Create GitHub release
 
 uses: actions/create-release@v1
 
@@ -185,7 +185,7 @@ In this case, the deployment step is set to run only when commits are made to th
 SSH keys are used to securely connect to remote servers and perform actions like deployments. Handling SSH keys correctly in workflows is crucial to security.
 
 ```yaml
-\- name: Deploy Project
+- name: Deploy Project
 
 uses: easingthemes/ssh-deploy@v2.1.5
 
@@ -199,7 +199,7 @@ SSH_PRIVATE_KEY: \${{ secrets.DEPLOY_KEY }}
 With `set-env` being deprecated, the new format for setting environment variables is now `echo \"name=value\" \>\> \$GITHUB_ENV`.
 
 ```yaml
-\- run: echo \"AWS_BUCKET=mybucket\" \>\> \$GITHUB_ENV
+- run: echo \"AWS_BUCKET=mybucket\" \>\> \$GITHUB_ENV
 ```
 
 7\. **Securing Docker login**:
@@ -207,7 +207,7 @@ With `set-env` being deprecated, the new format for setting environment variable
 Securely logging into Docker registries is critical for pushing and pulling images.
 
 ```yaml
-\- name: Login to DockerHub
+- name: Login to DockerHub
 
 run: echo \${{ secrets.DOCKER_PASSWORD }} \| docker login -u \${{ secrets.DOCKER_USERNAME }} \--password-stdin
 ```
@@ -217,7 +217,7 @@ run: echo \${{ secrets.DOCKER_PASSWORD }} \| docker login -u \${{ secrets.DOCKER
 Maintaining the integrity of API tokens for external services is crucial. Tokens should be stored as secrets and referenced correctly in workflow files.
 
 ```yaml
-\- name: Upload coverage to Codecov
+- name: Upload coverage to Codecov
 
 uses: codecov/codecov-action@v1
 

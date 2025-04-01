@@ -80,7 +80,7 @@ release_id: \${{ steps.create_release.outputs.release_id }}
 
 steps:
 
-\- name: Create Release
+- name: Create Release
 
 id: create_release
 
@@ -124,11 +124,11 @@ url: https://github.com
 
 steps:
 
-\- name: Check out repository
+- name: Check out repository
 
 uses: actions/checkout@v3
 
-\- name: Deploy to Staging
+- name: Deploy to Staging
 
 run: \|
 
@@ -152,11 +152,11 @@ url: https://github.com
 
 steps:
 
-\- name: Check out repository
+- name: Check out repository
 
 uses: actions/checkout@v3
 
-\- name: Deploy to Production
+- name: Deploy to Production
 
 run: \|
 
@@ -362,11 +362,11 @@ You need to create a `.github/dependabot.yml` file in your repository to configu
 
 1\. **Create a New File**:
 
-\- Navigate to your repository on GitHub.
+- Navigate to your repository on GitHub.
 
-\- Click on \"Add file\" \> \"Create new file\".
+- Click on \"Add file\" \> \"Create new file\".
 
-\- Set the path to `.github/dependabot.yml`.
+- Set the path to `.github/dependabot.yml`.
 
 2\. **Add Configuration to the File**:
 
@@ -378,7 +378,7 @@ version: 2
 
 updates:
 
-\- package-ecosystem: \"npm\" \# See documentation for other package ecosystems
+- package-ecosystem: \"npm\" \# See documentation for other package ecosystems
 
 directory: \"/\" \# Location of package manifests
 
@@ -396,7 +396,7 @@ include: \"scope\" \# Include the scope of the dependency in the commit message
 
 ignore:
 
-\- dependency-name: \"express\" \# Example: ignore updates for express
+- dependency-name: \"express\" \# Example: ignore updates for express
 
 versions: \[\"4.x.x\"\]
 
@@ -406,15 +406,15 @@ Modify the `package-ecosystem`, `directory`, and other fields as per your projec
 
 ### Step 3: Commit the Configuration File
 
-\- After entering your configuration into the `dependabot.yml` file:
+- After entering your configuration into the `dependabot.yml` file:
 
-\- Scroll down to the \"Commit new file\" section at the bottom of the page.
+- Scroll down to the \"Commit new file\" section at the bottom of the page.
 
-\- Enter a commit message and description if needed.
+- Enter a commit message and description if needed.
 
-\- Choose whether to commit directly to the main branch or create a new branch and pull request.
+- Choose whether to commit directly to the main branch or create a new branch and pull request.
 
-\- Click "Commit new file" or \"Propose new file\" if you're creating a pull request.
+- Click "Commit new file" or \"Propose new file\" if you're creating a pull request.
 
 ### Step 4: Dependabot Activation
 
@@ -422,11 +422,11 @@ Once the `dependabot.yml` file is committed, GitHub automatically recognizes and
 
 ### Step 5: Review and Merge Pull Requests
 
-\- Dependabot will raise pull requests when it finds updates.
+- Dependabot will raise pull requests when it finds updates.
 
-\- Review these pull requests to ensure compatibility and test them as per your project\'s standards.
+- Review these pull requests to ensure compatibility and test them as per your project\'s standards.
 
-\- Merge the pull requests to update the dependencies in your project.
+- Merge the pull requests to update the dependencies in your project.
 
 ### Additional Configurations
 

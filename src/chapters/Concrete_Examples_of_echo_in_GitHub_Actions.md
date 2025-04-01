@@ -4,15 +4,15 @@ Here are concrete examples for each category, incorporating the nuances of newli
 
 **1. Printing simple messages or debug information:**
 
--   **General greeting:**
+- **General greeting:**
 
-\- name: Greet
+- name: Greet
 
 run: echo \"Hello, world!\"
 
--   **Debug message:**
+- **Debug message:**
 
-\- name: Build Docker image
+- name: Build Docker image
 
 run: \|
 
@@ -20,9 +20,9 @@ echo \"Building Docker image\...\"
 
 docker build -t my-image .
 
--   **Warning message:**
+- **Warning message:**
 
-\- name: Fail Safe
+- name: Fail Safe
 
 if: failure()
 
@@ -30,29 +30,29 @@ run: echo \"This job is used to prevent the workflow to fail\...\\nSee previous 
 
 **2. Displaying values of variables and command outputs:**
 
--   **Environment variable:**
+- **Environment variable:**
 
-\- name: Print Version
+- name: Print Version
 
 run: echo \"Version: \$VERSION\"
 
--   **Output of a command:**
+- **Output of a command:**
 
-\- name: Print Timestamp
+- name: Print Timestamp
 
 run: echo \"Current timestamp: \$(date +%FT%TZ)\"
 
--   **GitHub context:**
+- **GitHub context:**
 
-\- name: Print SHA
+- name: Print SHA
 
 run: echo \"Commit SHA: \${{ github.sha }}\"
 
 **3. Writing text to files or setting configuration:**
 
--   **Appending to a configuration file:**
+- **Appending to a configuration file:**
 
-\- name: Add Cloud Foundry repository
+- name: Add Cloud Foundry repository
 
 run: \|
 
@@ -60,15 +60,15 @@ echo \"deb https://packages.cloudfoundry.org/debian stable main\" \| sudo tee -a
 
 sudo apt-get update
 
--   **Writing environment variable to a file:**
+- **Writing environment variable to a file:**
 
-\- name: Set Java Home
+- name: Set Java Home
 
 run: echo \"JAVA_HOME_8=\$JAVA_HOME\" \>\> \$GITHUB_ENV
 
--   **Creating a .env file:**
+- **Creating a .env file:**
 
-\- name: Create .env
+- name: Create .env
 
 run: \|
 
@@ -78,9 +78,9 @@ echo \'API_KEY=your_api_key\' \>\> .env
 
 **4. Setting outputs for GitHub Actions:**
 
--   **Counting successful tests:**
+- **Counting successful tests:**
 
-\- name: Run Tests
+- name: Run Tests
 
 run: \|
 
@@ -88,7 +88,7 @@ run: \|
 
 \# Output \"Yes\" for each successful test to test-output.txt
 
-\- name: Set Success Count
+- name: Set Success Count
 
 id: success-counter
 
@@ -96,9 +96,9 @@ run: echo \"::set-output name=success_count::\$(grep \"Yes\" test-output.txt \| 
 
 **5. Command execution based on conditions or control flow:**
 
--   **Conditional check with message:**
+- **Conditional check with message:**
 
-\- name: Check Git Checkout
+- name: Check Git Checkout
 
 run: \|
 
@@ -108,17 +108,17 @@ git status -s \|\| echo \"Git checkout is not clean!\"
 
 **6. Miscellaneous usages:**
 
--   **Echoing a secret for Docker login:**
+- **Echoing a secret for Docker login:**
 
-\- name: Docker Login
+- name: Docker Login
 
 run: \|
 
 echo \${{ secrets.DOCKER_PASSWORD }} \| docker login -u \${{ secrets.DOCKER_USERNAME }} \--password-stdin
 
--   **Generating dynamic file content:**
+- **Generating dynamic file content:**
 
-\- name: Generate Config
+- name: Generate Config
 
 run: \|
 
@@ -127,5 +127,3 @@ echo \"database: my_db\" \> config.txt
 echo \"username: user1\" \>\> config.txt
 
 These examples demonstrate the practical use of echo within GitHub Actions workflows, covering various scenarios like printing messages, manipulating variables, setting outputs, and writing to files. Remember to handle escaping backslashes (\\\\) appropriately when dealing with special characters or file paths.
-
-

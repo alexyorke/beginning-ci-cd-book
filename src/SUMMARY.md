@@ -4,7 +4,6 @@
 
 # CI/CD Fundamentals
 
-- [History and Self-Hosted Runners](./chapters/Chapter_52.md)
 - [Getting Started with the Workflow](./chapters/Getting_started_with_the_workflow.md)
 - [Getting Started with GitHub Actions](./chapters/Getting_started_with_GitHub_Actions.md)
 - [Programming a Weather Application](./chapters/Programming_a_somewhat_complicated_weather_application.md)

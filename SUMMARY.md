@@ -63,6 +63,8 @@
 - [The Open-Core Model](src/chapters/The_open-core_model.md)
 - [Considerations for Businesses](src/chapters/Considerations_for_businesses.md)
 - [Additional Readings](src/chapters/Additional_readings.md)
+- [History](src/chapters/History.md)
+- [Self-Hosted Runners](src/chapters/Self_Hosted_Runners.md)
 
 ---
 

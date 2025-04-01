@@ -352,7 +352,7 @@
 
 37. If you're on azure pipelines, you can install the github app "Azure pipelines" to manage your pipelines from GitHub and see their status, including preserving the triggers in azure devops.
 
-38. ![](./images/media/image6.png){width="6.5in" height="2.0833333333333335in"}
+38. ![](./images/image6.png){width="6.5in" height="2.0833333333333335in"}
 
 39. This allows you to use the same triggers that you had in azure devops, including pushing to your github repo, and then ado just clones the repo on its side and runs the pipeline. So therefore you are able to do everything inside of github, e.g., pull requests, issue management, etc. and then migrate to github actions later on (or never.) This means that you can move your code, and then have the capacity to incrementally move your pipelines, while minimally impacting the business.
 

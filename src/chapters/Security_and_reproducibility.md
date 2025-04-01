@@ -192,64 +192,62 @@
 
     - Rapid prototyping or test applications can hardcode their credentials, because setting up the necessary infrastructure can be time consuming. It may also require service connections and other boilerplate work that reduce the velocity.
 
--
-
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [[Sabotage: Code added to popular NPM package wiped files in Russia and Belarus \| Ars Technica]{.underline}](https://arstechnica.com/information-technology/2022/03/sabotage-code-added-to-popular-npm-package-wiped-files-in-russia-and-belarus/) |
-| |
-| **Malicious Code in Open-Source Software Targets Russia and Belarus** |
-| |
-| **Overview:** |
-| |
-| A developer inserted malicious code into the popular open-source package, node-ipc, targeting computers in Russia and Belarus. This act stirred controversy within the open-source community and raised concerns regarding the safety of free software. |
-| |
-| **Key Points:** |
-| |
-| 1\. **The Software Affected:** |
-| |
-| \- The software, node-ipc, enhances other open-source code libraries with remote interprocess communication and neural networking capabilities. |
-| |
-| \- As a dependency, node-ipc is automatically downloaded and integrated into other libraries, such as Vue.js CLI, which receives over 1 million weekly downloads. |
-| |
-| 2\. **Malicious Action:** |
-| |
-| \- The author of node-ipc introduced a version of the library that identified and sabotaged computers in Russia and Belarus, countries involved in the invasion of Ukraine. |
-| |
-| \- This malicious version identified developers based on their IP addresses. If the IP address was traced back to Russia or Belarus, the version would delete files and replace them with a heart emoji. |
-| |
-| \- To hide this malicious code, the author, Brandon Nozaki Miller, encoded the changes, making it challenging for users to detect the issue by visual inspection. |
-| |
-| 3\. **The Fallout:** |
-| |
-| \- Liran Tal, a researcher at Snyk, pointed out that this act represents a significant security risk for any system using the affected npm package if geolocated to Russia or Belarus. |
-| |
-| \- Tal highlighted that the node-ipc author manages 40 other libraries, raising concerns about potential malicious activity in those libraries as well. |
-| |
-| \- Many in the open-source community criticized the author\'s actions, raising questions about trust and the implications of such aggressive actions on the author\'s reputation and stake in the developer community. |
-| |
-| 4\. **Protestware Emergence:** |
-| |
-| \- The malicious node-ipc update is an example of what\'s being termed \"protestware.\" |
-| |
-| \- Other open-source projects have also released updates protesting Russia\'s actions in the war. |
-| |
-| \- This incident underscores the potential risks when individual developers can significantly impact many applications through open-source contributions. |
-| |
-| 5\. **Past Incidents:** |
-| |
-| \- In January, another incident occurred when a developer\'s update to two JavaScript libraries, with over 22 million downloads, caused over 21,000 dependent applications to malfunction. |
-| |
-| 6\. **Resolution:** |
-| |
-| \- After the discovery of the malicious code, the developer released updates to remove it from node-ipc versions 10.1.1 and 10.1.2. |
-| |
-| \- Snyk advises developers to cease using the compromised package or use an npm package manager to override the affected versions. |
-| |
-| 7\. **Snyk\'s Statement:** |
-| |
-| \- While Snyk supports Ukraine, they emphasized that such intentional abuse damages the global open-source community, leading them to flag the affected node-ipc versions as security vulnerabilities. |
-+=========================================================================================================================================================================================================================================================+
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+- +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+  | [[Sabotage: Code added to popular NPM package wiped files in Russia and Belarus \| Ars Technica]{.underline}](https://arstechnica.com/information-technology/2022/03/sabotage-code-added-to-popular-npm-package-wiped-files-in-russia-and-belarus/) |
+  | |
+  | **Malicious Code in Open-Source Software Targets Russia and Belarus** |
+  | |
+  | **Overview:** |
+  | |
+  | A developer inserted malicious code into the popular open-source package, node-ipc, targeting computers in Russia and Belarus. This act stirred controversy within the open-source community and raised concerns regarding the safety of free software. |
+  | |
+  | **Key Points:** |
+  | |
+  | 1\. **The Software Affected:** |
+  | |
+  | \- The software, node-ipc, enhances other open-source code libraries with remote interprocess communication and neural networking capabilities. |
+  | |
+  | \- As a dependency, node-ipc is automatically downloaded and integrated into other libraries, such as Vue.js CLI, which receives over 1 million weekly downloads. |
+  | |
+  | 2\. **Malicious Action:** |
+  | |
+  | \- The author of node-ipc introduced a version of the library that identified and sabotaged computers in Russia and Belarus, countries involved in the invasion of Ukraine. |
+  | |
+  | \- This malicious version identified developers based on their IP addresses. If the IP address was traced back to Russia or Belarus, the version would delete files and replace them with a heart emoji. |
+  | |
+  | \- To hide this malicious code, the author, Brandon Nozaki Miller, encoded the changes, making it challenging for users to detect the issue by visual inspection. |
+  | |
+  | 3\. **The Fallout:** |
+  | |
+  | \- Liran Tal, a researcher at Snyk, pointed out that this act represents a significant security risk for any system using the affected npm package if geolocated to Russia or Belarus. |
+  | |
+  | \- Tal highlighted that the node-ipc author manages 40 other libraries, raising concerns about potential malicious activity in those libraries as well. |
+  | |
+  | \- Many in the open-source community criticized the author\'s actions, raising questions about trust and the implications of such aggressive actions on the author\'s reputation and stake in the developer community. |
+  | |
+  | 4\. **Protestware Emergence:** |
+  | |
+  | \- The malicious node-ipc update is an example of what\'s being termed \"protestware.\" |
+  | |
+  | \- Other open-source projects have also released updates protesting Russia\'s actions in the war. |
+  | |
+  | \- This incident underscores the potential risks when individual developers can significantly impact many applications through open-source contributions. |
+  | |
+  | 5\. **Past Incidents:** |
+  | |
+  | \- In January, another incident occurred when a developer\'s update to two JavaScript libraries, with over 22 million downloads, caused over 21,000 dependent applications to malfunction. |
+  | |
+  | 6\. **Resolution:** |
+  | |
+  | \- After the discovery of the malicious code, the developer released updates to remove it from node-ipc versions 10.1.1 and 10.1.2. |
+  | |
+  | \- Snyk advises developers to cease using the compromised package or use an npm package manager to override the affected versions. |
+  | |
+  | 7\. **Snyk\'s Statement:** |
+  | |
+  | \- While Snyk supports Ukraine, they emphasized that such intentional abuse damages the global open-source community, leading them to flag the affected node-ipc versions as security vulnerabilities. |
+  +=========================================================================================================================================================================================================================================================+
+  +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 -
 
@@ -383,7 +381,7 @@
 
 - [[amazon.ca/Yubico-YubiKey-NFC-Authentication-USB/dp/B07HBD71HL]{.underline}](https://www.amazon.ca/Yubico-YubiKey-NFC-Authentication-USB/dp/B07HBD71HL?th=1)
 
-- ![](./images/media/image75.png){width="3.477898075240595in" height="4.098073053368329in"}
+- ![](./images/image75.png){width="3.477898075240595in" height="4.098073053368329in"}
 
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Signing commits using a YubiKey and Git involves several steps, but it provides an added layer of security to your Git workflow. A YubiKey is a hardware security module (HSM) that can store private keys securely, making it harder for malicious actors to access them. By following the steps below, you\'ll be able to sign your Git commits using the private key stored on your YubiKey: |
@@ -1040,13 +1038,13 @@
 
   - If in doubt, try to change things and see if it fixes it or changes other parts of the file
 
-  - ![](./images/media/image5.png){width="4.932926509186352in" height="4.213542213473316in"}
+  - ![](./images/image5.png){width="4.932926509186352in" height="4.213542213473316in"}
 
-  - ![](./images/media/image25.png){width="4.734375546806649in" height="1.7602165354330708in"}
+  - ![](./images/image25.png){width="4.734375546806649in" height="1.7602165354330708in"}
 
-  - ![](./images/media/image16.png){width="4.473958880139983in" height="1.1184897200349957in"}
+  - ![](./images/image16.png){width="4.473958880139983in" height="1.1184897200349957in"}
 
-  - ![](./images/media/image1.png){width="5.730603674540682in" height="0.6727755905511811in"}
+  - ![](./images/image1.png){width="5.730603674540682in" height="0.6727755905511811in"}
 
   - This corresponds to the [[tar (computing) - Wikipedia]{.underline}](<https://en.wikipedia.org/wiki/Tar_(computing)>) modification date section in the header (plus header checksum) that is different. This means that the file has a different modification date. Look into why that is the case and if tar has any options to disable modification dates.
 

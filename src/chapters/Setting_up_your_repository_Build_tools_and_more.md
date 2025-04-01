@@ -4,57 +4,57 @@
 
 Clicking \"Run\" or \"Start\" in an IDE initiates a sequence of command-line tools that compile and manage dependencies to create build artifacts, simplifying the complex process with a single button. This abstraction can obscure the specific tools used, complicating tool selection for CI/CD pipelines.
 
-![](./images/media/image31.png){width="14.927083333333334in" height="11.59375in"}
+![](./images/image31.png){width="14.927083333333334in" height="11.59375in"}
 
-![](./images/media/image48.png){width="9.65625in" height="3.15625in"}
+![](./images/image48.png){width="9.65625in" height="3.15625in"}
 
-![](./images/media/image26.png){width="15.010416666666666in" height="4.354166666666667in"}
+![](./images/image26.png){width="15.010416666666666in" height="4.354166666666667in"}
 
-![](./images/media/image18.png){width="14.541666666666666in" height="17.885416666666668in"}
+![](./images/image18.png){width="14.541666666666666in" height="17.885416666666668in"}
 
-![](./images/media/image74.png){width="15.25in" height="19.416666666666668in"}
+![](./images/image74.png){width="15.25in" height="19.416666666666668in"}
 
-![](./images/media/image83.png){width="14.510416666666666in" height="17.8125in"}
+![](./images/image83.png){width="14.510416666666666in" height="17.8125in"}
 
-![](./images/media/image29.png){width="14.6875in" height="14.541666666666666in"}
+![](./images/image29.png){width="14.6875in" height="14.541666666666666in"}
 
-![](./images/media/image21.png){width="14.916666666666666in" height="19.072916666666668in"}
+![](./images/image21.png){width="14.916666666666666in" height="19.072916666666668in"}
 
-![](./images/media/image19.png){width="14.979166666666666in" height="18.822916666666668in"}
+![](./images/image19.png){width="14.979166666666666in" height="18.822916666666668in"}
 
-![](./images/media/image80.png){width="14.90625in" height="4.3125in"}
+![](./images/image80.png){width="14.90625in" height="4.3125in"}
 
-![](./images/media/image90.png){width="14.854166666666666in" height="14.510416666666666in"}
+![](./images/image90.png){width="14.854166666666666in" height="14.510416666666666in"}
 
-![](./images/media/image17.png){width="14.65625in" height="5.0625in"}
+![](./images/image17.png){width="14.65625in" height="5.0625in"}
 
-![](./images/media/image39.png){width="14.875in" height="13.71875in"}
+![](./images/image39.png){width="14.875in" height="13.71875in"}
 
-![](./images/media/image71.png){width="14.0in" height="5.041666666666667in"}
+![](./images/image71.png){width="14.0in" height="5.041666666666667in"}
 
-![](./images/media/image41.png){width="21.333333333333332in" height="14.09375in"}
+![](./images/image41.png){width="21.333333333333332in" height="14.09375in"}
 
-![](./images/media/image9.png){width="21.333333333333332in" height="15.625in"}
+![](./images/image9.png){width="21.333333333333332in" height="15.625in"}
 
-![](./images/media/image82.png){width="11.1875in" height="7.34375in"}
+![](./images/image82.png){width="11.1875in" height="7.34375in"}
 
-![](./images/media/image61.png){width="18.354166666666668in" height="9.71875in"}
+![](./images/image61.png){width="18.354166666666668in" height="9.71875in"}
 
-![](./images/media/image72.png){width="17.375in" height="6.135416666666667in"}
+![](./images/image72.png){width="17.375in" height="6.135416666666667in"}
 
-![](./images/media/image63.png){width="14.979166666666666in" height="4.479166666666667in"}
+![](./images/image63.png){width="14.979166666666666in" height="4.479166666666667in"}
 
-![](./images/media/image79.png){width="21.333333333333332in" height="8.791666666666666in"}
+![](./images/image79.png){width="21.333333333333332in" height="8.791666666666666in"}
 
-![](./images/media/image22.png){width="7.875in" height="10.197916666666666in"}
+![](./images/image22.png){width="7.875in" height="10.197916666666666in"}
 
-![](./images/media/image44.png){width="14.510416666666666in" height="12.916666666666666in"}
+![](./images/image44.png){width="14.510416666666666in" height="12.916666666666666in"}
 
-![](./images/media/image85.png){width="14.229166666666666in" height="12.947916666666666in"}
+![](./images/image85.png){width="14.229166666666666in" height="12.947916666666666in"}
 
 When creating a runner, typically, you would use the OS that most of your team members are using, or, the OS required to build the application
 
-![](./images/media/image11.png){width="17.510416666666668in" height="16.916666666666668in"}
+![](./images/image11.png){width="17.510416666666668in" height="16.916666666666668in"}
 
 The instructions that github provides is for a stateful runner, much different from the runners cloud hosted by github. You will have to use kubernetes to re-create the nodes.
 
@@ -1229,9 +1229,9 @@ Table 1: The Secure Software Development Framework (SSDF) Version 1.1
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | [[ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3445-strategic-sampling-architectural-approaches-to-efficient-telemetry.mp4]{.underline}](https://ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3445-strategic-sampling-architectural-approaches-to-efficient-telemetry.mp4) |
 | |
-| ![](./images/media/image49.png){width="19.375in" height="12.510416666666666in"} |
+| ![](./images/image49.png){width="19.375in" height="12.510416666666666in"} |
 | |
-| ![](./images/media/image53.png){width="20.28125in" height="12.635416666666666in"} |
+| ![](./images/image53.png){width="20.28125in" height="12.635416666666666in"} |
 +========================================================================================================================================================================================================================================================================================+
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
@@ -1553,7 +1553,7 @@ For binary releases, use a coherent branch strategy, often creating a release br
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ## [**[default_tc.mp3]{.underline}**](https://1drv.ms/u/s!AOnf7tByrSaDlAE) {#default_tc.mp3 .unnumbered} |
+| ## [**[default_tc.mp3]{.underline}**](https://1drv.ms/u/s!AOnf7tByrSaDlAE) {#default*tc.mp3 .unnumbered} |
 | |
 | ## **Key Points from Agile Embedded Podcast with Jonathan Hall:** {#key-points-from-agile-embedded-podcast-with-jonathan-hall .unnumbered} |
 | |
@@ -1571,7 +1571,7 @@ For binary releases, use a coherent branch strategy, often creating a release br
 | |
 | - **Start with the desired outcome:** Automate the deployment process first (even if just to a test environment), then work backwards. |
 | |
-| - **Shift testing left of the merge:** All testing, even manual, should be completed _before_ merging code to the main branch. |
+| - **Shift testing left of the merge:** All testing, even manual, should be completed \_before* merging code to the main branch. |
 | |
 | - **Don\'t rely on batched releases:** Testing becomes more focused and effective when done on individual features, not a collection of changes. |
 | |
@@ -1704,7 +1704,7 @@ Different Integrated Development Environments (IDEs) have varied ways of present
 
 \- **Build Order**: The build order can also be observed in the output window when you build the solution, especially if you\'ve set the verbosity to \"Detailed\" or \"Normal.\"
 
-![](./images/media/image45.png){width="6.473958880139983in" height="1.855573053368329in"}
+![](./images/image45.png){width="6.473958880139983in" height="1.855573053368329in"}
 
 The build log might have many things. This is normally useful for troubleshooting, it's less likely that you'll need to provide manual commands. If you have a legacy project, or it's complex, then you might need to provide custom commands.
 

@@ -21,7 +21,7 @@ In order to have a good understanding of how CI/CD works, it's important to have
 | (Coming up next)         | Monitor & Validate           | Monitor and validate new features. Example                                                            |
 |                          | Full Production Deployment   | Roll out to the entire production environment. Example                                                |
 
-> ![](./images/media/image51.png){width="5.109561461067367in" height="5.852549212598425in"}
+![image](./images/image51.png)
 
 Developers create short-lived branches for their work:
 
@@ -65,13 +65,13 @@ Build Server:
 
 - Also, if a single developer's settings are in the repository, it's not much use for the other developers and could cause confusion.
 
-> ![](./images/media/image65.png){width="6.103274278215223in" height="3.202237532808399in"}
+> ![](./images/image65.png){width="6.103274278215223in" height="3.202237532808399in"}
 
 ### Typical development scenario using VCS {#typical-development-scenario-using-vcs .unnumbered}
 
 A developer works on code using their IDE, on their development branch, from their repository as shown in this screenshot. **This is the code repository as discussed earlier.** VS Code is a free IDE that is open source.
 
-> ![](./images/media/image87.png){width="6.130208880139983in" height="3.370417760279965in"}
+> ![](./images/image87.png){width="6.130208880139983in" height="3.370417760279965in"}
 
 [[TypeScript Programming with Visual Studio Code]{.underline}](https://code.visualstudio.com/docs/languages/typescript)
 
@@ -79,13 +79,13 @@ While git can be easily used on the command line, sometimes developers prefer a 
 
 While the developer is coding, they normally run **unit tests or integration tests in their local environment, which is part of having a fast feedback loop**. These tests exist as part of the repository. This provides them confidence for their changes. If they find a broken or failing test, then they would fix it on their development workstation before proceeding, because otherwise the pipeline would fail and they wouldn't be able to merge their code. Developers are responsible for writing and maintaining tests.
 
-> ![](./images/media/image28.png){width="6.078125546806649in" height="3.7851793525809274in"}
+> ![](./images/image28.png){width="6.078125546806649in" height="3.7851793525809274in"}
 
 [[Rust Test Explorer - Visual Studio Marketplace]{.underline}](https://marketplace.visualstudio.com/items?itemName=swellaby.vscode-rust-test-adapter)
 
 For instance, consider a repository opened in GitHub Desktop. It\'s a tool to visualize and interact with a Git repository, showing individual changes and their details. While this isn\'t a tutorial on Git, it\'s worth noting that any VCS with the capability to track and manage changes suffices; it doesn\'t have to be Git. The choice depends on your team\'s preferences and needs. Here is a screenshot of GitHub Desktop:
 
-> ![](./images/media/image33.png){width="5.544329615048119in" height="3.993108048993876in"}
+> ![](./images/image33.png){width="5.544329615048119in" height="3.993108048993876in"}
 
 [[https://github.com/desktop/desktop]{.underline}](https://github.com/desktop/desktop) Some other GitHub Desktop-like tools are SourceTree, GitKraken, Tower, and TortoiseGit.
 
@@ -166,7 +166,7 @@ Here are some key characteristics of a good pull request:
 
 - Links to Issue: If the PR addresses an open issue, it should link to or mention that issue. This provides context and allows for tracking the resolution of bugs or features.
 
-> ![](./images/media/image35.png){width="6.607607174103237in" height="4.142659667541557in"}
+> ![](./images/image35.png){width="6.607607174103237in" height="4.142659667541557in"}
 
 [[How To Create a Pull Request With GitHub Desktop (vonage.com)]{.underline}](https://developer.vonage.com/en/blog/how-to-create-a-pull-request-with-github-desktop)
 

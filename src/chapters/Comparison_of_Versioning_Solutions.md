@@ -436,7 +436,7 @@ Setting up Dependabot not only helps maintain your project's dependency health b
 
 ### Budgeting and cost management {#budgeting-and-cost-management .unnumbered}
 
-![](./images/media/image50.png){width="4.564397419072616in" height="2.2688713910761154in"}
+![](./images/image50.png){width="4.564397419072616in" height="2.2688713910761154in"}
 
 Make sure that your workflows don\'t run it necessarily long by frequently checking how long they run. There\'s some actions and ways to monitor how long your workflows typically run. It\'s normal that day will take longer to run as the project gets larger as more code to compile.The other one is you can limit the total length of time on your workflow from the default 12 hours to potentially one or two hours depending on how long they normally take to run. This is because they get stuck, then you\'ll be wasting a lot of money. Second one, you may want to set concurrency to one if.The workflow might be running multiple times in the same PR, which case there\'s only one job that will.Be used for its output?Umm.Also you may want to second currency to one if.You\'re doing a deployment. You don\'t have multipliers be happening concurrently, so this would be like a race condition for example.
 

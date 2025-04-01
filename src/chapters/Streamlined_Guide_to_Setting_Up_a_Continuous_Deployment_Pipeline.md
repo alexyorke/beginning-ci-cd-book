@@ -36,9 +36,7 @@ This guide provides a concise overview of setting up a continuous deployment (CD
 
   - Use-case support (e.g., IaC compatibility)
 
--
-
-**3. Continuous Deployment Pipeline Steps:**
+- **3. Continuous Deployment Pipeline Steps:**
 
 - **Artifact Retrieval:** Fetch the correct artifact versions from your repository.
 
@@ -991,9 +989,7 @@ Feature flags can be straightforward to implement initially, often managed with 
 
   - **Benefits:** Ensure resource availability for critical features and optimize cost by scaling resources according to actual usage.
 
--
-
-**Implementation Details:**
+- **Implementation Details:**
 
 - **Modular features:** Features should be modular and independent to avoid conflicts and simplify feature flagging.
 
@@ -1025,9 +1021,7 @@ Feature flags can be straightforward to implement initially, often managed with 
 
   - **Solution:** Implement data migration strategies or use feature flags to control data access and ensure consistency.
 
--
-
-**Practical Considerations:**
+- **Practical Considerations:**
 
 - **Complexity management:** Avoid excessive feature flags and dependencies to prevent code complexity.
 
@@ -1051,9 +1045,7 @@ Feature flags can be straightforward to implement initially, often managed with 
 
   - **Solution:** Design features with feature flag toggling in mind, communicate changes clearly, and avoid abrupt transitions.
 
--
-
-**Examples:**
+- **Examples:**
 
 - **Frontend:** Switching between Celsius and Fahrenheit display in a weather app. This could involve duplicating components, changing rendering logic, and updating the UI based on the feature flag\'s state.
 
@@ -1280,7 +1272,7 @@ Then for example, say if you want to turn the feature on or off or modify someth
 
 - Think of the metaphor like a physical tree. The branches on the tree aren't part of the main trunk.
 
-- ![](./images/media/image56.png){width="2.6653674540682415in" height="4.023196631671041in"}
+- ![](./images/image56.png){width="2.6653674540682415in" height="4.023196631671041in"}
 
 - [[Tree Free Stock Photo - Public Domain Pictures]{.underline}](https://www.publicdomainpictures.net/en/view-image.php?image=20740&picture=tree&large=1)
 

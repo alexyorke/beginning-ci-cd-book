@@ -433,13 +433,11 @@ By structuring work effectively, you can ensure a smooth CI/CD process while mai
 
 - This book is somewhat focused on GitHub Actions, but tries to provide a provider-agnostic view. Some of the terms might be a bit different depending on your CI/CD provider. Here is a table that helps clarify.
 
--
+- ***
 
----
+  **Definition** **Generic Term** **Jenkins** **GitHub Actions** **GitLab CI/CD** **CircleCI**
 
-**Definition** **Generic Term** **Jenkins** **GitHub Actions** **GitLab CI/CD** **CircleCI**
-
----
+  ***
 
 Build Step: A build step is a single task or command within a CI/CD pipeline. It\'s a specific action to be executed, such as compiling code, running tests, or deploying software. Build Step Build Step Job Job Job
 
@@ -750,80 +748,78 @@ Build Status: Build status is an indicator of whether a build or integration pro
 
 - Much like programming languages, in GitHub Actions (GHA) you can conditionally allow steps or jobs to run based on conditions. Conditions are simply "if" statements that assert if a specified condition is true. For example, if the branch is equal to main, then therefore run this step, otherwise, skip it. While it is possible to write the "if" statements in the script block itself (assuming it is not a GHA), using "ifs" in the step block shows that the step is skipped on the UI, which is clearer when trying to debug an issue, as you know if the step definitely did not run.
 
--
-
-+-----------------------------------------------------------------------+
-| using System; |
-| |
-| using System.Collections.Generic; |
-| |
-| class Program |
-| |
-| { |
-| |
-| static void Main() |
-| |
-| { |
-| |
-| var steps = new List\<Func\<bool\>\> { Step1, Step2, Step3 }; |
-| |
-| for (int i = 0; i \< steps.Count; i++) |
-| |
-| { |
-| |
-| bool stepDidSucceed = steps\[i\].Invoke()? |
-| |
-| if (!stepDidSucceed) |
-| |
-| { |
-| |
-| Console.WriteLine(\$\"Step \${i} failed\"); |
-| |
-| // optionally fail workflow here |
-| |
-| } |
-| |
-| } |
-| |
-| Console.WriteLine(\"Workflow succeeded\"); |
-| |
-| } |
-| |
-| static bool Step1() =\> ExecuteStep(\"Step 1\"); |
-| |
-| static bool Step2() =\> ExecuteStep(\"Step 2\"); |
-| |
-| static bool Step3() =\> ExecuteStep(\"Step 3\"); |
-| |
-| static bool ExecuteStep(string stepName) |
-| |
-| { |
-| |
-| try |
-| |
-| { |
-| |
-| Console.WriteLine(\$\"{stepName} executed\"); |
-| |
-| return true; // Assume success for simplicity |
-| |
-| } |
-| |
-| catch |
-| |
-| { |
-| |
-| Console.WriteLine(\$\"{stepName} failed\"); |
-| |
-| return false; |
-| |
-| } |
-| |
-| } |
-| |
-| } |
-+=======================================================================+
-+-----------------------------------------------------------------------+
+- +-----------------------------------------------------------------------+
+  | using System; |
+  | |
+  | using System.Collections.Generic; |
+  | |
+  | class Program |
+  | |
+  | { |
+  | |
+  | static void Main() |
+  | |
+  | { |
+  | |
+  | var steps = new List\<Func\<bool\>\> { Step1, Step2, Step3 }; |
+  | |
+  | for (int i = 0; i \< steps.Count; i++) |
+  | |
+  | { |
+  | |
+  | bool stepDidSucceed = steps\[i\].Invoke()? |
+  | |
+  | if (!stepDidSucceed) |
+  | |
+  | { |
+  | |
+  | Console.WriteLine(\$\"Step \${i} failed\"); |
+  | |
+  | // optionally fail workflow here |
+  | |
+  | } |
+  | |
+  | } |
+  | |
+  | Console.WriteLine(\"Workflow succeeded\"); |
+  | |
+  | } |
+  | |
+  | static bool Step1() =\> ExecuteStep(\"Step 1\"); |
+  | |
+  | static bool Step2() =\> ExecuteStep(\"Step 2\"); |
+  | |
+  | static bool Step3() =\> ExecuteStep(\"Step 3\"); |
+  | |
+  | static bool ExecuteStep(string stepName) |
+  | |
+  | { |
+  | |
+  | try |
+  | |
+  | { |
+  | |
+  | Console.WriteLine(\$\"{stepName} executed\"); |
+  | |
+  | return true; // Assume success for simplicity |
+  | |
+  | } |
+  | |
+  | catch |
+  | |
+  | { |
+  | |
+  | Console.WriteLine(\$\"{stepName} failed\"); |
+  | |
+  | return false; |
+  | |
+  | } |
+  | |
+  | } |
+  | |
+  | } |
+  +=======================================================================+
+  +-----------------------------------------------------------------------+
 
 -
 
@@ -904,70 +900,68 @@ Build Status: Build status is an indicator of whether a build or integration pro
 
 - The way that you can execute the step irregardless of whether you are in the poison waterfall, or for example when the prior steps failed, is with the "always()" if statement, which will always run the step. This protects this step against the poison waterfall, and is useful for cleanups if there was a failure in the workflow, or a few other things.
 
--
-
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| name: Node.js CI |
-| |
-| on: |
-| |
-| push: |
-| |
-| branches: \[ master \] |
-| |
-| pull_request: |
-| |
-| branches: \[ master \] |
-| |
-| jobs: |
-| |
-| build: |
-| |
-| runs-on: ubuntu-latest |
-| |
-| strategy: |
-| |
-| matrix: |
-| |
-| node-version: \[12.x, 14.x, 16.x\] |
-| |
-| steps: |
-| |
-| \- uses: actions/checkout@v2 |
-| |
-| \- name: Use Node.js \${{ matrix.node-version }} |
-| |
-| uses: actions/setup-node@v1 |
-| |
-| with: |
-| |
-| node-version: \${{ matrix.node-version }} |
-| |
-| \- name: Install Dependencies |
-| |
-| **if: success()** |
-| |
-| run: npm ci |
-| |
-| \- name: Run Tests |
-| |
-| **if: success()** |
-| |
-| run: npm test |
-| |
-| \- name: Publish Test Results |
-| |
-| **if: always()** \# imagine that one of the tests failed, causing the "Run Tests" step to fail. In this case, this step would still run because we're using an "always()" condition. You may want to use success() && !cancelled() here, otherwise, cancelling will interrupt the current step and will check if subsequent steps are eligible to run. |
-| |
-| run: \<publish test results here\> |
-| |
-| \- name: Lint Code |
-| |
-| **if: success()** \# This step would not run, because one of the previous steps (Run Tests) failed. |
-| |
-| run: npm run lint |
-+========================================================================================================================================================================================================================================================================================================================================================+
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+- +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+  | name: Node.js CI |
+  | |
+  | on: |
+  | |
+  | push: |
+  | |
+  | branches: \[ master \] |
+  | |
+  | pull_request: |
+  | |
+  | branches: \[ master \] |
+  | |
+  | jobs: |
+  | |
+  | build: |
+  | |
+  | runs-on: ubuntu-latest |
+  | |
+  | strategy: |
+  | |
+  | matrix: |
+  | |
+  | node-version: \[12.x, 14.x, 16.x\] |
+  | |
+  | steps: |
+  | |
+  | \- uses: actions/checkout@v2 |
+  | |
+  | \- name: Use Node.js \${{ matrix.node-version }} |
+  | |
+  | uses: actions/setup-node@v1 |
+  | |
+  | with: |
+  | |
+  | node-version: \${{ matrix.node-version }} |
+  | |
+  | \- name: Install Dependencies |
+  | |
+  | **if: success()** |
+  | |
+  | run: npm ci |
+  | |
+  | \- name: Run Tests |
+  | |
+  | **if: success()** |
+  | |
+  | run: npm test |
+  | |
+  | \- name: Publish Test Results |
+  | |
+  | **if: always()** \# imagine that one of the tests failed, causing the "Run Tests" step to fail. In this case, this step would still run because we're using an "always()" condition. You may want to use success() && !cancelled() here, otherwise, cancelling will interrupt the current step and will check if subsequent steps are eligible to run. |
+  | |
+  | run: \<publish test results here\> |
+  | |
+  | \- name: Lint Code |
+  | |
+  | **if: success()** \# This step would not run, because one of the previous steps (Run Tests) failed. |
+  | |
+  | run: npm run lint |
+  +========================================================================================================================================================================================================================================================================================================================================================+
+  +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 -
 
@@ -1023,130 +1017,124 @@ Build Status: Build status is an indicator of whether a build or integration pro
 
 - timeout-minutes: X useful if you want to consider the fact that a step took more than X minutes and didn't complete to be a failure (and thus fail the step), initiating the poison waterfall. Otherwise, you may want to use the "timeout" command which has a different behavior where you can run other items in the step, add the timeout per command, etc.
 
--
+- +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+  | The snippets provided show the \`continue-on-error\` flag used in various GitHub Actions workflows. This flag, when set to \`true\`, allows the workflow to continue executing subsequent steps even if the current step fails. |
+  | |
+  | Grouping the usage of \`continue-on-error\` by theme, here are some common scenarios where this flag is used, along with their approximate frequency based on the provided snippets: |
+  | |
+  | 1\. **Testing and Linting Workflows** (High frequency) |
+  | |
+  | \- Commonly used in steps that perform code linting, unit tests, integration tests, and other quality checks. |
+  | |
+  | \- Rationale: Allows the workflow to continue and gather more information on potential issues across different tests or checks, even if some fail. |
+  | |
+  | 2\. **Deployment Workflows** (Medium frequency) |
+  | |
+  | \- Used in steps involved in deploying to various environments such as production, staging, or test environments. |
+  | |
+  | \- Rationale: Deployment workflows often contain cleanup or rollback steps that should run regardless of the success or failure of the main deployment steps. |
+  | |
+  | 3\. **Build Workflows** (Medium frequency) |
+  | |
+  | \- Applied during steps that compile code, build artifacts, or generate documentation. |
+  | |
+  | \- Rationale: Allows the workflow to continue and perform additional tasks (e.g., uploading build artifacts) even if the build encounters warnings or non-critical errors. |
+  | |
+  | 4\. **Software Package Management** (Low frequency) |
+  | |
+  | \- Used when installing or updating dependencies or software packages required for the workflow. |
+  | |
+  | \- Rationale: Non-critical updates or installations that fail should not necessarily halt the entire workflow. |
+  | |
+  | 5\. **Code Coverage and Static Analysis** (Low frequency) |
+  | |
+  | \- Utilized in steps that send code coverage metrics or perform static analysis. |
+  | |
+  | \- Rationale: To ensure additional actions such as notifications or reporting can proceed even if the analysis services are temporarily unavailable or fail. |
+  | |
+  | 6\. **Docker and Container-Related Workflows** (Low frequency) |
+  | |
+  | \- Appears in steps that build or push Docker images or interact with container registries. |
+  | |
+  | \- Rationale: Allows workflows to continue when dealing with flaky Docker registries or non-essential Docker image builds. |
+  | |
+  | 7\. **Miscellaneous Cleanup or Utility Tasks** (Rare frequency) |
+  | |
+  | \- Found in various cleanup, configuration, setup, or utility steps not categorized in the above themes. |
+  | |
+  | \- Rationale: Such tasks are often supplementary and do not necessarily determine the success or failure of the core workflow. |
+  | |
+  | The frequencies mentioned are approximate and determined based on the occurrence of \`continue-on-error\` in the provided snippets. In practice, the actual frequency may vary depending on the project, repository, and the specific workflows being used. |
+  +=============================================================================================================================================================================================================================================================+
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| The snippets provided show the \`continue-on-error\` flag used in various GitHub Actions workflows. This flag, when set to \`true\`, allows the workflow to continue executing subsequent steps even if the current step fails. |
-| |
-| Grouping the usage of \`continue-on-error\` by theme, here are some common scenarios where this flag is used, along with their approximate frequency based on the provided snippets: |
-| |
-| 1\. **Testing and Linting Workflows** (High frequency) |
-| |
-| \- Commonly used in steps that perform code linting, unit tests, integration tests, and other quality checks. |
-| |
-| \- Rationale: Allows the workflow to continue and gather more information on potential issues across different tests or checks, even if some fail. |
-| |
-| 2\. **Deployment Workflows** (Medium frequency) |
-| |
-| \- Used in steps involved in deploying to various environments such as production, staging, or test environments. |
-| |
-| \- Rationale: Deployment workflows often contain cleanup or rollback steps that should run regardless of the success or failure of the main deployment steps. |
-| |
-| 3\. **Build Workflows** (Medium frequency) |
-| |
-| \- Applied during steps that compile code, build artifacts, or generate documentation. |
-| |
-| \- Rationale: Allows the workflow to continue and perform additional tasks (e.g., uploading build artifacts) even if the build encounters warnings or non-critical errors. |
-| |
-| 4\. **Software Package Management** (Low frequency) |
-| |
-| \- Used when installing or updating dependencies or software packages required for the workflow. |
-| |
-| \- Rationale: Non-critical updates or installations that fail should not necessarily halt the entire workflow. |
-| |
-| 5\. **Code Coverage and Static Analysis** (Low frequency) |
-| |
-| \- Utilized in steps that send code coverage metrics or perform static analysis. |
-| |
-| \- Rationale: To ensure additional actions such as notifications or reporting can proceed even if the analysis services are temporarily unavailable or fail. |
-| |
-| 6\. **Docker and Container-Related Workflows** (Low frequency) |
-| |
-| \- Appears in steps that build or push Docker images or interact with container registries. |
-| |
-| \- Rationale: Allows workflows to continue when dealing with flaky Docker registries or non-essential Docker image builds. |
-| |
-| 7\. **Miscellaneous Cleanup or Utility Tasks** (Rare frequency) |
-| |
-| \- Found in various cleanup, configuration, setup, or utility steps not categorized in the above themes. |
-| |
-| \- Rationale: Such tasks are often supplementary and do not necessarily determine the success or failure of the core workflow. |
-| |
-| The frequencies mentioned are approximate and determined based on the occurrence of \`continue-on-error\` in the provided snippets. In practice, the actual frequency may vary depending on the project, repository, and the specific workflows being used. |
-+=============================================================================================================================================================================================================================================================+
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+- +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+  | Using \`success() \|\| failure()\` instead of \`always()\` in GitHub Actions might seem redundant since they essentially do the same thing --- ensure that a step is executed no matter the outcome of the previous steps. However, there are a few reasons why someone might choose to use \`success() \|\| failure()\`: |
+  | |
+  | 1\. **Explicit Intent**: By using \`success() \|\| failure()\`, the author of the workflow is being very explicit about the conditions under which the step should run. It clearly states that the step should run if the previous step was either a success or a failure, which is a bit more descriptive than \`always()\`, even if the effect is the same. |
+  | |
+  | 2\. **Historical Reasons**: Before the \`always()\` condition was introduced, users would have to use \`success() \|\| failure()\` to achieve the same effect. Some workflows may still use this older style either because they were created before \`always()\` was available or because they were copied from older examples. |
+  | |
+  | 3\. **Readability and Preference**: Some users may prefer \`success() \|\| failure()\` for readability or due to personal coding preferences. What seems clearer or more intuitive can vary from person to person. |
+  | |
+  | 4\. **Habit**: Users who are accustomed to writing conditional logic in programming may default to using logical operators out of habit. |
+  | |
+  | 5\. **Template or Generated Code**: In some cases, the code for GitHub Actions could be templated or generated by tools that use \`success() \|\| failure()\` as their default way of ensuring a step always runs. |
+  | |
+  | 6\. **Lack of Knowledge**: Some users might not be aware of the \`always()\` condition, especially if they learned GitHub Actions by looking at other people\'s workflows that used the \`success() \|\| failure()\` syntax. |
+  | |
+  | It\'s important to note that while \`success() \|\| failure()\` will always evaluate to the same as \`always()\`, there is a subtle difference in a condition that GitHub Actions evaluates: \`cancelled()\`. If a job is cancelled, \`success()\` and \`failure()\` will not be true. In such a case, \`always()\` will still run, but \`success() \|\| failure()\` would not. So, if someone explicitly includes \`success() \|\| failure()\` without \`cancelled()\`, they may intend to skip execution on cancellation, though this is a very nuanced and less common scenario. |
+  +=====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
--
-
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Using \`success() \|\| failure()\` instead of \`always()\` in GitHub Actions might seem redundant since they essentially do the same thing --- ensure that a step is executed no matter the outcome of the previous steps. However, there are a few reasons why someone might choose to use \`success() \|\| failure()\`: |
-| |
-| 1\. **Explicit Intent**: By using \`success() \|\| failure()\`, the author of the workflow is being very explicit about the conditions under which the step should run. It clearly states that the step should run if the previous step was either a success or a failure, which is a bit more descriptive than \`always()\`, even if the effect is the same. |
-| |
-| 2\. **Historical Reasons**: Before the \`always()\` condition was introduced, users would have to use \`success() \|\| failure()\` to achieve the same effect. Some workflows may still use this older style either because they were created before \`always()\` was available or because they were copied from older examples. |
-| |
-| 3\. **Readability and Preference**: Some users may prefer \`success() \|\| failure()\` for readability or due to personal coding preferences. What seems clearer or more intuitive can vary from person to person. |
-| |
-| 4\. **Habit**: Users who are accustomed to writing conditional logic in programming may default to using logical operators out of habit. |
-| |
-| 5\. **Template or Generated Code**: In some cases, the code for GitHub Actions could be templated or generated by tools that use \`success() \|\| failure()\` as their default way of ensuring a step always runs. |
-| |
-| 6\. **Lack of Knowledge**: Some users might not be aware of the \`always()\` condition, especially if they learned GitHub Actions by looking at other people\'s workflows that used the \`success() \|\| failure()\` syntax. |
-| |
-| It\'s important to note that while \`success() \|\| failure()\` will always evaluate to the same as \`always()\`, there is a subtle difference in a condition that GitHub Actions evaluates: \`cancelled()\`. If a job is cancelled, \`success()\` and \`failure()\` will not be true. In such a case, \`always()\` will still run, but \`success() \|\| failure()\` would not. So, if someone explicitly includes \`success() \|\| failure()\` without \`cancelled()\`, they may intend to skip execution on cancellation, though this is a very nuanced and less common scenario. |
-+=====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-
--
-
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| GitHub Actions\' conditional syntax allows for a variety of expressions that can sometimes seem unintuitive at first glance. Here are some examples of conditionals that might appear \"weird\" or less obvious to beginners: |
-| |
-| 1\. \`if: success() && !cancelled()\` |
-| |
-| \- This condition means the step will run only if the previous steps were successful and the run was not cancelled. This might be used when you want to perform some actions when the job is successful but don\'t want those actions to run if the job was cancelled mid-run. |
-| |
-| 2\. \`if: failure() && !always()\` |
-| |
-| \- This might seem redundant because \`always()\` is meant to run irrespective of the outcome, so combining it with \`failure()\` using a negation doesn\'t change the behavior. It\'s not a meaningful condition and likely represents a misunderstanding. |
-| |
-| 3\. \`if: github.event_name == \'push\' && github.ref == \'refs/heads/main\'\` |
-| |
-| \- This checks if the event that triggered the workflow was a push to the main branch. While not weird, it is specific and might not be immediately clear to those unfamiliar with GitHub\'s event and ref system. |
-| |
-| 4\. \`if: contains(github.ref, \'refs/tags/\')\` |
-| |
-| \- This runs the step only if the current ref is a tag. It\'s a way to trigger actions for tag events specifically. |
-| |
-| 5\. \`if: startsWith(github.ref, \'refs/heads/feature/\')\` |
-| |
-| \- This condition is used to run steps only for branches that start with \`feature/\`, which is a common pattern for feature branch workflows. |
-| |
-| 6\. \`if: github.actor == \'octocat\'\` |
-| |
-| \- The step will only run if the actor (the person or app that initiated the workflow) is \`octocat\`. |
-| |
-| 7\. \`if: github.event.pull_request.head.repo.fork == true\` |
-| |
-| \- This is a condition that would only be true for pull request events coming from a forked repository. |
-| |
-| 8\. \`if: toJson(github.event.client_payload)\` |
-| |
-| \- This will attempt to serialize the \`client_payload\` object of a \`repository_dispatch\` event to JSON. It might be used to ensure there is a \`client_payload\` before proceeding. |
-| |
-| 9\. \`if: \${{ env.MY_ENV_VAR }} == \'true\'\` |
-| |
-| \- This checks an environment variable\'s value directly in the \`if\` condition, which might seem strange but is useful for dynamic conditions based on environment variables. |
-| |
-| These conditions allow for granular control over when steps run, which is powerful but can be complex. The use of GitHub\'s \`github\` context and functions like \`contains()\`, \`startsWith()\`, and \`toJson()\` provide robust tools for creating precise workflow behaviors. Understanding how these pieces fit together takes some time and experimentation, especially for those who are new to GitHub Actions. |
-+=========================================================================================================================================================================================================================================================================================================================================================================================================================+
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+- +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+  | GitHub Actions\' conditional syntax allows for a variety of expressions that can sometimes seem unintuitive at first glance. Here are some examples of conditionals that might appear \"weird\" or less obvious to beginners: |
+  | |
+  | 1\. \`if: success() && !cancelled()\` |
+  | |
+  | \- This condition means the step will run only if the previous steps were successful and the run was not cancelled. This might be used when you want to perform some actions when the job is successful but don\'t want those actions to run if the job was cancelled mid-run. |
+  | |
+  | 2\. \`if: failure() && !always()\` |
+  | |
+  | \- This might seem redundant because \`always()\` is meant to run irrespective of the outcome, so combining it with \`failure()\` using a negation doesn\'t change the behavior. It\'s not a meaningful condition and likely represents a misunderstanding. |
+  | |
+  | 3\. \`if: github.event_name == \'push\' && github.ref == \'refs/heads/main\'\` |
+  | |
+  | \- This checks if the event that triggered the workflow was a push to the main branch. While not weird, it is specific and might not be immediately clear to those unfamiliar with GitHub\'s event and ref system. |
+  | |
+  | 4\. \`if: contains(github.ref, \'refs/tags/\')\` |
+  | |
+  | \- This runs the step only if the current ref is a tag. It\'s a way to trigger actions for tag events specifically. |
+  | |
+  | 5\. \`if: startsWith(github.ref, \'refs/heads/feature/\')\` |
+  | |
+  | \- This condition is used to run steps only for branches that start with \`feature/\`, which is a common pattern for feature branch workflows. |
+  | |
+  | 6\. \`if: github.actor == \'octocat\'\` |
+  | |
+  | \- The step will only run if the actor (the person or app that initiated the workflow) is \`octocat\`. |
+  | |
+  | 7\. \`if: github.event.pull_request.head.repo.fork == true\` |
+  | |
+  | \- This is a condition that would only be true for pull request events coming from a forked repository. |
+  | |
+  | 8\. \`if: toJson(github.event.client_payload)\` |
+  | |
+  | \- This will attempt to serialize the \`client_payload\` object of a \`repository_dispatch\` event to JSON. It might be used to ensure there is a \`client_payload\` before proceeding. |
+  | |
+  | 9\. \`if: \${{ env.MY_ENV_VAR }} == \'true\'\` |
+  | |
+  | \- This checks an environment variable\'s value directly in the \`if\` condition, which might seem strange but is useful for dynamic conditions based on environment variables. |
+  | |
+  | These conditions allow for granular control over when steps run, which is powerful but can be complex. The use of GitHub\'s \`github\` context and functions like \`contains()\`, \`startsWith()\`, and \`toJson()\` provide robust tools for creating precise workflow behaviors. Understanding how these pieces fit together takes some time and experimentation, especially for those who are new to GitHub Actions. |
+  +=========================================================================================================================================================================================================================================================================================================================================================================================================================+
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 - [[Wayback Machine (archive.org)]{.underline}](https://web.archive.org/web/20171228232016/http://www.headlessbrick.org/mediawiki2/images/4/48/WorkflowPatterns-van_der-Aalst-2003.pdf) and [[aalst00:advanced_workflow_patterns.pdf (cliplab.org)]{.underline}](http://cliplab.org/Projects/S-CUBE/papers/aalst00:advanced_workflow_patterns.pdf)
 
 - **Sequence**
 
-- ![](./images/media/image77.png){width="5.526042213473316in" height="3.2569411636045493in"}
+- ![](./images/image77.png){width="5.526042213473316in" height="3.2569411636045493in"}
 
 - Everything is done one-after the other. This is the default behavior.
 
@@ -1187,13 +1175,13 @@ Build Status: Build status is an indicator of whether a build or integration pro
 
 -
 
-- ![](./images/media/image91.png){width="5.515625546806649in" height="3.2508016185476816in"}
+- ![](./images/image91.png){width="5.515625546806649in" height="3.2508016185476816in"}
 
 -
 
 - **Control flow, parallel split**
 
-- ![](./images/media/image42.png){width="6.5in" height="3.6527777777777777in"}
+- ![](./images/image42.png){width="6.5in" height="3.6527777777777777in"}
 
 - If you have a job, and you want to split it up into multiple jobs or you just want the other jobs to run after this job completes, then you have to do a few things.
 
@@ -1203,134 +1191,132 @@ Build Status: Build status is an indicator of whether a build or integration pro
 
 - In GitHub Actions, you can set up multiple jobs that depend on each other using the \`needs\` keyword. This allows you to create a workflow where \"Job B\" and \"Job C\" only start after \"Job A\" has completed successfully. To share information between these jobs, you can use artifacts or output parameters.
 
--
-
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| \### Setting up Dependent Jobs |
-| |
-| Here\'s a basic structure to define these dependencies: |
-| |
-| \`\`\`yaml |
-| |
-| jobs: |
-| |
-| job_A: |
-| |
-| runs-on: ubuntu-latest |
-| |
-| \# Steps for Job A\... |
-| |
-| job_B: |
-| |
-| needs: job_A |
-| |
-| runs-on: ubuntu-latest |
-| |
-| \# Steps for Job B\... |
-| |
-| job_C: |
-| |
-| needs: job_A |
-| |
-| runs-on: ubuntu-latest |
-| |
-| \# Steps for Job C\... |
-| |
-| \`\`\` |
-| |
-| In this setup, both \"Job B\" and \"Job C\" have a \`needs\` attribute that points to \"Job A\", meaning they will wait for \"Job A\" to complete before starting. |
-| |
-| \### Sharing Information Between Jobs |
-| |
-| To share information between jobs, you have two main options: |
-| |
-| 1\. **Artifacts**: You can use artifacts to share data between jobs in a workflow. Artifacts are files or directories that are uploaded by one job and can be downloaded by subsequent jobs. |
-| |
-| \- **Uploading Artifacts in Job A**: |
-| |
-| \`\`\`yaml |
-| |
-| steps: |
-| |
-| \- name: Some steps |
-| |
-| run: \# Your commands |
-| |
-| \- name: Upload artifact |
-| |
-| uses: actions/upload-artifact@v2 |
-| |
-| with: |
-| |
-| name: my-artifact |
-| |
-| path: path/to/your/artifact |
-| |
-| \`\`\` |
-| |
-| \- **Downloading Artifacts in Job B or C**: |
-| |
-| \`\`\`yaml |
-| |
-| steps: |
-| |
-| \- name: Download artifact |
-| |
-| uses: actions/download-artifact@v2 |
-| |
-| with: |
-| |
-| name: my-artifact |
-| |
-| \- name: Other steps |
-| |
-| run: \# Your commands |
-| |
-| \`\`\` |
-| |
-| 2\. **Job Outputs**: You can pass outputs from one job to another. This is useful for passing small pieces of data like flags, version numbers, etc. |
-| |
-| \- **Defining Outputs in Job A**: |
-| |
-| \`\`\`yaml |
-| |
-| jobs: |
-| |
-| job_A: |
-| |
-| runs-on: ubuntu-latest |
-| |
-| outputs: |
-| |
-| myOutput: \${{ steps.my_step.outputs.my_output }} |
-| |
-| steps: |
-| |
-| \- id: my_step |
-| |
-| run: echo \"::set-output name=my_output::\$(echo \'some data\')\" |
-| |
-| \`\`\` |
-| |
-| \- **Using Outputs in Job B or C**: |
-| |
-| \`\`\`yaml |
-| |
-| jobs: |
-| |
-| job_B: |
-| |
-| needs: job_A |
-| |
-| runs-on: ubuntu-latest |
-| |
-| steps: |
-| |
-| \- run: echo \"Received \${{ needs.job_A.outputs.myOutput }}\" |
-| |
-| \`\`\` |
-+==================================================================================================================================================================================================+
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+- +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+  | \### Setting up Dependent Jobs |
+  | |
+  | Here\'s a basic structure to define these dependencies: |
+  | |
+  | \`\`\`yaml |
+  | |
+  | jobs: |
+  | |
+  | job_A: |
+  | |
+  | runs-on: ubuntu-latest |
+  | |
+  | \# Steps for Job A\... |
+  | |
+  | job_B: |
+  | |
+  | needs: job_A |
+  | |
+  | runs-on: ubuntu-latest |
+  | |
+  | \# Steps for Job B\... |
+  | |
+  | job_C: |
+  | |
+  | needs: job_A |
+  | |
+  | runs-on: ubuntu-latest |
+  | |
+  | \# Steps for Job C\... |
+  | |
+  | \`\`\` |
+  | |
+  | In this setup, both \"Job B\" and \"Job C\" have a \`needs\` attribute that points to \"Job A\", meaning they will wait for \"Job A\" to complete before starting. |
+  | |
+  | \### Sharing Information Between Jobs |
+  | |
+  | To share information between jobs, you have two main options: |
+  | |
+  | 1\. **Artifacts**: You can use artifacts to share data between jobs in a workflow. Artifacts are files or directories that are uploaded by one job and can be downloaded by subsequent jobs. |
+  | |
+  | \- **Uploading Artifacts in Job A**: |
+  | |
+  | \`\`\`yaml |
+  | |
+  | steps: |
+  | |
+  | \- name: Some steps |
+  | |
+  | run: \# Your commands |
+  | |
+  | \- name: Upload artifact |
+  | |
+  | uses: actions/upload-artifact@v2 |
+  | |
+  | with: |
+  | |
+  | name: my-artifact |
+  | |
+  | path: path/to/your/artifact |
+  | |
+  | \`\`\` |
+  | |
+  | \- **Downloading Artifacts in Job B or C**: |
+  | |
+  | \`\`\`yaml |
+  | |
+  | steps: |
+  | |
+  | \- name: Download artifact |
+  | |
+  | uses: actions/download-artifact@v2 |
+  | |
+  | with: |
+  | |
+  | name: my-artifact |
+  | |
+  | \- name: Other steps |
+  | |
+  | run: \# Your commands |
+  | |
+  | \`\`\` |
+  | |
+  | 2\. **Job Outputs**: You can pass outputs from one job to another. This is useful for passing small pieces of data like flags, version numbers, etc. |
+  | |
+  | \- **Defining Outputs in Job A**: |
+  | |
+  | \`\`\`yaml |
+  | |
+  | jobs: |
+  | |
+  | job_A: |
+  | |
+  | runs-on: ubuntu-latest |
+  | |
+  | outputs: |
+  | |
+  | myOutput: \${{ steps.my_step.outputs.my_output }} |
+  | |
+  | steps: |
+  | |
+  | \- id: my_step |
+  | |
+  | run: echo \"::set-output name=my_output::\$(echo \'some data\')\" |
+  | |
+  | \`\`\` |
+  | |
+  | \- **Using Outputs in Job B or C**: |
+  | |
+  | \`\`\`yaml |
+  | |
+  | jobs: |
+  | |
+  | job_B: |
+  | |
+  | needs: job_A |
+  | |
+  | runs-on: ubuntu-latest |
+  | |
+  | steps: |
+  | |
+  | \- run: echo \"Received \${{ needs.job_A.outputs.myOutput }}\" |
+  | |
+  | \`\`\` |
+  +==================================================================================================================================================================================================+
+  +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 - Using these methods, you can effectively manage dependencies between jobs and share information in your GitHub Actions workflows. Remember, artifacts are suitable for larger data (like files, build artifacts, etc.), while job outputs are more suited for smaller, simple data.
 
@@ -1373,50 +1359,48 @@ Build Status: Build status is an indicator of whether a build or integration pro
 
 - If you want to run another workflow while you're running yours (e.g., in the middle of it, or at the beginning), then
 
--
-
-+-------------------------------------------------------------------------------------------+
-| jobs: |
-| |
-| wait-for-other-workflow: |
-| |
-| runs-on: ubuntu-latest |
-| |
-| steps: |
-| |
-| \- name: Wait for Other Workflow to Complete |
-| |
-| run: \| |
-| |
-| while :; do |
-| |
-| status=\$(curl -s -H \"Authorization: token \${{ secrets.GITHUB_TOKEN }}\" \\ |
-| |
-| https://api.github.com/repos/owner/repo/actions/runs \\ |
-| |
-| \| jq -r \'.workflow_runs\[\] \| select(.name==\"Other Workflow Name\") \| .conclusion\') |
-| |
-| if \[\[ \"\$status\" == \"success\" \]\]; then |
-| |
-| echo \"Other workflow completed successfully.\" |
-| |
-| break |
-| |
-| elif \[\[ \"\$status\" == \"failure\" \]\]; then |
-| |
-| echo \"Other workflow failed.\" |
-| |
-| exit 1 |
-| |
-| fi |
-| |
-| echo \"Waiting for other workflow to complete\...\" |
-| |
-| sleep 60 |
-| |
-| done |
-+===========================================================================================+
-+-------------------------------------------------------------------------------------------+
+- +-------------------------------------------------------------------------------------------+
+  | jobs: |
+  | |
+  | wait-for-other-workflow: |
+  | |
+  | runs-on: ubuntu-latest |
+  | |
+  | steps: |
+  | |
+  | \- name: Wait for Other Workflow to Complete |
+  | |
+  | run: \| |
+  | |
+  | while :; do |
+  | |
+  | status=\$(curl -s -H \"Authorization: token \${{ secrets.GITHUB_TOKEN }}\" \\ |
+  | |
+  | https://api.github.com/repos/owner/repo/actions/runs \\ |
+  | |
+  | \| jq -r \'.workflow_runs\[\] \| select(.name==\"Other Workflow Name\") \| .conclusion\') |
+  | |
+  | if \[\[ \"\$status\" == \"success\" \]\]; then |
+  | |
+  | echo \"Other workflow completed successfully.\" |
+  | |
+  | break |
+  | |
+  | elif \[\[ \"\$status\" == \"failure\" \]\]; then |
+  | |
+  | echo \"Other workflow failed.\" |
+  | |
+  | exit 1 |
+  | |
+  | fi |
+  | |
+  | echo \"Waiting for other workflow to complete\...\" |
+  | |
+  | sleep 60 |
+  | |
+  | done |
+  +===========================================================================================+
+  +-------------------------------------------------------------------------------------------+
 
 - The rule of thumb is to wait for three different occurrences of (something) before you refactor it out into its own action or workflow. Try to use these sparingly as they are difficult to reproduce locally.
 
@@ -1424,7 +1408,7 @@ Build Status: Build status is an indicator of whether a build or integration pro
 
 -
 
-- ![](./images/media/image32.png){width="6.5in" height="3.6527777777777777in"}
+- ![](./images/image32.png){width="6.5in" height="3.6527777777777777in"}
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | jobs: |
@@ -1551,7 +1535,7 @@ It requires both technical and cultural shifts, including:
 
 Here is what the software development process looks like when using CI/CD. Note that many of these processes are automated.
 
-### ![](./images/media/image3.png){width="6.546875546806649in" height="4.348610017497813in"} {#section-15 .unnumbered}
+### ![](./images/image3.png){width="6.546875546806649in" height="4.348610017497813in"} {#section-15 .unnumbered}
 
 Here\'s a description of what\'s going on in the diagram.
 
@@ -1920,7 +1904,7 @@ Implementing feature flags effectively requires a modular application architectu
 
 - Here are the popular times that workflows are scheduled. Try to avoid times (such as 12am) because they are very crowded. If you need a job to run at a specific time, instead, check if it is possible for the job to run prior to that time (so that it has a chance that, at that time, it will run), or consider using a webhook.
 
-  - ![Chart](./images/media/image23.png){width="6.359375546806649in" height="4.149761592300963in"}
+  - ![Chart](./images/image23.png){width="6.359375546806649in" height="4.149761592300963in"}
 
 - If you need something that will run on the last day of the month, consider instead running it on the first day of the next month and then use the data (or commits) from the previous end of the month. This is because some months have 30 or 31 days, and some might have 29 (leap year) and it can't be specified cleanly in crontab syntax.
 

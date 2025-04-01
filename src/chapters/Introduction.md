@@ -76,7 +76,7 @@ It requires both technical and cultural shifts, including:
 
 Here is what the software development process looks like when using CI/CD. Note that many of these processes are automated.
 
-### ![](./images/media/image3.png){width="6.546875546806649in" height="4.348610017497813in"} {#section .unnumbered}
+### ![](./images/image3.png){width="6.546875546806649in" height="4.348610017497813in"} {#section .unnumbered}
 
 ### Why is CI/CD important? {#why-is-cicd-important .unnumbered}
 
@@ -178,9 +178,9 @@ CI/CD Development:
 
 - Allows controlled feature rollouts and early customer feedback through feature flags.
 
-> ![](./images/media/image92.png){width="2.9270833333333335in" height="7.927083333333333in"}
+> ![](./images/image92.png){width="2.9270833333333335in" height="7.927083333333333in"}
 >
-> ![](./images/media/image73.png){width="8.729166666666666in" height="4.489583333333333in"}
+> ![](./images/image73.png){width="8.729166666666666in" height="4.489583333333333in"}
 
 #### The build server or build pipeline {#the-build-server-or-build-pipeline .unnumbered}
 
@@ -252,7 +252,7 @@ What exactly constitutes a feature or needs to be released via a feature flag is
 
 Typically, developers can enable these feature flags by themselves. Here's an example of an application in development, and it shows a special development overlay that allows developers to toggle feature flags.
 
-![](./images/media/image81.png){width="7.395833333333333in" height="4.25in"}
+![](./images/image81.png){width="7.395833333333333in" height="4.25in"}
 
 [[Implementing feature flags in React with Unleash - Case Study (claimcompass.eu)]{.underline}](https://www.claimcompass.eu/blog/en/feature-flags-in-react-with-unleash/)
 
@@ -374,7 +374,7 @@ What do I deliver to the customer, i.e., what are build artifacts?
 
 The contents of a software release can vary widely depending on the type of software, the platform it\'s being released on, and the policies of the developing company or organization. In enterprise environments, additional components like deployment guides, training materials, and support information may also be included.
 
-> ![](./images/media/image58.png){width="9.713542213473316in" height="2.5517016622922135in"}
+> ![](./images/image58.png){width="9.713542213473316in" height="2.5517016622922135in"}
 
 ### Continuous Monitoring {#continuous-monitoring .unnumbered}
 
@@ -582,7 +582,7 @@ For hosting your application in the cloud, here are some providers.
 
 - **DigitalOcean:** Known for its simplicity, DigitalOcean provides a platform that can easily be configured for CI/CD workflows. With support for Kubernetes and integration capabilities with popular CI/CD tools, it\'s a good choice for smaller to medium-sized applications.
 
-> ![](./images/media/image12.png){width="9.057292213473316in" height="4.816178915135608in"}
+> ![](./images/image12.png){width="9.057292213473316in" height="4.816178915135608in"}
 
 ### Terminology
 

@@ -244,7 +244,7 @@
 
 - Software can\'t be completely bug-free because humans, libraries, and hardware are not perfect. Therefore, testing focuses on making software work well for users\' needs and business goals, rather than removing all bugs.
 
-- ![](./images/media/image36.png){width="5.616833989501313in" height="4.2126257655293085in"}
+- ![](./images/image36.png){width="5.616833989501313in" height="4.2126257655293085in"}
 
 - [[Guardrail - Armtec]{.underline}](https://armtec.com/specialty-products/guardrail/)
 
@@ -290,7 +290,7 @@
 
 - What is a test fixture? It has its roots in hardware, where a literal, physical test fixture was used to mount the hardware and prepare it for testing.
 
-- ![](./images/media/image30.png){width="3.151042213473316in" height="3.786979440069991in"}
+- ![](./images/image30.png){width="3.151042213473316in" height="3.786979440069991in"}
 
 - [[Electronic test fixture design \| Bloomy]{.underline}](https://www.bloomy.com/media-gallery/detail/246/236)
 
@@ -298,7 +298,7 @@
 
 - A mock literally means a replica, or something that is like something else, but not exactly. For example, in hardware it might be a stand-in, or an object that performs some of the functionality but not all of the item that it is mocking. This is useful as the original hardware might be expensive, and many copies cannot be created purely for testing. In software development, mocking is used to refer to creating a function that is called instead of what you're trying to call, usually to avoid high overheads or expensive state management. This function is created by the user, and pretends to function as the original call, and can return and accept values and perform any processing desired on the data, usually less processing than what it is mocking.
 
-- ![](./images/media/image55.png){width="2.646351706036745in" height="3.0064424759405073in"}
+- ![](./images/image55.png){width="2.646351706036745in" height="3.0064424759405073in"}
 
 - In this case, the rubber duck is used in place of a real duck.
 
@@ -440,92 +440,90 @@ C#, .NET Core, .NET Depends, usually dotnet test
 
 - _Unit tests are a type of software testing where individual units or components of a software application are tested in isolation from the rest of the code. The purpose of unit testing is to validate that each unit of the software performs as designed. A \"unit\" is the smallest testable part of an application and can be as small as a single function or method within a class._
 
--
-
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Certainly! Let\'s consider a simple example where we\'re testing a method that adds two numbers. |
-| |
-| Here\'s the method we\'re testing: |
-| |
-| \`\`\`csharp |
-| |
-| public class Calculator |
-| |
-| { |
-| |
-| public int Add(int a, int b) |
-| |
-| { |
-| |
-| return a + b; |
-| |
-| } |
-| |
-| } |
-| |
-| \`\`\` |
-| |
-| To write a unit test for this method, you\'ll typically use a unit testing framework like NUnit or MSTest. I\'ll demonstrate using MSTest: |
-| |
-| 1\. Create a new MSTest Test Project if you haven\'t. |
-| |
-| 2\. Reference the project that contains the \`Calculator\` class in your test project. |
-| |
-| 3\. Write the test: |
-| |
-| \`\`\`csharp |
-| |
-| using Microsoft.VisualStudio.TestTools.UnitTesting; |
-| |
-| using YourNamespaceWhereCalculatorExists; // Replace with the correct namespace |
-| |
-| \[TestClass\] |
-| |
-| public class CalculatorTests |
-| |
-| { |
-| |
-| \[TestMethod\] |
-| |
-| public void Add_TwoNumbers_ReturnsCorrectSum() |
-| |
-| { |
-| |
-| // Arrange |
-| |
-| var calculator = new Calculator(); |
-| |
-| // Act |
-| |
-| var result = calculator.Add(3, 4); |
-| |
-| // Assert |
-| |
-| Assert.AreEqual(7, result); |
-| |
-| } |
-| |
-| } |
-| |
-| \`\`\` |
-| |
-| In this unit test: |
-| |
-| \- We use the \`\[TestClass\]\` attribute to denote that \`CalculatorTests\` is a test class. |
-| |
-| \- We use the \`\[TestMethod\]\` attribute to specify that \`Add_TwoNumbers_ReturnsCorrectSum\` is a test method. |
-| |
-| \- The test method follows the Arrange-Act-Assert (AAA) pattern: |
-| |
-| \- **Arrange**: Set up the prerequisites for your test. |
-| |
-| \- **Act**: Invoke the method or function you\'re testing. |
-| |
-| \- **Assert**: Verify that the function behaved as expected. |
-| |
-| You\'d run this test using Visual Studio\'s Test Explorer or another test runner that supports MSTest. If everything is set up correctly and the \`Add\` method works as expected, the test should pass. |
-+==========================================================================================================================================================================================================+
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+- +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+  | Certainly! Let\'s consider a simple example where we\'re testing a method that adds two numbers. |
+  | |
+  | Here\'s the method we\'re testing: |
+  | |
+  | \`\`\`csharp |
+  | |
+  | public class Calculator |
+  | |
+  | { |
+  | |
+  | public int Add(int a, int b) |
+  | |
+  | { |
+  | |
+  | return a + b; |
+  | |
+  | } |
+  | |
+  | } |
+  | |
+  | \`\`\` |
+  | |
+  | To write a unit test for this method, you\'ll typically use a unit testing framework like NUnit or MSTest. I\'ll demonstrate using MSTest: |
+  | |
+  | 1\. Create a new MSTest Test Project if you haven\'t. |
+  | |
+  | 2\. Reference the project that contains the \`Calculator\` class in your test project. |
+  | |
+  | 3\. Write the test: |
+  | |
+  | \`\`\`csharp |
+  | |
+  | using Microsoft.VisualStudio.TestTools.UnitTesting; |
+  | |
+  | using YourNamespaceWhereCalculatorExists; // Replace with the correct namespace |
+  | |
+  | \[TestClass\] |
+  | |
+  | public class CalculatorTests |
+  | |
+  | { |
+  | |
+  | \[TestMethod\] |
+  | |
+  | public void Add_TwoNumbers_ReturnsCorrectSum() |
+  | |
+  | { |
+  | |
+  | // Arrange |
+  | |
+  | var calculator = new Calculator(); |
+  | |
+  | // Act |
+  | |
+  | var result = calculator.Add(3, 4); |
+  | |
+  | // Assert |
+  | |
+  | Assert.AreEqual(7, result); |
+  | |
+  | } |
+  | |
+  | } |
+  | |
+  | \`\`\` |
+  | |
+  | In this unit test: |
+  | |
+  | \- We use the \`\[TestClass\]\` attribute to denote that \`CalculatorTests\` is a test class. |
+  | |
+  | \- We use the \`\[TestMethod\]\` attribute to specify that \`Add_TwoNumbers_ReturnsCorrectSum\` is a test method. |
+  | |
+  | \- The test method follows the Arrange-Act-Assert (AAA) pattern: |
+  | |
+  | \- **Arrange**: Set up the prerequisites for your test. |
+  | |
+  | \- **Act**: Invoke the method or function you\'re testing. |
+  | |
+  | \- **Assert**: Verify that the function behaved as expected. |
+  | |
+  | You\'d run this test using Visual Studio\'s Test Explorer or another test runner that supports MSTest. If everything is set up correctly and the \`Add\` method works as expected, the test should pass. |
+  +==========================================================================================================================================================================================================+
+  +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 - Unit tests are good for testing components that are being worked on during the development period, and can be run very quickly in a developer's workflow. They are designed for testing a single unit, which could be a single function or a few functions together. These are likely fragile tests, as they check implementation details. This doesn't mean that you shouldn't write them, rather, it depends on what application you are making and what your test strategy is.
 
@@ -551,164 +549,162 @@ C#, .NET Core, .NET Depends, usually dotnet test
 
 - "Integration tests are a type of software testing where individual units or components of a software are combined and tested as a group. The primary purpose is to validate the interactions between the different parts of a system, such as modules, functions, or services. While unit tests focus on ensuring that individual parts of the system work as expected in isolation, integration tests aim to uncover issues that may arise when these parts are combined." ChatGPT
 
--
-
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Certainly! Integration tests differ from unit tests in that they usually test the interactions between multiple components or layers of an application, such as the communication between a service and a database, or between different services. |
-| |
-| For this example, let\'s consider an integration test for a service that interacts with a database. We\'ll use Entity Framework Core (EF Core) to illustrate this. |
-| |
-| 1\. First, let\'s define a simple entity and a context for EF Core: |
-| |
-| \`\`\`csharp |
-| |
-| public class User |
-| |
-| { |
-| |
-| public int Id { get; set; } |
-| |
-| public string Name { get; set; } |
-| |
-| } |
-| |
-| public class AppDbContext : DbContext |
-| |
-| { |
-| |
-| public AppDbContext(DbContextOptions\<AppDbContext\> options) : base(options) |
-| |
-| { |
-| |
-| } |
-| |
-| public DbSet\<User\> Users { get; set; } |
-| |
-| } |
-| |
-| \`\`\` |
-| |
-| 2\. Create a service that uses this context: |
-| |
-| \`\`\`csharp |
-| |
-| public class UserService |
-| |
-| { |
-| |
-| private readonly AppDbContext \_context; |
-| |
-| public UserService(AppDbContext context) |
-| |
-| { |
-| |
-| \_context = context; |
-| |
-| } |
-| |
-| public User GetUser(int id) |
-| |
-| { |
-| |
-| return \_context.Users.Find(id); |
-| |
-| } |
-| |
-| } |
-| |
-| \`\`\` |
-| |
-| 3\. Now, let\'s write an integration test for the \`GetUser\` method using MSTest and the \`Microsoft.EntityFrameworkCore.InMemory\` package (an in-memory database provider for EF Core): |
-| |
-| \`\`\`csharp |
-| |
-| using Microsoft.EntityFrameworkCore; |
-| |
-| using Microsoft.VisualStudio.TestTools.UnitTesting; |
-| |
-| \[TestClass\] |
-| |
-| public class UserServiceTests |
-| |
-| { |
-| |
-| private AppDbContext \_context; |
-| |
-| private UserService \_service; |
-| |
-| \[TestInitialize\] |
-| |
-| public void TestInitialize() |
-| |
-| { |
-| |
-| // Set up the in-memory database. |
-| |
-| var options = new DbContextOptionsBuilder\<AppDbContext\>() |
-| |
-| .UseInMemoryDatabase(databaseName: \"TestDatabase\") // Unique name for the in-memory database. |
-| |
-| .Options; |
-| |
-| \_context = new AppDbContext(options); |
-| |
-| \_service = new UserService(\_context); |
-| |
-| // Add sample data. |
-| |
-| \_context.Users.Add(new User { Id = 1, Name = \"Alice\" }); |
-| |
-| \_context.SaveChanges(); |
-| |
-| } |
-| |
-| \[TestMethod\] |
-| |
-| public void GetUser_ValidId_ReturnsUser() |
-| |
-| { |
-| |
-| // Act |
-| |
-| var user = \_service.GetUser(1); |
-| |
-| // Assert |
-| |
-| Assert.IsNotNull(user); |
-| |
-| Assert.AreEqual(\"Alice\", user.Name); |
-| |
-| } |
-| |
-| \[TestCleanup\] |
-| |
-| public void TestCleanup() |
-| |
-| { |
-| |
-| // Clean up resources, e.g., dispose the context, etc. |
-| |
-| \_context.Database.EnsureDeleted(); |
-| |
-| \_context.Dispose(); |
-| |
-| } |
-| |
-| } |
-| |
-| \`\`\` |
-| |
-| Here\'s what happens in the integration test: |
-| |
-| \- \`\[TestInitialize\]\`: This method runs before each test. We\'re setting up an in-memory database, adding a sample user, and initializing the \`UserService\`. |
-| |
-| \- \`GetUser_ValidId_ReturnsUser\`: This test method checks whether the \`GetUser\` method retrieves the correct user from the database. |
-| |
-| \- \`\[TestCleanup\]\`: This method runs after each test. We\'re ensuring the in-memory database is deleted and disposing the context. |
-| |
-| By using an in-memory database for integration testing, we simulate interactions with a real database without the overhead of actual database operations. |
-+====================================================================================================================================================================================================================================================+
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+- +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+  | Certainly! Integration tests differ from unit tests in that they usually test the interactions between multiple components or layers of an application, such as the communication between a service and a database, or between different services. |
+  | |
+  | For this example, let\'s consider an integration test for a service that interacts with a database. We\'ll use Entity Framework Core (EF Core) to illustrate this. |
+  | |
+  | 1\. First, let\'s define a simple entity and a context for EF Core: |
+  | |
+  | \`\`\`csharp |
+  | |
+  | public class User |
+  | |
+  | { |
+  | |
+  | public int Id { get; set; } |
+  | |
+  | public string Name { get; set; } |
+  | |
+  | } |
+  | |
+  | public class AppDbContext : DbContext |
+  | |
+  | { |
+  | |
+  | public AppDbContext(DbContextOptions\<AppDbContext\> options) : base(options) |
+  | |
+  | { |
+  | |
+  | } |
+  | |
+  | public DbSet\<User\> Users { get; set; } |
+  | |
+  | } |
+  | |
+  | \`\`\` |
+  | |
+  | 2\. Create a service that uses this context: |
+  | |
+  | \`\`\`csharp |
+  | |
+  | public class UserService |
+  | |
+  | { |
+  | |
+  | private readonly AppDbContext \_context; |
+  | |
+  | public UserService(AppDbContext context) |
+  | |
+  | { |
+  | |
+  | \_context = context; |
+  | |
+  | } |
+  | |
+  | public User GetUser(int id) |
+  | |
+  | { |
+  | |
+  | return \_context.Users.Find(id); |
+  | |
+  | } |
+  | |
+  | } |
+  | |
+  | \`\`\` |
+  | |
+  | 3\. Now, let\'s write an integration test for the \`GetUser\` method using MSTest and the \`Microsoft.EntityFrameworkCore.InMemory\` package (an in-memory database provider for EF Core): |
+  | |
+  | \`\`\`csharp |
+  | |
+  | using Microsoft.EntityFrameworkCore; |
+  | |
+  | using Microsoft.VisualStudio.TestTools.UnitTesting; |
+  | |
+  | \[TestClass\] |
+  | |
+  | public class UserServiceTests |
+  | |
+  | { |
+  | |
+  | private AppDbContext \_context; |
+  | |
+  | private UserService \_service; |
+  | |
+  | \[TestInitialize\] |
+  | |
+  | public void TestInitialize() |
+  | |
+  | { |
+  | |
+  | // Set up the in-memory database. |
+  | |
+  | var options = new DbContextOptionsBuilder\<AppDbContext\>() |
+  | |
+  | .UseInMemoryDatabase(databaseName: \"TestDatabase\") // Unique name for the in-memory database. |
+  | |
+  | .Options; |
+  | |
+  | \_context = new AppDbContext(options); |
+  | |
+  | \_service = new UserService(\_context); |
+  | |
+  | // Add sample data. |
+  | |
+  | \_context.Users.Add(new User { Id = 1, Name = \"Alice\" }); |
+  | |
+  | \_context.SaveChanges(); |
+  | |
+  | } |
+  | |
+  | \[TestMethod\] |
+  | |
+  | public void GetUser_ValidId_ReturnsUser() |
+  | |
+  | { |
+  | |
+  | // Act |
+  | |
+  | var user = \_service.GetUser(1); |
+  | |
+  | // Assert |
+  | |
+  | Assert.IsNotNull(user); |
+  | |
+  | Assert.AreEqual(\"Alice\", user.Name); |
+  | |
+  | } |
+  | |
+  | \[TestCleanup\] |
+  | |
+  | public void TestCleanup() |
+  | |
+  | { |
+  | |
+  | // Clean up resources, e.g., dispose the context, etc. |
+  | |
+  | \_context.Database.EnsureDeleted(); |
+  | |
+  | \_context.Dispose(); |
+  | |
+  | } |
+  | |
+  | } |
+  | |
+  | \`\`\` |
+  | |
+  | Here\'s what happens in the integration test: |
+  | |
+  | \- \`\[TestInitialize\]\`: This method runs before each test. We\'re setting up an in-memory database, adding a sample user, and initializing the \`UserService\`. |
+  | |
+  | \- \`GetUser_ValidId_ReturnsUser\`: This test method checks whether the \`GetUser\` method retrieves the correct user from the database. |
+  | |
+  | \- \`\[TestCleanup\]\`: This method runs after each test. We\'re ensuring the in-memory database is deleted and disposing the context. |
+  | |
+  | By using an in-memory database for integration testing, we simulate interactions with a real database without the overhead of actual database operations. |
+  +====================================================================================================================================================================================================================================================+
+  +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 -
 
@@ -750,134 +746,132 @@ C#, .NET Core, .NET Depends, usually dotnet test
 
 - In order to organize the tests well, make sure that you have a good naming convention, and, if applicable, store the tests next to the modules that they are testing. There are lots of exceptions, and each programming language might have best practices on how to store and manage test cases.
 
--
-
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| The \"top 5 programming languages\" can vary depending on the context and metric being used, such as popularity, job demand, or performance. However, as of my last training cut-off in January 2022, the TIOBE Index, RedMonk Rankings, Stack Overflow Developer Survey, and other sources often listed languages like Java, Python, JavaScript, C#, and C (or C++) among the top ranks. |
-| |
-| Here\'s a brief overview of how testing is structured on disk for these languages: |
-| |
-| 1\. **Java**: |
-| |
-| \- Framework: JUnit (most popular) |
-| |
-| \- Test Structure: Java tests are typically placed in a separate \`test\` directory that mirrors the structure of the \`src\` directory. For example: |
-| |
-| \`\`\` |
-| |
-| project-root/ |
-| |
-| ├── src/ |
-| |
-| │ ├── main/ |
-| |
-| │ │ ├── java/ |
-| |
-| │ │ │ └── com/example/MyClass.java |
-| |
-| │ ├── test/ |
-| |
-| │ │ ├── java/ |
-| |
-| │ │ │ └── com/example/MyClassTest.java |
-| |
-| \`\`\` |
-| |
-| 2\. **Python**: |
-| |
-| \- Framework: pytest, unittest |
-| |
-| \- Test Structure: Python tests can be placed alongside the source code or in a separate \`tests\` directory. Some projects use a \`test\_\*.py\` naming convention for test modules. |
-| |
-| \`\`\` |
-| |
-| project-root/ |
-| |
-| ├── my_module.py |
-| |
-| ├── test_my_module.py |
-| |
-| \`\`\` |
-| |
-| Or: |
-| |
-| \`\`\` |
-| |
-| project-root/ |
-| |
-| ├── src/ |
-| |
-| │ ├── my_module.py |
-| |
-| ├── tests/ |
-| |
-| │ ├── test_my_module.py |
-| |
-| \`\`\` |
-| |
-| 3\. **JavaScript**: |
-| |
-| \- Framework: Jest, Mocha, Jasmine |
-| |
-| \- Test Structure: For many JavaScript projects, especially those using Node.js, tests are often in a \`\_\_tests\_\_\` directory or alongside the source code with a \`.test.js\` or \`.spec.js\` suffix. |
-| |
-| \`\`\` |
-| |
-| project-root/ |
-| |
-| ├── src/ |
-| |
-| │ ├── myFunction.js |
-| |
-| │ ├── myFunction.test.js |
-| |
-| \`\`\` |
-| |
-| 4\. **C#**: |
-| |
-| \- Framework: MSTest, NUnit, xUnit |
-| |
-| \- Test Structure: C# tests are typically placed in a separate test project, which might be in the same solution. For example: |
-| |
-| \`\`\` |
-| |
-| solution-root/ |
-| |
-| ├── MyProject/ |
-| |
-| │ ├── MyClass.cs |
-| |
-| ├── MyProject.Tests/ |
-| |
-| │ ├── MyClassTests.cs |
-| |
-| \`\`\` |
-| |
-| 5\. **C/C++**: |
-| |
-| \- Framework: Google Test, Catch2 |
-| |
-| \- Test Structure: Tests in C++ are typically separated into their own files, which might be placed in a \`test\` or \`tests\` directory. |
-| |
-| \`\`\` |
-| |
-| project-root/ |
-| |
-| ├── src/ |
-| |
-| │ ├── my_function.cpp |
-| |
-| │ ├── my_function.h |
-| |
-| ├── tests/ |
-| |
-| │ ├── test_my_function.cpp |
-| |
-| \`\`\` |
-| |
-| It\'s worth noting that the structure of tests can vary depending on the project\'s conventions, the testing framework, or the developer\'s personal preferences. The examples provided are common conventions but are by no means strict rules. |
-+===========================================================================================================================================================================================================================================================================================================================================================================================+
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+- +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+  | The \"top 5 programming languages\" can vary depending on the context and metric being used, such as popularity, job demand, or performance. However, as of my last training cut-off in January 2022, the TIOBE Index, RedMonk Rankings, Stack Overflow Developer Survey, and other sources often listed languages like Java, Python, JavaScript, C#, and C (or C++) among the top ranks. |
+  | |
+  | Here\'s a brief overview of how testing is structured on disk for these languages: |
+  | |
+  | 1\. **Java**: |
+  | |
+  | \- Framework: JUnit (most popular) |
+  | |
+  | \- Test Structure: Java tests are typically placed in a separate \`test\` directory that mirrors the structure of the \`src\` directory. For example: |
+  | |
+  | \`\`\` |
+  | |
+  | project-root/ |
+  | |
+  | ├── src/ |
+  | |
+  | │ ├── main/ |
+  | |
+  | │ │ ├── java/ |
+  | |
+  | │ │ │ └── com/example/MyClass.java |
+  | |
+  | │ ├── test/ |
+  | |
+  | │ │ ├── java/ |
+  | |
+  | │ │ │ └── com/example/MyClassTest.java |
+  | |
+  | \`\`\` |
+  | |
+  | 2\. **Python**: |
+  | |
+  | \- Framework: pytest, unittest |
+  | |
+  | \- Test Structure: Python tests can be placed alongside the source code or in a separate \`tests\` directory. Some projects use a \`test\_\*.py\` naming convention for test modules. |
+  | |
+  | \`\`\` |
+  | |
+  | project-root/ |
+  | |
+  | ├── my_module.py |
+  | |
+  | ├── test_my_module.py |
+  | |
+  | \`\`\` |
+  | |
+  | Or: |
+  | |
+  | \`\`\` |
+  | |
+  | project-root/ |
+  | |
+  | ├── src/ |
+  | |
+  | │ ├── my_module.py |
+  | |
+  | ├── tests/ |
+  | |
+  | │ ├── test_my_module.py |
+  | |
+  | \`\`\` |
+  | |
+  | 3\. **JavaScript**: |
+  | |
+  | \- Framework: Jest, Mocha, Jasmine |
+  | |
+  | \- Test Structure: For many JavaScript projects, especially those using Node.js, tests are often in a \`\_\_tests\_\_\` directory or alongside the source code with a \`.test.js\` or \`.spec.js\` suffix. |
+  | |
+  | \`\`\` |
+  | |
+  | project-root/ |
+  | |
+  | ├── src/ |
+  | |
+  | │ ├── myFunction.js |
+  | |
+  | │ ├── myFunction.test.js |
+  | |
+  | \`\`\` |
+  | |
+  | 4\. **C#**: |
+  | |
+  | \- Framework: MSTest, NUnit, xUnit |
+  | |
+  | \- Test Structure: C# tests are typically placed in a separate test project, which might be in the same solution. For example: |
+  | |
+  | \`\`\` |
+  | |
+  | solution-root/ |
+  | |
+  | ├── MyProject/ |
+  | |
+  | │ ├── MyClass.cs |
+  | |
+  | ├── MyProject.Tests/ |
+  | |
+  | │ ├── MyClassTests.cs |
+  | |
+  | \`\`\` |
+  | |
+  | 5\. **C/C++**: |
+  | |
+  | \- Framework: Google Test, Catch2 |
+  | |
+  | \- Test Structure: Tests in C++ are typically separated into their own files, which might be placed in a \`test\` or \`tests\` directory. |
+  | |
+  | \`\`\` |
+  | |
+  | project-root/ |
+  | |
+  | ├── src/ |
+  | |
+  | │ ├── my_function.cpp |
+  | |
+  | │ ├── my_function.h |
+  | |
+  | ├── tests/ |
+  | |
+  | │ ├── test_my_function.cpp |
+  | |
+  | \`\`\` |
+  | |
+  | It\'s worth noting that the structure of tests can vary depending on the project\'s conventions, the testing framework, or the developer\'s personal preferences. The examples provided are common conventions but are by no means strict rules. |
+  +===========================================================================================================================================================================================================================================================================================================================================================================================+
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 -
 
@@ -887,9 +881,9 @@ C#, .NET Core, .NET Depends, usually dotnet test
 
 - How do you analyze and interpret test results to identify issues and prioritize fixes?
 
-  - ![](./images/media/image59.png){width="6.114583333333333in" height="2.84375in"}
+  - ![](./images/image59.png){width="6.114583333333333in" height="2.84375in"}
 
-  - ![](./images/media/image57.png){width="6.40625in" height="3.3125in"}
+  - ![](./images/image57.png){width="6.40625in" height="3.3125in"}
 
   - [[Publish Test Results · Actions · GitHub Marketplace]{.underline}](https://github.com/marketplace/actions/publish-test-results). Test results are sent to a global database where a report can run and you can view all of the results together.
 
@@ -1556,7 +1550,7 @@ C#, .NET Core, .NET Depends, usually dotnet test
 
 - One of the ways that people create a testing strategy is to reference the testing pyramid.
 
-- ![](./images/media/image2.png){width="3.1828477690288715in" height="1.705097331583552in"}
+- ![](./images/image2.png){width="3.1828477690288715in" height="1.705097331583552in"}
 
 - The testing pyramid is a guideline or suggestion on how to distribute the types of tests that you are writing. In this case, there should be fewer UI tests, and more unit tests in general. This is not a useful model, even if it is generic. This is because it enforces the technical solution before the business requirements. **Test where it makes sense.** **Do you need UI tests? Write them. Do you need unit tests? Write them.**
 
@@ -1580,7 +1574,7 @@ C#, .NET Core, .NET Depends, usually dotnet test
 
 - Code coverage and mutation testing can help "bleed" the edges of a graph or a point on a target to get higher coverage, but it is not a substitute for a good test strategy. This is because it only diversifies around its point but wide brush strokes can cover much more easily, although not as thoroughly. [[Coverage is not strongly correlated with test suite effectiveness \| Proceedings of the 36th International Conference on Software Engineering (acm.org)]{.underline}](https://dl.acm.org/doi/10.1145/2568225.2568271)
 
-- ![](./images/media/image43.png){width="6.5in" height="3.611111111111111in"}
+- ![](./images/image43.png){width="6.5in" height="3.611111111111111in"}
 
 - [[(1) A Practical Example for Using AI to Improve your UI and API Testing - YouTube]{.underline}](https://www.youtube.com/watch?v=68mEgr0vO64)
 
@@ -1760,49 +1754,47 @@ C#, .NET Core, .NET Depends, usually dotnet test
 
   - [[When Should You Rewrite or Retire a Test \| Software Test Automation (subject7.com)]{.underline}](https://www.subject7.com/when-should-you-rewrite-or-retire-a-test/)
 
--
-
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| The provided text discusses the importance, multifaceted nature, and benefits of software testing in depth. However, using the framework of the 5 W\'s (Who, What, When, Where, Why) and \"How,\" let\'s identify questions the text might not clearly address: |
-| |
-| 1\. **Who**: |
-| |
-| \- Who conducts these tests? Are they developers, QA professionals, or both? |
-| |
-| \- Who is responsible for setting up the testing environments? |
-| |
-| 2\. **What**: |
-| |
-| \- What types of testing methods are being discussed (unit, integration, system, acceptance)? |
-| |
-| \- What tools or frameworks are typically used for these tests? |
-| |
-| \- What are the common challenges faced during testing? |
-| |
-| 3\. **When**: |
-| |
-| \- When should each type of testing be conducted during the development process? |
-| |
-| \- When are tests updated or retired? |
-| |
-| 4\. **Where**: |
-| |
-| \- The text does mention \"local testing environment,\" but where else can these tests be executed? Production? Staging? |
-| |
-| \- Where are test results stored and reported? |
-| |
-| 5\. **Why**: |
-| |
-| \- The text does provide a lot of reasons for why testing is essential. However, why might some teams or organizations neglect or underestimate its importance? |
-| |
-| 6\. **How**: |
-| |
-| \- How are tests integrated into the development workflow? |
-| |
-| \- How are tests maintained over time, especially as software evolves? |
-| |
-| \- How can teams ensure that their testing approach remains relevant and effective? |
-| |
-| While the text provides a comprehensive understanding of the importance of testing, answering these additional questions would give readers a more holistic view of the software testing landscape. |
-+=================================================================================================================================================================================================================================================================+
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+- +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+  | The provided text discusses the importance, multifaceted nature, and benefits of software testing in depth. However, using the framework of the 5 W\'s (Who, What, When, Where, Why) and \"How,\" let\'s identify questions the text might not clearly address: |
+  | |
+  | 1\. **Who**: |
+  | |
+  | \- Who conducts these tests? Are they developers, QA professionals, or both? |
+  | |
+  | \- Who is responsible for setting up the testing environments? |
+  | |
+  | 2\. **What**: |
+  | |
+  | \- What types of testing methods are being discussed (unit, integration, system, acceptance)? |
+  | |
+  | \- What tools or frameworks are typically used for these tests? |
+  | |
+  | \- What are the common challenges faced during testing? |
+  | |
+  | 3\. **When**: |
+  | |
+  | \- When should each type of testing be conducted during the development process? |
+  | |
+  | \- When are tests updated or retired? |
+  | |
+  | 4\. **Where**: |
+  | |
+  | \- The text does mention \"local testing environment,\" but where else can these tests be executed? Production? Staging? |
+  | |
+  | \- Where are test results stored and reported? |
+  | |
+  | 5\. **Why**: |
+  | |
+  | \- The text does provide a lot of reasons for why testing is essential. However, why might some teams or organizations neglect or underestimate its importance? |
+  | |
+  | 6\. **How**: |
+  | |
+  | \- How are tests integrated into the development workflow? |
+  | |
+  | \- How are tests maintained over time, especially as software evolves? |
+  | |
+  | \- How can teams ensure that their testing approach remains relevant and effective? |
+  | |
+  | While the text provides a comprehensive understanding of the importance of testing, answering these additional questions would give readers a more holistic view of the software testing landscape. |
+  +=================================================================================================================================================================================================================================================================+
+  +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+

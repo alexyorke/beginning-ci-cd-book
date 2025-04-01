@@ -114,9 +114,7 @@ This guide provides strategies for storing, accessing, and managing secrets with
 
   - Potential for using the GitHub repository\'s identity for increased security.
 
--
-
-**General Recommendations:**
+- **General Recommendations:**
 
 - **Minimize Secret Scope:** Only expose secrets to the workflow steps that require them.
 
@@ -542,7 +540,7 @@ And this is a way where you can trigger a workflow based on a web hook. So for e
 +===================================================================================================================================================================================================================================================================================================+
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-![](./images/media/image89.png){width="4.4375in" height="5.947916666666667in"}
+![](./images/image89.png){width="4.4375in" height="5.947916666666667in"}
 
 ### Reporting, code coverage, etc. {#reporting-code-coverage-etc. .unnumbered}
 

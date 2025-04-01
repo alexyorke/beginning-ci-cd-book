@@ -39,19 +39,19 @@
 | |
 | \### Documentation |
 | |
-| \- \`**.md\`, \`\*.md\`, \`**/\*.md\`, \`**.adoc\`, \`**/\*.txt\`, \`\*.txt\`, \`**.rst\`, \`**/\*.rst\`, \`docs/**\`, \`doc/**\`, \`docs/\`, \`docs/\*\`, \`Docs/\*\`, \`documentation/**\`, \`README.md\`, \`README\*\`, \`README.\*\`, \`readme.md\`, \`CHANGELOG.md\`, \`changelog.txt\`, \`CONTRIBUTING.md\`, \`LICENSE.md\`, \`LEGAL\`, \`NOTICE\`, \`CODEOWNERS\`, \`Vision.md\`, \`ToUpgrade.md\`, \`ToTest.md\`, \`TestEnv.md\`, \`README.ko.md\`, \`HowToSetProject.md\`, \`HowToSetProject.ko.md\`, \`Example.md\`, \`CODE_OF_CONDUCT.md\`, \`**/\*.markdown\`, \`\*.rst\`, \`**/\*.rst\` |
+| \- `**.md`, `\*.md`, `**/\*.md`, `**.adoc`, `**/\*.txt`, `\*.txt`, `**.rst`, `**/\*.rst`, `docs/**`, `doc/**`, `docs/`, `docs/\*`, `Docs/\*`, `documentation/**`, `README.md`, `README\*`, `README.\*`, `readme.md`, `CHANGELOG.md`, `changelog.txt`, `CONTRIBUTING.md`, `LICENSE.md`, `LEGAL`, `NOTICE`, `CODEOWNERS`, `Vision.md`, `ToUpgrade.md`, `ToTest.md`, `TestEnv.md`, `README.ko.md`, `HowToSetProject.md`, `HowToSetProject.ko.md`, `Example.md`, `CODE_OF_CONDUCT.md`, `**/\*.markdown`, `\*.rst`, `**/\*.rst` |
 | |
 | \### Project Configuration and Setup |
 | |
-| \- \`.gitignore\`, \`.gitattributes\`, \`.editorconfig\`, \`.travis.yml\`, \`.all-contributorsrc\`, \`.vscode/**\`, \`.github/**\`, \`.github/ISSUE_TEMPLATE/**\`, \`.github/workflows/**\`, \`.gitmodules\`, \`.gitlab-ci.yml\`, \`.dependabot/**\`, \`.cirrus.yml\`, \`.dockerignore\`, \`.circleci/**\`, \`.codecov.yml\`, \`.clang-format\`, \`.yamllint\`, \`.vscode\`, \`.spellcheck.dict.txt\`, \`.devcontainer\`, \`.ansible-lint\`, \`.prettierrc\`, \`.prettierignore\`, \`.lintstagedrc.js\`, \`config/**\`, \`package.json\`, \`appveyor.yml\`, \`Dockerfile\`, \`docker-compose.yml\`, \`docker/**\`, \`data/**\`, \`site/**\`, \`examples/**\`, \`build/**\`, \`snap/**\`, \`scripts/**\`, \`**/.gitignore\`, \`**/\*.yml\`, \`\*.yml\`, \`**.yml\`, \`\*.sh\`, \`**/\*.sh\`, \`**.nix\`, \`**.txt\`, \`**/\*.txt\`, \`Makefile\`, \`**.png\`, \`**/\*.png\`, \`\*.png\`, \`\*.html\`, \`\*.bat\`, \`\*.ini\`, \`**/\*.org\`, \`**.org\`, \`lombok.config\`, \`requirements.txt\`, \`Brewfile\`, \`**/argoDeploy.json\`, \`**/\*.rst\`, \`**.rst\` |
+| \- `.gitignore`, `.gitattributes`, `.editorconfig`, `.travis.yml`, `.all-contributorsrc`, `.vscode/**`, `.github/**`, `.github/ISSUE_TEMPLATE/**`, `.github/workflows/**`, `.gitmodules`, `.gitlab-ci.yml`, `.dependabot/**`, `.cirrus.yml`, `.dockerignore`, `.circleci/**`, `.codecov.yml`, `.clang-format`, `.yamllint`, `.vscode`, `.spellcheck.dict.txt`, `.devcontainer`, `.ansible-lint`, `.prettierrc`, `.prettierignore`, `.lintstagedrc.js`, `config/**`, `package.json`, `appveyor.yml`, `Dockerfile`, `docker-compose.yml`, `docker/**`, `data/**`, `site/**`, `examples/**`, `build/**`, `snap/**`, `scripts/**`, `**/.gitignore`, `**/\*.yml`, `\*.yml`, `**.yml`, `\*.sh`, `**/\*.sh`, `**.nix`, `**.txt`, `**/\*.txt`, `Makefile`, `**.png`, `**/\*.png`, `\*.png`, `\*.html`, `\*.bat`, `\*.ini`, `**/\*.org`, `**.org`, `lombok.config`, `requirements.txt`, `Brewfile`, `**/argoDeploy.json`, `**/\*.rst`, `**.rst` |
 | |
 | \### License and Legal |
 | |
-| \- \`LICENSE\`, \`LICENCE\`, \`LICENSE.txt\`, \`**/LICENSE\` |
+| \- `LICENSE`, `LICENCE`, `LICENSE.txt`, `**/LICENSE` |
 | |
 | \### Continuous Integration and Continuous Deployment (CI/CD) |
 | |
-| \- \`.github/workflows/macos.yml\`, \`.github/workflows/TagBot.yml\`, \`.github/workflows/pages.yml\`, \`.github/labels.yml\`, \`.github/workflows/test.yml\`, \`.github/workflows/windows.yml\`, \`.github/workflows/dockerhub-description.yml\`, \`.github/CONTRIBUTING.md\`, \`.github/dependabot.yml\`, \`.github/CODEOWNERS\`, \`.github/ISSUE_TEMPLATE/\*\`, \`.github/ISSUE_TEMPLATE\`, \`.github/renovate.json\`, \`.github/\*.yml\`, \`.github/\*\`, \`.github/workflows/generate.yml\`, \`.github/workflows/verify-pages.yml\`, \`.github/workflows/no-response.yml\`, \`.github/workflows/labels.yml\`, \`.github/workflows/ubuntu.yml\`, \`.github/workflows/release.yml\`, \`.github/workflows/buildx-release.yml\`, \`.github/workflows/buildx-latest.yml\`, \`.github/release.yml\`, \`.github/FUNDING.yml\`, \`.github/workflows/mingw-w64.yml\`, \`.github/workflows/docker.yml\`, \`./github/**\`, \`!./github/workflow/test.yml\`, \`!**/\*.yml\`, \`!**/\*.sh\`, \`!**/\*.png\`, \`!**/\*.html\`, \`!**/\*.bat\`, \`!**/\*.ini\`, \`!**/\*.org\`, \`!\*\*/\*.rst\`, \`ci/subst-release-info.py\`, \`ci/generate-docs.py\`, \`ci/build-docs.sh\` |
+| \- `.github/workflows/macos.yml`, `.github/workflows/TagBot.yml`, `.github/workflows/pages.yml`, `.github/labels.yml`, `.github/workflows/test.yml`, `.github/workflows/windows.yml`, `.github/workflows/dockerhub-description.yml`, `.github/CONTRIBUTING.md`, `.github/dependabot.yml`, `.github/CODEOWNERS`, `.github/ISSUE_TEMPLATE/\*`, `.github/ISSUE_TEMPLATE`, `.github/renovate.json`, `.github/\*.yml`, `.github/\*`, `.github/workflows/generate.yml`, `.github/workflows/verify-pages.yml`, `.github/workflows/no-response.yml`, `.github/workflows/labels.yml`, `.github/workflows/ubuntu.yml`, `.github/workflows/release.yml`, `.github/workflows/buildx-release.yml`, `.github/workflows/buildx-latest.yml`, `.github/release.yml`, `.github/FUNDING.yml`, `.github/workflows/mingw-w64.yml`, `.github/workflows/docker.yml`, `./github/**`, `!./github/workflow/test.yml`, `!**/\*.yml`, `!**/\*.sh`, `!**/\*.png`, `!**/\*.html`, `!**/\*.bat`, `!**/\*.ini`, `!**/\*.org`, `!\*\*/\*.rst`, `ci/subst-release-info.py`, `ci/generate-docs.py`, `ci/build-docs.sh` |
 +=====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
@@ -81,7 +81,7 @@ Sharing information between steps and jobs in a CI/CD pipeline is crucial for ma
 
 1\. **Unique Step Identification**: Ensure each step that generates outputs has a unique \"id\" so its outputs can be specifically referenced.
 
-2\. **Passing Data**: Data is passed to the next step by writing to a temporary file located at \`\$GITHUB_OUTPUT\`. This file is then re-sourced at the start of each subsequent step, injecting the exported environment variables into the step.
+2\. **Passing Data**: Data is passed to the next step by writing to a temporary file located at `\$GITHUB_OUTPUT`. This file is then re-sourced at the start of each subsequent step, injecting the exported environment variables into the step.
 
 3\. **Environment Variables Integration**: By exporting the required outputs into environment variables, each subsequent step can access these values seamlessly.
 
@@ -999,7 +999,7 @@ Deploying your application successfully doesn\'t always guarantee it\'s function
 
 - In scenarios where additional software or specific versions are required, installation can be managed through several methods:
 
-  - 1\. **Official Repositories:** Use commands like \`sudo apt-get install \<package\>\` to install software directly from Ubuntu\'s repositories. For specific versions, specify the version, e.g., \`sudo apt-get install nodejs=16\`. The advantage of this approach is that it allows for more people to review it and allows packages to remove quickly if there\'s malicious code, because it\'s part of a repository that\'s controlled by a very large community. Disadvantage however is if you need a more recent version then you may have to get it through alternative manners. This is because the Ubuntu repositories usually keep packages for a long time to maintain stability.
+  - 1\. **Official Repositories:** Use commands like `sudo apt-get install \<package\>` to install software directly from Ubuntu\'s repositories. For specific versions, specify the version, e.g., `sudo apt-get install nodejs=16`. The advantage of this approach is that it allows for more people to review it and allows packages to remove quickly if there\'s malicious code, because it\'s part of a repository that\'s controlled by a very large community. Disadvantage however is if you need a more recent version then you may have to get it through alternative manners. This is because the Ubuntu repositories usually keep packages for a long time to maintain stability.
 
   - 2\. **Bash\|Curl Scripts:** Software can be installed via bash scripts executed with curl. However, this method poses risks such as unverified script integrity and potential partial execution, leading to unpredictable system states.This also can potentially compromise the reproducibility of your build, because it is unclear if the package maintainer will keep the scripts the same or may make modifications to it, or the script may become unavailable.In contrast with using the official repositories, the official repositories are dependent upon by many people and so the packages usually remain in the old versions for quite some time.Even back to the Ubuntu versions from 5 or 10 years ago. Unfortunately, some of the scripts may not be written with integrity in mind.It is possible for a.Script to be partially downloaded or potentially redirect to a malicious website and the script might or the server might time out halfway through the requests. This means that the script will be sent or potentially successful.Status code, but the script will not be executed in its entirety because it will be cut off.This is frequently remedied using legitimate software repositories that normally back the script in a function to make sure that partial execution is not possible.
 
@@ -1055,63 +1055,59 @@ To create and publish a new NPM package to GitHub Artifacts (assuming you want t
 
 1\. **Create a New Directory for Your Project:**
 
-\`\`\`bash
+```bash
 
 mkdir my-npm-package
 
 cd my-npm-package
 
-\`\`\`
+```
 
 2\. **Initialize a New NPM Package:**
 
-Initialize your project with \`npm init\`. This command will prompt you to enter several pieces of information (like the package name, version, description, etc.), or you can use \`npm init -y\` to accept default values.
+Initialize your project with `npm init`. This command will prompt you to enter several pieces of information (like the package name, version, description, etc.), or you can use `npm init -y` to accept default values.
 
-\`\`\`bash
+```bash
 
 npm init -y
 
-\`\`\`
+```
 
 3\. **Create Your Package:**
 
-Write the code for your package. Create a new file (e.g., \`index.js\`) and add your code logic:
+Write the code for your package. Create a new file (e.g., `index.js`) and add your code logic:
 
-\`\`\`javascript
-
+```javascript
 // Example function in index.js
 
 function greet(name) {
-
-return \`Hello, \${name}!\`;
-
+  return `Hello, \${name}!`;
 }
 
 module.exports = greet;
-
-\`\`\`
+```
 
 \### Step 2: Configure GitHub Packages
 
 1\. **Authenticate to GitHub Packages:**
 
-You need to authenticate with GitHub Packages to publish your package. Create a \`.npmrc\` file in your project root:
+You need to authenticate with GitHub Packages to publish your package. Create a `.npmrc` file in your project root:
 
-\`\`\`
+```
 
 //npm.pkg.github.com/:\_authToken=TOKEN
 
 \@YOUR-USERNAME:registry=https://npm.pkg.github.com
 
-\`\`\`
+```
 
-Replace \`TOKEN\` with your personal access token (PAT) from GitHub (make sure it has the appropriate scopes for package publication), and \`YOUR-USERNAME\` with your GitHub username.
+Replace `TOKEN` with your personal access token (PAT) from GitHub (make sure it has the appropriate scopes for package publication), and `YOUR-USERNAME` with your GitHub username.
 
-2\. **Update \`package.json\`:**
+2\. **Update `package.json`:**
 
-Add a \`publishConfig\` section to your \`package.json\` to specify the GitHub Packages registry:
+Add a `publishConfig` section to your `package.json` to specify the GitHub Packages registry:
 
-\`\`\`json
+```json
 
 \"publishConfig\": {
 
@@ -1123,9 +1119,9 @@ Add a \`publishConfig\` section to your \`package.json\` to specify the GitHub P
 
 \"version\": \"1.0.0\"
 
-\`\`\`
+```
 
-Replace \`YOUR-USERNAME\` with your GitHub username.
+Replace `YOUR-USERNAME` with your GitHub username.
 
 \### Step 3: Publish Your Package
 
@@ -1133,11 +1129,11 @@ Replace \`YOUR-USERNAME\` with your GitHub username.
 
 Ensure you are logged into NPM configured to use your GitHub token, then publish your package:
 
-\`\`\`bash
+```bash
 
 npm publish
 
-\`\`\`
+```
 
 2\. **Verify Publication:**
 
@@ -1145,60 +1141,60 @@ Check your GitHub repository under the \'Packages\' section to see your newly pu
 
 \### Step 4: Update and Publish New Versions
 
-To publish new versions of your package, you will make changes, update the version in your \`package.json\`, and then run \`npm publish\` again. Here's how to create three versions:
+To publish new versions of your package, you will make changes, update the version in your `package.json`, and then run `npm publish` again. Here's how to create three versions:
 
 1\. **Version 1.1.0 (Minor Update):**
 
-Make some changes to your code. Then update the version in \`package.json\`:
+Make some changes to your code. Then update the version in `package.json`:
 
-\`\`\`json
+```json
 
 \"version\": \"1.1.0\"
 
-\`\`\`
+```
 
 Publish the updated version:
 
-\`\`\`bash
+```bash
 
 npm publish
 
-\`\`\`
+```
 
 2\. **Version 1.1.1 (Patch Update):**
 
 Make minor changes or fixes. Update the version:
 
-\`\`\`json
+```json
 
 \"version\": \"1.1.1\"
 
-\`\`\`
+```
 
 Publish the patch:
 
-\`\`\`bash
+```bash
 
 npm publish
 
-\`\`\`
+```
 
 3\. **Version 2.0.0 (Major Update):**
 
 Make significant changes that might break backward compatibility. Update the version:
 
-\`\`\`json
+```json
 
 \"version\": \"2.0.0\"
 
-\`\`\`
+```
 
 Publish the new major version:
 
-\`\`\`bash
+```bash
 
 npm publish
 
-\`\`\`
+```
 
 How do I consume this package on GitHub on my developer's machines? They would also need to create their .npmrc file (not committed to Git) with the aforementioned content. You may not want to give all developers package publish permissions.

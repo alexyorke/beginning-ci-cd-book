@@ -259,7 +259,7 @@ By structuring work effectively, you can ensure a smooth CI/CD process while mai
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | In software development, features should be modular and loosely coupled to allow for flexibility and independent scaling or modification. When features are unnecessarily tied together, changes to one feature can inadvertently affect the other, making it difficult to implement feature flags or make isolated changes. Below is an example of Java code that demonstrates two features that are unnecessarily intertwined: |
 | |
-| \`\`\`java |
+| `java |
 | |
 | public class PaymentProcessor { |
 | |
@@ -325,13 +325,13 @@ By structuring work effectively, you can ensure a smooth CI/CD process while mai
 | |
 | } |
 | |
-| \`\`\` |
+| ` |
 | |
-| In this example, the \`processPaymentAndGenerateReceipt\` method ties together the payment processing logic and receipt generation, including sending the receipt via email. These features should be separate to allow for changes such as modifying the receipt format or payment processing logic independently. |
+| In this example, the `processPaymentAndGenerateReceipt` method ties together the payment processing logic and receipt generation, including sending the receipt via email. These features should be separate to allow for changes such as modifying the receipt format or payment processing logic independently. |
 | |
 | Here\'s how you might refactor this to decouple the features and make it easier to put behind feature flags: |
 | |
-| \`\`\`java |
+| `java |
 | |
 | public class PaymentProcessor { |
 | |
@@ -417,7 +417,7 @@ By structuring work effectively, you can ensure a smooth CI/CD process while mai
 | |
 | } |
 | |
-| \`\`\` |
+| ` |
 | |
 | By decoupling the payment processing from the receipt generation and email sending, we can now easily add a feature flag for sending receipts via email without affecting the payment processing logic. Each component can be developed, tested, and changed independently, allowing for more flexible development and deployment workflows. |
 +==================================================================================================================================================================================================================================================================================================================================================================================================================================+
@@ -827,7 +827,7 @@ Build Status: Build status is an indicator of whether a build or integration pro
 
 - Error handling is very different in GHA than it is in other programming languages. If a step fails, it means that the other steps still have the eligibility to run, but by default, do not run should there be a failure in one of the previous steps. This is very different from other programming languages, where an exception or error (if unhandled) would terminate the program.
 
-- In GitHub Actions workflows, every step implicitly carries a default \"if\" condition, which is \`success()\`. This condition means a step will only execute if **all** preceding steps in the job do not have a status of "failed" and do not have a status of "cancelled", otherwise, it will be marked as skipped and will not run. If a step fails, subsequent steps in the job, by default, will not run due to this implicit \`success()\` condition, although they are eligible to do so (we will see this later on.) Essentially, a failed step acts like a \'poison waterfall\', preventing the execution of the following steps, unless they explicitly define a different \"if\" condition to override this default behavior.
+- In GitHub Actions workflows, every step implicitly carries a default \"if\" condition, which is `success()`. This condition means a step will only execute if **all** preceding steps in the job do not have a status of "failed" and do not have a status of "cancelled", otherwise, it will be marked as skipped and will not run. If a step fails, subsequent steps in the job, by default, will not run due to this implicit `success()` condition, although they are eligible to do so (we will see this later on.) Essentially, a failed step acts like a \'poison waterfall\', preventing the execution of the following steps, unless they explicitly define a different \"if\" condition to override this default behavior.
 
 - The benefits of using control flow (instead of relegating it to the script) is that if the step is skipped or canceled, it will show up as so on the UI. If you try to skip the step by wrapping your script in a huge "if" statement in the script block, then technically, your script did run, just not for very long (and so it might not be clear it was skipped.) This can be helpful for debugging.
 
@@ -1018,9 +1018,9 @@ Build Status: Build status is an indicator of whether a build or integration pro
 - timeout-minutes: X useful if you want to consider the fact that a step took more than X minutes and didn't complete to be a failure (and thus fail the step), initiating the poison waterfall. Otherwise, you may want to use the "timeout" command which has a different behavior where you can run other items in the step, add the timeout per command, etc.
 
 - +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-  | The snippets provided show the \`continue-on-error\` flag used in various GitHub Actions workflows. This flag, when set to \`true\`, allows the workflow to continue executing subsequent steps even if the current step fails. |
+  | The snippets provided show the `continue-on-error` flag used in various GitHub Actions workflows. This flag, when set to `true`, allows the workflow to continue executing subsequent steps even if the current step fails. |
   | |
-  | Grouping the usage of \`continue-on-error\` by theme, here are some common scenarios where this flag is used, along with their approximate frequency based on the provided snippets: |
+  | Grouping the usage of `continue-on-error` by theme, here are some common scenarios where this flag is used, along with their approximate frequency based on the provided snippets: |
   | |
   | 1\. **Testing and Linting Workflows** (High frequency) |
   | |
@@ -1064,69 +1064,69 @@ Build Status: Build status is an indicator of whether a build or integration pro
   | |
   | \- Rationale: Such tasks are often supplementary and do not necessarily determine the success or failure of the core workflow. |
   | |
-  | The frequencies mentioned are approximate and determined based on the occurrence of \`continue-on-error\` in the provided snippets. In practice, the actual frequency may vary depending on the project, repository, and the specific workflows being used. |
+  | The frequencies mentioned are approximate and determined based on the occurrence of `continue-on-error` in the provided snippets. In practice, the actual frequency may vary depending on the project, repository, and the specific workflows being used. |
   +=============================================================================================================================================================================================================================================================+
   +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 - +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-  | Using \`success() \|\| failure()\` instead of \`always()\` in GitHub Actions might seem redundant since they essentially do the same thing --- ensure that a step is executed no matter the outcome of the previous steps. However, there are a few reasons why someone might choose to use \`success() \|\| failure()\`: |
+  | Using `success() \|\| failure()` instead of `always()` in GitHub Actions might seem redundant since they essentially do the same thing --- ensure that a step is executed no matter the outcome of the previous steps. However, there are a few reasons why someone might choose to use `success() \|\| failure()`: |
   | |
-  | 1\. **Explicit Intent**: By using \`success() \|\| failure()\`, the author of the workflow is being very explicit about the conditions under which the step should run. It clearly states that the step should run if the previous step was either a success or a failure, which is a bit more descriptive than \`always()\`, even if the effect is the same. |
+  | 1\. **Explicit Intent**: By using `success() \|\| failure()`, the author of the workflow is being very explicit about the conditions under which the step should run. It clearly states that the step should run if the previous step was either a success or a failure, which is a bit more descriptive than `always()`, even if the effect is the same. |
   | |
-  | 2\. **Historical Reasons**: Before the \`always()\` condition was introduced, users would have to use \`success() \|\| failure()\` to achieve the same effect. Some workflows may still use this older style either because they were created before \`always()\` was available or because they were copied from older examples. |
+  | 2\. **Historical Reasons**: Before the `always()` condition was introduced, users would have to use `success() \|\| failure()` to achieve the same effect. Some workflows may still use this older style either because they were created before `always()` was available or because they were copied from older examples. |
   | |
-  | 3\. **Readability and Preference**: Some users may prefer \`success() \|\| failure()\` for readability or due to personal coding preferences. What seems clearer or more intuitive can vary from person to person. |
+  | 3\. **Readability and Preference**: Some users may prefer `success() \|\| failure()` for readability or due to personal coding preferences. What seems clearer or more intuitive can vary from person to person. |
   | |
   | 4\. **Habit**: Users who are accustomed to writing conditional logic in programming may default to using logical operators out of habit. |
   | |
-  | 5\. **Template or Generated Code**: In some cases, the code for GitHub Actions could be templated or generated by tools that use \`success() \|\| failure()\` as their default way of ensuring a step always runs. |
+  | 5\. **Template or Generated Code**: In some cases, the code for GitHub Actions could be templated or generated by tools that use `success() \|\| failure()` as their default way of ensuring a step always runs. |
   | |
-  | 6\. **Lack of Knowledge**: Some users might not be aware of the \`always()\` condition, especially if they learned GitHub Actions by looking at other people\'s workflows that used the \`success() \|\| failure()\` syntax. |
+  | 6\. **Lack of Knowledge**: Some users might not be aware of the `always()` condition, especially if they learned GitHub Actions by looking at other people\'s workflows that used the `success() \|\| failure()` syntax. |
   | |
-  | It\'s important to note that while \`success() \|\| failure()\` will always evaluate to the same as \`always()\`, there is a subtle difference in a condition that GitHub Actions evaluates: \`cancelled()\`. If a job is cancelled, \`success()\` and \`failure()\` will not be true. In such a case, \`always()\` will still run, but \`success() \|\| failure()\` would not. So, if someone explicitly includes \`success() \|\| failure()\` without \`cancelled()\`, they may intend to skip execution on cancellation, though this is a very nuanced and less common scenario. |
+  | It\'s important to note that while `success() \|\| failure()` will always evaluate to the same as `always()`, there is a subtle difference in a condition that GitHub Actions evaluates: `cancelled()`. If a job is cancelled, `success()` and `failure()` will not be true. In such a case, `always()` will still run, but `success() \|\| failure()` would not. So, if someone explicitly includes `success() \|\| failure()` without `cancelled()`, they may intend to skip execution on cancellation, though this is a very nuanced and less common scenario. |
   +=====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
   +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 - +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
   | GitHub Actions\' conditional syntax allows for a variety of expressions that can sometimes seem unintuitive at first glance. Here are some examples of conditionals that might appear \"weird\" or less obvious to beginners: |
   | |
-  | 1\. \`if: success() && !cancelled()\` |
+  | 1\. `if: success() && !cancelled()` |
   | |
   | \- This condition means the step will run only if the previous steps were successful and the run was not cancelled. This might be used when you want to perform some actions when the job is successful but don\'t want those actions to run if the job was cancelled mid-run. |
   | |
-  | 2\. \`if: failure() && !always()\` |
+  | 2\. `if: failure() && !always()` |
   | |
-  | \- This might seem redundant because \`always()\` is meant to run irrespective of the outcome, so combining it with \`failure()\` using a negation doesn\'t change the behavior. It\'s not a meaningful condition and likely represents a misunderstanding. |
+  | \- This might seem redundant because `always()` is meant to run irrespective of the outcome, so combining it with `failure()` using a negation doesn\'t change the behavior. It\'s not a meaningful condition and likely represents a misunderstanding. |
   | |
-  | 3\. \`if: github.event_name == \'push\' && github.ref == \'refs/heads/main\'\` |
+  | 3\. `if: github.event_name == \'push\' && github.ref == \'refs/heads/main\'` |
   | |
   | \- This checks if the event that triggered the workflow was a push to the main branch. While not weird, it is specific and might not be immediately clear to those unfamiliar with GitHub\'s event and ref system. |
   | |
-  | 4\. \`if: contains(github.ref, \'refs/tags/\')\` |
+  | 4\. `if: contains(github.ref, \'refs/tags/\')` |
   | |
   | \- This runs the step only if the current ref is a tag. It\'s a way to trigger actions for tag events specifically. |
   | |
-  | 5\. \`if: startsWith(github.ref, \'refs/heads/feature/\')\` |
+  | 5\. `if: startsWith(github.ref, \'refs/heads/feature/\')` |
   | |
-  | \- This condition is used to run steps only for branches that start with \`feature/\`, which is a common pattern for feature branch workflows. |
+  | \- This condition is used to run steps only for branches that start with `feature/`, which is a common pattern for feature branch workflows. |
   | |
-  | 6\. \`if: github.actor == \'octocat\'\` |
+  | 6\. `if: github.actor == \'octocat\'` |
   | |
-  | \- The step will only run if the actor (the person or app that initiated the workflow) is \`octocat\`. |
+  | \- The step will only run if the actor (the person or app that initiated the workflow) is `octocat`. |
   | |
-  | 7\. \`if: github.event.pull_request.head.repo.fork == true\` |
+  | 7\. `if: github.event.pull_request.head.repo.fork == true` |
   | |
   | \- This is a condition that would only be true for pull request events coming from a forked repository. |
   | |
-  | 8\. \`if: toJson(github.event.client_payload)\` |
+  | 8\. `if: toJson(github.event.client_payload)` |
   | |
-  | \- This will attempt to serialize the \`client_payload\` object of a \`repository_dispatch\` event to JSON. It might be used to ensure there is a \`client_payload\` before proceeding. |
+  | \- This will attempt to serialize the `client_payload` object of a `repository_dispatch` event to JSON. It might be used to ensure there is a `client_payload` before proceeding. |
   | |
-  | 9\. \`if: \${{ env.MY_ENV_VAR }} == \'true\'\` |
+  | 9\. `if: \${{ env.MY_ENV_VAR }} == \'true\'` |
   | |
-  | \- This checks an environment variable\'s value directly in the \`if\` condition, which might seem strange but is useful for dynamic conditions based on environment variables. |
+  | \- This checks an environment variable\'s value directly in the `if` condition, which might seem strange but is useful for dynamic conditions based on environment variables. |
   | |
-  | These conditions allow for granular control over when steps run, which is powerful but can be complex. The use of GitHub\'s \`github\` context and functions like \`contains()\`, \`startsWith()\`, and \`toJson()\` provide robust tools for creating precise workflow behaviors. Understanding how these pieces fit together takes some time and experimentation, especially for those who are new to GitHub Actions. |
+  | These conditions allow for granular control over when steps run, which is powerful but can be complex. The use of GitHub\'s `github` context and functions like `contains()`, `startsWith()`, and `toJson()` provide robust tools for creating precise workflow behaviors. Understanding how these pieces fit together takes some time and experimentation, especially for those who are new to GitHub Actions. |
   +=========================================================================================================================================================================================================================================================================================================================================================================================================================+
   +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
@@ -1189,42 +1189,42 @@ Build Status: Build status is an indicator of whether a build or integration pro
 
 - If you don't care about the data, then you can skip that and instead just follow the instructions below.
 
-- In GitHub Actions, you can set up multiple jobs that depend on each other using the \`needs\` keyword. This allows you to create a workflow where \"Job B\" and \"Job C\" only start after \"Job A\" has completed successfully. To share information between these jobs, you can use artifacts or output parameters.
+- In GitHub Actions, you can set up multiple jobs that depend on each other using the `needs` keyword. This allows you to create a workflow where \"Job B\" and \"Job C\" only start after \"Job A\" has completed successfully. To share information between these jobs, you can use artifacts or output parameters.
 
 - +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
   | \### Setting up Dependent Jobs |
   | |
   | Here\'s a basic structure to define these dependencies: |
   | |
-  | \`\`\`yaml |
+  | `yaml |
+| |
+| jobs: |
+| |
+| job_A: |
+| |
+| runs-on: ubuntu-latest |
+| |
+| \# Steps for Job A\... |
+| |
+| job_B: |
+| |
+| needs: job_A |
+| |
+| runs-on: ubuntu-latest |
+| |
+| \# Steps for Job B\... |
+| |
+| job_C: |
+| |
+| needs: job_A |
+| |
+| runs-on: ubuntu-latest |
+| |
+| \# Steps for Job C\... |
+| |
+| ` |
   | |
-  | jobs: |
-  | |
-  | job_A: |
-  | |
-  | runs-on: ubuntu-latest |
-  | |
-  | \# Steps for Job A\... |
-  | |
-  | job_B: |
-  | |
-  | needs: job_A |
-  | |
-  | runs-on: ubuntu-latest |
-  | |
-  | \# Steps for Job B\... |
-  | |
-  | job_C: |
-  | |
-  | needs: job_A |
-  | |
-  | runs-on: ubuntu-latest |
-  | |
-  | \# Steps for Job C\... |
-  | |
-  | \`\`\` |
-  | |
-  | In this setup, both \"Job B\" and \"Job C\" have a \`needs\` attribute that points to \"Job A\", meaning they will wait for \"Job A\" to complete before starting. |
+  | In this setup, both \"Job B\" and \"Job C\" have a `needs` attribute that points to \"Job A\", meaning they will wait for \"Job A\" to complete before starting. |
   | |
   | \### Sharing Information Between Jobs |
   | |
@@ -1234,87 +1234,87 @@ Build Status: Build status is an indicator of whether a build or integration pro
   | |
   | \- **Uploading Artifacts in Job A**: |
   | |
-  | \`\`\`yaml |
-  | |
-  | steps: |
-  | |
-  | \- name: Some steps |
-  | |
-  | run: \# Your commands |
-  | |
-  | \- name: Upload artifact |
-  | |
-  | uses: actions/upload-artifact@v2 |
-  | |
-  | with: |
-  | |
-  | name: my-artifact |
-  | |
-  | path: path/to/your/artifact |
-  | |
-  | \`\`\` |
+  | `yaml |
+| |
+| steps: |
+| |
+| \- name: Some steps |
+| |
+| run: \# Your commands |
+| |
+| \- name: Upload artifact |
+| |
+| uses: actions/upload-artifact@v2 |
+| |
+| with: |
+| |
+| name: my-artifact |
+| |
+| path: path/to/your/artifact |
+| |
+| ` |
   | |
   | \- **Downloading Artifacts in Job B or C**: |
   | |
-  | \`\`\`yaml |
-  | |
-  | steps: |
-  | |
-  | \- name: Download artifact |
-  | |
-  | uses: actions/download-artifact@v2 |
-  | |
-  | with: |
-  | |
-  | name: my-artifact |
-  | |
-  | \- name: Other steps |
-  | |
-  | run: \# Your commands |
-  | |
-  | \`\`\` |
+  | `yaml |
+| |
+| steps: |
+| |
+| \- name: Download artifact |
+| |
+| uses: actions/download-artifact@v2 |
+| |
+| with: |
+| |
+| name: my-artifact |
+| |
+| \- name: Other steps |
+| |
+| run: \# Your commands |
+| |
+| ` |
   | |
   | 2\. **Job Outputs**: You can pass outputs from one job to another. This is useful for passing small pieces of data like flags, version numbers, etc. |
   | |
   | \- **Defining Outputs in Job A**: |
   | |
-  | \`\`\`yaml |
-  | |
-  | jobs: |
-  | |
-  | job_A: |
-  | |
-  | runs-on: ubuntu-latest |
-  | |
-  | outputs: |
-  | |
-  | myOutput: \${{ steps.my_step.outputs.my_output }} |
-  | |
-  | steps: |
-  | |
-  | \- id: my_step |
-  | |
-  | run: echo \"::set-output name=my_output::\$(echo \'some data\')\" |
-  | |
-  | \`\`\` |
+  | `yaml |
+| |
+| jobs: |
+| |
+| job_A: |
+| |
+| runs-on: ubuntu-latest |
+| |
+| outputs: |
+| |
+| myOutput: \${{ steps.my_step.outputs.my_output }} |
+| |
+| steps: |
+| |
+| \- id: my_step |
+| |
+| run: echo \"::set-output name=my_output::\$(echo \'some data\')\" |
+| |
+| ` |
   | |
   | \- **Using Outputs in Job B or C**: |
   | |
-  | \`\`\`yaml |
-  | |
-  | jobs: |
-  | |
-  | job_B: |
-  | |
-  | needs: job_A |
-  | |
-  | runs-on: ubuntu-latest |
-  | |
-  | steps: |
-  | |
-  | \- run: echo \"Received \${{ needs.job_A.outputs.myOutput }}\" |
-  | |
-  | \`\`\` |
+  | `yaml |
+| |
+| jobs: |
+| |
+| job_B: |
+| |
+| needs: job_A |
+| |
+| runs-on: ubuntu-latest |
+| |
+| steps: |
+| |
+| \- run: echo \"Received \${{ needs.job_A.outputs.myOutput }}\" |
+| |
+| ` |
   +==================================================================================================================================================================================================+
   +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
@@ -1447,11 +1447,11 @@ Build Status: Build status is an indicator of whether a build or integration pro
 | |
 | **Synchronization (all must complete but may have failed or were successful)** |
 | |
-| To configure a GitHub Actions workflow where \`final_job\` runs unconditionally but doesn\'t run if \`job_2\` fails, you can use the \`if\` conditional with the \`success()\` or \`failure()\` functions in combination with the \`needs\` keyword. This setup allows you to specify that \`final_job\` should only run if certain conditions are met regarding the success or failure of other jobs. |
+| To configure a GitHub Actions workflow where `final_job` runs unconditionally but doesn\'t run if `job_2` fails, you can use the `if` conditional with the `success()` or `failure()` functions in combination with the `needs` keyword. This setup allows you to specify that `final_job` should only run if certain conditions are met regarding the success or failure of other jobs. |
 | |
 | Here\'s an example of how you might set up your workflow: |
 | |
-| \`\`\`yaml |
+| `yaml |
 | |
 | jobs: |
 | |
@@ -1483,17 +1483,17 @@ Build Status: Build status is an indicator of whether a build or integration pro
 | |
 | \# Steps for the final job |
 | |
-| \`\`\` |
+| ` |
 | |
 | In this configuration: |
 | |
-| \- \`job_1\`, \`job_2\`, \..., \`job_n\` are your initial jobs. |
+| \- `job_1`, `job_2`, \..., `job_n` are your initial jobs. |
 | |
-| \- \`final_job\` needs all the jobs (\`job_1\`, \`job_2\`, \`job_n\`) to determine their completion status but only runs under certain conditions. |
+| \- `final_job` needs all the jobs (`job_1`, `job_2`, `job_n`) to determine their completion status but only runs under certain conditions. |
 | |
-| \- The \`if\` condition for \`final_job\` uses a combination of \`always()\` and \`success(\'job_2\')\`. The \`always()\` function ensures that \`final_job\` considers running regardless of the success or failure of its dependencies. However, the \`success(\'job_2\')\` condition adds a specific requirement that \`job_2\` must complete successfully. If \`job_2\` fails, \`final_job\` will not run. |
+| \- The `if` condition for `final_job` uses a combination of `always()` and `success(\'job_2\')`. The `always()` function ensures that `final_job` considers running regardless of the success or failure of its dependencies. However, the `success(\'job_2\')` condition adds a specific requirement that `job_2` must complete successfully. If `job_2` fails, `final_job` will not run. |
 | |
-| This approach provides a way to conditionally run \`final_job\` based on the success of a specific job (\`job_2\` in this case) while still allowing it to run irrespective of the outcomes of the other jobs it depends on. |
+| This approach provides a way to conditionally run `final_job` based on the success of a specific job (`job_2` in this case) while still allowing it to run irrespective of the outcomes of the other jobs it depends on. |
 +================================================================================================================================================================================================================================================================================================================================================================================================================+
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
@@ -1639,13 +1639,13 @@ Sure, here\'s a more concise version:
 
 \### **Deployment:**
 
-\- **\`/bin\`**: Compiled binaries.
+\- **`/bin`**: Compiled binaries.
 
-\- **\`/bin/Debug\`**: Debug build.
+\- **`/bin/Debug`**: Debug build.
 
-**- **\`/bin/Release\`**: Release build for deployment.**
+**- **`/bin/Release`**: Release build for deployment.**
 
-For deployment, use \`/bin/Release\` or the appropriate build configuration. It is highly recommended that you **create a publish profile** and use that instead, however, and then wherever the publish path publishes to, then publish those artifacts.
+For deployment, use `/bin/Release` or the appropriate build configuration. It is highly recommended that you **create a publish profile** and use that instead, however, and then wherever the publish path publishes to, then publish those artifacts.
 
 --\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
@@ -1655,17 +1655,17 @@ Python applications don\'t have as strict a structure as something like a C# sol
 
 \### **Python Project Layout:**
 
-**- **\`/src\`**: Main source code (optional, but can make things tidy).**
+**- **`/src`**: Main source code (optional, but can make things tidy).**
 
-**- **\`your_package_name\`**: Main package folder with \`.py\` files.**
+**- **`your_package_name`**: Main package folder with `.py` files.**
 
-**- **\`/data\`**: Data files (e.g., datasets, configurations).**
+**- **`/data`**: Data files (e.g., datasets, configurations).**
 
 \### **Deployment:**
 
-\- Deploy source code and install dependencies from \`requirements.txt\` using a package manager like \`pip\`.
+\- Deploy source code and install dependencies from `requirements.txt` using a package manager like `pip`.
 
-\- Virtual environments (\`/venv\` or \`/env\`) should never be deployed. Instead, use the \`requirements.txt\` on the deployment server or target environment to recreate the necessary dependencies.
+\- Virtual environments (`/venv` or `/env`) should never be deployed. Instead, use the `requirements.txt` on the deployment server or target environment to recreate the necessary dependencies.
 
 Note: Depending on the nature of the Python application (web app, CLI tool, library, etc.), the actual project structure can vary. Always consider the requirements and nature of your specific project.
 
@@ -1677,15 +1677,15 @@ Sure, here\'s a concise overview of a common JavaScript or TypeScript project st
 
 \### **JavaScript/TypeScript Project Layout:**
 
-**- **\`/dist\`** or **\`/build\`**: Compiled/transpiled code (e.g., from TypeScript to JavaScript). This directory is typically what you\'d deploy for a web app.**
+**- **`/dist`** or **`/build`**: Compiled/transpiled code (e.g., from TypeScript to JavaScript). This directory is typically what you\'d deploy for a web app.**
 
 \### **Deployment:**
 
-\- **For web applications: Deploy the \`/dist\` or \`/build\` directory contents.**
+\- **For web applications: Deploy the `/dist` or `/build` directory contents.**
 
-**- For Node.js apps: Depending on the build process, you might deploy the transpiled output in \`/dist\` or the raw \`/src\` if not using a transpiler.**
+**- For Node.js apps: Depending on the build process, you might deploy the transpiled output in `/dist` or the raw `/src` if not using a transpiler.**
 
-\- Always exclude \`node_modules\` from source control. Instead, rely on \`package.json\` and \`package-lock.json\` (or \`yarn.lock\`) to recreate dependencies during deployment.
+\- Always exclude `node_modules` from source control. Instead, rely on `package.json` and `package-lock.json` (or `yarn.lock`) to recreate dependencies during deployment.
 
 Remember that JavaScript and TypeScript projects can vary significantly based on the frameworks and tools being used (e.g., Angular, React, Vue, Express, etc.), so the above is a general guide and might not fit all scenarios. Always adapt based on the specific project\'s needs.
 
@@ -1699,15 +1699,15 @@ Certainly! Java projects, especially when using build tools like Maven or Gradle
 
 \### **Java Project Layout:**
 
-**- **\`/target\`** or **\`/build\`**: Compiled bytecode, JARs, WARs, etc. (the output of the build process). This is where the build artifacts that should be deployed are usually found.**
+**- **`/target`** or **`/build`**: Compiled bytecode, JARs, WARs, etc. (the output of the build process). This is where the build artifacts that should be deployed are usually found.**
 
 \### **Deployment:**
 
-\- For standalone applications: JARs from the \`/target\` or \`/build\` directory.
+\- For standalone applications: JARs from the `/target` or `/build` directory.
 
 \- For web applications: WARs or EARs (found in the same build directories).
 
-Always remember to exclude the \`/target\` or \`/build\` directories from version control since these contain compiled bytecode and other artifacts. Instead, rely on the build tool (Maven, Gradle) to produce these during the CI/CD process.
+Always remember to exclude the `/target` or `/build` directories from version control since these contain compiled bytecode and other artifacts. Instead, rely on the build tool (Maven, Gradle) to produce these during the CI/CD process.
 
 As always, these guidelines can be adapted based on the specifics of the project, framework, or tooling in use.
 
@@ -1730,43 +1730,43 @@ As always, these guidelines can be adapted based on the specifics of the project
 | |
 | \- Open your terminal. |
 | |
-| \- Create a new React project named \`weather-map-app\`: |
+| \- Create a new React project named `weather-map-app`: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | npx create-react-app weather-map-app |
 | |
-| \`\`\` |
+| ` |
 | |
 | \- Navigate into the project directory: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | cd weather-map-app |
 | |
-| \`\`\` |
+| ` |
 | |
 | \### Step 2: Run the Application Locally |
 | |
 | \- Start the development server: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | npm start |
 | |
-| \`\`\` |
+| ` |
 | |
-| \- The app will be available at \`http://localhost:3000\` in your browser. |
+| \- The app will be available at `http://localhost:3000` in your browser. |
 | |
 | \### Step 3: Install Necessary Libraries |
 | |
 | \- Install Axios for API requests and a suitable mapping library, such as Leaflet: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | npm install axios leaflet react-leaflet |
 | |
-| \`\`\` |
+| ` |
 | |
 | \- Leaflet will be used to create interactive maps, while Axios will handle HTTP requests to fetch weather data. |
 | |
@@ -1778,11 +1778,11 @@ As always, these guidelines can be adapted based on the specifics of the project
 | |
 | \### Step 5: Create a Map Component |
 | |
-| \- In the \`src\` folder, create a new component \`WeatherMap.js\`. |
+| \- In the `src` folder, create a new component `WeatherMap.js`. |
 | |
 | \- Set up the map using Leaflet and integrate weather data: |
 | |
-| \`\`\`jsx |
+| `` jsx |
 | |
 | import React, { useState, useEffect } from \'react\'; |
 | |
@@ -1796,7 +1796,7 @@ As always, these guidelines can be adapted based on the specifics of the project
 | |
 | useEffect(() =\> { |
 | |
-| axios.get(\`http://api.openweathermap.org/data/2.5/weather?q=London&appid=YOUR_API_KEY\`) |
+| axios.get(`http://api.openweathermap.org/data/2.5/weather?q=London&appid=YOUR_API_KEY`) |
 | |
 | .then(response =\> { |
 | |
@@ -1808,7 +1808,7 @@ As always, these guidelines can be adapted based on the specifics of the project
 | |
 | .addTo(map) |
 | |
-| .bindPopup(\`Temperature: \${response.data.main.temp}°C\`) |
+| .bindPopup(`Temperature: \${response.data.main.temp}°C`) |
 | |
 | .openPopup(); |
 | |
@@ -1846,13 +1846,13 @@ As always, these guidelines can be adapted based on the specifics of the project
 | |
 | export default WeatherMap; |
 | |
-| \`\`\` |
+|  `` |
 | |
 | \### Step 6: Integrate the WeatherMap Component |
 | |
-| \- Modify \`src/App.js\` to include the new \`WeatherMap\` component: |
+| \- Modify `src/App.js` to include the new `WeatherMap` component: |
 | |
-| \`\`\`jsx |
+| `jsx |
 | |
 | import React from \'react\'; |
 | |
@@ -1880,7 +1880,7 @@ As always, these guidelines can be adapted based on the specifics of the project
 | |
 | export default App; |
 | |
-| \`\`\` |
+| ` |
 | |
 | \### Conclusion |
 | |
@@ -2055,7 +2055,7 @@ done
 ### Security {#security-3 .unnumbered}
 
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Gradle Wrapper Validation is a security step used to ensure that the Gradle Wrapper script (\`gradlew\`) and its associated \`gradle-wrapper.jar\` file are legitimate and have not been tampered with. The Gradle wrapper is a script that invokes a declared version of Gradle, downloading it if necessary. As such, it\'s possible for a malicious actor to modify the \`gradlew\` script or the \`gradle-wrapper.jar\` to execute arbitrary code. |
+| Gradle Wrapper Validation is a security step used to ensure that the Gradle Wrapper script (`gradlew`) and its associated `gradle-wrapper.jar` file are legitimate and have not been tampered with. The Gradle wrapper is a script that invokes a declared version of Gradle, downloading it if necessary. As such, it\'s possible for a malicious actor to modify the `gradlew` script or the `gradle-wrapper.jar` to execute arbitrary code. |
 | |
 | To prevent this, the Gradle Wrapper Validation action compares the checksum of the wrapper files against a public database of known checksums. If the checksums do not match, the GitHub Action will fail, indicating potential security issues with the wrapper in the repository. |
 | |
@@ -2063,17 +2063,17 @@ done
 | |
 | Here\'s the snippet from the workflow showing the Gradle Wrapper Validation step: |
 | |
-| \`\`\`yaml |
+| `yaml |
 | |
 | \- name: Validate the Gradle wrapper |
 | |
 | uses: gradle/wrapper-validation-action@v1 |
 | |
-| \`\`\` |
+| ` |
 | |
 | This step is placed in the workflow after checking out the code and before running any Gradle tasks. By validating the wrapper early in the CI process, it prevents potentially dangerous code from running and ensures that the build process is using the correct and secure version of Gradle. |
 | |
-| Using the \`gradle/wrapper-validation-action\` is straightforward; it doesn\'t require you to configure any additional settings since it\'s a pre-made action designed specifically for this purpose. When this action runs, it checks the signature of the \`gradle-wrapper.jar\` and the \`gradlew\`/\`gradlew.bat\` scripts. If there\'s an issue with any of these files, the action will fail and prevent the workflow from proceeding to later steps that could execute compromised code. |
+| Using the `gradle/wrapper-validation-action` is straightforward; it doesn\'t require you to configure any additional settings since it\'s a pre-made action designed specifically for this purpose. When this action runs, it checks the signature of the `gradle-wrapper.jar` and the `gradlew`/`gradlew.bat` scripts. If there\'s an issue with any of these files, the action will fail and prevent the workflow from proceeding to later steps that could execute compromised code. |
 +=================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
@@ -2084,21 +2084,21 @@ done
 | |
 | Here are some features of the workflow: |
 | |
-| 1\. **Triggers**: The workflow triggers on pull requests and pushes to the \`master\` branch, as well as on tags that follow the semantic versioning pattern (e.g., \`v1.0.0\`). |
+| 1\. **Triggers**: The workflow triggers on pull requests and pushes to the `master` branch, as well as on tags that follow the semantic versioning pattern (e.g., `v1.0.0`). |
 | |
-| 2\. **Path Filtering**: Uses the \`dorny/paths-filter@v2\` action to determine which Dockerfiles have changes. This is useful for monorepos or projects where you want to build or test only the parts that have been modified. |
+| 2\. **Path Filtering**: Uses the `dorny/paths-filter@v2` action to determine which Dockerfiles have changes. This is useful for monorepos or projects where you want to build or test only the parts that have been modified. |
 | |
-| 3\. **Multi-Job Strategy**: The workflow defines separate jobs for various architectures (\`netflow\`, \`nginx\`, \`siridb\`, \`ucrm\`, \`unms\`). This modular approach makes the CI process more parallel and efficient. |
+| 3\. **Multi-Job Strategy**: The workflow defines separate jobs for various architectures (`netflow`, `nginx`, `siridb`, `ucrm`, `unms`). This modular approach makes the CI process more parallel and efficient. |
 | |
-| 4\. **Conditional Job Execution**: Each job has a condition that uses the outputs of the \`changes\` job to determine whether to run, based on whether there were changes to the specific Dockerfile or if a new version tag is being pushed. |
+| 4\. **Conditional Job Execution**: Each job has a condition that uses the outputs of the `changes` job to determine whether to run, based on whether there were changes to the specific Dockerfile or if a new version tag is being pushed. |
 | |
-| 5\. **Multi-Architecture Builds**: Through the \`docker/setup-buildx-action@v1\` and \`docker/setup-qemu-action@v1\` actions, the workflow is set up to build Docker images for multiple architectures, such as \`amd64\`, \`arm64\`, and more. This is critical for supporting Docker images on various hardware platforms. |
+| 5\. **Multi-Architecture Builds**: Through the `docker/setup-buildx-action@v1` and `docker/setup-qemu-action@v1` actions, the workflow is set up to build Docker images for multiple architectures, such as `amd64`, `arm64`, and more. This is critical for supporting Docker images on various hardware platforms. |
 | |
 | 6\. **Build Arguments**: The workflow dynamically creates build arguments to pass to Docker builds, including a version label, build date, and Git SHA for traceability of image builds. |
 | |
-| 7\. **Security Scanning**: Uses \`anchore/scan-action@v2\` to scan the built image for vulnerabilities, and \`github/codeql-action/upload-sarif@v1\` to upload the scan results to GitHub. Security scanning is critical for maintaining trust in the Docker images you are publishing. |
+| 7\. **Security Scanning**: Uses `anchore/scan-action@v2` to scan the built image for vulnerabilities, and `github/codeql-action/upload-sarif@v1` to upload the scan results to GitHub. Security scanning is critical for maintaining trust in the Docker images you are publishing. |
 | |
-| 8\. **Docker Hub Interaction**: The jobs log into Docker Hub using secrets and push the built images there, updating the repository description with \`peter-evans/dockerhub-description@v2\`. This automation of Docker Hub interactions is a time-saver and ensures that your Docker images and descriptions are always up-to-date. |
+| 8\. **Docker Hub Interaction**: The jobs log into Docker Hub using secrets and push the built images there, updating the repository description with `peter-evans/dockerhub-description@v2`. This automation of Docker Hub interactions is a time-saver and ensures that your Docker images and descriptions are always up-to-date. |
 | |
 | 9\. **Cleanup**: Ensures that Docker credentials are removed after the workflow run, which is a security best practice. |
 | |
@@ -2148,7 +2148,7 @@ done
 
 13. Docker container security scanning
 
-14. The use of actions like \`jaywcjlove/create-tag-action\` and \`ncipollo/release-action\` to automate version bumping, tagging, and creating GitHub releases based on changes in \`package.json\`.
+14. The use of actions like `jaywcjlove/create-tag-action` and `ncipollo/release-action` to automate version bumping, tagging, and creating GitHub releases based on changes in `package.json`.
 
 15. Changelog generation
 
@@ -2335,7 +2335,7 @@ Log Files ✓
 | |
 | \- **Visual Studio Code Integration**: Offers the same features and extensions as VS Code. |
 | |
-| \- **Customizable**: Use a \`devcontainer.json\` file to specify the tools, extensions, and configurations needed. |
+| \- **Customizable**: Use a `devcontainer.json` file to specify the tools, extensions, and configurations needed. |
 | |
 | \- **Use Cases**: Ideal for open-source contributors, remote teams, or any situation where setting up a local environment might be cumbersome. |
 | |
@@ -2355,7 +2355,7 @@ Log Files ✓
 | |
 | 3\. **Docker Compose**: |
 | |
-| \- **Overview**: Docker Compose is a tool for defining and running multi-container Docker applications. Developers can use a \`docker-compose.yml\` file to configure application services. |
+| \- **Overview**: Docker Compose is a tool for defining and running multi-container Docker applications. Developers can use a `docker-compose.yml` file to configure application services. |
 | |
 | \- **Features**: |
 | |
@@ -2416,9 +2416,9 @@ Log Files ✓
 | |
 | 4\. **Setting Up The Environment**: |
 | |
-| \- GitHub Codespaces will attempt to automatically configure the environment based on the repository. If the repository contains a \`.devcontainer/devcontainer.json\` file, it will use it to configure the Codespace environment. Otherwise, it will provide a standard environment. |
+| \- GitHub Codespaces will attempt to automatically configure the environment based on the repository. If the repository contains a `.devcontainer/devcontainer.json` file, it will use it to configure the Codespace environment. Otherwise, it will provide a standard environment. |
 | |
-| \- You can customize the environment by modifying the \`devcontainer.json\` file, allowing you to specify software, extensions, and settings for the Codespace. |
+| \- You can customize the environment by modifying the `devcontainer.json` file, allowing you to specify software, extensions, and settings for the Codespace. |
 | |
 | 5\. **Using the Codespace**: |
 | |
@@ -2465,9 +2465,9 @@ Log Files ✓
 | |
 | \- Install \[Docker Desktop\](https://www.docker.com/products/docker-desktop) and ensure it\'s running on your machine. |
 | |
-| \- Inside VS Code, go to the Extensions view by clicking on the square icon in the sidebar or pressing \`Ctrl+Shift+X\`. |
+| \- Inside VS Code, go to the Extensions view by clicking on the square icon in the sidebar or pressing `Ctrl+Shift+X`. |
 | |
-| \- Search for and install the \`Remote - Containers\` extension. |
+| \- Search for and install the `Remote - Containers` extension. |
 | |
 | 2\. **Open or Create a Project**: |
 | |
@@ -2475,25 +2475,25 @@ Log Files ✓
 | |
 | 3\. **Add Dev Container Configuration**: |
 | |
-| \- Press \`F1\` to open the command palette. |
+| \- Press `F1` to open the command palette. |
 | |
-| \- Type and select \`Remote-Containers: Add Development Container Configuration Files\...\`. |
+| \- Type and select `Remote-Containers: Add Development Container Configuration Files\...`. |
 | |
-| \- A list of predefined container configurations will appear, based on the detected type of your project. Choose a configuration that matches your project or select a base one (like \`Node.js\` or \`Python 3\`). |
+| \- A list of predefined container configurations will appear, based on the detected type of your project. Choose a configuration that matches your project or select a base one (like `Node.js` or `Python 3`). |
 | |
-| \- This action will add a \`.devcontainer\` directory to your project with a \`devcontainer.json\` file (and possibly a \`Dockerfile\`). |
+| \- This action will add a `.devcontainer` directory to your project with a `devcontainer.json` file (and possibly a `Dockerfile`). |
 | |
 | 4\. **Customize the Dev Container** (Optional): |
 | |
-| \- Edit the \`Dockerfile\` if you want to customize the container\'s base image, install additional software, or change settings. |
+| \- Edit the `Dockerfile` if you want to customize the container\'s base image, install additional software, or change settings. |
 | |
-| \- Modify the \`devcontainer.json\` to adjust various settings like forwarded ports, mount points, extensions to be installed, etc. |
+| \- Modify the `devcontainer.json` to adjust various settings like forwarded ports, mount points, extensions to be installed, etc. |
 | |
 | 5\. **Open Project in Dev Container**: |
 | |
-| \- Press \`F1\` to open the command palette again. |
+| \- Press `F1` to open the command palette again. |
 | |
-| \- Type and select \`Remote-Containers: Reopen in Container\`. |
+| \- Type and select `Remote-Containers: Reopen in Container`. |
 | |
 | \- VS Code will build the Docker image (this might take some time during the first run), start a container, and then reopen your project inside the container. |
 | |
@@ -2501,21 +2501,21 @@ Log Files ✓
 | |
 | \- Once inside, you can code, run, debug, and use the terminal just like you would locally. Any tools, SDKs, or configurations you defined for the container are immediately available. |
 | |
-| \- Extensions defined in \`devcontainer.json\` are installed within the container, ensuring everyone on the team has the same development setup. |
+| \- Extensions defined in `devcontainer.json` are installed within the container, ensuring everyone on the team has the same development setup. |
 | |
 | 7\. **Managing the Container**: |
 | |
-| \- To stop or start the Dev Container, use the \`Remote-Containers: Stop Container\` and \`Remote-Containers: Start Container\` commands from the command palette. |
+| \- To stop or start the Dev Container, use the `Remote-Containers: Stop Container` and `Remote-Containers: Start Container` commands from the command palette. |
 | |
-| \- If you make changes to the \`Dockerfile\` or \`devcontainer.json\`, use the \`Remote-Containers: Rebuild Container\` command to apply them. |
+| \- If you make changes to the `Dockerfile` or `devcontainer.json`, use the `Remote-Containers: Rebuild Container` command to apply them. |
 | |
 | 8\. **Returning to Local Development**: |
 | |
-| \- To go back to local development, click on the green remote indicator in the bottom left corner and select \`Close Remote Connection\`. |
+| \- To go back to local development, click on the green remote indicator in the bottom left corner and select `Close Remote Connection`. |
 | |
 | 9\. **Sharing the Setup**: |
 | |
-| \- Commit the \`.devcontainer\` directory to your version control system (e.g., git). This allows other team members to check out the project and immediately get the same development environment by reopening the project in a container. |
+| \- Commit the `.devcontainer` directory to your version control system (e.g., git). This allows other team members to check out the project and immediately get the same development environment by reopening the project in a container. |
 | |
 | 10\. **Advanced Configurations**: |
 | |
@@ -2536,37 +2536,37 @@ Log Files ✓
 | |
 | **2. Create a new directory:** |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | mkdir my-webserver && cd my-webserver |
 | |
-| \`\`\` |
+| ` |
 | |
 | **3. Create a Dockerfile:** |
 | |
-| Inside the \`my-webserver\` directory, create a file named \`Dockerfile\` with the following content to set up a basic Nginx web server: |
+| Inside the `my-webserver` directory, create a file named `Dockerfile` with the following content to set up a basic Nginx web server: |
 | |
-| \`\`\`Dockerfile |
+| `Dockerfile |
 | |
 | FROM nginx:alpine |
 | |
 | COPY ./html /usr/share/nginx/html |
 | |
-| \`\`\` |
+| ` |
 | |
 | **4. Create a directory for your HTML files:** |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | mkdir html |
 | |
-| \`\`\` |
+| ` |
 | |
 | **5. Create a sample HTML page:** |
 | |
-| Inside the \`html\` directory, create a file named \`index.html\` with the following content: |
+| Inside the `html` directory, create a file named `index.html` with the following content: |
 | |
-| \`\`\`html |
+| `html |
 | |
 | \<!DOCTYPE html\> |
 | |
@@ -2586,13 +2586,13 @@ Log Files ✓
 | |
 | \</html\> |
 | |
-| \`\`\` |
+| ` |
 | |
 | **6. Create a docker-compose.yml file:** |
 | |
-| Inside the \`my-webserver\` directory, create a file named \`docker-compose.yml\` with the following content: |
+| Inside the `my-webserver` directory, create a file named `docker-compose.yml` with the following content: |
 | |
-| \`\`\`yaml |
+| `yaml |
 | |
 | version: \'3\' |
 | |
@@ -2606,41 +2606,41 @@ Log Files ✓
 | |
 | \- \"8080:80\" |
 | |
-| \`\`\` |
+| ` |
 | |
 | This file tells Docker Compose to build the Dockerfile in the current directory and map port 8080 on your host machine to port 80 on the container. |
 | |
 | **7. Build and start the services using Docker Compose:** |
 | |
-| In the terminal or command prompt, navigate to the \`my-webserver\` directory and run: |
+| In the terminal or command prompt, navigate to the `my-webserver` directory and run: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker-compose up |
 | |
-| \`\`\` |
+| ` |
 | |
 | This command will build the Docker image and start a container with the Nginx web server. |
 | |
 | **8. Access the test server:** |
 | |
-| Open your web browser and navigate to \`http://localhost:8080\`. You should see the \"Welcome to the Test Server powered by Docker Compose!\" message. |
+| Open your web browser and navigate to `http://localhost:8080`. You should see the \"Welcome to the Test Server powered by Docker Compose!\" message. |
 | |
 | **9. Stopping the test server:** |
 | |
-| Press \`Ctrl+C\` in your terminal where Docker Compose is running to stop the containers. Alternatively, you can run \`docker-compose down\` in another terminal window to stop and remove the containers. |
+| Press `Ctrl+C` in your terminal where Docker Compose is running to stop the containers. Alternatively, you can run `docker-compose down` in another terminal window to stop and remove the containers. |
 | |
 | **10. Cleanup (Optional):** |
 | |
 | If you want to remove the built Docker images, you can do so using: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker-compose down \--rmi all |
 | |
-| \`\`\` |
+| ` |
 | |
-| That\'s it! Using Docker Compose, you\'ve set up a local test server with a basic web page. This example can be extended by adding database services, backend APIs, and other components as needed by defining them in the \`docker-compose.yml\` file. |
+| That\'s it! Using Docker Compose, you\'ve set up a local test server with a basic web page. This example can be extended by adding database services, backend APIs, and other components as needed by defining them in the `docker-compose.yml` file. |
 +=========================================================================================================================================================================================================================================================+
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
@@ -2681,49 +2681,49 @@ Log Files ✓
 | |
 | 1\. **Platform & Environment Setup** |
 | |
-| \- Setting up Python environment: \`\$PYTHON = \$env:PYTHON\`, \`\$PYTHON_ARCH -eq 32\`. |
+| \- Setting up Python environment: `\$PYTHON = \$env:PYTHON`, `\$PYTHON_ARCH -eq 32`. |
 | |
-| \- Environment types or modes: \`env: production\`, \`env:\`, \`global:\`. |
+| \- Environment types or modes: `env: production`, `env:`, `global:`. |
 | |
-| \- Specific environment settings: \`CTEST_OUTPUT_ON_FAILURE: 1\`, \`PERL_USE_UNSAFE_INC: 0\`. |
+| \- Specific environment settings: `CTEST_OUTPUT_ON_FAILURE: 1`, `PERL_USE_UNSAFE_INC: 0`. |
 | |
 | 2\. **Source Code & Build Directories** |
 | |
-| \- Source code location: \`SOURCE_HOME: \$(Build.SourcesDirectory)\`. |
+| \- Source code location: `SOURCE_HOME: \$(Build.SourcesDirectory)`. |
 | |
-| \- Tooling directories: \`TOOLTOOL_MANIFEST\`, \`MOZ_FETCHES_DIR\`, \`WORKSPACE: \"/builds/worker/workspace\"\`. |
+| \- Tooling directories: `TOOLTOOL_MANIFEST`, `MOZ_FETCHES_DIR`, `WORKSPACE: \"/builds/worker/workspace\"`. |
 | |
-| \- Test directories: \`JUNIT_FILE: \$(TEST_DIR)/\$(JUNITXML)\`. |
+| \- Test directories: `JUNIT_FILE: \$(TEST_DIR)/\$(JUNITXML)`. |
 | |
 | 3\. **Compiler & Language Versions** |
 | |
-| \- GHC and Cabal versions for Haskell: \`CABALVER=1.22 GHCVER=7.10.3\`, \`CABALVER=1.24 GHCVER=8.0.1\`. |
+| \- GHC and Cabal versions for Haskell: `CABALVER=1.22 GHCVER=7.10.3`, `CABALVER=1.24 GHCVER=8.0.1`. |
 | |
-| \- Compiler specification: \`compiler: \": #GHC 7.10.3\"\`, \`compiler: \": #GHC 8.0.1\"\`. |
+| \- Compiler specification: `compiler: \": #GHC 7.10.3\"`, `compiler: \": #GHC 8.0.1\"`. |
 | |
-| \- Addons for different versions: \`addons: {apt: {packages: \[ghc-ppa-tools,cabal-install-2.0,ghc-7.0.4\], sources: \[hvr-ghc\]}}\`. |
+| \- Addons for different versions: `addons: {apt: {packages: \[ghc-ppa-tools,cabal-install-2.0,ghc-7.0.4\], sources: \[hvr-ghc\]}}`. |
 | |
 | 4\. **External Tools & Dependencies** |
 | |
-| \- Tooling configurations: \`TOOLTOOL_MANIFEST: \"/builds/worker/checkouts/gecko/browser/config/tooltool-manifests/macosx64/cross-releng.manifest\"\`. |
+| \- Tooling configurations: `TOOLTOOL_MANIFEST: \"/builds/worker/checkouts/gecko/browser/config/tooltool-manifests/macosx64/cross-releng.manifest\"`. |
 | |
-| \- Downloading and installing tools on Windows with curl: \`curl.exe -SL \--output \...\`. |
+| \- Downloading and installing tools on Windows with curl: `curl.exe -SL \--output \...`. |
 | |
-| \- Specific packages installed on a Cygwin setup: \`\--packages autoconf,automake,\...\`. |
+| \- Specific packages installed on a Cygwin setup: `\--packages autoconf,automake,\...`. |
 | |
 | 5\. **GitHub & Authentication** |
 | |
-| \- GitHub-specific environment variables: \`GITHUB_TOKEN: \${{ secrets.PROJECT_TOKEN }}\`, \`ISSUE_OR_PR_ID: \${{ github.event.issue.node_id \|\| github.event.pull_request.node_id }}\`, \`GITHUB_USER: \${{ github.actor }}\`. |
+| \- GitHub-specific environment variables: `GITHUB_TOKEN: \${{ secrets.PROJECT_TOKEN }}`, `ISSUE_OR_PR_ID: \${{ github.event.issue.node_id \|\| github.event.pull_request.node_id }}`, `GITHUB_USER: \${{ github.actor }}`. |
 | |
-| \- Organization and team-related: \`ORGANIZATION: ohmyzsh\`, \`TeamName: \$(\_TeamName)\`. |
+| \- Organization and team-related: `ORGANIZATION: ohmyzsh`, `TeamName: \$(\_TeamName)`. |
 | |
 | 6\. **Miscellaneous & Utility** |
 | |
-| \- Utility functions/settings: \`d_clearenv: \~\`, \`d_closedir: define\`, \`RUST_BACKTRACE: \'full\'\`. |
+| \- Utility functions/settings: `d_clearenv: \~`, `d_closedir: define`, `RUST_BACKTRACE: \'full\'`. |
 | |
-| \- Other configurations: \`bosh:\`, \`ccache:\`, \`CODECOV_TOKEN: \$(CODECOV_TOKEN)\`. |
+| \- Other configurations: `bosh:`, `ccache:`, `CODECOV_TOKEN: \$(CODECOV_TOKEN)`. |
 | |
-| \- Miscellaneous outputs and commands: \`Write-Host \"PATH: \$env:PATH\"\`. |
+| \- Miscellaneous outputs and commands: `Write-Host \"PATH: \$env:PATH\"`. |
 | |
 | The above themes provide a structured overview of the configuration snippets, but a deeper understanding would require a complete context from the original configuration files. |
 | |

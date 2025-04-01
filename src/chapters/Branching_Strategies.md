@@ -58,7 +58,7 @@ Feedback Loop: If any issues arise from the integration, testing, or build proce
 
 #### Differences with Other Branching Strategies {#differences-with-other-branching-strategies .unnumbered}
 
-- Git Flow, a branching strategy where it structures development into multiple branches: \`main\` for official releases, \`develop\` for integration, \`feature\` branches for new capabilities, \`release\` branches for preparing new releases, and \`hotfix\` branches for urgent fixes, designed for projects with scheduled release cycles, and GitHub Flow, are still in use today, still have relevant business cases, but are a less popular strategy. For example, say you are **deploying to an uncontrolled environment.** In the past, your own infra was considered an uncontrolled environment because it was probably messy. Nowadays, this can refer to environments that are highly diverse, such as desktop applications, specialized hardware, or where extreme-extreme stability is required (this will significantly decrease ability to release new features, where even controlled environments may not be fully controllable.) Therefore, a heavy-weight approach, such as GitHub Flow or Git Flow might make more sense. This is because the branching pattern better reflects the business use case: the act of integration _should be delayed_ because work is not truly integrated. Developers do not have confidence that their changes actually work, therefore, if other developers integrate on top of it, it could be a mess. Another situation are tasks that can't be broken down, such as large infrastructure changes or framework upgrades. This should be an exception to the norm, however.
+- Git Flow, a branching strategy where it structures development into multiple branches: `main` for official releases, `develop` for integration, `feature` branches for new capabilities, `release` branches for preparing new releases, and `hotfix` branches for urgent fixes, designed for projects with scheduled release cycles, and GitHub Flow, are still in use today, still have relevant business cases, but are a less popular strategy. For example, say you are **deploying to an uncontrolled environment.** In the past, your own infra was considered an uncontrolled environment because it was probably messy. Nowadays, this can refer to environments that are highly diverse, such as desktop applications, specialized hardware, or where extreme-extreme stability is required (this will significantly decrease ability to release new features, where even controlled environments may not be fully controllable.) Therefore, a heavy-weight approach, such as GitHub Flow or Git Flow might make more sense. This is because the branching pattern better reflects the business use case: the act of integration _should be delayed_ because work is not truly integrated. Developers do not have confidence that their changes actually work, therefore, if other developers integrate on top of it, it could be a mess. Another situation are tasks that can't be broken down, such as large infrastructure changes or framework upgrades. This should be an exception to the norm, however.
 
 - A user's web browser is much more of a sandboxed, controlled environment than a desktop app.
 
@@ -93,7 +93,7 @@ Feedback Loop: If any issues arise from the integration, testing, or build proce
 
 ---
 
-Git Flow structures development into multiple branches: \`main\` for official releases, \`develop\` for integration, \`feature\` branches for new capabilities, \`release\` branches for preparing new releases, and \`hotfix\` branches for urgent fixes. It\'s designed for projects with scheduled release cycles.
+Git Flow structures development into multiple branches: `main` for official releases, `develop` for integration, `feature` branches for new capabilities, `release` branches for preparing new releases, and `hotfix` branches for urgent fixes. It\'s designed for projects with scheduled release cycles.
 
 ---
 
@@ -194,13 +194,13 @@ Deployment & Testing in Prod Deployment to production is often milestone-driven,
 | |
 | **Context**: A web application feature that adds a new user profile page. |
 | |
-| **Code Structure**: A single large file, \`UserProfilePage.js\`, which combines HTML, CSS, and JavaScript. |
+| **Code Structure**: A single large file, `UserProfilePage.js`, which combines HTML, CSS, and JavaScript. |
 | |
-| \`\`\`javascript |
+| `` javascript |
 | |
 | // UserProfilePage.js |
 | |
-| document.write(\` |
+| document.write(` |
 | |
 | \<html\> |
 | |
@@ -256,11 +256,11 @@ Deployment & Testing in Prod Deployment to production is often milestone-driven,
 | |
 | \</html\> |
 | |
-| \`); |
+| `); |
 | |
 | // Additional logic for handling user interactions, etc. |
 | |
-| \`\`\` |
+|  `` |
 | |
 | **Issues**: |
 | |
@@ -278,7 +278,7 @@ Deployment & Testing in Prod Deployment to production is often milestone-driven,
 | |
 | 1\. **HTML (UserProfile.html)** |
 | |
-| \`\`\`html |
+| `html |
 | |
 | \<div class=\"profile-container\"\> |
 | |
@@ -290,11 +290,11 @@ Deployment & Testing in Prod Deployment to production is often milestone-driven,
 | |
 | \</div\> |
 | |
-| \`\`\` |
+| ` |
 | |
 | 2\. **CSS (UserProfile.css)** |
 | |
-| \`\`\`css |
+| `css |
 | |
 | .profile-container { /\* styling \*/ } |
 | |
@@ -302,11 +302,11 @@ Deployment & Testing in Prod Deployment to production is often milestone-driven,
 | |
 | /\* More CSS\... \*/ |
 | |
-| \`\`\` |
+| ` |
 | |
 | 3\. **JavaScript (UserProfile.js)** |
 | |
-| \`\`\`javascript |
+| `javascript |
 | |
 | function loadUserProfile() { |
 | |
@@ -328,13 +328,13 @@ Deployment & Testing in Prod Deployment to production is often milestone-driven,
 | |
 | document.addEventListener(\'DOMContentLoaded\', loadUserProfile); |
 | |
-| \`\`\` |
+| ` |
 | |
 | **Advantages**: |
 | |
 | \- **Modular Design**: Separate files for HTML, CSS, and JavaScript improve readability and maintainability. |
 | |
-| \- **Easier Testing**: Each function, like \`loadUserProfile\` or \`renderUserInfo\`, can be individually unit tested. |
+| \- **Easier Testing**: Each function, like `loadUserProfile` or `renderUserInfo`, can be individually unit tested. |
 | |
 | \- **Smooth Integration**: Smaller, well-defined changes are less prone to merge conflicts and can be integrated more frequently. |
 | |
@@ -409,7 +409,7 @@ Deployment & Testing in Prod Deployment to production is often milestone-driven,
 | |
 | checking for cl.exe\... no |
 | |
-| configure: error: in \`/root/mysql-5.1.73\': |
+| configure: error: in `/root/mysql-5.1.73\': |
 | |
 | configure: error: no acceptable C compiler found in \$PATH |
 +=======================================================================+

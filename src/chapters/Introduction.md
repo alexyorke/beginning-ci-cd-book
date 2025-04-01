@@ -350,7 +350,7 @@ What do I deliver to the customer, i.e., what are build artifacts?
 
 > A typical software release often includes several components, tailored to the nature of the software and the target audience. Here are some of the common elements you might find:
 >
-> 1\. **Binaries**: These are the compiled code files that are executable on the target platform(s). For desktop applications, these might be \`.exe\` files for Windows, \`.app\` packages for macOS, or binaries for Linux. For mobile applications, these would be \`.apk\` files for Android or \`.ipa\` files for iOS.
+> 1\. **Binaries**: These are the compiled code files that are executable on the target platform(s). For desktop applications, these might be `.exe` files for Windows, `.app` packages for macOS, or binaries for Linux. For mobile applications, these would be `.apk` files for Android or `.ipa` files for iOS.
 >
 > 2\. **Libraries**: If the software relies on specific libraries, these may either be bundled with the binaries or referenced as dependencies that need to be installed separately.
 >
@@ -558,7 +558,7 @@ There are two main classes of providers (with overlap): those that can provide C
 
 - **GitHub Actions:** GitHub Actions is an integrated CI/CD service within GitHub, enabling automated workflows for build, test, and deployment directly in your GitHub repository. It offers customizable workflows, a rich marketplace for actions, and supports various environments with hosted runners for Linux, Windows, and macOS. Ideal for GitHub users, it simplifies automation across multiple stages of software development.
 
-- **GitLab CI/CD:** GitLab offers a single application for the entire software development and deployment lifecycle. It\'s well-regarded for its built-in CI/CD capabilities. Seamless integration with GitLab\'s version control system, easy configuration with \`.gitlab-ci.yml\` file, Auto DevOps features, and extensive built-in security and compliance functionalities.
+- **GitLab CI/CD:** GitLab offers a single application for the entire software development and deployment lifecycle. It\'s well-regarded for its built-in CI/CD capabilities. Seamless integration with GitLab\'s version control system, easy configuration with `.gitlab-ci.yml` file, Auto DevOps features, and extensive built-in security and compliance functionalities.
 
 - **Jenkins:** An open-source automation server, Jenkins is highly flexible and widely adopted. It has a vast ecosystem of plugins, making it a powerful tool for building, testing, and deploying software. Highly customizable with plugins, supports a wide range of programming languages and SCM tools, and provides excellent community support.
 

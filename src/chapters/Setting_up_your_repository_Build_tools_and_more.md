@@ -1200,7 +1200,7 @@ Table 1: The Secure Software Development Framework (SSDF) Version 1.1
 
 [[GUAC Docs \| GUAC]{.underline}](https://docs.guac.sh/) and the need to do automated dependency management (manual dependencies are harder to scan)
 
-[[krzko/run-with-telemetry: GitHub Action \`run\` action with OpenTelemetry instrumentation]{.underline}](https://github.com/krzko/run-with-telemetry)
+[[krzko/run-with-telemetry: GitHub Action `run` action with OpenTelemetry instrumentation]{.underline}](https://github.com/krzko/run-with-telemetry)
 
 [[inception-health/otel-export-trace-action (github.com)]{.underline}](https://github.com/inception-health/otel-export-trace-action)
 
@@ -1662,7 +1662,7 @@ Makefile Example
 
 Here's a simple makefile that demonstrates dependencies and compilation for a C program:
 
-\`\`\`
+```
 
 main.o: main.c mathFunctions.h utilFunctions.h
 
@@ -1676,7 +1676,7 @@ mathFunctions.o: mathFunctions.c mathFunctions.h
 
 gcc -c mathFunctions.c
 
-\`\`\`
+```
 
 This format allows developers to easily manage and scale complex projects with numerous dependencies.
 
@@ -1692,7 +1692,7 @@ Different Integrated Development Environments (IDEs) have varied ways of present
 
 1\. **Visual Studio (for C++/C#)**:
 
-\- **Build Commands**: Visual Studio uses \`msbuild\` for building its projects. To see the exact build commands:
+\- **Build Commands**: Visual Studio uses `msbuild` for building its projects. To see the exact build commands:
 
 1\. Go to the \"Tools\" menu.
 
@@ -1714,7 +1714,7 @@ The build log might have many things. This is normally useful for troubleshootin
 
 1\. Open the \"Terminal\" tab (usually at the bottom).
 
-2\. Run your build tool command, e.g., \`mvn compile\` for Maven.
+2\. Run your build tool command, e.g., `mvn compile` for Maven.
 
 3\. The executed commands will be printed in the terminal.
 

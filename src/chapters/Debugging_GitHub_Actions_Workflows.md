@@ -60,45 +60,45 @@ Here are practical examples based on the topics you\'ve listed:
 
 1\. **Understanding Logging and Error Handling**:
 
-\- **Logging in Bash Scripts**: You can add logging in a bash script using \`echo\` statements. For example, \`echo \"Starting backup at \$(date)\" \>\> backup.log\` logs the start time of a backup operation to a \`backup.log\` file.
+\- **Logging in Bash Scripts**: You can add logging in a bash script using `echo` statements. For example, `echo \"Starting backup at \$(date)\" \>\> backup.log` logs the start time of a backup operation to a `backup.log` file.
 
-\- **GitHub Actions Debugging**: In GitHub Actions, you can enable step debug logging by setting the \`ACTIONS_STEP_DEBUG\` secret to \`true\`. This allows you to see detailed debug outputs from your steps.
+\- **GitHub Actions Debugging**: In GitHub Actions, you can enable step debug logging by setting the `ACTIONS_STEP_DEBUG` secret to `true`. This allows you to see detailed debug outputs from your steps.
 
-\- **Verbose Flag**: Using the verbose flag in commands like \`scp\` or \`curl\` can help trace issues. For instance, \`curl -v https://api.example.com\` prints detailed info about the request and response, aiding in debugging HTTP issues.
+\- **Verbose Flag**: Using the verbose flag in commands like `scp` or `curl` can help trace issues. For instance, `curl -v https://api.example.com` prints detailed info about the request and response, aiding in debugging HTTP issues.
 
 \- **Isolating Pipeline for Debugging**: If you\'re troubleshooting a CI pipeline, clone it in your CI environment but point it to a non-production or dummy environment. This lets you iterate rapidly without affecting the main application or production data.
 
 2\. **Debugging Bash Scripts**:
 
-\- **Trace with \`-x\`**: Add \`set -x\` at the beginning of your script or run your script with \`bash -x myscript.sh\` to print each command before it is executed, helping trace what\'s happening step-by-step.
+\- **Trace with `-x`**: Add `set -x` at the beginning of your script or run your script with `bash -x myscript.sh` to print each command before it is executed, helping trace what\'s happening step-by-step.
 
-\- **Using \`trap\`**: Implement \`trap \'rm -f /tmp/my_temp_file\' EXIT\` to ensure temporary files are cleaned up even if the script exits unexpectedly.
+\- **Using `trap`**: Implement `trap \'rm -f /tmp/my_temp_file\' EXIT` to ensure temporary files are cleaned up even if the script exits unexpectedly.
 
-\- **ShellCheck**: Run \`shellcheck myscript.sh\` to find and fix issues in your bash scripts, such as syntax errors or risky command usage.
+\- **ShellCheck**: Run `shellcheck myscript.sh` to find and fix issues in your bash scripts, such as syntax errors or risky command usage.
 
-\- **Redirect Logs**: To handle long outputs, redirect them to a file within your script, e.g., \`./my_script.sh \> script_output.log\` and ensure the log is archived as an artifact in your CI pipeline for later analysis.
+\- **Redirect Logs**: To handle long outputs, redirect them to a file within your script, e.g., `./my_script.sh \> script_output.log` and ensure the log is archived as an artifact in your CI pipeline for later analysis.
 
 3\. **Script Execution and Environment**:
 
-\- **Safe Set Commands**: In a bash script, use \`set -eou pipefail\` to ensure that your script handles errors, unbound variables, and failures in pipelines effectively, stopping execution on the first error encountered.
+\- **Safe Set Commands**: In a bash script, use `set -eou pipefail` to ensure that your script handles errors, unbound variables, and failures in pipelines effectively, stopping execution on the first error encountered.
 
-\- **Validating User Input**: Always validate and sanitize user input in scripts to prevent errors and potential security issues. For example: \`read -p \"Enter your name: \" name; if \[\[ -z \"\$name\" \]\]; then echo \"Name cannot be empty\"; exit 1; fi\`.
+\- **Validating User Input**: Always validate and sanitize user input in scripts to prevent errors and potential security issues. For example: `read -p \"Enter your name: \" name; if \[\[ -z \"\$name\" \]\]; then echo \"Name cannot be empty\"; exit 1; fi`.
 
 5\. **Best Practices and Tools**:
 
-\- **Error Message Analysis**: Use \`agrep\` to analyze error logs, allowing for approximate matches, which can be helpful when dealing with typographical errors in log messages.
+\- **Error Message Analysis**: Use `agrep` to analyze error logs, allowing for approximate matches, which can be helpful when dealing with typographical errors in log messages.
 
-\- **Structured Logging**: Implement structured logging using JSON format for logs, which can be easily parsed and analyzed by log management systems. Example: \`echo \'{\"date\":\"\$(date)\",\"level\":\"info\",\"message\":\"Process started\"}\' \>\> app.log\`.
+\- **Structured Logging**: Implement structured logging using JSON format for logs, which can be easily parsed and analyzed by log management systems. Example: `echo \'{\"date\":\"\$(date)\",\"level\":\"info\",\"message\":\"Process started\"}\' \>\> app.log`.
 
 \- **Local CI Environment**: Use tools like Docker to replicate your CI/CD pipeline locally, allowing you to debug issues in an environment that closely mirrors production.
 
 6\. **Miscellaneous Tips**:
 
-\- **Handling Line Endings**: Use \`.gitattributes\` to normalize line endings across different OSes in a collaborative project. Add \`\* text=auto\` to your \`.gitattributes\` to auto-adjust line endings based on your platform.
+\- **Handling Line Endings**: Use `.gitattributes` to normalize line endings across different OSes in a collaborative project. Add `\* text=auto` to your `.gitattributes` to auto-adjust line endings based on your platform.
 
-\- **Script Permissions**: Ensure your scripts have the appropriate permissions by using \`chmod\`, e.g., \`chmod +x myscript.sh\` to make it executable.
+\- **Script Permissions**: Ensure your scripts have the appropriate permissions by using `chmod`, e.g., `chmod +x myscript.sh` to make it executable.
 
-\- **Editor Settings**: Configure \`.editorconfig\` to manage common editor settings like indentation style and size, character set, and trimming of trailing whitespace to maintain consistent coding styles among different editors and IDEs used by the team.
+\- **Editor Settings**: Configure `.editorconfig` to manage common editor settings like indentation style and size, character set, and trimming of trailing whitespace to maintain consistent coding styles among different editors and IDEs used by the team.
 
 ### Frequently encountered issues in GitHub actions {#frequently-encountered-issues-in-github-actions .unnumbered}
 
@@ -124,7 +124,7 @@ Here are intentionally buggy examples for each of the scenarios you mentioned, a
 
 **Example:**
 
-\`\`\`yaml
+```yaml
 
 name: CI
 
@@ -156,23 +156,23 @@ run: pip install -r requirements.txt
 
 run: pytest
 
-\`\`\`
+```
 
 **Buggy Aspects:**
 
 \- Using an outdated Ubuntu version which might not be supported.
 
-\- Implicitly assuming the presence of \`requirements.txt\` and \`pytest\` without ensuring Python package manager (\`pip\`) is up-to-date.
+\- Implicitly assuming the presence of `requirements.txt` and `pytest` without ensuring Python package manager (`pip`) is up-to-date.
 
 **Solution:**
 
 Update the workflow file:
 
-\- Change \`runs-on: ubuntu-18.04\` to a supported version like \`ubuntu-latest\`.
+\- Change `runs-on: ubuntu-18.04` to a supported version like `ubuntu-latest`.
 
-\- Ensure \`pip\` is upgraded before dependencies are installed:
+\- Ensure `pip` is upgraded before dependencies are installed:
 
-\`\`\`yaml
+```yaml
 
 \- name: Upgrade pip
 
@@ -182,13 +182,13 @@ run: python -m pip install \--upgrade pip
 
 run: pip install -r requirements.txt
 
-\`\`\`
+```
 
 \### 2. File Paths and Dependency Management
 
 **Example:**
 
-\`\`\`yaml
+```yaml
 
 on: push
 
@@ -222,27 +222,25 @@ env:
 
 CI: true
 
-\`\`\`
+```
 
 **Buggy Aspects:**
 
-\- Workflow might fail if \`npm run build\` script assumes Unix-style paths but runs on Windows.
+\- Workflow might fail if `npm run build` script assumes Unix-style paths but runs on Windows.
 
 **Solution:**
 
-Ensure platform-independent file paths or change \`runs-on\` to a Linux OS if the project requires Unix-based tooling:
+Ensure platform-independent file paths or change `runs-on` to a Linux OS if the project requires Unix-based tooling:
 
-\`\`\`yaml
-
+```yaml
 runs-on: ubuntu-latest
-
-\`\`\`
+```
 
 \### 3. Environment Variables and Configuration Errors
 
 **Example:**
 
-\`\`\`yaml
+```yaml
 
 on: push
 
@@ -268,7 +266,7 @@ docker build -t my-app:\${{ github.sha }} .
 
 docker push my-app:\${{ github.sha }}
 
-\`\`\`
+```
 
 **Buggy Aspects:**
 
@@ -278,7 +276,7 @@ docker push my-app:\${{ github.sha }}
 
 Correct Docker image tags and ensure all environment variables and secrets are correctly spelled and set:
 
-\`\`\`yaml
+```yaml
 
 run: \|
 
@@ -286,7 +284,7 @@ docker build -t myorg/my-app:\${{ github.sha }} .
 
 docker push myorg/my-app:\${{ github.sha }}
 
-\`\`\`
+```
 
 Sure, here are some concrete examples and more technical details for each item in the list:
 

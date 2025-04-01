@@ -325,7 +325,7 @@ Look at Grafana "exemplars" and "correlations". and application topology map.
 | |
 | try { |
 | |
-| const response = await axios.get(\`http://api.openweathermap.org/data/2.5/weather?q=London&appid=\${apiKey}\`); |
+| const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=London&appid=\${apiKey}`); |
 | |
 | setWeather(response.data); |
 | |
@@ -511,7 +511,7 @@ It\'s designed to capture events such as input delays during usage, continuously
 | |
 | \### Poor Logging Strategy |
 | |
-| \`\`\`python |
+| `python |
 | |
 | def register_user(username, password, email): |
 | |
@@ -535,11 +535,11 @@ It\'s designed to capture events such as input delays during usage, continuously
 | |
 | register_user(\"alice\", \"password123\", \"alice@example.com\") |
 | |
-| \`\`\` |
+| ` |
 | |
 | Issues with the above code: |
 | |
-| 1\. Using \`print\` instead of a proper logging library. |
+| 1\. Using `print` instead of a proper logging library. |
 | |
 | 2\. The success message \"Operation completed.\" is vague. We don\'t know what operation was completed. |
 | |
@@ -549,9 +549,9 @@ It\'s designed to capture events such as input delays during usage, continuously
 | |
 | \### Good Logging Strategy |
 | |
-| Using Python\'s \`logging\` module: |
+| Using Python\'s `logging` module: |
 | |
-| \`\`\`python |
+| `python |
 | |
 | import logging |
 | |
@@ -581,17 +581,17 @@ It\'s designed to capture events such as input delays during usage, continuously
 | |
 | register_user(\"alice\", \"password123\", \"alice@example.com\") |
 | |
-| \`\`\` |
+| ` |
 | |
 | Improvements in the above code: |
 | |
-| 1\. Using the \`logging\` module which provides more functionality and flexibility compared to simple print statements. |
+| 1\. Using the `logging` module which provides more functionality and flexibility compared to simple print statements. |
 | |
 | 2\. The success log is descriptive, providing context about which operation was successful. |
 | |
 | 3\. The error log provides enough information to understand what went wrong without dumping the whole exception, and without exposing any sensitive information like passwords. |
 | |
-| 4\. It\'s easy to change the logging level, format, and destination (e.g., file, console, external system) with the \`logging\` module. |
+| 4\. It\'s easy to change the logging level, format, and destination (e.g., file, console, external system) with the `logging` module. |
 | |
 | In practice, a good logging strategy would also involve considerations like log rotation, centralized logging for distributed systems, monitoring of logs for anomalies, etc. |
 +=================================================================================================================================================================================+
@@ -1073,7 +1073,7 @@ Feature flags can be straightforward to implement initially, often managed with 
 
 - Code Obfuscation: Embed feature flags in the code and then obfuscate it. This approach, relying on security by obscurity, should be used based on risk tolerance. You can obfuscate code to prevent feature flags from being revealed, but ultimately it is in the source code. You can also not add the feature flights to the clients if they should be disabled, and then the client will assume that they are disabled (based on internal programming.) This can help prevent the release of feature flight names which might make people aware of some of the features.
 
-Here\'s a straightforward example of using feature flags, emphasizing the importance of version control to track when flags are enabled. Initially, create a repository named \'feature flags\' and add a \`flags.json\` file. Edit this JSON file to deploy changes, ensuring it is well-formed, possibly using a schema for validation. You can manage feature flags for different environments by maintaining separate files.
+Here\'s a straightforward example of using feature flags, emphasizing the importance of version control to track when flags are enabled. Initially, create a repository named \'feature flags\' and add a `flags.json` file. Edit this JSON file to deploy changes, ensuring it is well-formed, possibly using a schema for validation. You can manage feature flags for different environments by maintaining separate files.
 
 The deployment pipeline copies the JSON file to an Azure Storage account, which your application accesses at runtime to check the flag status. This method is simple but may not scale efficiently. An alternative is embedding feature flags directly in your code, which requires a separate deployment pipeline for those flags, typically in a continuous deployment style.
 
@@ -1509,19 +1509,19 @@ Then for example, say if you want to turn the feature on or off or modify someth
 | |
 | 1\. **NPM (Node Package Manager) for JavaScript:** |
 | |
-| \- A guide on Semantic Versioning (\`SemVer\`) and how package versions work in NPM. |
+| \- A guide on Semantic Versioning (`SemVer`) and how package versions work in NPM. |
 | |
-| \- Explanation of version ranges, such as \`\^1.0.0\` and \`\~1.0.0\`. |
+| \- Explanation of version ranges, such as `\^1.0.0` and `\~1.0.0`. |
 | |
-| \- Details about \`package-lock.json\` and how NPM resolves dependencies. |
+| \- Details about `package-lock.json` and how NPM resolves dependencies. |
 | |
 | 2\. **pip for Python:** |
 | |
-| \- Details on how \`pip\` manages package versions. |
+| \- Details on how `pip` manages package versions. |
 | |
-| \- Explanation of version specifiers like \`==\`, \`\>=\`, \`\<=\`, etc. |
+| \- Explanation of version specifiers like `==`, `\>=`, `\<=`, etc. |
 | |
-| \- Use of \`requirements.txt\` for specifying dependencies. |
+| \- Use of `requirements.txt` for specifying dependencies. |
 | |
 | 3\. **Gradle for Java (and other languages):** |
 | |
@@ -1535,15 +1535,15 @@ Then for example, say if you want to turn the feature on or off or modify someth
 | |
 | \- Documentation about Semantic Versioning in the Ruby ecosystem. |
 | |
-| \- Explanation of version specifiers in a \`Gemfile\`. |
+| \- Explanation of version specifiers in a `Gemfile`. |
 | |
-| \- Details on how \`Bundler\` resolves gem dependencies. |
+| \- Details on how `Bundler` resolves gem dependencies. |
 | |
 | 5\. **Cargo for Rust:** |
 | |
 | \- Information on how Cargo handles Rust crate versions. |
 | |
-| \- Explanation of \`Cargo.toml\` and \`Cargo.lock\` files. |
+| \- Explanation of `Cargo.toml` and `Cargo.lock` files. |
 | |
 | \- Details on Semantic Versioning in the Rust ecosystem. |
 | |
@@ -1551,9 +1551,9 @@ Then for example, say if you want to turn the feature on or off or modify someth
 | |
 | \- Guides on how NuGet manages package versions. |
 | |
-| \- Details on versioning conventions and version constraints in \`.csproj\` files. |
+| \- Details on versioning conventions and version constraints in `.csproj` files. |
 | |
-| \- Explanation about \`packages.config\` and \`PackageReference\`. |
+| \- Explanation about `packages.config` and `PackageReference`. |
 | |
 | 7\. **SBT for Scala:** |
 | |
@@ -1587,29 +1587,29 @@ Then for example, say if you want to turn the feature on or off or modify someth
 
 - Once you\'ve successfully built your program, you can test building it inside a Docker container, like \"ubuntu-latest\" for Linux builds. This mimics a CI/CD environment, which typically starts with a minimal setup, devoid of your application\'s specific dependencies or your codebase. You\'ll need to add these dependencies and your code to the container to build it.
 
-- Note: When creating a tag for your CI/CD pipeline, you\'ll need to have a merged PR. Use \`git commit -m --allow-empty "Commit message here"\` to push a tag without any commit content.
+- Note: When creating a tag for your CI/CD pipeline, you\'ll need to have a merged PR. Use `git commit -m --allow-empty "Commit message here"` to push a tag without any commit content.
 
 - Note: if you are planning on using tags to support multiple versions of your software simultaneously, and are using trunk-based development, then this might be a bad idea. This is because tags only refer to a single commit which makes it difficult to change something at one point without changing everything after it. Therefore, you might be interested in different branching strategies. However, if the history is linear, and you're using a rolling versioning strategy (e.g., today's date), and the previous versions are never supported, then therefore tagging will provide a linear history, which should be suitable for most applications.
 
 - All tags do is add an alias to a commit hash. It makes it easy to retrieve a particular version, as you can just view the tag and find the associated commit hash.
 
-Git\'s \`git tag\` command lets you label specific commits. Here\'s how:
+Git\'s `git tag` command lets you label specific commits. Here\'s how:
 
 1\. **Lightweight Tags**: A simple pointer to a specific commit.
 
-\`\`\`bash
+```bash
 
 git tag v1.0
 
-\`\`\`
+```
 
 2\. **Annotated Tags**: These are full objects in Git\'s database. They contain metadata like the tagger\'s name, email, date, and a tagging message.
 
-\`\`\`bash
+```bash
 
 git tag -a v1.0 -m \"First stable release\"
 
-\`\`\`
+```
 
 -
 
@@ -1617,11 +1617,15 @@ git tag -a v1.0 -m \"First stable release\"
 
 -
 
-- \`\`\`bash
+- ```bash
+
+  ```
 
 - git tag v0.9 9fceb02
 
-- \`\`\`
+- ```
+
+  ```
 
 -
 
@@ -1629,11 +1633,15 @@ git tag -a v1.0 -m \"First stable release\"
 
 -
 
-- \`\`\`bash
+- ```bash
+
+  ```
 
 - git push origin v1.0
 
-- \`\`\`
+- ```
+
+  ```
 
 - Note: you may have to make a commit first (i.e., see previous command.) This is because some CI/CD software does not allow pushing tags because the only way to update the master branch is via a PR, and the PR must have at least one commit.
 
@@ -1643,11 +1651,15 @@ git tag -a v1.0 -m \"First stable release\"
 
 -
 
-- \`\`\`bash
+- ```bash
+
+  ```
 
 - git tag -d v1.0
 
-- \`\`\`
+- ```
+
+  ```
 
 -
 
@@ -1670,7 +1682,7 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | \### **Simple Dockerfile for a Python Web Application** |
 | |
-| \`\`\`Dockerfile |
+| `Dockerfile |
 | |
 | \# Use an official Python runtime as the base image |
 | |
@@ -1696,7 +1708,7 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | CMD \[\"python\", \"app.py\"\] |
 | |
-| \`\`\` |
+| ` |
 | |
 | **Explanation of the Dockerfile Commands:** |
 | |
@@ -1704,9 +1716,9 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | 2\. **WORKDIR /app**: Sets the working directory inside the container. |
 | |
-| 3\. **COPY . /app**: Copies the contents of the current local directory into the container\'s \`/app\` directory. |
+| 3\. **COPY . /app**: Copies the contents of the current local directory into the container\'s `/app` directory. |
 | |
-| 4\. **RUN pip install \--trusted-host pypi.python.org -r requirements.txt**: Installs the Python packages listed in \`requirements.txt\`. |
+| 4\. **RUN pip install \--trusted-host pypi.python.org -r requirements.txt**: Installs the Python packages listed in `requirements.txt`. |
 | |
 | 5\. **EXPOSE 80**: Indicates that the container will listen on port 80. |
 | |
@@ -1742,113 +1754,113 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | \### 1. Building and Tagging a Docker Image: |
 | |
-| Firstly, when you\'re building an image using a \`Dockerfile\`, you can tag it right away: |
+| Firstly, when you\'re building an image using a `Dockerfile`, you can tag it right away: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker build -t \[username/imagename\]:\[tag\] . |
 | |
-| \`\`\` |
+| ` |
 | |
-| \- \`\[username/imagename\]\`: The name of the Docker image (often prefixed with a username or organization name). |
+| \- `\[username/imagename\]`: The name of the Docker image (often prefixed with a username or organization name). |
 | |
-| \- \`\[tag\]\`: The tag for the Docker image (e.g., \`latest\`, \`v1.0\`, \`development\`, etc.) |
+| \- `\[tag\]`: The tag for the Docker image (e.g., `latest`, `v1.0`, `development`, etc.) |
 | |
 | For example: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker build -t myuser/myapp:v1.0 . |
 | |
-| \`\`\` |
+| ` |
 | |
 | \### 2. Tagging an Existing Image: |
 | |
-| If you have an existing image that you\'d like to tag or retag, you can use the \`docker tag\` command: |
+| If you have an existing image that you\'d like to tag or retag, you can use the `docker tag` command: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker tag \[source_image\]:\[source_tag\] \[username/imagename\]:\[new_tag\] |
 | |
-| \`\`\` |
+| ` |
 | |
-| For example, to retag an existing \`myapp:latest\` image to \`myapp:v1.0\`: |
+| For example, to retag an existing `myapp:latest` image to `myapp:v1.0`: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker tag myapp:latest myuser/myapp:v1.0 |
 | |
-| \`\`\` |
+| ` |
 | |
 | \### 3. Pushing Tagged Image to Docker Hub: |
 | |
 | Before pushing, ensure you\'re logged into Docker Hub (or another Docker registry): |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker login |
 | |
-| \`\`\` |
+| ` |
 | |
 | Then, push your tagged image: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker push \[username/imagename\]:\[tag\] |
 | |
-| \`\`\` |
+| ` |
 | |
 | For example: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker push myuser/myapp:v1.0 |
 | |
-| \`\`\` |
+| ` |
 | |
 | \### 4. Pushing to Other Registries: |
 | |
 | If you\'re not using Docker Hub, but another registry like Google Container Registry (GCR), Amazon Elastic Container Registry (ECR), or any other, your image name (and tag) will usually include the registry URL: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker tag myapp:latest registry-url/myuser/myapp:v1.0 |
 | |
 | docker push registry-url/myuser/myapp:v1.0 |
 | |
-| \`\`\` |
+| ` |
 | |
 | \### 5. Pulling a Tagged Image: |
 | |
 | To pull an image based on a specific tag: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker pull \[username/imagename\]:\[tag\] |
 | |
-| \`\`\` |
+| ` |
 | |
 | For example: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker pull myuser/myapp:v1.0 |
 | |
-| \`\`\` |
+| ` |
 | |
-| If you don\'t specify a tag, Docker will usually default to the \`latest\` tag: |
+| If you don\'t specify a tag, Docker will usually default to the `latest` tag: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker pull myuser/myapp |
 | |
-| \`\`\` |
+| ` |
 | |
 | \### Tips: |
 | |
-| \- It\'s good practice to use meaningful tags. Common tags include version numbers (\`v1.0\`, \`v1.1\`), development stages (\`dev\`, \`prod\`), or even Git commit hashes for granularity. |
+| \- It\'s good practice to use meaningful tags. Common tags include version numbers (`v1.0`, `v1.1`), development stages (`dev`, `prod`), or even Git commit hashes for granularity. |
 | |
-| \- Keep in mind that while the \`latest\` tag might sound like it represents the most recent version of your image, Docker does not enforce this. The \`latest\` tag is simply the default tag if no tag is specified. Therefore, it\'s always recommended to be explicit with your tags to avoid confusion. |
+| \- Keep in mind that while the `latest` tag might sound like it represents the most recent version of your image, Docker does not enforce this. The `latest` tag is simply the default tag if no tag is specified. Therefore, it\'s always recommended to be explicit with your tags to avoid confusion. |
 | |
 | \- Remember, each time you change and retag an image, you\'ll need to push the newly tagged image to your registry if you want to share or deploy it. |
 +==============================================================================================================================================================================================================================================================================================================+
@@ -1887,11 +1899,11 @@ git tag -a v1.0 -m \"First stable release\"
 - Let's go back to publishing it to a container registry.
 
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Azure Container Registry (ACR) is a managed Docker container registry service used for storing private Docker container images. To publish your Docker image (\`myapp:v1\`) to ACR, follow these steps: |
+| Azure Container Registry (ACR) is a managed Docker container registry service used for storing private Docker container images. To publish your Docker image (`myapp:v1`) to ACR, follow these steps: |
 | |
 | \### 1. Prerequisites: |
 | |
-| \- Ensure you have the \`azure-cli\` (Azure Command-Line Interface) installed. |
+| \- Ensure you have the `azure-cli` (Azure Command-Line Interface) installed. |
 | |
 | \- Ensure you have Docker installed. |
 | |
@@ -1899,35 +1911,35 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | Login to your Azure account: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | az login |
 | |
-| \`\`\` |
+| ` |
 | |
 | A browser window will open asking you to sign in to your Azure account. |
 | |
 | \### 3. Create an Azure Container Registry (if you haven't already): |
 | |
-| Replace \`myregistry\` with a unique name for your registry, and \`myresourcegroup\` with the name of your Azure resource group: |
+| Replace `myregistry` with a unique name for your registry, and `myresourcegroup` with the name of your Azure resource group: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | az acr create \--resource-group myresourcegroup \--name myregistry \--sku Basic |
 | |
-| \`\`\` |
+| ` |
 | |
-| You can choose different SKUs (\`Basic\`, \`Standard\`, or \`Premium\`) based on your needs. |
+| You can choose different SKUs (`Basic`, `Standard`, or `Premium`) based on your needs. |
 | |
 | \### 4. Login to ACR: |
 | |
 | Before you can push an image, you need to authenticate Docker to the Azure Container Registry: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | az acr login \--name myregistry |
 | |
-| \`\`\` |
+| ` |
 | |
 | \### 5. Tag Your Image with the Full ACR Login Server Name: |
 | |
@@ -1935,61 +1947,61 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | First, retrieve the login server name: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | az acr list \--resource-group myresourcegroup \--query \"\[\].{acrLoginServer:loginServer}\" \--output table |
 | |
-| \`\`\` |
+| ` |
 | |
-| Once you have the login server name (something like \`myregistry.azurecr.io\`), tag your image: |
+| Once you have the login server name (something like `myregistry.azurecr.io`), tag your image: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker tag myapp:v1 myregistry.azurecr.io/myapp:v1 |
 | |
-| \`\`\` |
+| ` |
 | |
 | \### 6. Push the Image to ACR: |
 | |
 | Now you can push the image to your Azure Container Registry: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | docker push myregistry.azurecr.io/myapp:v1 |
 | |
-| \`\`\` |
+| ` |
 | |
 | \### 7. Verify: |
 | |
 | You can verify that your image was successfully pushed by listing the images in your ACR: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | az acr repository list \--name myregistry \--output table |
 | |
-| \`\`\` |
+| ` |
 | |
 | And to see the tags for a specific image: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | az acr repository show-tags \--name myregistry \--repository myapp \--output table |
 | |
-| \`\`\` |
+| ` |
 | |
-| You should see \`v1\` in the list of tags for \`myapp\`. |
+| You should see `v1` in the list of tags for `myapp`. |
 | |
 | \### 8. Optional - Logout from ACR: |
 | |
 | After you\'ve finished working with ACR, it\'s a good practice to log out: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | az acr logout \--name myregistry |
 | |
-| \`\`\` |
+| ` |
 | |
-| That\'s it! Your \`myapp:v1\` image is now published to your Azure Container Registry. Whenever you want to deploy or run this image from the registry, you\'ll pull from \`myregistry.azurecr.io/myapp:v1\`. |
+| That\'s it! Your `myapp:v1` image is now published to your Azure Container Registry. Whenever you want to deploy or run this image from the registry, you\'ll pull from `myregistry.azurecr.io/myapp:v1`. |
 +===============================================================================================================================================================================================================+
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 

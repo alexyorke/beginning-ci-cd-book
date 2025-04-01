@@ -445,73 +445,73 @@ C#, .NET Core, .NET Depends, usually dotnet test
   | |
   | Here\'s the method we\'re testing: |
   | |
-  | \`\`\`csharp |
-  | |
-  | public class Calculator |
-  | |
-  | { |
-  | |
-  | public int Add(int a, int b) |
-  | |
-  | { |
-  | |
-  | return a + b; |
-  | |
-  | } |
-  | |
-  | } |
-  | |
-  | \`\`\` |
+  | `csharp |
+| |
+| public class Calculator |
+| |
+| { |
+| |
+| public int Add(int a, int b) |
+| |
+| { |
+| |
+| return a + b; |
+| |
+| } |
+| |
+| } |
+| |
+| ` |
   | |
   | To write a unit test for this method, you\'ll typically use a unit testing framework like NUnit or MSTest. I\'ll demonstrate using MSTest: |
   | |
   | 1\. Create a new MSTest Test Project if you haven\'t. |
   | |
-  | 2\. Reference the project that contains the \`Calculator\` class in your test project. |
+  | 2\. Reference the project that contains the `Calculator` class in your test project. |
   | |
   | 3\. Write the test: |
   | |
-  | \`\`\`csharp |
-  | |
-  | using Microsoft.VisualStudio.TestTools.UnitTesting; |
-  | |
-  | using YourNamespaceWhereCalculatorExists; // Replace with the correct namespace |
-  | |
-  | \[TestClass\] |
-  | |
-  | public class CalculatorTests |
-  | |
-  | { |
-  | |
-  | \[TestMethod\] |
-  | |
-  | public void Add_TwoNumbers_ReturnsCorrectSum() |
-  | |
-  | { |
-  | |
-  | // Arrange |
-  | |
-  | var calculator = new Calculator(); |
-  | |
-  | // Act |
-  | |
-  | var result = calculator.Add(3, 4); |
-  | |
-  | // Assert |
-  | |
-  | Assert.AreEqual(7, result); |
-  | |
-  | } |
-  | |
-  | } |
-  | |
-  | \`\`\` |
+  | `csharp |
+| |
+| using Microsoft.VisualStudio.TestTools.UnitTesting; |
+| |
+| using YourNamespaceWhereCalculatorExists; // Replace with the correct namespace |
+| |
+| \[TestClass\] |
+| |
+| public class CalculatorTests |
+| |
+| { |
+| |
+| \[TestMethod\] |
+| |
+| public void Add_TwoNumbers_ReturnsCorrectSum() |
+| |
+| { |
+| |
+| // Arrange |
+| |
+| var calculator = new Calculator(); |
+| |
+| // Act |
+| |
+| var result = calculator.Add(3, 4); |
+| |
+| // Assert |
+| |
+| Assert.AreEqual(7, result); |
+| |
+| } |
+| |
+| } |
+| |
+| ` |
   | |
   | In this unit test: |
   | |
-  | \- We use the \`\[TestClass\]\` attribute to denote that \`CalculatorTests\` is a test class. |
+  | \- We use the `\[TestClass\]` attribute to denote that `CalculatorTests` is a test class. |
   | |
-  | \- We use the \`\[TestMethod\]\` attribute to specify that \`Add_TwoNumbers_ReturnsCorrectSum\` is a test method. |
+  | \- We use the `\[TestMethod\]` attribute to specify that `Add_TwoNumbers_ReturnsCorrectSum` is a test method. |
   | |
   | \- The test method follows the Arrange-Act-Assert (AAA) pattern: |
   | |
@@ -521,7 +521,7 @@ C#, .NET Core, .NET Depends, usually dotnet test
   | |
   | \- **Assert**: Verify that the function behaved as expected. |
   | |
-  | You\'d run this test using Visual Studio\'s Test Explorer or another test runner that supports MSTest. If everything is set up correctly and the \`Add\` method works as expected, the test should pass. |
+  | You\'d run this test using Visual Studio\'s Test Explorer or another test runner that supports MSTest. If everything is set up correctly and the `Add` method works as expected, the test should pass. |
   +==========================================================================================================================================================================================================+
   +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
@@ -556,151 +556,151 @@ C#, .NET Core, .NET Depends, usually dotnet test
   | |
   | 1\. First, let\'s define a simple entity and a context for EF Core: |
   | |
-  | \`\`\`csharp |
-  | |
-  | public class User |
-  | |
-  | { |
-  | |
-  | public int Id { get; set; } |
-  | |
-  | public string Name { get; set; } |
-  | |
-  | } |
-  | |
-  | public class AppDbContext : DbContext |
-  | |
-  | { |
-  | |
-  | public AppDbContext(DbContextOptions\<AppDbContext\> options) : base(options) |
-  | |
-  | { |
-  | |
-  | } |
-  | |
-  | public DbSet\<User\> Users { get; set; } |
-  | |
-  | } |
-  | |
-  | \`\`\` |
+  | `csharp |
+| |
+| public class User |
+| |
+| { |
+| |
+| public int Id { get; set; } |
+| |
+| public string Name { get; set; } |
+| |
+| } |
+| |
+| public class AppDbContext : DbContext |
+| |
+| { |
+| |
+| public AppDbContext(DbContextOptions\<AppDbContext\> options) : base(options) |
+| |
+| { |
+| |
+| } |
+| |
+| public DbSet\<User\> Users { get; set; } |
+| |
+| } |
+| |
+| ` |
   | |
   | 2\. Create a service that uses this context: |
   | |
-  | \`\`\`csharp |
+  | `csharp |
+| |
+| public class UserService |
+| |
+| { |
+| |
+| private readonly AppDbContext \_context; |
+| |
+| public UserService(AppDbContext context) |
+| |
+| { |
+| |
+| \_context = context; |
+| |
+| } |
+| |
+| public User GetUser(int id) |
+| |
+| { |
+| |
+| return \_context.Users.Find(id); |
+| |
+| } |
+| |
+| } |
+| |
+| ` |
   | |
-  | public class UserService |
+  | 3\. Now, let\'s write an integration test for the `GetUser` method using MSTest and the `Microsoft.EntityFrameworkCore.InMemory` package (an in-memory database provider for EF Core): |
   | |
-  | { |
-  | |
-  | private readonly AppDbContext \_context; |
-  | |
-  | public UserService(AppDbContext context) |
-  | |
-  | { |
-  | |
-  | \_context = context; |
-  | |
-  | } |
-  | |
-  | public User GetUser(int id) |
-  | |
-  | { |
-  | |
-  | return \_context.Users.Find(id); |
-  | |
-  | } |
-  | |
-  | } |
-  | |
-  | \`\`\` |
-  | |
-  | 3\. Now, let\'s write an integration test for the \`GetUser\` method using MSTest and the \`Microsoft.EntityFrameworkCore.InMemory\` package (an in-memory database provider for EF Core): |
-  | |
-  | \`\`\`csharp |
-  | |
-  | using Microsoft.EntityFrameworkCore; |
-  | |
-  | using Microsoft.VisualStudio.TestTools.UnitTesting; |
-  | |
-  | \[TestClass\] |
-  | |
-  | public class UserServiceTests |
-  | |
-  | { |
-  | |
-  | private AppDbContext \_context; |
-  | |
-  | private UserService \_service; |
-  | |
-  | \[TestInitialize\] |
-  | |
-  | public void TestInitialize() |
-  | |
-  | { |
-  | |
-  | // Set up the in-memory database. |
-  | |
-  | var options = new DbContextOptionsBuilder\<AppDbContext\>() |
-  | |
-  | .UseInMemoryDatabase(databaseName: \"TestDatabase\") // Unique name for the in-memory database. |
-  | |
-  | .Options; |
-  | |
-  | \_context = new AppDbContext(options); |
-  | |
-  | \_service = new UserService(\_context); |
-  | |
-  | // Add sample data. |
-  | |
-  | \_context.Users.Add(new User { Id = 1, Name = \"Alice\" }); |
-  | |
-  | \_context.SaveChanges(); |
-  | |
-  | } |
-  | |
-  | \[TestMethod\] |
-  | |
-  | public void GetUser_ValidId_ReturnsUser() |
-  | |
-  | { |
-  | |
-  | // Act |
-  | |
-  | var user = \_service.GetUser(1); |
-  | |
-  | // Assert |
-  | |
-  | Assert.IsNotNull(user); |
-  | |
-  | Assert.AreEqual(\"Alice\", user.Name); |
-  | |
-  | } |
-  | |
-  | \[TestCleanup\] |
-  | |
-  | public void TestCleanup() |
-  | |
-  | { |
-  | |
-  | // Clean up resources, e.g., dispose the context, etc. |
-  | |
-  | \_context.Database.EnsureDeleted(); |
-  | |
-  | \_context.Dispose(); |
-  | |
-  | } |
-  | |
-  | } |
-  | |
-  | \`\`\` |
+  | `csharp |
+| |
+| using Microsoft.EntityFrameworkCore; |
+| |
+| using Microsoft.VisualStudio.TestTools.UnitTesting; |
+| |
+| \[TestClass\] |
+| |
+| public class UserServiceTests |
+| |
+| { |
+| |
+| private AppDbContext \_context; |
+| |
+| private UserService \_service; |
+| |
+| \[TestInitialize\] |
+| |
+| public void TestInitialize() |
+| |
+| { |
+| |
+| // Set up the in-memory database. |
+| |
+| var options = new DbContextOptionsBuilder\<AppDbContext\>() |
+| |
+| .UseInMemoryDatabase(databaseName: \"TestDatabase\") // Unique name for the in-memory database. |
+| |
+| .Options; |
+| |
+| \_context = new AppDbContext(options); |
+| |
+| \_service = new UserService(\_context); |
+| |
+| // Add sample data. |
+| |
+| \_context.Users.Add(new User { Id = 1, Name = \"Alice\" }); |
+| |
+| \_context.SaveChanges(); |
+| |
+| } |
+| |
+| \[TestMethod\] |
+| |
+| public void GetUser_ValidId_ReturnsUser() |
+| |
+| { |
+| |
+| // Act |
+| |
+| var user = \_service.GetUser(1); |
+| |
+| // Assert |
+| |
+| Assert.IsNotNull(user); |
+| |
+| Assert.AreEqual(\"Alice\", user.Name); |
+| |
+| } |
+| |
+| \[TestCleanup\] |
+| |
+| public void TestCleanup() |
+| |
+| { |
+| |
+| // Clean up resources, e.g., dispose the context, etc. |
+| |
+| \_context.Database.EnsureDeleted(); |
+| |
+| \_context.Dispose(); |
+| |
+| } |
+| |
+| } |
+| |
+| ` |
   | |
   | Here\'s what happens in the integration test: |
   | |
-  | \- \`\[TestInitialize\]\`: This method runs before each test. We\'re setting up an in-memory database, adding a sample user, and initializing the \`UserService\`. |
+  | \- `\[TestInitialize\]`: This method runs before each test. We\'re setting up an in-memory database, adding a sample user, and initializing the `UserService`. |
   | |
-  | \- \`GetUser_ValidId_ReturnsUser\`: This test method checks whether the \`GetUser\` method retrieves the correct user from the database. |
+  | \- `GetUser_ValidId_ReturnsUser`: This test method checks whether the `GetUser` method retrieves the correct user from the database. |
   | |
-  | \- \`\[TestCleanup\]\`: This method runs after each test. We\'re ensuring the in-memory database is deleted and disposing the context. |
+  | \- `\[TestCleanup\]`: This method runs after each test. We\'re ensuring the in-memory database is deleted and disposing the context. |
   | |
   | By using an in-memory database for integration testing, we simulate interactions with a real database without the overhead of actual database operations. |
   +====================================================================================================================================================================================================================================================+
@@ -755,77 +755,77 @@ C#, .NET Core, .NET Depends, usually dotnet test
   | |
   | \- Framework: JUnit (most popular) |
   | |
-  | \- Test Structure: Java tests are typically placed in a separate \`test\` directory that mirrors the structure of the \`src\` directory. For example: |
+  | \- Test Structure: Java tests are typically placed in a separate `test` directory that mirrors the structure of the `src` directory. For example: |
   | |
-  | \`\`\` |
-  | |
-  | project-root/ |
-  | |
-  | ├── src/ |
-  | |
-  | │ ├── main/ |
-  | |
-  | │ │ ├── java/ |
-  | |
-  | │ │ │ └── com/example/MyClass.java |
-  | |
-  | │ ├── test/ |
-  | |
-  | │ │ ├── java/ |
-  | |
-  | │ │ │ └── com/example/MyClassTest.java |
-  | |
-  | \`\`\` |
+  | `|
+| |
+| project-root/ |
+| |
+| ├── src/ |
+| |
+| │ ├── main/ |
+| |
+| │ │ ├── java/ |
+| |
+| │ │ │ └── com/example/MyClass.java |
+| |
+| │ ├── test/ |
+| |
+| │ │ ├── java/ |
+| |
+| │ │ │ └── com/example/MyClassTest.java |
+| |
+|` |
   | |
   | 2\. **Python**: |
   | |
   | \- Framework: pytest, unittest |
   | |
-  | \- Test Structure: Python tests can be placed alongside the source code or in a separate \`tests\` directory. Some projects use a \`test\_\*.py\` naming convention for test modules. |
+  | \- Test Structure: Python tests can be placed alongside the source code or in a separate `tests` directory. Some projects use a `test\_\*.py` naming convention for test modules. |
   | |
-  | \`\`\` |
-  | |
-  | project-root/ |
-  | |
-  | ├── my_module.py |
-  | |
-  | ├── test_my_module.py |
-  | |
-  | \`\`\` |
+  | `|
+| |
+| project-root/ |
+| |
+| ├── my_module.py |
+| |
+| ├── test_my_module.py |
+| |
+|` |
   | |
   | Or: |
   | |
-  | \`\`\` |
-  | |
-  | project-root/ |
-  | |
-  | ├── src/ |
-  | |
-  | │ ├── my_module.py |
-  | |
-  | ├── tests/ |
-  | |
-  | │ ├── test_my_module.py |
-  | |
-  | \`\`\` |
+  | `|
+| |
+| project-root/ |
+| |
+| ├── src/ |
+| |
+| │ ├── my_module.py |
+| |
+| ├── tests/ |
+| |
+| │ ├── test_my_module.py |
+| |
+|` |
   | |
   | 3\. **JavaScript**: |
   | |
   | \- Framework: Jest, Mocha, Jasmine |
   | |
-  | \- Test Structure: For many JavaScript projects, especially those using Node.js, tests are often in a \`\_\_tests\_\_\` directory or alongside the source code with a \`.test.js\` or \`.spec.js\` suffix. |
+  | \- Test Structure: For many JavaScript projects, especially those using Node.js, tests are often in a `\_\_tests\_\_` directory or alongside the source code with a `.test.js` or `.spec.js` suffix. |
   | |
-  | \`\`\` |
-  | |
-  | project-root/ |
-  | |
-  | ├── src/ |
-  | |
-  | │ ├── myFunction.js |
-  | |
-  | │ ├── myFunction.test.js |
-  | |
-  | \`\`\` |
+  | `|
+| |
+| project-root/ |
+| |
+| ├── src/ |
+| |
+| │ ├── myFunction.js |
+| |
+| │ ├── myFunction.test.js |
+| |
+|` |
   | |
   | 4\. **C#**: |
   | |
@@ -833,41 +833,41 @@ C#, .NET Core, .NET Depends, usually dotnet test
   | |
   | \- Test Structure: C# tests are typically placed in a separate test project, which might be in the same solution. For example: |
   | |
-  | \`\`\` |
-  | |
-  | solution-root/ |
-  | |
-  | ├── MyProject/ |
-  | |
-  | │ ├── MyClass.cs |
-  | |
-  | ├── MyProject.Tests/ |
-  | |
-  | │ ├── MyClassTests.cs |
-  | |
-  | \`\`\` |
+  | `|
+| |
+| solution-root/ |
+| |
+| ├── MyProject/ |
+| |
+| │ ├── MyClass.cs |
+| |
+| ├── MyProject.Tests/ |
+| |
+| │ ├── MyClassTests.cs |
+| |
+|` |
   | |
   | 5\. **C/C++**: |
   | |
   | \- Framework: Google Test, Catch2 |
   | |
-  | \- Test Structure: Tests in C++ are typically separated into their own files, which might be placed in a \`test\` or \`tests\` directory. |
+  | \- Test Structure: Tests in C++ are typically separated into their own files, which might be placed in a `test` or `tests` directory. |
   | |
-  | \`\`\` |
-  | |
-  | project-root/ |
-  | |
-  | ├── src/ |
-  | |
-  | │ ├── my_function.cpp |
-  | |
-  | │ ├── my_function.h |
-  | |
-  | ├── tests/ |
-  | |
-  | │ ├── test_my_function.cpp |
-  | |
-  | \`\`\` |
+  | `|
+| |
+| project-root/ |
+| |
+| ├── src/ |
+| |
+| │ ├── my_function.cpp |
+| |
+| │ ├── my_function.h |
+| |
+| ├── tests/ |
+| |
+| │ ├── test_my_function.cpp |
+| |
+|` |
   | |
   | It\'s worth noting that the structure of tests can vary depending on the project\'s conventions, the testing framework, or the developer\'s personal preferences. The examples provided are common conventions but are by no means strict rules. |
   +===========================================================================================================================================================================================================================================================================================================================================================================================+
@@ -1133,7 +1133,7 @@ C#, .NET Core, .NET Depends, usually dotnet test
 
   - Avoid tagging dependencies as \"latest.\"
 
-  - Utilize \`package.lock.json\` for locking dependencies.
+  - Utilize `package.lock.json` for locking dependencies.
 
   - Clean up by deleting temporary files.
 

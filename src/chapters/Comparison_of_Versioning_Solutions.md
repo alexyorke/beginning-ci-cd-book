@@ -96,7 +96,7 @@ owner: context.repo.owner,
 
 repo: context.repo.repo,
 
-tag_name: \`v\${Date.now()}\`, // This is an example tag format. Customize as needed.
+tag_name: `v\${Date.now()}`, // This is an example tag format. Customize as needed.
 
 name: \'Production Release\',
 
@@ -358,7 +358,7 @@ Navigate to the GitHub repository where you want to enable Dependabot.
 
 \### Step 2: Create a Dependabot Configuration File
 
-You need to create a \`.github/dependabot.yml\` file in your repository to configure Dependabot settings.
+You need to create a `.github/dependabot.yml` file in your repository to configure Dependabot settings.
 
 1\. **Create a New File**:
 
@@ -366,13 +366,13 @@ You need to create a \`.github/dependabot.yml\` file in your repository to confi
 
 \- Click on \"Add file\" \> \"Create new file\".
 
-\- Set the path to \`.github/dependabot.yml\`.
+\- Set the path to `.github/dependabot.yml`.
 
 2\. **Add Configuration to the File**:
 
 Dependabot configuration needs to be defined in YAML format. Here's a basic example configuration for a JavaScript project using npm:
 
-\`\`\`yaml
+```yaml
 
 version: 2
 
@@ -400,13 +400,13 @@ ignore:
 
 versions: \[\"4.x.x\"\]
 
-\`\`\`
+```
 
-Modify the \`package-ecosystem\`, \`directory\`, and other fields as per your project\'s requirements.
+Modify the `package-ecosystem`, `directory`, and other fields as per your project\'s requirements.
 
 \### Step 3: Commit the Configuration File
 
-\- After entering your configuration into the \`dependabot.yml\` file:
+\- After entering your configuration into the `dependabot.yml` file:
 
 \- Scroll down to the \"Commit new file\" section at the bottom of the page.
 
@@ -418,7 +418,7 @@ Modify the \`package-ecosystem\`, \`directory\`, and other fields as per your pr
 
 \### Step 4: Dependabot Activation
 
-Once the \`dependabot.yml\` file is committed, GitHub automatically recognizes and activates Dependabot based on the settings you've defined. Dependabot will begin checking for updates and will open pull requests according to the schedule you\'ve set.
+Once the `dependabot.yml` file is committed, GitHub automatically recognizes and activates Dependabot based on the settings you've defined. Dependabot will begin checking for updates and will open pull requests according to the schedule you\'ve set.
 
 \### Step 5: Review and Merge Pull Requests
 

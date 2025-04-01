@@ -130,29 +130,29 @@ I would be tempted to use Python if you are doing advanced string manipulation/J
 
 Common commands. Lots are for managing GitHub releases/tags/GitHub API and extracting release ids and such. jq -r very popular (raw output, that is, no quotes.) jq -c also popular (print on one line.) jq --arg should be used more frequently; variable injection manually is very weird as to what people are doing. Using -c with -r is redundant. You can also avoid piping jq to jq via jq \'.icons \| keys \| .\[\]\' manifest.json. Lots of unnecessary uses of cat and echo; jq can pass in a filename as its second argument.
 
-Creating a cookbook about using \`jq\` in CI/CD GitHub Actions based on the provided commands can be a valuable resource for developers. Here are key topics and tips you should consider including in your cookbook:
+Creating a cookbook about using `jq` in CI/CD GitHub Actions based on the provided commands can be a valuable resource for developers. Here are key topics and tips you should consider including in your cookbook:
 
-1\. **Introduction to \`jq\` and Its Relevance in CI/CD Pipelines**: Explain what \`jq\` is and why it\'s particularly useful in CI/CD contexts, especially with GitHub Actions. Highlight its ability to parse, filter, and transform JSON data.
+1\. **Introduction to `jq` and Its Relevance in CI/CD Pipelines**: Explain what `jq` is and why it\'s particularly useful in CI/CD contexts, especially with GitHub Actions. Highlight its ability to parse, filter, and transform JSON data.
 
-2\. **Basic \`jq\` Syntax and Operations**: Start with basic \`jq\` syntax and operations, as many users may be new to \`jq\`. Examples from your commands include extracting values (\`jq \'.NumberOfPass\'\`), raw string output (\`jq -r\`), and array operations (\`jq \'.\[\]\'\`).
+2\. **Basic `jq` Syntax and Operations**: Start with basic `jq` syntax and operations, as many users may be new to `jq`. Examples from your commands include extracting values (`jq \'.NumberOfPass\'`), raw string output (`jq -r`), and array operations (`jq \'.\[\]\'`).
 
-3\. **Parsing GitHub API Responses**: Many of your commands involve parsing GitHub API responses. Include examples on how to extract specific data like repository names, pull request numbers, and tag names (e.g., \`jq \--raw-output \'.repository.name\' \$GITHUB_EVENT_PATH\`).
+3\. **Parsing GitHub API Responses**: Many of your commands involve parsing GitHub API responses. Include examples on how to extract specific data like repository names, pull request numbers, and tag names (e.g., `jq \--raw-output \'.repository.name\' \$GITHUB_EVENT_PATH`).
 
-4\. **Manipulating and Writing JSON Data**: Show how \`jq\` can be used to modify JSON files, which is crucial in dynamic CI/CD environments. This includes setting new values, deleting keys, and merging JSON objects (e.g., \`jq \'.version = \$version\' package.json \> \"\$tmp\"\`).
+4\. **Manipulating and Writing JSON Data**: Show how `jq` can be used to modify JSON files, which is crucial in dynamic CI/CD environments. This includes setting new values, deleting keys, and merging JSON objects (e.g., `jq \'.version = \$version\' package.json \> \"\$tmp\"`).
 
-5\. **Complex Filters and Queries**: Cover more complex \`jq\` queries for advanced use cases, such as filtering, mapping, and reducing JSON data. For example, extracting data based on certain conditions or iterating over arrays.
+5\. **Complex Filters and Queries**: Cover more complex `jq` queries for advanced use cases, such as filtering, mapping, and reducing JSON data. For example, extracting data based on certain conditions or iterating over arrays.
 
-6\. **Integrating \`jq\` with Shell Commands**: Many commands show \`jq\` being used in conjunction with shell commands (\`curl\`, \`echo\`, \`sed\`, etc.). Offer guidance on how to effectively combine these tools within GitHub Actions workflows.
+6\. **Integrating `jq` with Shell Commands**: Many commands show `jq` being used in conjunction with shell commands (`curl`, `echo`, `sed`, etc.). Offer guidance on how to effectively combine these tools within GitHub Actions workflows.
 
-7\. **Error Handling and Debugging**: Include tips on handling errors in \`jq\` commands and how to debug common issues. For instance, dealing with missing or unexpected data.
+7\. **Error Handling and Debugging**: Include tips on handling errors in `jq` commands and how to debug common issues. For instance, dealing with missing or unexpected data.
 
-8\. **Use Cases Specific to GitHub Actions**: Provide specific examples of \`jq\` use cases in GitHub Actions, like setting environment variables, extracting data from GitHub event payloads, and working with outputs from other actions.
+8\. **Use Cases Specific to GitHub Actions**: Provide specific examples of `jq` use cases in GitHub Actions, like setting environment variables, extracting data from GitHub event payloads, and working with outputs from other actions.
 
-9\. **Security and Best Practices**: Discuss best practices for using \`jq\` securely in CI/CD pipelines, especially when handling sensitive data, and how to avoid common pitfalls.
+9\. **Security and Best Practices**: Discuss best practices for using `jq` securely in CI/CD pipelines, especially when handling sensitive data, and how to avoid common pitfalls.
 
-10\. **Advanced Topics**: Optionally, cover more advanced topics like writing custom functions in \`jq\` or optimizing performance for large JSON datasets.
+10\. **Advanced Topics**: Optionally, cover more advanced topics like writing custom functions in `jq` or optimizing performance for large JSON datasets.
 
-Remember to include plenty of examples and perhaps even a troubleshooting section. This cookbook can be a practical guide for developers looking to harness the power of \`jq\` in automating and enhancing their CI/CD pipelines with GitHub Actions.
+Remember to include plenty of examples and perhaps even a troubleshooting section. This cookbook can be a practical guide for developers looking to harness the power of `jq` in automating and enhancing their CI/CD pipelines with GitHub Actions.
 
 Jq is a command-line JSON parser. It is very powerful and can even parse messy JSON. However, it has a few useful features to ensure output correctness and safety. As with all commands, it has some behaviors on failure which may or may not be desirable.
 

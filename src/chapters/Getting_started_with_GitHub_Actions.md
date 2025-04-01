@@ -56,7 +56,7 @@ Benefits of this structured approach:
 
 In this example, we demonstrate how you can execute commands on your local computer to simulate what a build server does. You can effectively use your own laptop as a server. As an exercise, consider installing the GitHub Actions agent on your computer. Then, set up a self-hosted runner and execute the build script on it. This process will allow you to recreate or emulate the actions performed by a build server, right from your local environment. You can find some more information to do this in the appendix if you\'re interested.
 
-For example, workflow files must be stored in the \`.github/workflows\` directory of your repository. This YAML file dictates the sequence of operations executed by GitHub Actions during the CI/CD process.
+For example, workflow files must be stored in the `.github/workflows` directory of your repository. This YAML file dictates the sequence of operations executed by GitHub Actions during the CI/CD process.
 
 To create a new GitHub Enterprise repository, you first need to set up an account on GitHub and potentially get access to GitHub Enterprise, depending on your organization\'s setup. Here\'s how you can do it step-by-step:
 
@@ -94,19 +94,19 @@ Once you have access to GitHub (and GitHub Enterprise if using):
 
 \- After creating your repository, clone it to your local machine to start working on the project. You can do this by opening your command line or terminal and running:
 
-\`\`\`bash
+```bash
 
 git clone https://github.com/username/repository-name.git
 
-\`\`\`
+```
 
-Replace \`username\` and \`repository-name\` with your GitHub username and the new repository\'s name.
+Replace `username` and `repository-name` with your GitHub username and the new repository\'s name.
 
 \### 5. Start Pushing Code
 
 \- After cloning the repository, you can start pushing your code to the GitHub repository by using:
 
-\`\`\`bash
+```bash
 
 git add .
 
@@ -114,7 +114,7 @@ git commit -m \"Initial commit\"
 
 git push -u origin main
 
-\`\`\`
+```
 
 An exercise, try putting in the workflow described earlier in the doc GitHub workflow and see if you can figure out how to run it. It should just display Hello World and it doesn\'t require any code to build.
 
@@ -134,7 +134,7 @@ push:
 
 Just keep listing the items if you want to listen to more events. Note that the "push" event also accepts many options to narrow it down. It also ends with a colon because you can narrow it down with more filters.
 
-Triggers are not isolated; they\'re evaluated as a set of rules within the workflow file under the \`on:\` key, where multiple events like \`pull_request\` and \`push\` can be listed. This setup allows the workflow to execute under various conditions but can be refined to ensure efficiency and relevance. The workflow runs when at least one of those events are triggered.
+Triggers are not isolated; they\'re evaluated as a set of rules within the workflow file under the `on:` key, where multiple events like `pull_request` and `push` can be listed. This setup allows the workflow to execute under various conditions but can be refined to ensure efficiency and relevance. The workflow runs when at least one of those events are triggered.
 
 Order doesn't matter. I could write it like this, it still works:
 
@@ -152,7 +152,7 @@ It\'s important to configure workflow triggers to respond only to relevant event
 
 ### Setting Up Your First Workflow {#setting-up-your-first-workflow .unnumbered}
 
-To create a basic \"Hello world!\" workflow in GitHub Actions, start by creating a new file named \`main.yml\` in the \`.github/workflows\` directory in your previously created branch and add the following content:
+To create a basic \"Hello world!\" workflow in GitHub Actions, start by creating a new file named `main.yml` in the `.github/workflows` directory in your previously created branch and add the following content:
 
 name: Hello World Workflow
 
@@ -174,7 +174,7 @@ run: echo \"Hello world!\"
 
 ![](./images/image15.png){width="9.60369094488189in" height="6.475926290463692in"}
 
-This example introduces the \`workflow_dispatch\` trigger, which allows you to manually start the workflow. This feature is particularly useful for debugging purposes. The workflow is set to execute on \`ubuntu-latest\`, a Linux-based runner that utilizes the Bash shell---a standard configuration for many GitHub Actions workflows.
+This example introduces the `workflow_dispatch` trigger, which allows you to manually start the workflow. This feature is particularly useful for debugging purposes. The workflow is set to execute on `ubuntu-latest`, a Linux-based runner that utilizes the Bash shell---a standard configuration for many GitHub Actions workflows.
 
 Here are some tips for the workflow:
 
@@ -270,7 +270,7 @@ Beyond the basic setup, templates in GitHub Actions offer a foundation for best 
 
 In a GitHub Actions workflow, each task is organized into steps. These steps are detailed in the workflow file and can include various actions, such as running scripts or utilizing user-created actions available in the GitHub Marketplace.
 
-Scripts within these steps can span multiple lines. The scripting language used depends on the operating system specified in the workflow\'s \`runs-on\` attribute. For instance, if you\'re using the \`ubuntu-latest\` runner, the default scripting language is Bash because it\'s based on Linux. However, you can use other scripting languages provided their interpreters are installed on the runner. Similarly, for runners using Windows, the default scripting language is CMD, though you can switch to PowerShell or others as needed.
+Scripts within these steps can span multiple lines. The scripting language used depends on the operating system specified in the workflow\'s `runs-on` attribute. For instance, if you\'re using the `ubuntu-latest` runner, the default scripting language is Bash because it\'s based on Linux. However, you can use other scripting languages provided their interpreters are installed on the runner. Similarly, for runners using Windows, the default scripting language is CMD, though you can switch to PowerShell or others as needed.
 
 #### What is "actions/checkout@v2"? {#what-is-actionscheckoutv2 .unnumbered}
 

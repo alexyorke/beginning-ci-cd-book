@@ -226,13 +226,13 @@
 5.  It's important to use the GitHub Actions variables--do not hardcode the paths, because GitHub might change them at any time. Remember: you're dropped on an island, and you have to figure out where you are.
 
 +----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| /home/runner | GitHub Actions sets a variety of environment variables for use in workflows. Some of these environment variables correspond to file paths that are used by the runner environment. Here are the environment variables that correspond to the given paths from the \`tree\` command output: |
+| /home/runner | GitHub Actions sets a variety of environment variables for use in workflows. Some of these environment variables correspond to file paths that are used by the runner environment. Here are the environment variables that correspond to the given paths from the `tree` command output: |
 | | |
-| ├── factory | 1\. \`/home/runner\`: |
+| ├── factory | 1\. `/home/runner`: |
 | | |
-| ├── perflog | \- \`HOME\` -- This environment variable typically points to the home directory of the current user which is \`/home/runner\` for the GitHub Actions runner. |
+| ├── perflog | \- `HOME` -- This environment variable typically points to the home directory of the current user which is `/home/runner` for the GitHub Actions runner. |
 | | |
-| │ ├── Runner.perf | 7\. \`/home/runner/work/Test2\' is GITHUB_WORKSPACE |
+| │ ├── Runner.perf | 7\. `/home/runner/work/Test2\' is GITHUB_WORKSPACE |
 | | |
 | │ └── Worker.perf | Please note that not all directories may have a corresponding GitHub Actions predefined environment variable, as some are for internal use by the GitHub Actions runner. If you need to reference these paths in a workflow, you may set custom environment variables or use the paths directly. |
 | | |
@@ -384,7 +384,7 @@
 
 52. Docker container security scanning
 
-53. The use of actions like \`jaywcjlove/create-tag-action\` and \`ncipollo/release-action\` to automate version bumping, tagging, and creating GitHub releases based on changes in \`package.json\`.
+53. The use of actions like `jaywcjlove/create-tag-action` and `ncipollo/release-action` to automate version bumping, tagging, and creating GitHub releases based on changes in `package.json`.
 
 54. Changelog generation
 
@@ -423,7 +423,7 @@
 ### Security
 
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Gradle Wrapper Validation is a security step used to ensure that the Gradle Wrapper script (\`gradlew\`) and its associated \`gradle-wrapper.jar\` file are legitimate and have not been tampered with. The Gradle wrapper is a script that invokes a declared version of Gradle, downloading it if necessary. As such, it\'s possible for a malicious actor to modify the \`gradlew\` script or the \`gradle-wrapper.jar\` to execute arbitrary code. |
+| Gradle Wrapper Validation is a security step used to ensure that the Gradle Wrapper script (`gradlew`) and its associated `gradle-wrapper.jar` file are legitimate and have not been tampered with. The Gradle wrapper is a script that invokes a declared version of Gradle, downloading it if necessary. As such, it\'s possible for a malicious actor to modify the `gradlew` script or the `gradle-wrapper.jar` to execute arbitrary code. |
 | |
 | To prevent this, the Gradle Wrapper Validation action compares the checksum of the wrapper files against a public database of known checksums. If the checksums do not match, the GitHub Action will fail, indicating potential security issues with the wrapper in the repository. |
 | |
@@ -431,17 +431,17 @@
 | |
 | Here\'s the snippet from the workflow showing the Gradle Wrapper Validation step: |
 | |
-| \`\`\`yaml |
+| `yaml |
 | |
 | \- name: Validate the Gradle wrapper |
 | |
 | uses: gradle/wrapper-validation-action@v1 |
 | |
-| \`\`\` |
+| ` |
 | |
 | This step is placed in the workflow after checking out the code and before running any Gradle tasks. By validating the wrapper early in the CI process, it prevents potentially dangerous code from running and ensures that the build process is using the correct and secure version of Gradle. |
 | |
-| Using the \`gradle/wrapper-validation-action\` is straightforward; it doesn\'t require you to configure any additional settings since it\'s a pre-made action designed specifically for this purpose. When this action runs, it checks the signature of the \`gradle-wrapper.jar\` and the \`gradlew\`/\`gradlew.bat\` scripts. If there\'s an issue with any of these files, the action will fail and prevent the workflow from proceeding to later steps that could execute compromised code. |
+| Using the `gradle/wrapper-validation-action` is straightforward; it doesn\'t require you to configure any additional settings since it\'s a pre-made action designed specifically for this purpose. When this action runs, it checks the signature of the `gradle-wrapper.jar` and the `gradlew`/`gradlew.bat` scripts. If there\'s an issue with any of these files, the action will fail and prevent the workflow from proceeding to later steps that could execute compromised code. |
 +=================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
@@ -456,7 +456,7 @@
 | |
 | 1\. Printing Starting Environment: |
 | |
-| \`\`\`yaml |
+| `yaml |
 | |
 | \- name: print starting environment |
 | |
@@ -474,13 +474,13 @@
 | |
 | \... |
 | |
-| \`\`\` |
+| ` |
 | |
-| This step logs various pieces of information, such as the builder and packaging format in use, system details (\`uname\`, \`lsb_release\`), user permissions, and the \`PATH\` environment variable after modifications. This provides a snapshot of the state before the test runs. |
+| This step logs various pieces of information, such as the builder and packaging format in use, system details (`uname`, `lsb_release`), user permissions, and the `PATH` environment variable after modifications. This provides a snapshot of the state before the test runs. |
 | |
 | 2\. Setting Up and Validating Time Zone: |
 | |
-| \`\`\`yaml |
+| `yaml |
 | |
 | run: \| |
 | |
@@ -492,13 +492,13 @@
 | |
 | timedatectl |
 | |
-| \`\`\` |
+| ` |
 | |
 | After setting the time zone, the workflow logs the current system time zone configuration to confirm the change. |
 | |
 | 3\. Validation of File Permissions: |
 | |
-| \`\`\`yaml |
+| `yaml |
 | |
 | run: \| |
 | |
@@ -514,13 +514,13 @@
 | |
 | \... |
 | |
-| \`\`\` |
+| ` |
 | |
-| By grep\'ing \`UMASK\` values and checking \`umask\` outputs, the workflow is validating that file creation permissions are restricted as expected. |
+| By grep\'ing `UMASK` values and checking `umask` outputs, the workflow is validating that file creation permissions are restricted as expected. |
 | |
 | 4\. Checking Installation and Version of Tools: |
 | |
-| \`\`\`yaml |
+| `yaml |
 | |
 | run: \| |
 | |
@@ -536,13 +536,13 @@
 | |
 | shellcheck \--version |
 | |
-| \`\`\` |
+| ` |
 | |
-| Here, the workflow ensures that the correct versions of \`bats\` and \`shellcheck\` are installed and available in the path. |
+| Here, the workflow ensures that the correct versions of `bats` and `shellcheck` are installed and available in the path. |
 | |
 | 5\. Configuring and Asserting Correct Configuration: |
 | |
-| \`\`\`yaml |
+| `yaml |
 | |
 | run: \| |
 | |
@@ -554,13 +554,13 @@
 | |
 | \... |
 | |
-| \`\`\` |
+| ` |
 | |
-| The \`fgrep\` command is used to verify that certain features are enabled or disabled as expected during the configuration step. The use of \`\[\[ \... \]\]\` tests, which are conditionals, helps confirm the expected outputs. |
+| The `fgrep` command is used to verify that certain features are enabled or disabled as expected during the configuration step. The use of `\[\[ \... \]\]` tests, which are conditionals, helps confirm the expected outputs. |
 | |
 | 6\. Ensuring Lark Dependency Correctness: |
 | |
-| \`\`\`yaml |
+| `yaml |
 | |
 | run: \| |
 | |
@@ -570,9 +570,9 @@
 | |
 | \... |
 | |
-| \`\`\` |
+| ` |
 | |
-| This checks that the Lark parser path is correct, confirming that the correct Lark library is being used for the \`ch-image\`. |
+| This checks that the Lark parser path is correct, confirming that the correct Lark library is being used for the `ch-image`. |
 | |
 | These output logging and validation steps are spread throughout the workflow and serve as checkpoints to catch issues early and provide clarity on the state of the environment and tools at various stages of the CI process. This level of detail in logging is highly beneficial for maintaining quality control and ensuring consistent and reliable operation of the continuous integration process. |
 +===========================================================================================================================================================================================================================================================================================================================================================================================================+
@@ -585,21 +585,21 @@
 | |
 | Here are some features of the workflow: |
 | |
-| 1\. **Triggers**: The workflow triggers on pull requests and pushes to the \`master\` branch, as well as on tags that follow the semantic versioning pattern (e.g., \`v1.0.0\`). |
+| 1\. **Triggers**: The workflow triggers on pull requests and pushes to the `master` branch, as well as on tags that follow the semantic versioning pattern (e.g., `v1.0.0`). |
 | |
-| 2\. **Path Filtering**: Uses the \`dorny/paths-filter@v2\` action to determine which Dockerfiles have changes. This is useful for monorepos or projects where you want to build or test only the parts that have been modified. |
+| 2\. **Path Filtering**: Uses the `dorny/paths-filter@v2` action to determine which Dockerfiles have changes. This is useful for monorepos or projects where you want to build or test only the parts that have been modified. |
 | |
-| 3\. **Multi-Job Strategy**: The workflow defines separate jobs for various architectures (\`netflow\`, \`nginx\`, \`siridb\`, \`ucrm\`, \`unms\`). This modular approach makes the CI process more parallel and efficient. |
+| 3\. **Multi-Job Strategy**: The workflow defines separate jobs for various architectures (`netflow`, `nginx`, `siridb`, `ucrm`, `unms`). This modular approach makes the CI process more parallel and efficient. |
 | |
-| 4\. **Conditional Job Execution**: Each job has a condition that uses the outputs of the \`changes\` job to determine whether to run, based on whether there were changes to the specific Dockerfile or if a new version tag is being pushed. |
+| 4\. **Conditional Job Execution**: Each job has a condition that uses the outputs of the `changes` job to determine whether to run, based on whether there were changes to the specific Dockerfile or if a new version tag is being pushed. |
 | |
-| 5\. **Multi-Architecture Builds**: Through the \`docker/setup-buildx-action@v1\` and \`docker/setup-qemu-action@v1\` actions, the workflow is set up to build Docker images for multiple architectures, such as \`amd64\`, \`arm64\`, and more. This is critical for supporting Docker images on various hardware platforms. |
+| 5\. **Multi-Architecture Builds**: Through the `docker/setup-buildx-action@v1` and `docker/setup-qemu-action@v1` actions, the workflow is set up to build Docker images for multiple architectures, such as `amd64`, `arm64`, and more. This is critical for supporting Docker images on various hardware platforms. |
 | |
 | 6\. **Build Arguments**: The workflow dynamically creates build arguments to pass to Docker builds, including a version label, build date, and Git SHA for traceability of image builds. |
 | |
-| 7\. **Security Scanning**: Uses \`anchore/scan-action@v2\` to scan the built image for vulnerabilities, and \`github/codeql-action/upload-sarif@v1\` to upload the scan results to GitHub. Security scanning is critical for maintaining trust in the Docker images you are publishing. |
+| 7\. **Security Scanning**: Uses `anchore/scan-action@v2` to scan the built image for vulnerabilities, and `github/codeql-action/upload-sarif@v1` to upload the scan results to GitHub. Security scanning is critical for maintaining trust in the Docker images you are publishing. |
 | |
-| 8\. **Docker Hub Interaction**: The jobs log into Docker Hub using secrets and push the built images there, updating the repository description with \`peter-evans/dockerhub-description@v2\`. This automation of Docker Hub interactions is a time-saver and ensures that your Docker images and descriptions are always up-to-date. |
+| 8\. **Docker Hub Interaction**: The jobs log into Docker Hub using secrets and push the built images there, updating the repository description with `peter-evans/dockerhub-description@v2`. This automation of Docker Hub interactions is a time-saver and ensures that your Docker images and descriptions are always up-to-date. |
 | |
 | 9\. **Cleanup**: Ensures that Docker credentials are removed after the workflow run, which is a security best practice. |
 | |
@@ -630,9 +630,9 @@
 | |
 | 1\. **Separate Checkout for Main Repository Scripts**: |
 | |
-| The workflow checks out the repository\'s trusted code into a separate path named \`main-airflow\`. This ensures that the code used to build the CI images is the code as it is in the main repository, not the possibly altered PR version: |
+| The workflow checks out the repository\'s trusted code into a separate path named `main-airflow`. This ensures that the code used to build the CI images is the code as it is in the main repository, not the possibly altered PR version: |
 | |
-| \`\`\`yaml |
+| `yaml |
 | |
 | \- name: \"Checkout \${{ github.ref }} ( \${{ github.sha }} ) to \'main-airflow\' to use main scripts\" |
 | |
@@ -644,13 +644,13 @@
 | |
 | if: steps.defaults.outputs.proceed == \'true\' |
 | |
-| \`\`\` |
+| ` |
 | |
 | 2\. **Overwrite CI Scripts with Trusted Main Version**: |
 | |
-| After checking out the code from the PR, another step overrides any CI-related scripts with the ones from the \`main-airflow\` directory. This ensures that even if a PR includes changes to CI scripts, these changes won\'t be used. Instead, the workflow uses the scripts from the main repository that it checked out earlier: |
+| After checking out the code from the PR, another step overrides any CI-related scripts with the ones from the `main-airflow` directory. This ensures that even if a PR includes changes to CI scripts, these changes won\'t be used. Instead, the workflow uses the scripts from the main repository that it checked out earlier: |
 | |
-| \`\`\`yaml |
+| `yaml |
 | |
 | \- name: \"Override \'scripts/ci\' with the \${{ github.ref }} version so that the PR cannot override it.\" |
 | |
@@ -668,7 +668,7 @@
 | |
 | if: steps.defaults.outputs.proceed == \'true\' |
 | |
-| \`\`\` |
+| ` |
 | |
 | By using these steps, the workflow ensures that no matter what changes are proposed in a PR, the critical CI pipeline scripts executed remain those from the main repository, thus maintaining their integrity and security. These measures are critical for large projects where CI pipelines often have access to secured environments and secret credentials. It is a useful practice for any CI system that needs to guard against the injection of harmful changes through pull requests. |
 +================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+

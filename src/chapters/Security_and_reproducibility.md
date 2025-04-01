@@ -390,7 +390,7 @@
 | |
 | \- Ensure you have a YubiKey that supports OpenPGP. |
 | |
-| \- Install GnuPG (\`gpg\`). |
+| \- Install GnuPG (`gpg`). |
 | |
 | \- Install Git. |
 | |
@@ -398,15 +398,15 @@
 | |
 | a\. Insert your YubiKey and check if GnuPG recognizes it: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | gpg \--card-status |
 | |
-| \`\`\` |
+| ` |
 | |
 | b\. If it\'s a new YubiKey, you might need to generate a new key pair: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | gpg \--card-edit |
 | |
@@ -414,73 +414,73 @@
 | |
 | generate |
 | |
-| \`\`\` |
+| ` |
 | |
 | 3\. **Configure Git to Use GPG**: |
 | |
 | a\. Tell Git about GPG: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | git config \--global gpg.program \$(which gpg) |
 | |
-| \`\`\` |
+| ` |
 | |
 | b\. Get your GPG key ID (usually the last 8 characters): |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | gpg \--list-secret-keys |
 | |
-| \`\`\` |
+| ` |
 | |
 | You should see output that looks like: |
 | |
-| \`\`\` |
+| `|
 | |
 | sec rsa4096/1234ABCD1234ABCD 2022-01-01 \[SC\] |
 | |
-| \`\`\` |
+|` |
 | |
-| In this case, \`1234ABCD1234ABCD\` is the key ID. |
+| In this case, `1234ABCD1234ABCD` is the key ID. |
 | |
 | c\. Tell Git to use this GPG key for signing: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | git config \--global user.signingkey 1234ABCD1234ABCD |
 | |
-| \`\`\` |
+| ` |
 | |
 | 4\. **Automatically Sign All Commits**: |
 | |
 | If you want to sign all commits by default in every Git repository on your computer, run: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | git config \--global commit.gpgsign true |
 | |
-| \`\`\` |
+| ` |
 | |
 | 5\. **Signing a Commit**: |
 | |
-| If you haven\'t enabled automatic signing, you can sign individual commits using the \`-S\` flag: |
+| If you haven\'t enabled automatic signing, you can sign individual commits using the `-S` flag: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | git commit -S -m \"Your commit message\" |
 | |
-| \`\`\` |
+| ` |
 | |
 | 6\. **Verify Signed Commits**: |
 | |
 | To verify the signed commit: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | git log \--show-signature |
 | |
-| \`\`\` |
+| ` |
 | |
 | This will show if the commit was signed and if the signature was valid. |
 | |
@@ -490,23 +490,23 @@
 | |
 | 8\. **Using Pinentry for Passphrase Prompting**: |
 | |
-| If you\'re using the passphrase for your GPG key and working in a GUI environment, you might need \`pinentry\` to be set up correctly for passphrase prompting. |
+| If you\'re using the passphrase for your GPG key and working in a GUI environment, you might need `pinentry` to be set up correctly for passphrase prompting. |
 | |
-| Check your \`gpg-agent.conf\` (often located in \`\~/.gnupg/gpg-agent.conf\`) and ensure it has the appropriate pinentry program set, e.g.: |
+| Check your `gpg-agent.conf` (often located in `\~/.gnupg/gpg-agent.conf`) and ensure it has the appropriate pinentry program set, e.g.: |
 | |
-| \`\`\` |
+| `|
 | |
 | pinentry-program /usr/bin/pinentry-gtk-2 |
 | |
-| \`\`\` |
+|` |
 | |
-| Restart \`gpg-agent\` after making changes: |
+| Restart `gpg-agent` after making changes: |
 | |
-| \`\`\`bash |
+| `bash |
 | |
 | gpgconf \--kill gpg-agent |
 | |
-| \`\`\` |
+| ` |
 | |
 | **Remember, while signing commits vouches for the integrity of the commit (i.e., that it has not been tampered with), it does not attest to the quality or safety of the code within the commit. Always review code carefully, regardless of its signature status.** |
 +=================================================================================================================================================================================================================================================================================================================================================================================================+
@@ -521,21 +521,21 @@
 | |
 | \- **Linux**: You can install GPG using the package manager for your specific Linux distribution. For Ubuntu/Debian, you would use: |
 | |
-| \`\`\` |
+| `|
 | |
 | sudo apt-get update |
 | |
 | sudo apt-get install gnupg |
 | |
-| \`\`\` |
+|` |
 | |
 | \- **macOS**: If you have Homebrew installed, you can run: |
 | |
-| \`\`\` |
+| `|
 | |
 | brew install gnupg |
 | |
-| \`\`\` |
+|` |
 | |
 | \- **Windows**: Download and install it from the \[official website\](https://gnupg.org/download/). |
 | |
@@ -543,11 +543,11 @@
 | |
 | Open your terminal and enter the following command: |
 | |
-| \`\`\` |
+| `|
 | |
 | gpg \--full-gen-key |
 | |
-| \`\`\` |
+|` |
 | |
 | You will be asked for the kind of key you want, its size, and the duration the key should be valid. Generally, the default settings are good enough. Finally, you\'ll be asked for your user ID (email) and a passphrase. |
 | |
@@ -555,51 +555,51 @@
 | |
 | Run the following command to list the GPG keys for which you have both a public and private key pair. |
 | |
-| \`\`\` |
+| `|
 | |
 | gpg \--list-secret-keys \--keyid-format LONG |
 | |
-| \`\`\` |
+|` |
 | |
 | \### Step 4: Add GPG Key to Git Config |
 | |
-| From the list of GPG keys, copy the GPG key ID you\'d like to use. It\'s the part after the \`/\` in the \`sec\` row. Next, set that GPG key in your Git configuration: |
+| From the list of GPG keys, copy the GPG key ID you\'d like to use. It\'s the part after the `/` in the `sec` row. Next, set that GPG key in your Git configuration: |
 | |
-| \`\`\` |
+| `|
 | |
 | git config \--global user.signingkey \[your-key-id-here\] |
 | |
-| \`\`\` |
+|` |
 | |
 | \### Step 5: Enable Automatic Commit Signing |
 | |
 | You can configure Git to sign all commits by default for a repository or globally. To enable it for all repos, use: |
 | |
-| \`\`\` |
+| `|
 | |
 | git config \--global commit.gpgsign true |
 | |
-| \`\`\` |
+|` |
 | |
 | For a single repo, navigate to the repository directory and run: |
 | |
-| \`\`\` |
+| `|
 | |
 | git config commit.gpgsign true |
 | |
-| \`\`\` |
+|` |
 | |
 | \### Step 6: Add GPG Key to GitHub/GitLab/Other |
 | |
 | 1\. To get the GPG public key, use: |
 | |
-| \`\`\` |
+| `|
 | |
 | gpg \--armor \--export \[your-key-id-here\] |
 | |
-| \`\`\` |
+|` |
 | |
-| 2\. Copy the GPG key, beginning with \`\-\-\-\--BEGIN PGP PUBLIC KEY BLOCK\-\-\-\--\` and ending with \`\-\-\-\--END PGP PUBLIC KEY BLOCK\-\-\-\--\`. |
+| 2\. Copy the GPG key, beginning with `\-\-\-\--BEGIN PGP PUBLIC KEY BLOCK\-\-\-\--` and ending with `\-\-\-\--END PGP PUBLIC KEY BLOCK\-\-\-\--`. |
 | |
 | 3\. Add this key to your GitHub/GitLab account. |
 | |
@@ -613,29 +613,29 @@
 | |
 | For each repo, navigate to its directory and run: |
 | |
-| \`\`\` |
+| `|
 | |
 | git config user.signingkey \[your-key-id-here\] |
 | |
-| \`\`\` |
+|` |
 | |
 | Or globally: |
 | |
-| \`\`\` |
+| `|
 | |
 | git config \--global user.signingkey \[your-key-id-here\] |
 | |
-| \`\`\` |
+|` |
 | |
 | \### Step 8: Verify Your Commits |
 | |
 | After these steps, your commits should be signed, and you can verify them with: |
 | |
-| \`\`\` |
+| `|
 | |
 | git log \--show-signature |
 | |
-| \`\`\` |
+|` |
 | |
 | This should show that your commits are GPG signed. |
 | |

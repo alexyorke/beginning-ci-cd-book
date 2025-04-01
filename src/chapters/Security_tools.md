@@ -60,43 +60,43 @@
 | |
 | 1\. **JavaScript (using npm)**: |
 | |
-| \- Once you have \`package-lock.json\` in your project directory (e.g., npm install \<package\> or npm install) |
+| \- Once you have `package-lock.json` in your project directory (e.g., npm install \<package\> or npm install) |
 | |
-| \- **Run \`npm ci\`.** |
+| \- **Run `npm ci`.** |
 | |
-| \- This command uses the \`package-lock.json\` file to provide a clean, exact installation of your dependencies, ensuring consistency across installations. |
+| \- This command uses the `package-lock.json` file to provide a clean, exact installation of your dependencies, ensuring consistency across installations. |
 | |
 | 2\. **Python (using pipenv)**: |
 | |
-| \- With both \`Pipfile\` and \`Pipfile.lock\` present in your project directory: |
+| \- With both `Pipfile` and `Pipfile.lock` present in your project directory: |
 | |
-| \- **Run \`pipenv install \--ignore-pipfile\`.** |
+| \- **Run `pipenv install \--ignore-pipfile`.** |
 | |
-| \- This command ensures that the installation uses versions specified in the \`Pipfile.lock\`, ignoring the \`Pipfile\`. |
+| \- This command ensures that the installation uses versions specified in the `Pipfile.lock`, ignoring the `Pipfile`. |
 | |
 | 3\. **Java (using Maven)**: |
 | |
-| \- While Maven\'s \`pom.xml\` doesn\'t function as a lock file in the traditional sense, ensuring consistent builds involves specifying exact versions: |
+| \- While Maven\'s `pom.xml` doesn\'t function as a lock file in the traditional sense, ensuring consistent builds involves specifying exact versions: |
 | |
-| \- When adding dependencies to your \`pom.xml\`, ensure you specify exact versions. |
+| \- When adding dependencies to your `pom.xml`, ensure you specify exact versions. |
 | |
-| \- Then run \`mvn clean install\` to install dependencies. Maven will fetch the versions as defined in \`pom.xml\`. |
+| \- Then run `mvn clean install` to install dependencies. Maven will fetch the versions as defined in `pom.xml`. |
 | |
 | 4\. **Ruby (using Bundler)**: |
 | |
-| \- Once you have a \`Gemfile.lock\` in your project directory: |
+| \- Once you have a `Gemfile.lock` in your project directory: |
 | |
-| \- Run \`bundle install\`. |
+| \- Run `bundle install`. |
 | |
-| \- Bundler will look at \`Gemfile.lock\` and install the exact versions specified there, ensuring consistent installations across environments. |
+| \- Bundler will look at `Gemfile.lock` and install the exact versions specified there, ensuring consistent installations across environments. |
 | |
 | 5\. **C# (using .NET Core/NuGet)**: |
 | |
-| \- With specified versions in your \`.csproj\` file: |
+| \- With specified versions in your `.csproj` file: |
 | |
-| \- Run \`dotnet restore\`. |
+| \- Run `dotnet restore`. |
 | |
-| \- The .NET CLI will use the versions specified in the \`csproj\` file to fetch and install the correct packages. |
+| \- The .NET CLI will use the versions specified in the `csproj` file to fetch and install the correct packages. |
 | |
 | It\'s crucial to ensure that the lock files (or their equivalents) are committed to version control systems (e.g., git) so that other developers or deployment systems can benefit from the reproducibility they provide. |
 +===========================================================================================================================================================================================================================+
@@ -327,39 +327,39 @@
 | |
 | \### **C# Project Layout:** |
 | |
-| \- **\`/src\`**: Main source code. |
+| \- **`/src`**: Main source code. |
 | |
-| \- **ProjectName:** Contains C# source files and \`ProjectName.csproj\`. |
+| \- **ProjectName:** Contains C# source files and `ProjectName.csproj`. |
 | |
-| \- **\`/tests\`**: Unit and integration tests. |
+| \- **`/tests`**: Unit and integration tests. |
 | |
-| \- **ProjectName.Tests:** Contains test files and \`ProjectName.Tests.csproj\`. |
+| \- **ProjectName.Tests:** Contains test files and `ProjectName.Tests.csproj`. |
 | |
-| \- **\`/docs\`**: Documentation and READMEs. |
+| \- **`/docs`**: Documentation and READMEs. |
 | |
-| \- **\`/lib\`**: Libraries not in package managers. |
+| \- **`/lib`**: Libraries not in package managers. |
 | |
-| \- **\`/tools\`**: Build and related tools. |
+| \- **`/tools`**: Build and related tools. |
 | |
-| \- **\`/scripts\`**: Build, deployment, and migration scripts. |
+| \- **`/scripts`**: Build, deployment, and migration scripts. |
 | |
-| \- **\`/packages\`**: NuGet packages (less common in .NET Core). |
+| \- **`/packages`**: NuGet packages (less common in .NET Core). |
 | |
-| \- **\`/.git\`**: Git version control metadata. |
+| \- **`/.git`**: Git version control metadata. |
 | |
-| \- **\`.gitignore\` & \`.gitattributes\`**: Git configuration. |
+| \- **`.gitignore` & `.gitattributes`**: Git configuration. |
 | |
 | \### **Deployment:** |
 | |
-| \- **\`/bin\`**: Compiled binaries. |
+| \- **`/bin`**: Compiled binaries. |
 | |
-| \- **\`/bin/Debug\`**: Debug build. |
+| \- **`/bin/Debug`**: Debug build. |
 | |
-| **- **\`/bin/Release\`**: Release build for deployment.** |
+| **- **`/bin/Release`**: Release build for deployment.** |
 | |
-| \- **\`/obj\`**: Intermediate files (not for deployment). |
+| \- **`/obj`**: Intermediate files (not for deployment). |
 | |
-| For deployment, use \`/bin/Release\` or the appropriate build configuration. |
+| For deployment, use `/bin/Release` or the appropriate build configuration. |
 | |
 | --\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-- |
 | |
@@ -369,33 +369,33 @@
 | |
 | \### **Python Project Layout:** |
 | |
-| **- **\`/src\`**: Main source code (optional, but can make things tidy).** |
+| **- **`/src`**: Main source code (optional, but can make things tidy).** |
 | |
-| **- **\`your_package_name\`**: Main package folder with \`.py\` files.** |
+| **- **`your_package_name`**: Main package folder with `.py` files.** |
 | |
-| \- **\`/tests\`**: Unit tests. |
+| \- **`/tests`**: Unit tests. |
 | |
-| \- Common to use libraries like \`pytest\`. |
+| \- Common to use libraries like `pytest`. |
 | |
-| \- **\`/docs\`**: Documentation, often using tools like Sphinx. |
+| \- **`/docs`**: Documentation, often using tools like Sphinx. |
 | |
-| \- **\`/scripts\`**: Useful scripts, e.g., database migrations or utility scripts. |
+| \- **`/scripts`**: Useful scripts, e.g., database migrations or utility scripts. |
 | |
-| **- **\`/data\`**: Data files (e.g., datasets, configurations).** |
+| **- **`/data`**: Data files (e.g., datasets, configurations).** |
 | |
-| \- **\`/venv\`** or **\`/env\`**: Virtual environment folders (should be added to \`.gitignore\`). |
+| \- **`/venv`** or **`/env`**: Virtual environment folders (should be added to `.gitignore`). |
 | |
-| \- **\`setup.py\`**: For packaging and distribution. |
+| \- **`setup.py`**: For packaging and distribution. |
 | |
-| \- **\`requirements.txt\`**: List of dependencies for the project. |
+| \- **`requirements.txt`**: List of dependencies for the project. |
 | |
-| \- **\`.gitignore\`**: Ignored files and directories in git. |
+| \- **`.gitignore`**: Ignored files and directories in git. |
 | |
 | \### **Deployment:** |
 | |
-| \- Deploy source code and install dependencies from \`requirements.txt\` using a package manager like \`pip\`. |
+| \- Deploy source code and install dependencies from `requirements.txt` using a package manager like `pip`. |
 | |
-| \- Virtual environments (\`/venv\` or \`/env\`) should never be deployed. Instead, use the \`requirements.txt\` on the deployment server or target environment to recreate the necessary dependencies. |
+| \- Virtual environments (`/venv` or `/env`) should never be deployed. Instead, use the `requirements.txt` on the deployment server or target environment to recreate the necessary dependencies. |
 | |
 | Note: Depending on the nature of the Python application (web app, CLI tool, library, etc.), the actual project structure can vary. Always consider the requirements and nature of your specific project. |
 | |
@@ -407,49 +407,49 @@
 | |
 | \### **JavaScript/TypeScript Project Layout:** |
 | |
-| \- **\`/src\`**: Main source code. |
+| \- **`/src`**: Main source code. |
 | |
-| \- **\`/components\`**: For component-based architectures, like React components. |
+| \- **`/components`**: For component-based architectures, like React components. |
 | |
-| \- **\`/models\`**: For data models or TypeScript types/interfaces. |
+| \- **`/models`**: For data models or TypeScript types/interfaces. |
 | |
-| \- **\`/assets\`**: Images, fonts, and other static files. |
+| \- **`/assets`**: Images, fonts, and other static files. |
 | |
-| \- **\`/utils\`** or **\`/lib\`**: Utility functions and libraries. |
+| \- **`/utils`** or **`/lib`**: Utility functions and libraries. |
 | |
-| **- **\`/dist\`** or **\`/build\`**: Compiled/transpiled code (e.g., from TypeScript to JavaScript). This directory is typically what you\'d deploy for a web app.** |
+| **- **`/dist`** or **`/build`**: Compiled/transpiled code (e.g., from TypeScript to JavaScript). This directory is typically what you\'d deploy for a web app.** |
 | |
-| \- **\`/tests\`** or **\`/\_\_tests\_\_\`**: Unit and integration tests. |
+| \- **`/tests`** or **`/\_\_tests\_\_`**: Unit and integration tests. |
 | |
 | \- Often used with testing libraries like Jest or Mocha. |
 | |
-| \- **\`/public\`**: Public static assets and the HTML entry point. |
+| \- **`/public`**: Public static assets and the HTML entry point. |
 | |
-| \- **\`index.html\`**: Main HTML file. |
+| \- **`index.html`**: Main HTML file. |
 | |
-| \- **\`/css\`**: Stylesheets if not included in the build process. |
+| \- **`/css`**: Stylesheets if not included in the build process. |
 | |
-| \- **\`/js\`**: JavaScript files if not part of the build system. |
+| \- **`/js`**: JavaScript files if not part of the build system. |
 | |
-| \- **\`/node_modules\`**: Dependencies installed via npm or Yarn (should be added to \`.gitignore\` and **not** deployed). |
+| \- **`/node_modules`**: Dependencies installed via npm or Yarn (should be added to `.gitignore` and **not** deployed). |
 | |
-| \- **\`package.json\`**: Project metadata and dependency list. |
+| \- **`package.json`**: Project metadata and dependency list. |
 | |
-| \- **\`package-lock.json\`** or **\`yarn.lock\`**: Exact dependency versions for deterministic builds. |
+| \- **`package-lock.json`** or **`yarn.lock`**: Exact dependency versions for deterministic builds. |
 | |
-| \- **\`tsconfig.json\`**: TypeScript compiler configuration. |
+| \- **`tsconfig.json`**: TypeScript compiler configuration. |
 | |
-| \- **\`.gitignore\`**: Ignored files and directories in git. |
+| \- **`.gitignore`**: Ignored files and directories in git. |
 | |
-| \- **\`.eslintrc\`** and **\`.prettierrc\`**: Configuration for linters and formatters. |
+| \- **`.eslintrc`** and **`.prettierrc`**: Configuration for linters and formatters. |
 | |
 | \### **Deployment:** |
 | |
-| \- For web applications: Deploy the \`/dist\` or \`/build\` directory contents. |
+| \- For web applications: Deploy the `/dist` or `/build` directory contents. |
 | |
-| \- For Node.js apps: Depending on the build process, you might deploy the transpiled output in \`/dist\` or the raw \`/src\` if not using a transpiler. |
+| \- For Node.js apps: Depending on the build process, you might deploy the transpiled output in `/dist` or the raw `/src` if not using a transpiler. |
 | |
-| \- Always exclude \`node_modules\` from source control. Instead, rely on \`package.json\` and \`package-lock.json\` (or \`yarn.lock\`) to recreate dependencies during deployment. |
+| \- Always exclude `node_modules` from source control. Instead, rely on `package.json` and `package-lock.json` (or `yarn.lock`) to recreate dependencies during deployment. |
 | |
 | Remember that JavaScript and TypeScript projects can vary significantly based on the frameworks and tools being used (e.g., Angular, React, Vue, Express, etc.), so the above is a general guide and might not fit all scenarios. Always adapt based on the specific project\'s needs. |
 | |
@@ -463,39 +463,39 @@
 | |
 | \### **Java Project Layout:** |
 | |
-| \- **\`/src\`**: Source code and resources. |
+| \- **`/src`**: Source code and resources. |
 | |
-| \- **\`/main\`**: Application\'s main code and resources. |
+| \- **`/main`**: Application\'s main code and resources. |
 | |
-| \- **\`/java\`**: Java source code. |
+| \- **`/java`**: Java source code. |
 | |
-| \- **\`/resources\`**: Non-code resources like configuration files, images, etc. |
+| \- **`/resources`**: Non-code resources like configuration files, images, etc. |
 | |
-| \- **\`/test\`**: Test-related source code and resources. |
+| \- **`/test`**: Test-related source code and resources. |
 | |
-| \- **\`/java\`**: Unit and integration test code. |
+| \- **`/java`**: Unit and integration test code. |
 | |
-| \- **\`/resources\`**: Test-specific resources. |
+| \- **`/resources`**: Test-specific resources. |
 | |
-| **- **\`/target\`** or **\`/build\`**: Compiled bytecode, JARs, WARs, etc. (the output of the build process). This is where the build artifacts that should be deployed are usually found.** |
+| **- **`/target`** or **`/build`**: Compiled bytecode, JARs, WARs, etc. (the output of the build process). This is where the build artifacts that should be deployed are usually found.** |
 | |
-| \- **\`pom.xml\`** (for Maven projects): Defines project dependencies, plugins, goals, and other configurations. |
+| \- **`pom.xml`** (for Maven projects): Defines project dependencies, plugins, goals, and other configurations. |
 | |
-| \- **\`build.gradle\`** (for Gradle projects): Similar to \`pom.xml\` but for Gradle. |
+| \- **`build.gradle`** (for Gradle projects): Similar to `pom.xml` but for Gradle. |
 | |
-| \- **\`.gitignore\`**: List of files and directories to exclude from git. |
+| \- **`.gitignore`**: List of files and directories to exclude from git. |
 | |
-| \- **\`README.md\`**: Project documentation and instructions. |
+| \- **`README.md`**: Project documentation and instructions. |
 | |
-| \- **\`/docs\`**: Additional documentation if needed. |
+| \- **`/docs`**: Additional documentation if needed. |
 | |
 | \### **Deployment:** |
 | |
-| \- For standalone applications: JARs from the \`/target\` or \`/build\` directory. |
+| \- For standalone applications: JARs from the `/target` or `/build` directory. |
 | |
 | \- For web applications: WARs or EARs (found in the same build directories). |
 | |
-| Always remember to exclude the \`/target\` or \`/build\` directories from version control since these contain compiled bytecode and other artifacts. Instead, rely on the build tool (Maven, Gradle) to produce these during the CI/CD process. |
+| Always remember to exclude the `/target` or `/build` directories from version control since these contain compiled bytecode and other artifacts. Instead, rely on the build tool (Maven, Gradle) to produce these during the CI/CD process. |
 | |
 | As always, these guidelines can be adapted based on the specifics of the project, framework, or tooling in use. |
 +====================================================================================================================================================================================================================================================================================================================================================================+

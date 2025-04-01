@@ -128,24 +128,21 @@ By implementing these strategies, you can improve the security and manageability
 
 1\. **Correct usage of secrets**:
 
-Most workflows have been updated to correctly use GitHub Secrets, which are encrypted environment variables created in a repository\'s settings. The correct syntax is \`\${{ secrets.SECRET_NAME }}\`. For example:
+Most workflows have been updated to correctly use GitHub Secrets, which are encrypted environment variables created in a repository\'s settings. The correct syntax is `\${{ secrets.SECRET_NAME }}`. For example:
 
-\`\`\`yaml
-
+```yaml
 \- name: Deploy
 
 run: surge ./build myproject.surge.sh \--token \${{ secrets.SURGE_TOKEN }}
+```
 
-\`\`\`
-
-In the above example, \`SURGE_TOKEN\` is a secret that\'s used to authenticate with the Surge.sh service for deploying applications.
+In the above example, `SURGE_TOKEN` is a secret that\'s used to authenticate with the Surge.sh service for deploying applications.
 
 2\. **Properly passing credentials for publication**:
 
-Credentials for package repositories and external services need to be handled securely. \`TWINE_USERNAME\` and \`TWINE_PASSWORD\` for Twine, used to upload packages to PyPI, or \`NPM_TOKEN\` for npm, are set in the workflow file:
+Credentials for package repositories and external services need to be handled securely. `TWINE_USERNAME` and `TWINE_PASSWORD` for Twine, used to upload packages to PyPI, or `NPM_TOKEN` for npm, are set in the workflow file:
 
-\`\`\`yaml
-
+```yaml
 \- name: Publish package
 
 run: twine upload dist/\*
@@ -155,17 +152,15 @@ env:
 TWINE_USERNAME: \_\_token\_\_
 
 TWINE_PASSWORD: \${{ secrets.PYPI_API_TOKEN }}
+```
 
-\`\`\`
-
-Here, the \`PYPI_API_TOKEN\` is used as a password to publish the package to PyPI securely.
+Here, the `PYPI_API_TOKEN` is used as a password to publish the package to PyPI securely.
 
 3\. **Updating reference to GitHub token**:
 
 The GitHub token is used to authenticate various actions requiring GitHub API access, such as pushing changes or creating releases. The correct passing of this token is crucial:
 
-\`\`\`yaml
-
+```yaml
 \- name: Create GitHub release
 
 uses: actions/create-release@v1
@@ -173,27 +168,23 @@ uses: actions/create-release@v1
 env:
 
 GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-
-\`\`\`
+```
 
 4\. **Correct reference to repository or branch names**:
 
 Conditional steps based on the branch name or other git references are important to ensure that deployments and other actions only happen from the correct branches or tags.
 
-\`\`\`yaml
-
+```yaml
 if: github.ref == \'refs/heads/master\' \|\| github.ref == \'refs/heads/staging\'
+```
 
-\`\`\`
-
-In this case, the deployment step is set to run only when commits are made to the \`master\` or \`staging\` branches.
+In this case, the deployment step is set to run only when commits are made to the `master` or `staging` branches.
 
 5\. **Properly handling SSH and deploy keys**:
 
 SSH keys are used to securely connect to remote servers and perform actions like deployments. Handling SSH keys correctly in workflows is crucial to security.
 
-\`\`\`yaml
-
+```yaml
 \- name: Deploy Project
 
 uses: easingthemes/ssh-deploy@v2.1.5
@@ -201,37 +192,31 @@ uses: easingthemes/ssh-deploy@v2.1.5
 env:
 
 SSH_PRIVATE_KEY: \${{ secrets.DEPLOY_KEY }}
+```
 
-\`\`\`
+6\. **Fixing incorrect usage of `set-env`**:
 
-6\. **Fixing incorrect usage of \`set-env\`**:
+With `set-env` being deprecated, the new format for setting environment variables is now `echo \"name=value\" \>\> \$GITHUB_ENV`.
 
-With \`set-env\` being deprecated, the new format for setting environment variables is now \`echo \"name=value\" \>\> \$GITHUB_ENV\`.
-
-\`\`\`yaml
-
+```yaml
 \- run: echo \"AWS_BUCKET=mybucket\" \>\> \$GITHUB_ENV
-
-\`\`\`
+```
 
 7\. **Securing Docker login**:
 
 Securely logging into Docker registries is critical for pushing and pulling images.
 
-\`\`\`yaml
-
+```yaml
 \- name: Login to DockerHub
 
 run: echo \${{ secrets.DOCKER_PASSWORD }} \| docker login -u \${{ secrets.DOCKER_USERNAME }} \--password-stdin
-
-\`\`\`
+```
 
 9\. **Correcting API tokens and keys**:
 
 Maintaining the integrity of API tokens for external services is crucial. Tokens should be stored as secrets and referenced correctly in workflow files.
 
-\`\`\`yaml
-
+```yaml
 \- name: Upload coverage to Codecov
 
 uses: codecov/codecov-action@v1
@@ -239,8 +224,7 @@ uses: codecov/codecov-action@v1
 with:
 
 token: \${{ secrets.CODECOV_TOKEN }}
-
-\`\`\`
+```
 
 ### Webhooks {#webhooks .unnumbered}
 
@@ -273,9 +257,9 @@ The entire deployment pipeline can be activated by a single webhook call. Howeve
 | |
 | \### Step 2: Create the GitHub Actions Workflow |
 | |
-| Create a new YAML file in the \`.github/workflows\` directory of your repository, such as \`notify_teams_on_failure.yml\`. Here's how to configure it: |
+| Create a new YAML file in the `.github/workflows` directory of your repository, such as `notify_teams_on_failure.yml`. Here's how to configure it: |
 | |
-| \`\`\`yaml |
+| `` yaml |
 | |
 | name: Notify Teams on Build Failure |
 | |
@@ -317,7 +301,7 @@ The entire deployment pipeline can be activated by a single webhook call. Howeve
 | |
 | const webhookUrl = \'\${{ secrets.TEAMS_WEBHOOK_URL }}\'; |
 | |
-| const message = \`{ |
+| const message = `{ |
 | |
 | \"@type\": \"MessageCard\", |
 | |
@@ -351,7 +335,7 @@ The entire deployment pipeline can be activated by a single webhook call. Howeve
 | |
 | }\] |
 | |
-| }\`; |
+| }`; |
 | |
 | await axios.post(webhookUrl, JSON.parse(message), { |
 | |
@@ -363,19 +347,19 @@ The entire deployment pipeline can be activated by a single webhook call. Howeve
 | |
 | }); |
 | |
-| \`\`\` |
+|  `` |
 | |
 | \### Explanation of the Workflow: |
 | |
-| \- **Trigger**: The workflow is triggered by pushes to the \`main\` branch. |
+| \- **Trigger**: The workflow is triggered by pushes to the `main` branch. |
 | |
 | \- **Jobs and Steps**: |
 | |
-| \- **Checkout code**: Checks out your repository under \`\$GITHUB_WORKSPACE\`, so it can access it. |
+| \- **Checkout code**: Checks out your repository under `\$GITHUB_WORKSPACE`, so it can access it. |
 | |
-| \- **Build project**: Replace the echo statement with your build command. The \`id: build\` is for reference but not used explicitly here. |
+| \- **Build project**: Replace the echo statement with your build command. The `id: build` is for reference but not used explicitly here. |
 | |
-| \- **Notify Teams on failure**: Uses \`actions/github-script\` to execute JavaScript code. It makes an HTTP POST request to the Microsoft Teams webhook URL with a custom message formatted as a MessageCard. |
+| \- **Notify Teams on failure**: Uses `actions/github-script` to execute JavaScript code. It makes an HTTP POST request to the Microsoft Teams webhook URL with a custom message formatted as a MessageCard. |
 | |
 | \### Setting Secrets: |
 | |
@@ -385,7 +369,7 @@ The entire deployment pipeline can be activated by a single webhook call. Howeve
 | |
 | 2\. Navigate to **Settings** \> **Secrets** \> **New repository secret**. |
 | |
-| 3\. Name it \`TEAMS_WEBHOOK_URL\` and paste your webhook URL as the value. |
+| 3\. Name it `TEAMS_WEBHOOK_URL` and paste your webhook URL as the value. |
 | |
 | This workflow configuration ensures a Teams message is sent only when a build fails on the main branch, integrating development updates directly into your communication tools, thereby enhancing the visibility of critical build statuses. |
 +====================================================================================================================================================================================================================================================================================================================================================+
@@ -420,7 +404,7 @@ And this is a way where you can trigger a workflow based on a web hook. So for e
 | |
 | **Example with Node.js and Express**: |
 | |
-| \`\`\`javascript |
+| `` javascript |
 | |
 | const express = require(\'express\'); |
 | |
@@ -460,7 +444,7 @@ And this is a way where you can trigger a workflow based on a web hook. So for e
 | |
 | headers: { |
 | |
-| Authorization: \`token \${GITHUB_TOKEN}\`, |
+| Authorization: `token \${GITHUB_TOKEN}`, |
 | |
 | Accept: \'application/vnd.github.everest-preview+json\' |
 | |
@@ -486,15 +470,15 @@ And this is a way where you can trigger a workflow based on a web hook. So for e
 | |
 | app.listen(3000, () =\> console.log(\'Server running on port 3000\')); |
 | |
-| \`\`\` |
+|  `` |
 | |
 | \### Step 3: Configuring GitHub Actions |
 | |
-| Create a GitHub Actions workflow that listens for the \`deploy-production\` event. |
+| Create a GitHub Actions workflow that listens for the `deploy-production` event. |
 | |
 | **Example GitHub Action**: |
 | |
-| \`\`\`yaml |
+| `yaml |
 | |
 | name: Production Deployment |
 | |
@@ -522,7 +506,7 @@ And this is a way where you can trigger a workflow based on a web hook. So for e
 | |
 | \# Add your deployment scripts here |
 | |
-| \`\`\` |
+| ` |
 | |
 | \### Security Considerations |
 | |

@@ -84,7 +84,7 @@ This provides a nice name we can use later and helps us inventory and group our 
 
 \- Visit \[Node.js\'s website\](https://nodejs.org/) and download the installer for your operating system. This will also install npm (Node Package Manager) which is essential for managing JavaScript packages.
 
-\- To verify the installation, run \`node -v\` and \`npm -v\` in your terminal or command prompt. **This should display the current versions of Node.js and npm installed. Keep a note of this as you\'ll need it for later.**
+\- To verify the installation, run `node -v` and `npm -v` in your terminal or command prompt. **This should display the current versions of Node.js and npm installed. Keep a note of this as you\'ll need it for later.**
 
 2\. **Install a Code Editor:**
 
@@ -108,7 +108,7 @@ This provides a nice name we can use later and helps us inventory and group our 
 
 3\. **Verify Installation:**
 
-\- Open Command Prompt (cmd) and type \`git \--version\`. This command will display the installed version of Git if the installation was successful.
+\- Open Command Prompt (cmd) and type `git \--version`. This command will display the installed version of Git if the installation was successful.
 
 **macOS:**
 
@@ -116,23 +116,23 @@ This provides a nice name we can use later and helps us inventory and group our 
 
 \- First, install Homebrew by opening Terminal and running:
 
-\`\`\`
+```
 
 /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"
 
-\`\`\`
+```
 
 \- Once Homebrew is installed, install Git by typing:
 
-\`\`\`
+```
 
 brew install git
 
-\`\`\`
+```
 
 2\. **Verify Installation:**
 
-\- In the Terminal, type \`git \--version\` to confirm that Git is installed.
+\- In the Terminal, type `git \--version` to confirm that Git is installed.
 
 **Linux:**
 
@@ -142,27 +142,27 @@ brew install git
 
 \- For Debian/Ubuntu based distributions, use:
 
-\`\`\`
+```
 
 sudo apt-get update
 
 sudo apt-get install git
 
-\`\`\`
+```
 
 \- For Fedora, use:
 
-\`\`\`
+```
 
 sudo dnf install git
 
-\`\`\`
+```
 
 \- For other distributions, use the package manager accordingly.
 
 2\. **Verify Installation:**
 
-\- Type \`git \--version\` in the terminal to check the installed version.
+\- Type `git \--version` in the terminal to check the installed version.
 
 \### Installing GitHub Desktop (optional)
 
@@ -184,7 +184,7 @@ sudo dnf install git
 
 \- **macOS:**
 
-\- Open the downloaded \`.dmg\` file and drag the GitHub Desktop application to your Applications folder.
+\- Open the downloaded `.dmg` file and drag the GitHub Desktop application to your Applications folder.
 
 3\. **Verify Installation:**
 
@@ -204,11 +204,11 @@ First, ensure that you have cloned your GitHub repository to your local machine.
 
 Once you have the repository locally, create and switch to a new branch. You could name this branch something indicative of its purpose, such as \"initial-commit\" or \"first-commit.\" Here's how you can do this using Git commands:
 
-\`\`\`bash
+```bash
 
 git checkout -b initial-commit
 
-\`\`\`
+```
 
 This command creates a new branch named \"initial-commit\" and checks it out, so you can start adding your changes to this branch. Do all of the following commands within the repository.
 
@@ -222,31 +222,31 @@ Make sure that you have at least NPM 10.8.0 installed. You can update it by typi
 
 \- Open your terminal or command prompt.
 
-\- Run the following command to create a new React application named \`weather-app\`:
+\- Run the following command to create a new React application named `weather-app`:
 
-\`\`\`bash
+```bash
 
 npx create-react-app weather-app
 
-\`\`\`
+```
 
 \- This command sets up a new React project with all the necessary build configurations.
 
 2\. **Navigate into your project directory:**
 
-\- Change into the newly created project directory with \`cd weather-app\`.
+\- Change into the newly created project directory with `cd weather-app`.
 
 \### Step 3: Run the React Application
 
 \- Inside the project directory, start the development server by running:
 
-\`\`\`bash
+```bash
 
 npm start
 
-\`\`\`
+```
 
-\- This command runs the app in development mode. Open \`http://localhost:3000\` to view it in the browser. The page will reload if you make edits.
+\- This command runs the app in development mode. Open `http://localhost:3000` to view it in the browser. The page will reload if you make edits.
 
 \### Step 4: Integrate Weather Data
 
@@ -256,13 +256,13 @@ npm start
 
 2\. **Install Axios:**
 
-\- While you can use the native \`fetch\` API, Axios makes it easier to perform API requests. Install Axios by running:
+\- While you can use the native `fetch` API, Axios makes it easier to perform API requests. Install Axios by running:
 
-\`\`\`bash
+```bash
 
 npm install axios
 
-\`\`\`
+```
 
 We need to access a weather API, but we\'re faced with a challenge regarding how to securely handle the API key. Storing the key directly in our code is not an option as it poses a security risk. If the key were to be leaked, it would be difficult to track and audit its usage.
 
@@ -274,9 +274,9 @@ Later, we will explore solutions for safely using the API key in a production en
 
 \### Understanding the Build Process:
 
-\- **Compiled Files**: The files in the \`dist\` folder are the result of the compilation process. For example, if you\'re using a framework like React, the \`npm run build\` command transforms React code into plain JavaScript. This is necessary because browsers cannot interpret React code directly; they only understand JavaScript.
+\- **Compiled Files**: The files in the `dist` folder are the result of the compilation process. For example, if you\'re using a framework like React, the `npm run build` command transforms React code into plain JavaScript. This is necessary because browsers cannot interpret React code directly; they only understand JavaScript.
 
-\- **Deployment Preparation**: The \`dist\` folder contains the compiled version of your application, which is what you will deploy. This folder holds all the static files required to run your application on any standard web server.
+\- **Deployment Preparation**: The `dist` folder contains the compiled version of your application, which is what you will deploy. This folder holds all the static files required to run your application on any standard web server.
 
 \### Why Compilation Matters:
 
@@ -294,11 +294,11 @@ Then make sure to add the .env.local file to your .gitignore file. Do not commit
 
 3\. **Create a Component to Fetch Weather Data:**
 
-\- In the \`src\` folder, create a new file called \`Weather.js\`.
+\- In the `src` folder, create a new file called `Weather.js`.
 
 \- Use Axios to fetch weather data from your chosen API and display it. Here's a simple example using OpenWeatherMap:
 
-\`\`\`jsx
+```jsx
 
 import React, { useState, useEffect } from \'react\';
 
@@ -316,7 +316,7 @@ try {
 
 const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
 
-const response = await axios.get(\`http://api.openweathermap.org/data/2.5/weather?q=London&appid=\${apiKey}\`);
+const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=London&appid=\${apiKey}`);
 
 setWeather(response.data);
 
@@ -362,15 +362,15 @@ return (
 
 export default Weather;
 
-\`\`\`
+```
 
 \### Step 5: Include the Weather Component in Your App
 
-\- Open \`src/App.js\`.
+\- Open `src/App.js`.
 
-\- Import and use your \`Weather\` component:
+\- Import and use your `Weather` component:
 
-\`\`\`jsx
+```jsx
 
 import React from \'react\';
 
@@ -398,7 +398,7 @@ return (
 
 export default App;
 
-\`\`\`
+```
 
 You will then have to restart the application to pick up the changes in the .env.local file.
 
@@ -406,21 +406,21 @@ To test your application locally, begin by running the following commands in you
 
 1\. **Build the Application**:
 
-\`\`\`bash
+```bash
 
 npm run build
 
-\`\`\`
+```
 
-This command compiles your application and outputs the build files to the \`dist\` folder. Inside, you\'ll find several new files, including an \`index.html\` file, potentially some CSS files, and JavaScript files.
+This command compiles your application and outputs the build files to the `dist` folder. Inside, you\'ll find several new files, including an `index.html` file, potentially some CSS files, and JavaScript files.
 
 2\. **Start the Application**:
 
-\`\`\`bash
+```bash
 
 npm run start
 
-\`\`\`
+```
 
 When you run the application, you should see that the API key has been successfully injected into the URL. In my case, since I didn't add my API key yet, there is an error.
 
@@ -454,13 +454,13 @@ Here\'s how to set this up using Azure API Management Service:
 
 \- The endpoint is just "/".
 
-\- Initially, use \`https://httpbin.org\` for testing to ensure the setup is correct.
+\- Initially, use `https://httpbin.org` for testing to ensure the setup is correct.
 
 \- Select "Test" tab and then "Send". You should get a 200 OK response containing the content of the httpbin website homepage.
 
 6\. **Key Injection and Endpoint Configuration**: Adjust the backend settings to append the API key to incoming requests:
 
-\- Modify the service URL to \`http://httpbin.org/anything\` and save the changes.
+\- Modify the service URL to `http://httpbin.org/anything` and save the changes.
 
 In the below example, use the pretend API key listed below. This is because we are just testing our endpoint with a public server and we don't want to leak our actual API key.
 
@@ -707,7 +707,7 @@ We are going to refactor the code a bit more to make it more modular. While it i
 Let's do a small refactor and see how we can write some tests.
 
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| To write effective tests for the \`Weather\` component and to make the application more testable, we need to structure our code in a way that is easier to isolate and verify individual parts. Here are some improvements and test examples for the component: |
+| To write effective tests for the `Weather` component and to make the application more testable, we need to structure our code in a way that is easier to isolate and verify individual parts. Here are some improvements and test examples for the component: |
 | |
 | \### Improving Code Structure for Testing |
 | |
@@ -725,9 +725,9 @@ Let's do a small refactor and see how we can write some tests.
 | |
 | \### Refactored Component Code |
 | |
-| Here's an example of how you could refactor the \`Weather\` component to make it more testable: |
+| Here's an example of how you could refactor the `Weather` component to make it more testable: |
 | |
-| \`\`\`jsx |
+| `` jsx |
 | |
 | import React, { useState, useEffect } from \'react\'; |
 | |
@@ -749,7 +749,7 @@ Let's do a small refactor and see how we can write some tests.
 | |
 | try { |
 | |
-| const response = await axios.get(\`http://api.openweathermap.org/data/2.5/weather?q=London&appid=\${apiKey}\`); |
+| const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=London&appid=\${apiKey}`); |
 | |
 | setWeather(response.data); |
 | |
@@ -801,13 +801,13 @@ Let's do a small refactor and see how we can write some tests.
 | |
 | export default Weather; |
 | |
-| \`\`\` |
+|  `` |
 | |
 | \### Writing Tests |
 | |
 | Here are some test examples using Jest and React Testing Library: |
 | |
-| \`\`\`javascript |
+| `javascript |
 | |
 | import { render, screen, waitFor } from \'@testing-library/react\'; |
 | |
@@ -867,7 +867,7 @@ Let's do a small refactor and see how we can write some tests.
 | |
 | }); |
 | |
-| \`\`\` |
+| ` |
 | |
 | \### Additional Considerations |
 | |
@@ -911,7 +911,7 @@ Here\'s a concise overview of how GitHub workflows are structured:
 
 - 2\. **Jobs**: Workflows may contain multiple jobs, but we will focus on a single job for simplicity. Each job specifies an environment to run in, indicated by a string that corresponds to an operating system and a pre-configured image. This image includes pre-installed software, allowing us to get started quickly and reduce setup times and costs.
 
-- 3\. **Steps**: Each job is composed of multiple steps. These steps can use either the \`uses\` or \`run\` command:
+- 3\. **Steps**: Each job is composed of multiple steps. These steps can use either the `uses` or `run` command:
 
 - \- **Uses**: This command utilizes actions provided by GitHub Actions, sourced from the GitHub Marketplace. These actions are pre-configured scripts that handle tasks like software installation, version management, or building.
 
@@ -978,11 +978,11 @@ Here\'s a concise overview of how GitHub workflows are structured:
 +=======================================================================+
 +-----------------------------------------------------------------------+
 
-\`\`\`
+````
 
 **Aside start**
 
-The script echo hello world is a bash script. It\'s important to note that while Bash is commonly used, some scripts might be written for \`sh\`, a different shell with slight syntax differences. For users operating on Windows runners, be aware that these runners execute PowerShell scripts, not Bash scripts. This guide does not cover PowerShell extensively, but if you are new to Bash and plan to use it extensively, it might be beneficial to read a beginner\'s guide to Bash. Given its long-standing usage, Bash is likely to remain relevant for some time.
+The script echo hello world is a bash script. It\'s important to note that while Bash is commonly used, some scripts might be written for `sh`, a different shell with slight syntax differences. For users operating on Windows runners, be aware that these runners execute PowerShell scripts, not Bash scripts. This guide does not cover PowerShell extensively, but if you are new to Bash and plan to use it extensively, it might be beneficial to read a beginner\'s guide to Bash. Given its long-standing usage, Bash is likely to remain relevant for some time.
 
 You might have noticed that the feedback loop for making changes to the workflow and seeing the results can be slow. Typically, you need to make edits, commit them, and then run the workflow on GitHub Actions to observe the output. To streamline this process, there are a few strategies you can employ:
 
@@ -1072,17 +1072,17 @@ run: npm run test
 
 The workflow consists of a single job that includes several steps:
 
-1\. **Checkout Step**: Uses \`actions/checkout@v2\` to clone the repository onto the runner and changes the current working directory to the root of the repository.
+1\. **Checkout Step**: Uses `actions/checkout@v2` to clone the repository onto the runner and changes the current working directory to the root of the repository.
 
 2\. **Node Version Setup**: Alters the node environment to use version 14, adjusting the path without removing the existing version of node.
 
-3\. **Dependency Installation**: Executes commands like \`npm ci\` to install dependencies, similar to what would be done locally.
+3\. **Dependency Installation**: Executes commands like `npm ci` to install dependencies, similar to what would be done locally.
 
-4\. **Build and Test**: Runs \`npm run build\` and \`npm run test\`, mirroring local development operations. However, it\'s important to note that the build server is wiped clean after these processes, leaving no artifacts for deployment except for possible log files.
+4\. **Build and Test**: Runs `npm run build` and `npm run test`, mirroring local development operations. However, it\'s important to note that the build server is wiped clean after these processes, leaving no artifacts for deployment except for possible log files.
 
 In our current setup, the build pipeline automatically deletes itself upon completion, which unfortunately means any artifacts created during the build are also lost. To address this, we must selectively determine which parts of our application we want to deploy and save these as artifacts.
 
-Fortunately, GitHub Actions provides a solution through the \`actions/upload-artifact\` action. This action enables us to create and automatically upload artifacts to GitHub's artifact repository. The artifacts are compressed during the upload, facilitating efficient storage and retrieval. Moreover, they can be accessed and downloaded later, even from other actions for example, during deployment or manually.
+Fortunately, GitHub Actions provides a solution through the `actions/upload-artifact` action. This action enables us to create and automatically upload artifacts to GitHub's artifact repository. The artifacts are compressed during the upload, facilitating efficient storage and retrieval. Moreover, they can be accessed and downloaded later, even from other actions for example, during deployment or manually.
 
 **Aside:** If your workflow involves multiple artifacts from different parts of the build, you can replicate this action as needed to publish various artifacts. It\'s crucial to name your artifacts clearly and systematically, as they will need to be identified and retrieved in subsequent steps of your workflow or future builds. Normally artifacts are associated with a build number or commit hash.
 
@@ -1198,11 +1198,11 @@ Before you start, ensure that the Azure CLI is installed on your computer. If no
 
 Open your terminal or command prompt and log in to your Azure account using the following command:
 
-\`\`\`bash
+```bash
 
 az login
 
-\`\`\`
+````
 
 \### Step 3: Create a Storage Account
 
@@ -1246,23 +1246,23 @@ Sample HTML file with just some trivial contents, for example the text Hello wor
 
 \#### Example:
 
-To upload an HTML file named \`index.html\` from your local machine to the \'\$web\` container in your storage account, use:
+To upload an HTML file named `index.html` from your local machine to the \'\$web` container in your storage account, use:
 
-\`\`\`bash
+```bash
 
 az storage blob upload \--account-name cicdbookweb \--container-name '\$web' \--name index.html \--file /local/path/to/index.html
 
-\`\`\`
+```
 
 \### Step 7: Verify Upload
 
 Confirm that your file has been successfully uploaded to the blob container:
 
-\`\`\`bash
+```bash
 
 az storage blob list \--container-name cicdbookweb \--output table
 
-\`\`\`
+```
 
 \### Step 8: Set Up Azure CDN for Faster Content Delivery
 
@@ -1296,7 +1296,7 @@ Create a new workflow at .github/workflows/deploy.yml and insert the following c
 
 \- Add a GitHub Actions workflow file to handle deployment:
 
-\`\`\`yaml
+```yaml
 
 name: Deploy to Azure Storage
 
@@ -1346,7 +1346,7 @@ env:
 
 AZURE_STORAGE_CONNECTION_STRING: \${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
 
-\`\`\`
+```
 
 \- **Secure Your Workflow**:
 
@@ -1489,7 +1489,7 @@ First, you need to set up environments in your GitHub repository where you can s
 
 \- Click on \"New environment\".
 
-\- Name your environment (e.g., \`staging\`, \`production\`).
+\- Name your environment (e.g., `staging`, `production`).
 
 \- Click \"Configure environment\".
 
@@ -1509,17 +1509,17 @@ After setting up your environments with required approvals, you need to modify y
 
 1\. **Edit Your Workflow File**:
 
-\- Go to your repository\'s \`.github/workflows\` directory.
+\- Go to your repository\'s `.github/workflows` directory.
 
 \- Open the YAML file for the workflow you want to add manual approvals to.
 
 2\. **Add the Environment to Workflow Jobs**:
 
-\- Identify the job(s) in your workflow that should require approval before they run. Add the \`environment\` key to those jobs, specifying the name of the environment you configured.
+\- Identify the job(s) in your workflow that should require approval before they run. Add the `environment` key to those jobs, specifying the name of the environment you configured.
 
 Here's an example snippet:
 
-\`\`\`yaml
+```yaml
 
 jobs:
 
@@ -1561,7 +1561,7 @@ npm run build
 
 echo \"::set-output name=url::http://example.com\" \# Simulated deployment output
 
-\`\`\`
+```
 
 \### Step 3: Commit and Push Changes
 

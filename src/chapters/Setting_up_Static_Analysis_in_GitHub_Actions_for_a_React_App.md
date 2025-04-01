@@ -49,6 +49,7 @@ run: npm install
 **2. Choose Your Tools:**
 
 **ESLint:** Catches code style and potential errors:\
+
 - name: Run ESLint
 
 uses: actions/eslint-action@v3
@@ -59,9 +60,10 @@ files: \'src/\*\*/\*.js\'
 
 eslint-path: \'./node_modules/eslint\' \# Adapt if ESLint is installed globally
 
--   
+-
 
 **Prettier:** Enforces consistent code formatting:\
+
 - name: Run Prettier
 
 uses: actions/prettier@v3
@@ -70,9 +72,10 @@ with:
 
 files: \'src/\*\*/\*.js\'
 
--   
+-
 
 **Stylelint:** Analyzes CSS and SCSS for style errors and inconsistencies:\
+
 - name: Run Stylelint
 
 uses: stylelint/actions/lint@v2
@@ -83,9 +86,10 @@ configFile: \'.stylelintrc.json\' \# Adjust config file path if necessary
 
 files: \'src/\*\*/\*.{css,scss}\'
 
--   
+-
 
 **SonarQube:** Detects bugs, code smells, and security vulnerabilities:\
+
 - name: SonarQube Scan
 
 uses: sonarsource/sonarqube-scan-action@master
@@ -100,17 +104,18 @@ projectBaseDir: \'.\'
 
 \# Configure SonarQube project settings as needed
 
--   
+-
 
 **3. Customize Configuration:**
 
--   Create configuration files (.eslintrc.json, .prettierrc.json, .stylelintrc.json, sonar-project.properties) for each tool in your project root.
+- Create configuration files (.eslintrc.json, .prettierrc.json, .stylelintrc.json, sonar-project.properties) for each tool in your project root.
 
--   Use eslint-config-react-app for a good starting point for React-specific ESLint rules.
+- Use eslint-config-react-app for a good starting point for React-specific ESLint rules.
 
 **4. Fail on Errors (Optional):**
 
 Configure actions to fail the workflow if issues are found. This enforces code quality. For example:\
+
 - name: Run ESLint
 
 uses: actions/eslint-action@v3
@@ -122,5 +127,3 @@ files: \'src/\*\*/\*.js\'
 eslint-path: \'./node_modules/eslint\'
 
 failOnError: true
-
-

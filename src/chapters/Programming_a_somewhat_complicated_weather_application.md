@@ -4,33 +4,33 @@ This section explores CI/CD through the practical lens of building a sophisticat
 
 Imagine wearing a project manager\'s hat and envisioning potential features for our weather application:
 
--   \- Displaying precipitation data for user-specified locations
+- \- Displaying precipitation data for user-specified locations
 
--   \- Zoom functionality for map visualization
+- \- Zoom functionality for map visualization
 
--   \- Backend database for storing updated weather information
+- \- Backend database for storing updated weather information
 
--   \- REST API to serve data to the front-end
+- \- REST API to serve data to the front-end
 
--   \- Geolocation service to convert addresses to coordinates
+- \- Geolocation service to convert addresses to coordinates
 
--   \- Caching mechanisms for performance optimization
+- \- Caching mechanisms for performance optimization
 
--   \- Historical precipitation data for a comprehensive user experience
+- \- Historical precipitation data for a comprehensive user experience
 
--   \- Pipeline feasibility for regenerating weather map tiles
+- \- Pipeline feasibility for regenerating weather map tiles
 
-\*\*Key Features and Development Strategy:\*\*
+**Key Features and Development Strategy:**
 
-1\. \*\*Interactive World Map:\*\* Our primary interface is a world map, designed to be interactive, allowing users to zoom into specific areas without reloading the entire map. We will be using the public open street map server for now but will show how you can self host it, including load balancing strategies.
+1\. **Interactive World Map:** Our primary interface is a world map, designed to be interactive, allowing users to zoom into specific areas without reloading the entire map. We will be using the public open street map server for now but will show how you can self host it, including load balancing strategies.
 
-2\. \*\*Weather Forecast Integration:\*\* We will integrate real-time weather forecasting, beginning with current temperature displays at specific locations. This involves creating map overlays to show temperature variations across regions simultaneously.First, however, we\'re just going to get the temperature of our location.
+2\. **Weather Forecast Integration:** We will integrate real-time weather forecasting, beginning with current temperature displays at specific locations. This involves creating map overlays to show temperature variations across regions simultaneously.First, however, we\'re just going to get the temperature of our location.
 
-3\. \*\*Enhanced Map Visualization:\*\* The map will also display various weather parameters, such as wind speeds and temperature gradients. Given the potential for high user traffic, especially in densely populated areas like India, implementing load balancing and data compression strategies, such as vector tile maps, will be crucial.
+3\. **Enhanced Map Visualization:** The map will also display various weather parameters, such as wind speeds and temperature gradients. Given the potential for high user traffic, especially in densely populated areas like India, implementing load balancing and data compression strategies, such as vector tile maps, will be crucial.
 
-5\. \*\*Usage Analytics:\*\* Collecting data on user interactions with the map will provide insights to refine backend processes and enhance data visualization and user engagement on the platform.
+5\. **Usage Analytics:** Collecting data on user interactions with the map will provide insights to refine backend processes and enhance data visualization and user engagement on the platform.
 
-\*\*Application Hosting and User Engagement:\*\*
+**Application Hosting and User Engagement:**
 
 \- User features will include account creation and subscription to event forecasts. A backend batch job will manage notifications through a queuing system, supporting large-scale user notifications with email tracking.
 
@@ -48,17 +48,21 @@ The first step is to provision a local development environment, enabling a quick
 
 You will have four different environments, each with a commonly used abbreviation. We will name some of the resource groups using these abbreviations as suffixes.
 
-  ------------------------------------------------------------------------
-  **Environment Number**   **Full Name**         **Common Abbreviation**
-  ------------------------ --------------------- -------------------------
-  1                        Local Development     Local or Dev
+---
 
-  2                        Integration           INT
+**Environment Number** **Full Name** **Common Abbreviation**
 
-  3                        Pre-production        PPE
+---
 
-  4                        Production            Prod
-  ------------------------------------------------------------------------
+1 Local Development Local or Dev
+
+2 Integration INT
+
+3 Pre-production PPE
+
+4 Production Prod
+
+---
 
 Naming conventions
 
@@ -76,39 +80,39 @@ This provides a nice name we can use later and helps us inventory and group our 
 
 \### Step 1: Set Up Your Development Environment
 
-1\. \*\*Install Node.js and npm:\*\*
+1\. **Install Node.js and npm:**
 
 \- Visit \[Node.js\'s website\](https://nodejs.org/) and download the installer for your operating system. This will also install npm (Node Package Manager) which is essential for managing JavaScript packages.
 
 \- To verify the installation, run \`node -v\` and \`npm -v\` in your terminal or command prompt. **This should display the current versions of Node.js and npm installed. Keep a note of this as you\'ll need it for later.**
 
-2\. \*\*Install a Code Editor:\*\*
+2\. **Install a Code Editor:**
 
 \- A code editor will help you to write your code more efficiently. \[Visual Studio Code\](https://code.visualstudio.com/) is a popular choice among developers because it supports JavaScript and React out of the box, along with many useful extensions.
 
 \### Installing Git
 
-\*\*Windows:\*\*
+**Windows:**
 
-1\. \*\*Download the Installer:\*\*
+1\. **Download the Installer:**
 
 \- Visit the official Git website: \[Git Downloads\](https://git-scm.com/downloads).
 
 \- Click on \"Windows\" to download the latest version of Git for Windows.
 
-2\. \*\*Run the Installer:\*\*
+2\. **Run the Installer:**
 
 \- Once the download is complete, open the installer.
 
 \- Proceed through the installation wizard. You can accept the default settings, which are suitable for most users. However, you may choose to customize the components to install, the default editor for Git, and other options depending on your preference.
 
-3\. \*\*Verify Installation:\*\*
+3\. **Verify Installation:**
 
 \- Open Command Prompt (cmd) and type \`git \--version\`. This command will display the installed version of Git if the installation was successful.
 
-\*\*macOS:\*\*
+**macOS:**
 
-1\. \*\*Install using Homebrew (recommended):\*\*
+1\. **Install using Homebrew (recommended):**
 
 \- First, install Homebrew by opening Terminal and running:
 
@@ -126,13 +130,13 @@ brew install git
 
 \`\`\`
 
-2\. \*\*Verify Installation:\*\*
+2\. **Verify Installation:**
 
 \- In the Terminal, type \`git \--version\` to confirm that Git is installed.
 
-\*\*Linux:\*\*
+**Linux:**
 
-1\. \*\*Install Git:\*\*
+1\. **Install Git:**
 
 \- Open a terminal.
 
@@ -156,37 +160,37 @@ sudo dnf install git
 
 \- For other distributions, use the package manager accordingly.
 
-2\. \*\*Verify Installation:\*\*
+2\. **Verify Installation:**
 
 \- Type \`git \--version\` in the terminal to check the installed version.
 
 \### Installing GitHub Desktop (optional)
 
-\*\*Windows and macOS:\*\*
+**Windows and macOS:**
 
-1\. \*\*Download GitHub Desktop:\*\*
+1\. **Download GitHub Desktop:**
 
 \- Visit the GitHub Desktop download page: \[GitHub Desktop\](https://desktop.github.com/).
 
 \- Click on the download link for Windows or macOS, depending on your operating system.
 
-2\. \*\*Install GitHub Desktop:\*\*
+2\. **Install GitHub Desktop:**
 
-\- \*\*Windows:\*\*
+\- **Windows:**
 
 \- After downloading, run the GitHub Desktop setup file.
 
 \- Follow the installation instructions to complete the setup.
 
-\- \*\*macOS:\*\*
+\- **macOS:**
 
 \- Open the downloaded \`.dmg\` file and drag the GitHub Desktop application to your Applications folder.
 
-3\. \*\*Verify Installation:\*\*
+3\. **Verify Installation:**
 
 \- Open GitHub Desktop. The application should launch and prompt you to log in with your GitHub credentials.
 
-4\. \*\*Setup GitHub Desktop:\*\*
+4\. **Setup GitHub Desktop:**
 
 \- After logging in, you can configure GitHub Desktop to connect with your GitHub repositories. You can clone existing repositories, create new ones, or add local repositories.
 
@@ -214,7 +218,7 @@ Run the following commands in that repository.
 
 Make sure that you have at least NPM 10.8.0 installed. You can update it by typing npm install -g npm@10.8.0 or whatever the latest version is.
 
-1\. \*\*Use Create React App:\*\*
+1\. **Use Create React App:**
 
 \- Open your terminal or command prompt.
 
@@ -228,7 +232,7 @@ npx create-react-app weather-app
 
 \- This command sets up a new React project with all the necessary build configurations.
 
-2\. \*\*Navigate into your project directory:\*\*
+2\. **Navigate into your project directory:**
 
 \- Change into the newly created project directory with \`cd weather-app\`.
 
@@ -246,11 +250,11 @@ npm start
 
 \### Step 4: Integrate Weather Data
 
-1\. \*\*Choose a Weather API:\*\*
+1\. **Choose a Weather API:**
 
 \- For real-time weather data, you can use APIs like \[OpenWeatherMap\](https://openweathermap.org/) or \[WeatherAPI\](https://www.weatherapi.com/). You will need to sign up and obtain an API key.
 
-2\. \*\*Install Axios:\*\*
+2\. **Install Axios:**
 
 \- While you can use the native \`fetch\` API, Axios makes it easier to perform API requests. Install Axios by running:
 
@@ -270,9 +274,9 @@ Later, we will explore solutions for safely using the API key in a production en
 
 \### Understanding the Build Process:
 
-\- \*\*Compiled Files\*\*: The files in the \`dist\` folder are the result of the compilation process. For example, if you\'re using a framework like React, the \`npm run build\` command transforms React code into plain JavaScript. This is necessary because browsers cannot interpret React code directly; they only understand JavaScript.
+\- **Compiled Files**: The files in the \`dist\` folder are the result of the compilation process. For example, if you\'re using a framework like React, the \`npm run build\` command transforms React code into plain JavaScript. This is necessary because browsers cannot interpret React code directly; they only understand JavaScript.
 
-\- \*\*Deployment Preparation\*\*: The \`dist\` folder contains the compiled version of your application, which is what you will deploy. This folder holds all the static files required to run your application on any standard web server.
+\- **Deployment Preparation**: The \`dist\` folder contains the compiled version of your application, which is what you will deploy. This folder holds all the static files required to run your application on any standard web server.
 
 \### Why Compilation Matters:
 
@@ -288,7 +292,7 @@ REACT_APP_WEATHER_API_KEY=your_actual_api_key_here
 
 Then make sure to add the .env.local file to your .gitignore file. Do not commit the .env.local file.
 
-3\. \*\*Create a Component to Fetch Weather Data:\*\*
+3\. **Create a Component to Fetch Weather Data:**
 
 \- In the \`src\` folder, create a new file called \`Weather.js\`.
 
@@ -400,7 +404,7 @@ You will then have to restart the application to pick up the changes in the .env
 
 To test your application locally, begin by running the following commands in your terminal:
 
-1\. \*\*Build the Application\*\*:
+1\. **Build the Application**:
 
 \`\`\`bash
 
@@ -410,7 +414,7 @@ npm run build
 
 This command compiles your application and outputs the build files to the \`dist\` folder. Inside, you\'ll find several new files, including an \`index.html\` file, potentially some CSS files, and JavaScript files.
 
-2\. \*\*Start the Application\*\*:
+2\. **Start the Application**:
 
 \`\`\`bash
 
@@ -426,7 +430,7 @@ Using the API key in production as we currently do is not ideal because it is ex
 
 **Aside**
 
-\*\*Important Security Note Regarding GitHub:\*\*
+**Important Security Note Regarding GitHub:**
 
 When you commit an API key to a public GitHub repository, GitHub's secret scanning tool detects and invalidates exposed API keys for about 30 to 40 different providers within minutes. However, this window is sufficient for attackers to compromise your key before it's invalidated, leading to potential security breaches and loss of provider trust. It\'s crucial to never commit API keys to public repositories to avoid these risks. For more details on GitHub\'s secret scanning and best practices, you can refer to GitHub\'s documentation on secret scanning [[About secret scanning - GitHub Docs]{.underline}](https://docs.github.com/en/code-security/secret-scanning/about-secret-scanning#about-secret-scanning-alerts-for-users)
 
@@ -438,13 +442,13 @@ If you have an existing API consider using the Azure API Management Service. Thi
 
 Here\'s how to set this up using Azure API Management Service:
 
-1\. \*\*Create a New API Management Service\*\*: Begin by creating a new resource group, for instance, named \'CI-CD-Book-int\' in the East US region. Name the resource as desired, such as \'My API Management Service\', and fill in the organization name and administrative email according to your requirements. Choose the \'Developer\' pricing tier.
+1\. **Create a New API Management Service**: Begin by creating a new resource group, for instance, named \'CI-CD-Book-int\' in the East US region. Name the resource as desired, such as \'My API Management Service\', and fill in the organization name and administrative email according to your requirements. Choose the \'Developer\' pricing tier.
 
-2\. \*\*Manage Identity\*\*: In the \'Manage Identity\' tab, enable the system-assigned managed identity to allow your API Management Service access to the Azure Key Vault. This setup requires configuring Azure Role-Based Access Control (RBAC) rules to establish the necessary permissions.
+2\. **Manage Identity**: In the \'Manage Identity\' tab, enable the system-assigned managed identity to allow your API Management Service access to the Azure Key Vault. This setup requires configuring Azure Role-Based Access Control (RBAC) rules to establish the necessary permissions.
 
-3\. \*\*Installation\*\*: Once all settings are configured, proceed to the \'Review + Install\' tab and initiate the creation of your API Management Service.
+3\. **Installation**: Once all settings are configured, proceed to the \'Review + Install\' tab and initiate the creation of your API Management Service.
 
-5\. \*\*Configure API and Testing\*\*: In the API Management Service:
+5\. **Configure API and Testing**: In the API Management Service:
 
 \- Go to \'APIs\' and create a new HTTP API, such as a \'Get Weather\'.
 
@@ -454,7 +458,7 @@ Here\'s how to set this up using Azure API Management Service:
 
 \- Select "Test" tab and then "Send". You should get a 200 OK response containing the content of the httpbin website homepage.
 
-6\. \*\*Key Injection and Endpoint Configuration\*\*: Adjust the backend settings to append the API key to incoming requests:
+6\. **Key Injection and Endpoint Configuration**: Adjust the backend settings to append the API key to incoming requests:
 
 \- Modify the service URL to \`http://httpbin.org/anything\` and save the changes.
 
@@ -582,9 +586,9 @@ To ensure proper setup, start by creating a new Azure Key Vault and add a fake A
 
 Here's how to do that.
 
-\*\*Setting Up a New Azure Key Vault\*\*
+**Setting Up a New Azure Key Vault**
 
-1\. \*\*Create the Key Vault\*\*:
+1\. **Create the Key Vault**:
 
 \- Navigate back to your resource group, specifically the CI-CD-Book-int one.
 
@@ -594,7 +598,7 @@ Here's how to do that.
 
 \- Proceed to create the vault by clicking on \"View and Create\", then \"Create\".
 
-2\. \*\*Configure Access Permissions\*\*:
+2\. **Configure Access Permissions**:
 
 \- After creation, go to \"Access Control (IAM)\" on the left-hand side of the Key Vault.
 
@@ -602,15 +606,15 @@ Here's how to do that.
 
 \- Review and confirm the role assignment.
 
-3\. \*\*Manage Secrets\*\*:
+3\. **Manage Secrets**:
 
 \- Once access is granted, navigate to the \"Secrets\" tab within the Key Vault.
 
 \- Click on \"Generate or Import\" to create a new secret. For instance, name it \"weather-API-key\" and set its value to \"5934672295\", then create the secret.
 
-\*\*Integrating Key Vault with API Management Service\*\*
+**Integrating Key Vault with API Management Service**
 
-1\. \*\*Link the Key Vault to API Management\*\*:
+1\. **Link the Key Vault to API Management**:
 
 \- In your API Management Service, locate the \"Named Values\" option under the subscriptions section.
 
@@ -622,7 +626,7 @@ Here's how to do that.
 
 \- Confirm when prompted about adding the Key Vault secret User role to the IAM of this KV.
 
-2\. \*\*Update API Policy\*\*:
+2\. **Update API Policy**:
 
 \- Navigate to \"APIs\", select the \"Weather API\", and go to \"Get Weather\".
 
@@ -704,174 +708,174 @@ Let's do a small refactor and see how we can write some tests.
 
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | To write effective tests for the \`Weather\` component and to make the application more testable, we need to structure our code in a way that is easier to isolate and verify individual parts. Here are some improvements and test examples for the component: |
-|                                                                                                                                                                                                                                                                 |
-| \### Improving Code Structure for Testing                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                 |
-| 1\. \*\*Decouple Data Fetching from Component Rendering:\*\*                                                                                                                                                                                                    |
-|                                                                                                                                                                                                                                                                 |
-| Extract the logic that fetches data from the API into a separate function or custom hook. This separation makes it easier to test the fetching logic independently from the component\'s rendering logic.                                                       |
-|                                                                                                                                                                                                                                                                 |
-| 2\. \*\*Use Environment Variables Judiciously:\*\*                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                 |
-| Ensure environment variables are used properly and securely, especially when building and testing. For production builds, consider server-side fetching or secure client-side API key handling mechanisms.                                                      |
-|                                                                                                                                                                                                                                                                 |
-| 3\. \*\*Error Handling:\*\*                                                                                                                                                                                                                                     |
-|                                                                                                                                                                                                                                                                 |
-| Add more robust error handling and loading state management to improve user experience and make testing these states easier.                                                                                                                                    |
-|                                                                                                                                                                                                                                                                 |
-| \### Refactored Component Code                                                                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                 |
-| Here's an example of how you could refactor the \`Weather\` component to make it more testable:                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                 |
-| \`\`\`jsx                                                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                 |
-| import React, { useState, useEffect } from \'react\';                                                                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                 |
-| import axios from \'axios\';                                                                                                                                                                                                                                    |
-|                                                                                                                                                                                                                                                                 |
-| // Data fetching logic extracted to a custom hook                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                 |
-| function useWeather(apiKey) {                                                                                                                                                                                                                                   |
-|                                                                                                                                                                                                                                                                 |
-| const \[weather, setWeather\] = useState(null);                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                 |
-| const \[loading, setLoading\] = useState(true);                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                 |
-| const \[error, setError\] = useState(null);                                                                                                                                                                                                                     |
-|                                                                                                                                                                                                                                                                 |
-| useEffect(() =\> {                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                 |
-| async function fetchWeather() {                                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                 |
-| try {                                                                                                                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                 |
-| const response = await axios.get(\`http://api.openweathermap.org/data/2.5/weather?q=London&appid=\${apiKey}\`);                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                 |
-| setWeather(response.data);                                                                                                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                 |
-| setLoading(false);                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                 |
-| } catch (error) {                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                 |
-| setError(error);                                                                                                                                                                                                                                                |
-|                                                                                                                                                                                                                                                                 |
-| setLoading(false);                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                 |
-| }                                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                 |
-| }                                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                 |
-| fetchWeather();                                                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                 |
-| }, \[apiKey\]);                                                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                 |
-| return { weather, loading, error };                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                 |
-| }                                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                 |
-| function Weather() {                                                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                 |
-| const apiKey = process.env.REACT_APP_WEATHER_API_KEY;                                                                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                 |
-| const { weather, loading, error } = useWeather(apiKey);                                                                                                                                                                                                         |
-|                                                                                                                                                                                                                                                                 |
-| if (loading) return \<p\>Loading weather\...\</p\>;                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                 |
-| if (error) return \<p\>Error fetching weather\</p\>;                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                 |
-| return (                                                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                 |
-| \<div\>                                                                                                                                                                                                                                                         |
-|                                                                                                                                                                                                                                                                 |
-| \<h1\>{weather.name}\</h1\>                                                                                                                                                                                                                                     |
-|                                                                                                                                                                                                                                                                 |
-| \<p\>Temperature: {weather.main.temp}°C\</p\>                                                                                                                                                                                                                   |
-|                                                                                                                                                                                                                                                                 |
-| \<p\>Condition: {weather.weather\[0\].description}\</p\>                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                 |
-| \</div\>                                                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                 |
-| );                                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                 |
-| }                                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                 |
-| export default Weather;                                                                                                                                                                                                                                         |
-|                                                                                                                                                                                                                                                                 |
-| \`\`\`                                                                                                                                                                                                                                                          |
-|                                                                                                                                                                                                                                                                 |
-| \### Writing Tests                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                 |
-| Here are some test examples using Jest and React Testing Library:                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                 |
-| \`\`\`javascript                                                                                                                                                                                                                                                |
-|                                                                                                                                                                                                                                                                 |
-| import { render, screen, waitFor } from \'@testing-library/react\';                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                 |
-| import axios from \'axios\';                                                                                                                                                                                                                                    |
-|                                                                                                                                                                                                                                                                 |
-| import Weather from \'./Weather\';                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                 |
-| jest.mock(\'axios\');                                                                                                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                 |
-| describe(\'Weather Component\', () =\> {                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                 |
-| test(\'renders weather data successfully\', async () =\> {                                                                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                 |
-| const mockWeatherData = {                                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                 |
-| data: {                                                                                                                                                                                                                                                         |
-|                                                                                                                                                                                                                                                                 |
-| name: \'London\',                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                 |
-| main: { temp: 15 },                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                 |
-| weather: \[{ description: \'Cloudy\' }\]                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                 |
-| }                                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                 |
-| };                                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                 |
-| axios.get.mockResolvedValue(mockWeatherData);                                                                                                                                                                                                                   |
-|                                                                                                                                                                                                                                                                 |
-| render(\<Weather /\>);                                                                                                                                                                                                                                          |
-|                                                                                                                                                                                                                                                                 |
-| await waitFor(() =\> expect(screen.getByText(\'London\')).toBeInTheDocument());                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                 |
-| expect(screen.getByText(\'Temperature: 15°C\')).toBeInTheDocument();                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                 |
-| expect(screen.getByText(\'Condition: Cloudy\')).toBeInTheDocument();                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                 |
-| });                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                 |
-| test(\'shows loading initially\', () =\> {                                                                                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                 |
-| render(\<Weather /\>);                                                                                                                                                                                                                                          |
-|                                                                                                                                                                                                                                                                 |
-| expect(screen.getByText(\'Loading weather\...\')).toBeInTheDocument();                                                                                                                                                                                          |
-|                                                                                                                                                                                                                                                                 |
-| });                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                 |
-| test(\'handles errors in fetching weather\', async () =\> {                                                                                                                                                                                                     |
-|                                                                                                                                                                                                                                                                 |
-| axios.get.mockRejectedValue(new Error(\'Failed to fetch\'));                                                                                                                                                                                                    |
-|                                                                                                                                                                                                                                                                 |
-| render(\<Weather /\>);                                                                                                                                                                                                                                          |
-|                                                                                                                                                                                                                                                                 |
-| await waitFor(() =\> expect(screen.getByText(\'Error fetching weather\')).toBeInTheDocument());                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                 |
-| });                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                 |
-| });                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                 |
-| \`\`\`                                                                                                                                                                                                                                                          |
-|                                                                                                                                                                                                                                                                 |
-| \### Additional Considerations                                                                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                 |
-| \- For production, consider implementing a backend service to handle API requests. This service can secure your API keys and manage the data before sending it to the frontend.                                                                                 |
-|                                                                                                                                                                                                                                                                 |
-| \- Implement continuous integration (CI) to run these tests automatically when changes are made to the codebase.                                                                                                                                                |
-|                                                                                                                                                                                                                                                                 |
-| This structured approach enhances testability, security, and maintainability of the application.                                                                                                                                                                |
+| |
+| \### Improving Code Structure for Testing |
+| |
+| 1\. **Decouple Data Fetching from Component Rendering:** |
+| |
+| Extract the logic that fetches data from the API into a separate function or custom hook. This separation makes it easier to test the fetching logic independently from the component\'s rendering logic. |
+| |
+| 2\. **Use Environment Variables Judiciously:** |
+| |
+| Ensure environment variables are used properly and securely, especially when building and testing. For production builds, consider server-side fetching or secure client-side API key handling mechanisms. |
+| |
+| 3\. **Error Handling:** |
+| |
+| Add more robust error handling and loading state management to improve user experience and make testing these states easier. |
+| |
+| \### Refactored Component Code |
+| |
+| Here's an example of how you could refactor the \`Weather\` component to make it more testable: |
+| |
+| \`\`\`jsx |
+| |
+| import React, { useState, useEffect } from \'react\'; |
+| |
+| import axios from \'axios\'; |
+| |
+| // Data fetching logic extracted to a custom hook |
+| |
+| function useWeather(apiKey) { |
+| |
+| const \[weather, setWeather\] = useState(null); |
+| |
+| const \[loading, setLoading\] = useState(true); |
+| |
+| const \[error, setError\] = useState(null); |
+| |
+| useEffect(() =\> { |
+| |
+| async function fetchWeather() { |
+| |
+| try { |
+| |
+| const response = await axios.get(\`http://api.openweathermap.org/data/2.5/weather?q=London&appid=\${apiKey}\`); |
+| |
+| setWeather(response.data); |
+| |
+| setLoading(false); |
+| |
+| } catch (error) { |
+| |
+| setError(error); |
+| |
+| setLoading(false); |
+| |
+| } |
+| |
+| } |
+| |
+| fetchWeather(); |
+| |
+| }, \[apiKey\]); |
+| |
+| return { weather, loading, error }; |
+| |
+| } |
+| |
+| function Weather() { |
+| |
+| const apiKey = process.env.REACT_APP_WEATHER_API_KEY; |
+| |
+| const { weather, loading, error } = useWeather(apiKey); |
+| |
+| if (loading) return \<p\>Loading weather\...\</p\>; |
+| |
+| if (error) return \<p\>Error fetching weather\</p\>; |
+| |
+| return ( |
+| |
+| \<div\> |
+| |
+| \<h1\>{weather.name}\</h1\> |
+| |
+| \<p\>Temperature: {weather.main.temp}°C\</p\> |
+| |
+| \<p\>Condition: {weather.weather\[0\].description}\</p\> |
+| |
+| \</div\> |
+| |
+| ); |
+| |
+| } |
+| |
+| export default Weather; |
+| |
+| \`\`\` |
+| |
+| \### Writing Tests |
+| |
+| Here are some test examples using Jest and React Testing Library: |
+| |
+| \`\`\`javascript |
+| |
+| import { render, screen, waitFor } from \'@testing-library/react\'; |
+| |
+| import axios from \'axios\'; |
+| |
+| import Weather from \'./Weather\'; |
+| |
+| jest.mock(\'axios\'); |
+| |
+| describe(\'Weather Component\', () =\> { |
+| |
+| test(\'renders weather data successfully\', async () =\> { |
+| |
+| const mockWeatherData = { |
+| |
+| data: { |
+| |
+| name: \'London\', |
+| |
+| main: { temp: 15 }, |
+| |
+| weather: \[{ description: \'Cloudy\' }\] |
+| |
+| } |
+| |
+| }; |
+| |
+| axios.get.mockResolvedValue(mockWeatherData); |
+| |
+| render(\<Weather /\>); |
+| |
+| await waitFor(() =\> expect(screen.getByText(\'London\')).toBeInTheDocument()); |
+| |
+| expect(screen.getByText(\'Temperature: 15°C\')).toBeInTheDocument(); |
+| |
+| expect(screen.getByText(\'Condition: Cloudy\')).toBeInTheDocument(); |
+| |
+| }); |
+| |
+| test(\'shows loading initially\', () =\> { |
+| |
+| render(\<Weather /\>); |
+| |
+| expect(screen.getByText(\'Loading weather\...\')).toBeInTheDocument(); |
+| |
+| }); |
+| |
+| test(\'handles errors in fetching weather\', async () =\> { |
+| |
+| axios.get.mockRejectedValue(new Error(\'Failed to fetch\')); |
+| |
+| render(\<Weather /\>); |
+| |
+| await waitFor(() =\> expect(screen.getByText(\'Error fetching weather\')).toBeInTheDocument()); |
+| |
+| }); |
+| |
+| }); |
+| |
+| \`\`\` |
+| |
+| \### Additional Considerations |
+| |
+| \- For production, consider implementing a backend service to handle API requests. This service can secure your API keys and manage the data before sending it to the frontend. |
+| |
+| \- Implement continuous integration (CI) to run these tests automatically when changes are made to the codebase. |
+| |
+| This structured approach enhances testability, security, and maintainability of the application. |
 +=================================================================================================================================================================================================================================================================+
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
@@ -889,88 +893,88 @@ If you need more information on the specific intricacies of GitHub Actions, plea
 
 Let's build a pipeline that can do the following:
 
--   Checkout the code (i.e., clone it onto the runner.)
+- Checkout the code (i.e., clone it onto the runner.)
 
--   Build the code.
+- Build the code.
 
--   Run automated tests, and linting.
+- Run automated tests, and linting.
 
--   Publish artifacts to an artifact server, in this case, GitHub, along with a versioning strategy that will help identify which artifacts you are publishing.
+- Publish artifacts to an artifact server, in this case, GitHub, along with a versioning strategy that will help identify which artifacts you are publishing.
 
--   Deployed the website to Azure.
+- Deployed the website to Azure.
 
 As you can see above, we\'ve already done the first three steps that the pipeline does locally except for linting--we haven't set that up yet.
 
 Here\'s a concise overview of how GitHub workflows are structured:
 
--   1\. \*\*Events\*\*: Workflows begin with events, such as pushes or pull requests, which trigger the workflow.
+- 1\. **Events**: Workflows begin with events, such as pushes or pull requests, which trigger the workflow.
 
--   2\. \*\*Jobs\*\*: Workflows may contain multiple jobs, but we will focus on a single job for simplicity. Each job specifies an environment to run in, indicated by a string that corresponds to an operating system and a pre-configured image. This image includes pre-installed software, allowing us to get started quickly and reduce setup times and costs.
+- 2\. **Jobs**: Workflows may contain multiple jobs, but we will focus on a single job for simplicity. Each job specifies an environment to run in, indicated by a string that corresponds to an operating system and a pre-configured image. This image includes pre-installed software, allowing us to get started quickly and reduce setup times and costs.
 
--   3\. \*\*Steps\*\*: Each job is composed of multiple steps. These steps can use either the \`uses\` or \`run\` command:
+- 3\. **Steps**: Each job is composed of multiple steps. These steps can use either the \`uses\` or \`run\` command:
 
--   \- \*\*Uses\*\*: This command utilizes actions provided by GitHub Actions, sourced from the GitHub Marketplace. These actions are pre-configured scripts that handle tasks like software installation, version management, or building.
+- \- **Uses**: This command utilizes actions provided by GitHub Actions, sourced from the GitHub Marketplace. These actions are pre-configured scripts that handle tasks like software installation, version management, or building.
 
--   \- \*\*Run\*\*: This command executes shell commands specific to the operating system defined in the job\'s environment, using bash scripting for Linux, for example.
+- \- **Run**: This command executes shell commands specific to the operating system defined in the job\'s environment, using bash scripting for Linux, for example.
 
--   4\. \*\*Artifacts\*\*: Typically, workflows end with steps for uploading artifacts, though the initial steps may also involve downloading or preparing artifacts.
+- 4\. **Artifacts**: Typically, workflows end with steps for uploading artifacts, though the initial steps may also involve downloading or preparing artifacts.
 
 +-----------------------------------------------------------------------+
-| Workflow                                                              |
-|                                                                       |
-| │                                                                     |
-|                                                                       |
-| ├── Events (e.g., push, pull_request)                                 |
-|                                                                       |
-| │                                                                     |
-|                                                                       |
-| ├── Jobs                                                              |
-|                                                                       |
-| │ ├── Runs-on (Runner)                                                |
-|                                                                       |
-| │ │                                                                   |
-|                                                                       |
-| │ ├── Needs (Dependencies on other jobs)                              |
-|                                                                       |
-| │ │                                                                   |
-|                                                                       |
-| │ ├── Steps                                                           |
-|                                                                       |
-| │ │ ├── Uses (Actions)                                                |
-|                                                                       |
-| │ │ │ ├── Inputs                                                      |
-|                                                                       |
-| │ │ │ ├── Outputs                                                     |
-|                                                                       |
-| │ │ │ └── Environment (e.g., secrets, env variables)                  |
-|                                                                       |
-| │ │ │                                                                 |
-|                                                                       |
-| │ │ └── Run (Shell commands)                                          |
-|                                                                       |
-| │ │                                                                   |
-|                                                                       |
-| │ ├── Environment Variables                                           |
-|                                                                       |
-| │ │                                                                   |
-|                                                                       |
-| │ ├── Secrets                                                         |
-|                                                                       |
-| │ │                                                                   |
-|                                                                       |
-| │ ├── Services (Service Containers)                                   |
-|                                                                       |
-| │ │                                                                   |
-|                                                                       |
-| │ └── Artifacts                                                       |
-|                                                                       |
-| │ ├── Upload Artifact                                                 |
-|                                                                       |
-| │ └── Download Artifact                                               |
-|                                                                       |
-| │                                                                     |
-|                                                                       |
-| └── Workflow Commands (e.g., set-output, set-env)                     |
+| Workflow |
+| |
+| │ |
+| |
+| ├── Events (e.g., push, pull_request) |
+| |
+| │ |
+| |
+| ├── Jobs |
+| |
+| │ ├── Runs-on (Runner) |
+| |
+| │ │ |
+| |
+| │ ├── Needs (Dependencies on other jobs) |
+| |
+| │ │ |
+| |
+| │ ├── Steps |
+| |
+| │ │ ├── Uses (Actions) |
+| |
+| │ │ │ ├── Inputs |
+| |
+| │ │ │ ├── Outputs |
+| |
+| │ │ │ └── Environment (e.g., secrets, env variables) |
+| |
+| │ │ │ |
+| |
+| │ │ └── Run (Shell commands) |
+| |
+| │ │ |
+| |
+| │ ├── Environment Variables |
+| |
+| │ │ |
+| |
+| │ ├── Secrets |
+| |
+| │ │ |
+| |
+| │ ├── Services (Service Containers) |
+| |
+| │ │ |
+| |
+| │ └── Artifacts |
+| |
+| │ ├── Upload Artifact |
+| |
+| │ └── Download Artifact |
+| |
+| │ |
+| |
+| └── Workflow Commands (e.g., set-output, set-env) |
 +=======================================================================+
 +-----------------------------------------------------------------------+
 
@@ -982,21 +986,21 @@ The script echo hello world is a bash script. It\'s important to note that while
 
 You might have noticed that the feedback loop for making changes to the workflow and seeing the results can be slow. Typically, you need to make edits, commit them, and then run the workflow on GitHub Actions to observe the output. To streamline this process, there are a few strategies you can employ:
 
-1\. \*\*Simplify Workflow Steps\*\*: Ensure that the steps in your workflow are simple enough that they can be executed locally. This makes the whole process faster and more manageable.To use.Provider agnostic scripts, for example PowerShell scripts or bash scripts.
+1\. **Simplify Workflow Steps**: Ensure that the steps in your workflow are simple enough that they can be executed locally. This makes the whole process faster and more manageable.To use.Provider agnostic scripts, for example PowerShell scripts or bash scripts.
 
-2\. \*\*Use Docker Containers\*\*: Create and use your own Docker container that mirrors the environment on GitHub Actions as closely as possible. This allows you to locally run and test your workflows in an environment that closely resembles the production setting on GitHub Actions.
+2\. **Use Docker Containers**: Create and use your own Docker container that mirrors the environment on GitHub Actions as closely as possible. This allows you to locally run and test your workflows in an environment that closely resembles the production setting on GitHub Actions.
 
-3\. \*\*Utilize the \'act\' Library\*\*: The \'act\' library enables you to run your GitHub Actions locally. While \'act\' doesn't replicate the GitHub Actions environment perfectly, it\'s generally sufficient for simpler scripts.You could find some more information in the appendix on more information on how to set this up.
+3\. **Utilize the \'act\' Library**: The \'act\' library enables you to run your GitHub Actions locally. While \'act\' doesn't replicate the GitHub Actions environment perfectly, it\'s generally sufficient for simpler scripts.You could find some more information in the appendix on more information on how to set this up.
 
 #### Setting up error notifications {#setting-up-error-notifications .unnumbered}
 
 When it comes to handling errors in your workflow, encountering a syntax error provides a good opportunity to implement error notifications. These notifications are crucial for alerting your team about failures in the build pipeline. Such alerts are essential to maintaining confidence in the build artifacts, especially in production pipelines. While a failed build in a pull request might not warrant notifying the entire team---notifications should be configured for the main or production pipelines to ensure critical issues are addressed promptly.
 
-\*\*Setting Up Notifications\*\*:
+**Setting Up Notifications**:
 
-\- \*\*Email Notifications\*\*: Configure GitHub Actions to send email notifications to a designated recipient when the workflow fails.
+\- **Email Notifications**: Configure GitHub Actions to send email notifications to a designated recipient when the workflow fails.
 
-\- \*\*Integration with Messaging Platforms\*\*: You can also integrate the workflow with messaging platforms such as Microsoft Teams, Slack, Discord, and others. Numerous plugins and services are available that notify you through instant messaging or even text messages and phone calls when a build fails.
+\- **Integration with Messaging Platforms**: You can also integrate the workflow with messaging platforms such as Microsoft Teams, Slack, Discord, and others. Numerous plugins and services are available that notify you through instant messaging or even text messages and phone calls when a build fails.
 
 Setting up email notifications for a failed GitHub Actions workflow involves a few steps within the GitHub platform, using the available features to send alerts when certain conditions are met. Here's how you can set this up:
 
@@ -1004,15 +1008,15 @@ Step 1: Verify Email Settings in GitHub
 
 Before setting up notifications, ensure that your GitHub email settings are configured to receive notifications:
 
--   Go to GitHub: Open your browser and navigate to GitHub.
+- Go to GitHub: Open your browser and navigate to GitHub.
 
--   Navigate to Settings: Click on your profile picture at the top right corner, then select Settings.
+- Navigate to Settings: Click on your profile picture at the top right corner, then select Settings.
 
--   Access Notifications: From the sidebar, click on Notifications.
+- Access Notifications: From the sidebar, click on Notifications.
 
--   Configure Email Settings: Ensure that the email under \"How you receive notifications\" is correct and that \"Email\" is checked. Also, check that you have \"Includes failed workflows\" under \"GitHub Actions\" to receive notifications for failed workflows.
+- Configure Email Settings: Ensure that the email under \"How you receive notifications\" is correct and that \"Email\" is checked. Also, check that you have \"Includes failed workflows\" under \"GitHub Actions\" to receive notifications for failed workflows.
 
--   To rerun that failing workflow, then you should receive an e-mail that indicates that it is failed.Now I\'d like you to revert that commit to its initial state where the workflow was successful, because we\'re going to modify it somewhere.
+- To rerun that failing workflow, then you should receive an e-mail that indicates that it is failed.Now I\'d like you to revert that commit to its initial state where the workflow was successful, because we\'re going to modify it somewhere.
 
 **Aside end**
 
@@ -1068,13 +1072,13 @@ run: npm run test
 
 The workflow consists of a single job that includes several steps:
 
-1\. \*\*Checkout Step\*\*: Uses \`actions/checkout@v2\` to clone the repository onto the runner and changes the current working directory to the root of the repository.
+1\. **Checkout Step**: Uses \`actions/checkout@v2\` to clone the repository onto the runner and changes the current working directory to the root of the repository.
 
-2\. \*\*Node Version Setup\*\*: Alters the node environment to use version 14, adjusting the path without removing the existing version of node.
+2\. **Node Version Setup**: Alters the node environment to use version 14, adjusting the path without removing the existing version of node.
 
-3\. \*\*Dependency Installation\*\*: Executes commands like \`npm ci\` to install dependencies, similar to what would be done locally.
+3\. **Dependency Installation**: Executes commands like \`npm ci\` to install dependencies, similar to what would be done locally.
 
-4\. \*\*Build and Test\*\*: Runs \`npm run build\` and \`npm run test\`, mirroring local development operations. However, it\'s important to note that the build server is wiped clean after these processes, leaving no artifacts for deployment except for possible log files.
+4\. **Build and Test**: Runs \`npm run build\` and \`npm run test\`, mirroring local development operations. However, it\'s important to note that the build server is wiped clean after these processes, leaving no artifacts for deployment except for possible log files.
 
 In our current setup, the build pipeline automatically deletes itself upon completion, which unfortunately means any artifacts created during the build are also lost. To address this, we must selectively determine which parts of our application we want to deploy and save these as artifacts.
 
@@ -1154,15 +1158,15 @@ When you modify code, such as changing text in a React application, commit and p
 
 To manually access and download artifacts from a GitHub repository, follow these steps:
 
-1\. \*\*Navigate to Your Repository\*\*: Log into your GitHub account and go to the repository where your workflow runs.
+1\. **Navigate to Your Repository**: Log into your GitHub account and go to the repository where your workflow runs.
 
-2\. \*\*Access Actions\*\*: In the repository, click on the \"Actions\" tab. This tab displays a list of all the workflow runs associated with the repository.
+2\. **Access Actions**: In the repository, click on the \"Actions\" tab. This tab displays a list of all the workflow runs associated with the repository.
 
-3\. \*\*Select a Workflow Run\*\*: Click on the specific workflow run you are interested in. This action will open a detailed page for that run.
+3\. **Select a Workflow Run**: Click on the specific workflow run you are interested in. This action will open a detailed page for that run.
 
-4\. \*\*Find Artifacts\*\*: On the workflow run detail page, look for a section titled \"Artifacts\" at the bottom of the page. This section lists all the artifacts generated during the run.
+4\. **Find Artifacts**: On the workflow run detail page, look for a section titled \"Artifacts\" at the bottom of the page. This section lists all the artifacts generated during the run.
 
-5\. \*\*Download Artifacts\*\*: Click on the name of the artifact you want to download. GitHub will compile all the files into a single ZIP file and automatically start the download.
+5\. **Download Artifacts**: Click on the name of the artifact you want to download. GitHub will compile all the files into a single ZIP file and automatically start the download.
 
 ![](./images/media/image14.png){width="7.8125in" height="4.114583333333333in"}
 
@@ -1180,9 +1184,9 @@ Here are some options for deploying our static website application. Note that th
 
 Options:
 
--   For simple web applications consisting primarily of static content like HTML, CSS, and JavaScript, utilizing a Content Delivery Network (CDN) is highly efficient. In this case, since there is no dynamic content that requires server-side execution, all we need is to serve the static files. To achieve this, we can use a storage account coupled with a CDN. This setup ensures that the content is delivered quickly to the user, as everything is downloaded and executed directly in the web browser without the need for Docker containers or similar technologies.
+- For simple web applications consisting primarily of static content like HTML, CSS, and JavaScript, utilizing a Content Delivery Network (CDN) is highly efficient. In this case, since there is no dynamic content that requires server-side execution, all we need is to serve the static files. To achieve this, we can use a storage account coupled with a CDN. This setup ensures that the content is delivered quickly to the user, as everything is downloaded and executed directly in the web browser without the need for Docker containers or similar technologies.
 
--   For server-side applications that include backend logic, it\'s beneficial to use Docker containers or other server infrastructure. These applications require server-side execution, so as we expand our web application with backend services, Docker becomes invaluable. Containers can be published to a registry, facilitating version control and deployment. This setup allows for more complex applications that need to process data on the server before sending it to the client.
+- For server-side applications that include backend logic, it\'s beneficial to use Docker containers or other server infrastructure. These applications require server-side execution, so as we expand our web application with backend services, Docker becomes invaluable. Containers can be published to a registry, facilitating version control and deployment. This setup allows for more complex applications that need to process data on the server before sending it to the client.
 
 Deploying a simple static website using an Azure Storage Account and a Content Delivery Network (CDN) can be a more cost-effective and scalable option, especially for serving static content like HTML and JavaScript files globally. Here's a guide on how to set this up:
 
@@ -1202,9 +1206,9 @@ az login
 
 \### Step 3: Create a Storage Account
 
-\- \*\*Navigate to Storage Accounts\*\*: In the Azure portal, click on \"Create a resource\" and search for \"Storage Account\".
+\- **Navigate to Storage Accounts**: In the Azure portal, click on \"Create a resource\" and search for \"Storage Account\".
 
-\- \*\*Set Up Basic Details\*\*:
+\- **Set Up Basic Details**:
 
 \- Choose a subscription and select the existing resource group.
 
@@ -1216,11 +1220,11 @@ az login
 
 \- Select \"StorageV2 (general purpose v2)\" for the account type, as it supports static website hosting.
 
-\- \*\*Review and Create\*\*: Review your settings and create the storage account.
+\- **Review and Create**: Review your settings and create the storage account.
 
 \### Step 4: Enable Static Website Hosting
 
-\- \*\*Configure Static Website\*\*:
+\- **Configure Static Website**:
 
 \- After your storage account is created, go to its overview page.
 
@@ -1262,7 +1266,7 @@ az storage blob list \--container-name cicdbookweb \--output table
 
 \### Step 8: Set Up Azure CDN for Faster Content Delivery
 
-\- \*\*Create a CDN Profile\*\*:
+\- **Create a CDN Profile**:
 
 \- Go to the Azure portal, click on "Create a resource", find and select "CDN".
 
@@ -1270,13 +1274,13 @@ az storage blob list \--container-name cicdbookweb \--output table
 
 ![](./images/media/image27.png){width="5.42397419072616in" height="6.381673228346457in"}
 
-\- \*\*Deployment\*\*: Note that it may take some time for the CDN to propagate globally.
+\- **Deployment**: Note that it may take some time for the CDN to propagate globally.
 
 Select review plus create.
 
 \### Step 9: Access Your Deployed Site
 
-\- \*\*Site URL\*\*:
+\- **Site URL**:
 
 \- Once the CDN is fully deployed, use the CDN endpoint URL to access your website, available in the CDN endpoint settings in the Azure portal.
 
@@ -1344,7 +1348,7 @@ AZURE_STORAGE_CONNECTION_STRING: \${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
 
 \`\`\`
 
-\- \*\*Secure Your Workflow\*\*:
+\- **Secure Your Workflow**:
 
 \- Store your Azure storage connection string in GitHub Secrets to keep it secure.
 
@@ -1372,66 +1376,66 @@ Environments are particularly useful in complex workflows where multiple stages 
 
 Workflow Structure and Naming:
 
--   Use concise job names (ideally under 18 characters) for clear visibility in the GitHub interface.
+- Use concise job names (ideally under 18 characters) for clear visibility in the GitHub interface.
 
--   Structure workflows strategically to maximize parallelism. For example, separate build and deploy stages can run concurrently.
+- Structure workflows strategically to maximize parallelism. For example, separate build and deploy stages can run concurrently.
 
 Example Workflow:
 
--   Our workflow employs two jobs: \"build\" and \"deploy\". \"Build\" handles tasks like software compilation, while \"deploy\" manages security scans and deployment. Artifacts from \"build\" are passed to \"deploy,\" ensuring isolated environments.
+- Our workflow employs two jobs: \"build\" and \"deploy\". \"Build\" handles tasks like software compilation, while \"deploy\" manages security scans and deployment. Artifacts from \"build\" are passed to \"deploy,\" ensuring isolated environments.
 
 Efficient Deployment Strategies:
 
--   Splitting workflows: Deploy to staging in one workflow, then trigger a separate workflow for production deployment after review.
+- Splitting workflows: Deploy to staging in one workflow, then trigger a separate workflow for production deployment after review.
 
--   Creating separate jobs for each task can introduce overhead and complicate environment variable management by requiring broader scoping, potentially increasing security risks. It also involves repeatedly uploading and downloading artifacts, adding complexity. Additionally, while jobs can be parallelized, this may not always align with your script\'s structure. Organizing a script into multiple jobs can obscure the workflow\'s overall structure, making it difficult to understand dependencies and parallelization opportunities.
+- Creating separate jobs for each task can introduce overhead and complicate environment variable management by requiring broader scoping, potentially increasing security risks. It also involves repeatedly uploading and downloading artifacts, adding complexity. Additionally, while jobs can be parallelized, this may not always align with your script\'s structure. Organizing a script into multiple jobs can obscure the workflow\'s overall structure, making it difficult to understand dependencies and parallelization opportunities.
 
--   Jobs allow for precise scoping of environments to specific tasks. For instance, if you have a production environment variable like a GitHub PAT, you can restrict its access to only the necessary steps. By assigning this variable to a particular job, such as deployment, you prevent unrelated jobs, like a \"prepare cache\" step that doesn\'t require production credentials, from accessing it. This ensures that production credentials are confined to the relevant job, enhancing security.
+- Jobs allow for precise scoping of environments to specific tasks. For instance, if you have a production environment variable like a GitHub PAT, you can restrict its access to only the necessary steps. By assigning this variable to a particular job, such as deployment, you prevent unrelated jobs, like a \"prepare cache\" step that doesn\'t require production credentials, from accessing it. This ensures that production credentials are confined to the relevant job, enhancing security.
 
 **Aside end**
 
 Let's get this set up and show how you can use jobs and environments to create a pipeline to production, including manual approval stages.
 
 +-----------------------------------------------------------------------+
-| jobs:                                                                 |
-|                                                                       |
-| build:                                                                |
-|                                                                       |
-| runs-on: "ubuntu-latest"                                              |
-|                                                                       |
-| name: "Build" \# this is optional                                     |
-|                                                                       |
-| steps:                                                                |
-|                                                                       |
-| \- name: "Checkout code"                                              |
-|                                                                       |
-| uses: "actions/checkout@v2"                                           |
-|                                                                       |
-| \- name: "Install dependencies and build"                             |
-|                                                                       |
-| run: \|                                                               |
-|                                                                       |
-| npm install                                                           |
-|                                                                       |
-| npm run build                                                         |
-|                                                                       |
-| test:                                                                 |
-|                                                                       |
-| runs-on: "ubuntu-latest"                                              |
-|                                                                       |
-| steps:                                                                |
-|                                                                       |
-| \- name: "Checkout code"                                              |
-|                                                                       |
-| uses: "actions/checkout@v2"                                           |
-|                                                                       |
-| \- name: "Install dependencies and test"                              |
-|                                                                       |
-| run: \|                                                               |
-|                                                                       |
-| npm install                                                           |
-|                                                                       |
-| npm test                                                              |
+| jobs: |
+| |
+| build: |
+| |
+| runs-on: "ubuntu-latest" |
+| |
+| name: "Build" \# this is optional |
+| |
+| steps: |
+| |
+| \- name: "Checkout code" |
+| |
+| uses: "actions/checkout@v2" |
+| |
+| \- name: "Install dependencies and build" |
+| |
+| run: \| |
+| |
+| npm install |
+| |
+| npm run build |
+| |
+| test: |
+| |
+| runs-on: "ubuntu-latest" |
+| |
+| steps: |
+| |
+| \- name: "Checkout code" |
+| |
+| uses: "actions/checkout@v2" |
+| |
+| \- name: "Install dependencies and test" |
+| |
+| run: \| |
+| |
+| npm install |
+| |
+| npm test |
 +=======================================================================+
 +-----------------------------------------------------------------------+
 
@@ -1445,9 +1449,9 @@ There are few reasons why this is helpful. First, it is very clear from a glance
 
 If we make a bunch of jobs, and a bunch of dependencies (e.g., needs), then it will be getting a bit more complex. When we start to create more complex workflows, jobs will be a way to help group related tasks together, and to provide them with dependencies.
 
--   ![](./images/media/image34.png){width="6.5in" height="4.236111111111111in"}
+- ![](./images/media/image34.png){width="6.5in" height="4.236111111111111in"}
 
--   [[Revert \"Only evaluate own String/Number/Math methods\" · babel/babel@9ec1cb5 (github.com)]{.underline}](https://github.com/babel/babel/actions/runs/6761970399)
+- [[Revert \"Only evaluate own String/Number/Math methods\" · babel/babel@9ec1cb5 (github.com)]{.underline}](https://github.com/babel/babel/actions/runs/6761970399)
 
 This workflow setup allows you to specify inputs and set the release type. For instance, if you wish to deploy commits from your main branch to the staging environment, you can manually input this, ensuring deployment stops at staging. Alternatively, you can deploy directly to production, though it will pass through each environment requiring manual approvals. You must configure these approvals and designate who has the authority to advance to the next step, such as requiring manager approval to move from staging to production.
 
@@ -1477,11 +1481,11 @@ A typical scenario is to get QA to approve before it moves to the next stage. Le
 
 First, you need to set up environments in your GitHub repository where you can specify protection rules including manual approvals.
 
-1\. \*\*Navigate to Your Repository Settings\*\*:
+1\. **Navigate to Your Repository Settings**:
 
 \- Open your GitHub repository, go to \"Settings\" \> \"Environments\" (found in the sidebar under \"Security\").
 
-2\. \*\*Create a New Environment\*\*:
+2\. **Create a New Environment**:
 
 \- Click on \"New environment\".
 
@@ -1489,7 +1493,7 @@ First, you need to set up environments in your GitHub repository where you can s
 
 \- Click \"Configure environment\".
 
-3\. \*\*Set Up Protection Rules\*\*:
+3\. **Set Up Protection Rules**:
 
 \- Under \"Environment protection rules\", you can add required reviewers who must approve deployments to this environment.
 
@@ -1503,13 +1507,13 @@ First, you need to set up environments in your GitHub repository where you can s
 
 After setting up your environments with required approvals, you need to modify your GitHub Actions workflow to use these environments.
 
-1\. \*\*Edit Your Workflow File\*\*:
+1\. **Edit Your Workflow File**:
 
 \- Go to your repository\'s \`.github/workflows\` directory.
 
 \- Open the YAML file for the workflow you want to add manual approvals to.
 
-2\. \*\*Add the Environment to Workflow Jobs\*\*:
+2\. **Add the Environment to Workflow Jobs**:
 
 \- Identify the job(s) in your workflow that should require approval before they run. Add the \`environment\` key to those jobs, specifying the name of the environment you configured.
 
@@ -1603,24 +1607,22 @@ Interesting: [[Release Flow: How We Do Branching on the VSTS Team - Azure DevOps
 
 Here are just a few.
 
--   [**[https://stackoverflow.com/a/69123272/220935]{.underline}**](https://stackoverflow.com/a/69123272/220935)
+- [**[https://stackoverflow.com/a/69123272/220935]{.underline}**](https://stackoverflow.com/a/69123272/220935)
 
--   https://github.com/GitTools/GitVersion
+- https://github.com/GitTools/GitVersion
 
--   https://github.com/conventional-changelog/standard-version
+- https://github.com/conventional-changelog/standard-version
 
--   https://github.com/semantic-release/semantic-release
+- https://github.com/semantic-release/semantic-release
 
--   https://github.com/dotnet/Nerdbank.GitVersioning
+- https://github.com/dotnet/Nerdbank.GitVersioning
 
--   https://github.com/adamralph/minver
+- https://github.com/adamralph/minver
 
--   https://github.com/conventional-changelog/conventional-changelog
+- https://github.com/conventional-changelog/conventional-changelog
 
--   https://github.com/googleapis/release-please
+- https://github.com/googleapis/release-please
 
--   https://github.com/changesets/changesets
+- https://github.com/changesets/changesets
 
--   [[https://github.com/release-it/release-it]{.underline}](https://github.com/release-it/release-it)
-
-
+- [[https://github.com/release-it/release-it]{.underline}](https://github.com/release-it/release-it)

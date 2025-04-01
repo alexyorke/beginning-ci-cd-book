@@ -2,17 +2,17 @@
 
 **1. env**
 
--   **Display all environment variables:This will also show any keys as well. There are only echoing out certain variables if necessary.**
+- **Display all environment variables:This will also show any keys as well. There are only echoing out certain variables if necessary.**
 
 env
 
--   **Check the value of a specific environment variable:This will show any keys as well.**
+- **Check the value of a specific environment variable:This will show any keys as well.**
 
 env \| grep HOME
 
 **2. exit**
 
--   **Exit a script with a specific exit code:Thing other than 0 is considered a failure exit code, so be careful.**
+- **Exit a script with a specific exit code:Thing other than 0 is considered a failure exit code, so be careful.**
 
 #!/bin/bash
 
@@ -26,7 +26,7 @@ fi
 
 \# \... rest of your script \...
 
--   **Exit a script with a success code:**
+- **Exit a script with a success code:**
 
 #!/bin/bash
 
@@ -36,21 +36,21 @@ exit 0
 
 **3. choco**
 
--   **Install the \"7-zip\" package:**
+- **Install the \"7-zip\" package:**
 
 choco install 7zip
 
--   **Install multiple packages:**
+- **Install multiple packages:**
 
 choco install 7zip notepadplusplus
 
--   **Update the package list:**
+- **Update the package list:**
 
 choco update -y all
 
 **4. while**
 
--   **Loop until a file exists:**
+- **Loop until a file exists:**
 
 #!/bin/bash
 
@@ -64,7 +64,7 @@ done
 
 echo \"File found!\"
 
--   **Loop until a specific condition is met:**
+- **Loop until a specific condition is met:**
 
 #!/bin/bash
 
@@ -80,47 +80,47 @@ done
 
 **5. dir**
 
--   **List files in the current directory:**
+- **List files in the current directory:**
 
 dir
 
--   **List files in a specific directory:**
+- **List files in a specific directory:**
 
 dir /path/to/directory
 
--   **List hidden files:**
+- **List hidden files:**
 
 dir /a
 
 **6. diff**
 
--   **Compare two files and display differences:**
+- **Compare two files and display differences:**
 
 diff file1.txt file2.txt
 
--   **Highlight differences using color:**
+- **Highlight differences using color:**
 
 diff \--color file1.txt file2.txt
 
--   **Compare two directories recursively:**
+- **Compare two directories recursively:**
 
 diff -r dir1 dir2
 
 **7. apt**
 
--   **Update the package list:**
+- **Update the package list:**
 
 apt update
 
--   **Install a package:**
+- **Install a package:**
 
 apt install vim
 
--   **Upgrade all installed packages:**
+- **Upgrade all installed packages:**
 
 apt upgrade
 
--   **Remove a package:**
+- **Remove a package:**
 
 apt remove vim
 
@@ -132,25 +132,25 @@ Common commands. Lots are for managing GitHub releases/tags/GitHub API and extra
 
 Creating a cookbook about using \`jq\` in CI/CD GitHub Actions based on the provided commands can be a valuable resource for developers. Here are key topics and tips you should consider including in your cookbook:
 
-1\. \*\*Introduction to \`jq\` and Its Relevance in CI/CD Pipelines\*\*: Explain what \`jq\` is and why it\'s particularly useful in CI/CD contexts, especially with GitHub Actions. Highlight its ability to parse, filter, and transform JSON data.
+1\. **Introduction to \`jq\` and Its Relevance in CI/CD Pipelines**: Explain what \`jq\` is and why it\'s particularly useful in CI/CD contexts, especially with GitHub Actions. Highlight its ability to parse, filter, and transform JSON data.
 
-2\. \*\*Basic \`jq\` Syntax and Operations\*\*: Start with basic \`jq\` syntax and operations, as many users may be new to \`jq\`. Examples from your commands include extracting values (\`jq \'.NumberOfPass\'\`), raw string output (\`jq -r\`), and array operations (\`jq \'.\[\]\'\`).
+2\. **Basic \`jq\` Syntax and Operations**: Start with basic \`jq\` syntax and operations, as many users may be new to \`jq\`. Examples from your commands include extracting values (\`jq \'.NumberOfPass\'\`), raw string output (\`jq -r\`), and array operations (\`jq \'.\[\]\'\`).
 
-3\. \*\*Parsing GitHub API Responses\*\*: Many of your commands involve parsing GitHub API responses. Include examples on how to extract specific data like repository names, pull request numbers, and tag names (e.g., \`jq \--raw-output \'.repository.name\' \$GITHUB_EVENT_PATH\`).
+3\. **Parsing GitHub API Responses**: Many of your commands involve parsing GitHub API responses. Include examples on how to extract specific data like repository names, pull request numbers, and tag names (e.g., \`jq \--raw-output \'.repository.name\' \$GITHUB_EVENT_PATH\`).
 
-4\. \*\*Manipulating and Writing JSON Data\*\*: Show how \`jq\` can be used to modify JSON files, which is crucial in dynamic CI/CD environments. This includes setting new values, deleting keys, and merging JSON objects (e.g., \`jq \'.version = \$version\' package.json \> \"\$tmp\"\`).
+4\. **Manipulating and Writing JSON Data**: Show how \`jq\` can be used to modify JSON files, which is crucial in dynamic CI/CD environments. This includes setting new values, deleting keys, and merging JSON objects (e.g., \`jq \'.version = \$version\' package.json \> \"\$tmp\"\`).
 
-5\. \*\*Complex Filters and Queries\*\*: Cover more complex \`jq\` queries for advanced use cases, such as filtering, mapping, and reducing JSON data. For example, extracting data based on certain conditions or iterating over arrays.
+5\. **Complex Filters and Queries**: Cover more complex \`jq\` queries for advanced use cases, such as filtering, mapping, and reducing JSON data. For example, extracting data based on certain conditions or iterating over arrays.
 
-6\. \*\*Integrating \`jq\` with Shell Commands\*\*: Many commands show \`jq\` being used in conjunction with shell commands (\`curl\`, \`echo\`, \`sed\`, etc.). Offer guidance on how to effectively combine these tools within GitHub Actions workflows.
+6\. **Integrating \`jq\` with Shell Commands**: Many commands show \`jq\` being used in conjunction with shell commands (\`curl\`, \`echo\`, \`sed\`, etc.). Offer guidance on how to effectively combine these tools within GitHub Actions workflows.
 
-7\. \*\*Error Handling and Debugging\*\*: Include tips on handling errors in \`jq\` commands and how to debug common issues. For instance, dealing with missing or unexpected data.
+7\. **Error Handling and Debugging**: Include tips on handling errors in \`jq\` commands and how to debug common issues. For instance, dealing with missing or unexpected data.
 
-8\. \*\*Use Cases Specific to GitHub Actions\*\*: Provide specific examples of \`jq\` use cases in GitHub Actions, like setting environment variables, extracting data from GitHub event payloads, and working with outputs from other actions.
+8\. **Use Cases Specific to GitHub Actions**: Provide specific examples of \`jq\` use cases in GitHub Actions, like setting environment variables, extracting data from GitHub event payloads, and working with outputs from other actions.
 
-9\. \*\*Security and Best Practices\*\*: Discuss best practices for using \`jq\` securely in CI/CD pipelines, especially when handling sensitive data, and how to avoid common pitfalls.
+9\. **Security and Best Practices**: Discuss best practices for using \`jq\` securely in CI/CD pipelines, especially when handling sensitive data, and how to avoid common pitfalls.
 
-10\. \*\*Advanced Topics\*\*: Optionally, cover more advanced topics like writing custom functions in \`jq\` or optimizing performance for large JSON datasets.
+10\. **Advanced Topics**: Optionally, cover more advanced topics like writing custom functions in \`jq\` or optimizing performance for large JSON datasets.
 
 Remember to include plenty of examples and perhaps even a troubleshooting section. This cookbook can be a practical guide for developers looking to harness the power of \`jq\` in automating and enhancing their CI/CD pipelines with GitHub Actions.
 
@@ -306,7 +306,7 @@ echo \"{\\\"page\\\": \\\"\[3-2\]\\\"}\" \| echo \"https://example.com/search?id
 
 However, running:
 
-echo \"{\\\"page\\\": \\\"\[3-2\]\\\"}\" \| jq \'@uri \"[[https://www.google.com/search?q=\\(.page)]{.underline}](https://www.google.com/search?q=%5C(.page))\"\' which returns \"[[https://www.google.com/search?q=%5B3-2%5D]{.underline}](https://www.google.com/search?q=%5B3-2%5D)\". This is URL safe.
+echo \"{\\\"page\\\": \\\"\[3-2\]\\\"}\" \| jq \'@uri \"[[https://www.google.com/search?q=\\(.page)]{.underline}](<https://www.google.com/search?q=%5C(.page)>)\"\' which returns \"[[https://www.google.com/search?q=%5B3-2%5D]{.underline}](https://www.google.com/search?q=%5B3-2%5D)\". This is URL safe.
 
 #### Considerations {#considerations-3 .unnumbered}
 
@@ -314,24 +314,22 @@ Use jq's filters when concatenating inputs from multiple sources. Look into the 
 
 These commands are using the GitHub API to perform a variety of tasks related to repository management, such as checking for tags, retrieving release information, obtaining commit details, and more. Below is an overview of their functionalities:
 
-1\. \*\*Checking if a Tag Exists\*\*: Multiple commands are designed to check if a specific tag exists in a repository. This is commonly used in CI/CD pipelines to determine if a new release or deployment should be triggered.
+1\. **Checking if a Tag Exists**: Multiple commands are designed to check if a specific tag exists in a repository. This is commonly used in CI/CD pipelines to determine if a new release or deployment should be triggered.
 
-2\. \*\*Fetching Release Information\*\*: Several commands retrieve information about the latest releases of different repositories, such as the latest release tag, release ID, asset IDs, etc. This is useful for automation scripts that deploy or update software based on the latest release.
+2\. **Fetching Release Information**: Several commands retrieve information about the latest releases of different repositories, such as the latest release tag, release ID, asset IDs, etc. This is useful for automation scripts that deploy or update software based on the latest release.
 
-3\. \*\*Obtaining Commit Details\*\*: Some commands fetch details about specific commits, like the commit date, the commit message, and the commit\'s SHA. This can be used for tracking changes or automating workflows based on commit history.
+3\. **Obtaining Commit Details**: Some commands fetch details about specific commits, like the commit date, the commit message, and the commit\'s SHA. This can be used for tracking changes or automating workflows based on commit history.
 
-4\. \*\*Pull Request and Issue Management\*\*: A few commands involve extracting information about pull requests and issues (like PR numbers or issue labels). This is essential for automating workflows around issue tracking and PR management.
+4\. **Pull Request and Issue Management**: A few commands involve extracting information about pull requests and issues (like PR numbers or issue labels). This is essential for automating workflows around issue tracking and PR management.
 
-5\. \*\*Extracting Repository Data\*\*: Commands are used to extract various repository data, such as the number of stars, repository description, default branch, and contributor details. Such information is often used in metrics dashboards or repository documentation.
+5\. **Extracting Repository Data**: Commands are used to extract various repository data, such as the number of stars, repository description, default branch, and contributor details. Such information is often used in metrics dashboards or repository documentation.
 
-6\. \*\*Download URLs for Assets\*\*: Many commands are designed to extract download URLs for specific assets from releases. This is commonly used in scripts to automatically download the latest version of a software package or tool.
+6\. **Download URLs for Assets**: Many commands are designed to extract download URLs for specific assets from releases. This is commonly used in scripts to automatically download the latest version of a software package or tool.
 
-7\. \*\*Workflow Management\*\*: Some commands focus on retrieving information about GitHub Actions workflows, like workflow IDs, run conclusions, and statuses. This aids in managing and tracking CI/CD processes.
+7\. **Workflow Management**: Some commands focus on retrieving information about GitHub Actions workflows, like workflow IDs, run conclusions, and statuses. This aids in managing and tracking CI/CD processes.
 
-8\. \*\*Setting Environment Variables\*\*: Several commands set environment variables based on data fetched from the GitHub API, such as release tags, version numbers, or asset IDs. This is a common practice in CI/CD pipelines to pass dynamic data between steps.
+8\. **Setting Environment Variables**: Several commands set environment variables based on data fetched from the GitHub API, such as release tags, version numbers, or asset IDs. This is a common practice in CI/CD pipelines to pass dynamic data between steps.
 
 Overall, these commands represent a diverse set of automated tasks related to software development and deployment, leveraging GitHub as a central platform for source code management and CI/CD processes.
 
 **[After this, here are the next sections (not finished) it will continue with the weather app And introduce more complex things such as blue-green deployments as well as advanced deployment strategies including ARM and BICEP templates, infrastructure as code, security, and everything described below.]{.mark}**
-
-

@@ -2,102 +2,102 @@
 
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Certainly! Here\'s a list of 10 security build tools, commonly known as static application security testing (SAST) tools or simply static code analysis tools. These tools scan your source code or binaries to find vulnerabilities without executing the program. |
-|                                                                                                                                                                                                                                                                     |
-| dependabot to update deps                                                                                                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                     |
-| 1\. \*\*Checkmarx\*\*: A widely-used tool that scans source code or even binaries to find security vulnerabilities.                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                     |
-| 2\. \*\*SonarQube\*\*: A continuous inspection tool that provides insights on code quality. It includes a security analysis feature.                                                                                                                                |
-|                                                                                                                                                                                                                                                                     |
-| 3\. \*\*Fortify Static Code Analyzer (SCA)\*\*: Provided by Micro Focus, it\'s a solution for detecting vulnerabilities in applications.                                                                                                                            |
-|                                                                                                                                                                                                                                                                     |
-| 4\. \*\*Veracode\*\*: A SaaS-based tool that provides full application scans, including static, dynamic, and software composition analysis.                                                                                                                         |
-|                                                                                                                                                                                                                                                                     |
-| 5\. \*\*Coverity\*\*: Offered by Synopsys, it provides static code analysis to detect and fix critical software defects in C, C++, Java, and more.                                                                                                                  |
-|                                                                                                                                                                                                                                                                     |
-| 6\. \*\*Klocwork\*\*: Used for identifying vulnerabilities, it integrates seamlessly into desktops, build tools, and CI servers.                                                                                                                                    |
-|                                                                                                                                                                                                                                                                     |
-| 7\. \*\*RIPS\*\*: A PHP-specific static code analysis tool, known for its accuracy and speed.                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                     |
-| 8\. \*\*Bandit\*\*: A tool designed to find common security issues in Python code.                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                     |
-| 9\. \*\*Brakeman\*\*: A static analysis security vulnerability scanner specifically for Ruby on Rails applications.                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                     |
-| 10\. \*\*GitLab Static Application Security Testing (SAST)\*\*: Integrated into the GitLab CI/CD process, this automatically scans the latest code changes for vulnerabilities.                                                                                     |
-|                                                                                                                                                                                                                                                                     |
-| It\'s important to note that no tool can identify all vulnerabilities, and they often need to be used in conjunction with other security practices, including dynamic analysis and manual code review, to ensure comprehensive application security.                |
+| |
+| dependabot to update deps |
+| |
+| 1\. **Checkmarx**: A widely-used tool that scans source code or even binaries to find security vulnerabilities. |
+| |
+| 2\. **SonarQube**: A continuous inspection tool that provides insights on code quality. It includes a security analysis feature. |
+| |
+| 3\. **Fortify Static Code Analyzer (SCA)**: Provided by Micro Focus, it\'s a solution for detecting vulnerabilities in applications. |
+| |
+| 4\. **Veracode**: A SaaS-based tool that provides full application scans, including static, dynamic, and software composition analysis. |
+| |
+| 5\. **Coverity**: Offered by Synopsys, it provides static code analysis to detect and fix critical software defects in C, C++, Java, and more. |
+| |
+| 6\. **Klocwork**: Used for identifying vulnerabilities, it integrates seamlessly into desktops, build tools, and CI servers. |
+| |
+| 7\. **RIPS**: A PHP-specific static code analysis tool, known for its accuracy and speed. |
+| |
+| 8\. **Bandit**: A tool designed to find common security issues in Python code. |
+| |
+| 9\. **Brakeman**: A static analysis security vulnerability scanner specifically for Ruby on Rails applications. |
+| |
+| 10\. **GitLab Static Application Security Testing (SAST)**: Integrated into the GitLab CI/CD process, this automatically scans the latest code changes for vulnerabilities. |
+| |
+| It\'s important to note that no tool can identify all vulnerabilities, and they often need to be used in conjunction with other security practices, including dynamic analysis and manual code review, to ensure comprehensive application security. |
 +=====================================================================================================================================================================================================================================================================+
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-####  {#section-4 .unnumbered}
+#### {#section-4 .unnumbered}
 
 ### Configuring build tools {#configuring-build-tools .unnumbered}
 
 #### Setting up the build tool with the appropriate configuration file(s) {#setting-up-the-build-tool-with-the-appropriate-configuration-files .unnumbered}
 
--   How do I force other developers to use extensions in the IDE? Workspaces, etc. You can do so implicitly by forcing these checks on the CI server, such as linting. It should have the same configuration as the ones that developers have. Therefore, developers will be inclined to use the recommended extensions because that way they won't have to redo a commit or a formatting change.
+- How do I force other developers to use extensions in the IDE? Workspaces, etc. You can do so implicitly by forcing these checks on the CI server, such as linting. It should have the same configuration as the ones that developers have. Therefore, developers will be inclined to use the recommended extensions because that way they won't have to redo a commit or a formatting change.
 
--   IDE extensions such as linting on save/format, particular rules, etc.
+- IDE extensions such as linting on save/format, particular rules, etc.
 
--   The testing commands won't work (usually) if you don't have any tests. It's advisable to write some more using CI/CD, or at least writing a single test, to show that the test build step can block the build if it fails.
+- The testing commands won't work (usually) if you don't have any tests. It's advisable to write some more using CI/CD, or at least writing a single test, to show that the test build step can block the build if it fails.
 
--   Try to run these commands on your local computer and see if they work (via the command line) outside of your IDE. This is because our IDE might have certain software pre-installed to make it easier for development (or different environment variables set), but this could make things more complex. If they work, then you're on the right track.
+- Try to run these commands on your local computer and see if they work (via the command line) outside of your IDE. This is because our IDE might have certain software pre-installed to make it easier for development (or different environment variables set), but this could make things more complex. If they work, then you're on the right track.
 
--   git commit hooks? Might be too advanced, unsure.
+- git commit hooks? Might be too advanced, unsure.
 
 #### Defining the build lifecycle, including phases and goals {#defining-the-build-lifecycle-including-phases-and-goals .unnumbered}
 
--   When you're building it, make sure that the runner's OS matches the ones that you're developing on. This is important because testing is done on the build machines, thus, if you build it on a different OS it is possible for idiosyncrasies. If you are using multiple OSes, do a matrix build, but don't use the artifacts from the other build steps (just test them.) Instead, just deploy the artifacts that are targeted for the destination OS. The latter part is optional but provides a baseline level of assurance that the tests/compile passes on the systems where it is being developed.
+- When you're building it, make sure that the runner's OS matches the ones that you're developing on. This is important because testing is done on the build machines, thus, if you build it on a different OS it is possible for idiosyncrasies. If you are using multiple OSes, do a matrix build, but don't use the artifacts from the other build steps (just test them.) Instead, just deploy the artifacts that are targeted for the destination OS. The latter part is optional but provides a baseline level of assurance that the tests/compile passes on the systems where it is being developed.
 
 #### Getting better control on your dependencies, and lock files {#getting-better-control-on-your-dependencies-and-lock-files .unnumbered}
 
--   Lock files are a way to control your dependencies at a specific version, including any of its dependencies. Its goal is to make a reproducible build environment. The lock files are required because, even if you run the same commands in the same environment on non-dependency locked files, it's possible that it might use the latest or a different version of the dependency, depending on whatever dependency satisfies the one in the manifest and is in the artifact repository on the remote.
+- Lock files are a way to control your dependencies at a specific version, including any of its dependencies. Its goal is to make a reproducible build environment. The lock files are required because, even if you run the same commands in the same environment on non-dependency locked files, it's possible that it might use the latest or a different version of the dependency, depending on whatever dependency satisfies the one in the manifest and is in the artifact repository on the remote.
 
--   You might already have a lockfile. If not, I would recommend that you create one. This is how you do it in the popular programming languages:
+- You might already have a lockfile. If not, I would recommend that you create one. This is how you do it in the popular programming languages:
 
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Sure, I\'ll provide instructions on how to utilize the lock files during the installation process for the respective programming languages:                                                                               |
-|                                                                                                                                                                                                                           |
-| 1\. \*\*JavaScript (using npm)\*\*:                                                                                                                                                                                       |
-|                                                                                                                                                                                                                           |
-| \- Once you have \`package-lock.json\` in your project directory (e.g., npm install \<package\> or npm install)                                                                                                           |
-|                                                                                                                                                                                                                           |
-| \- **Run \`npm ci\`.**                                                                                                                                                                                                    |
-|                                                                                                                                                                                                                           |
-| \- This command uses the \`package-lock.json\` file to provide a clean, exact installation of your dependencies, ensuring consistency across installations.                                                               |
-|                                                                                                                                                                                                                           |
-| 2\. \*\*Python (using pipenv)\*\*:                                                                                                                                                                                        |
-|                                                                                                                                                                                                                           |
-| \- With both \`Pipfile\` and \`Pipfile.lock\` present in your project directory:                                                                                                                                          |
-|                                                                                                                                                                                                                           |
-| \- **Run \`pipenv install \--ignore-pipfile\`.**                                                                                                                                                                          |
-|                                                                                                                                                                                                                           |
-| \- This command ensures that the installation uses versions specified in the \`Pipfile.lock\`, ignoring the \`Pipfile\`.                                                                                                  |
-|                                                                                                                                                                                                                           |
-| 3\. \*\*Java (using Maven)\*\*:                                                                                                                                                                                           |
-|                                                                                                                                                                                                                           |
-| \- While Maven\'s \`pom.xml\` doesn\'t function as a lock file in the traditional sense, ensuring consistent builds involves specifying exact versions:                                                                   |
-|                                                                                                                                                                                                                           |
-| \- When adding dependencies to your \`pom.xml\`, ensure you specify exact versions.                                                                                                                                       |
-|                                                                                                                                                                                                                           |
-| \- Then run \`mvn clean install\` to install dependencies. Maven will fetch the versions as defined in \`pom.xml\`.                                                                                                       |
-|                                                                                                                                                                                                                           |
-| 4\. \*\*Ruby (using Bundler)\*\*:                                                                                                                                                                                         |
-|                                                                                                                                                                                                                           |
-| \- Once you have a \`Gemfile.lock\` in your project directory:                                                                                                                                                            |
-|                                                                                                                                                                                                                           |
-| \- Run \`bundle install\`.                                                                                                                                                                                                |
-|                                                                                                                                                                                                                           |
-| \- Bundler will look at \`Gemfile.lock\` and install the exact versions specified there, ensuring consistent installations across environments.                                                                           |
-|                                                                                                                                                                                                                           |
-| 5\. \*\*C# (using .NET Core/NuGet)\*\*:                                                                                                                                                                                   |
-|                                                                                                                                                                                                                           |
-| \- With specified versions in your \`.csproj\` file:                                                                                                                                                                      |
-|                                                                                                                                                                                                                           |
-| \- Run \`dotnet restore\`.                                                                                                                                                                                                |
-|                                                                                                                                                                                                                           |
-| \- The .NET CLI will use the versions specified in the \`csproj\` file to fetch and install the correct packages.                                                                                                         |
-|                                                                                                                                                                                                                           |
+| Sure, I\'ll provide instructions on how to utilize the lock files during the installation process for the respective programming languages: |
+| |
+| 1\. **JavaScript (using npm)**: |
+| |
+| \- Once you have \`package-lock.json\` in your project directory (e.g., npm install \<package\> or npm install) |
+| |
+| \- **Run \`npm ci\`.** |
+| |
+| \- This command uses the \`package-lock.json\` file to provide a clean, exact installation of your dependencies, ensuring consistency across installations. |
+| |
+| 2\. **Python (using pipenv)**: |
+| |
+| \- With both \`Pipfile\` and \`Pipfile.lock\` present in your project directory: |
+| |
+| \- **Run \`pipenv install \--ignore-pipfile\`.** |
+| |
+| \- This command ensures that the installation uses versions specified in the \`Pipfile.lock\`, ignoring the \`Pipfile\`. |
+| |
+| 3\. **Java (using Maven)**: |
+| |
+| \- While Maven\'s \`pom.xml\` doesn\'t function as a lock file in the traditional sense, ensuring consistent builds involves specifying exact versions: |
+| |
+| \- When adding dependencies to your \`pom.xml\`, ensure you specify exact versions. |
+| |
+| \- Then run \`mvn clean install\` to install dependencies. Maven will fetch the versions as defined in \`pom.xml\`. |
+| |
+| 4\. **Ruby (using Bundler)**: |
+| |
+| \- Once you have a \`Gemfile.lock\` in your project directory: |
+| |
+| \- Run \`bundle install\`. |
+| |
+| \- Bundler will look at \`Gemfile.lock\` and install the exact versions specified there, ensuring consistent installations across environments. |
+| |
+| 5\. **C# (using .NET Core/NuGet)**: |
+| |
+| \- With specified versions in your \`.csproj\` file: |
+| |
+| \- Run \`dotnet restore\`. |
+| |
+| \- The .NET CLI will use the versions specified in the \`csproj\` file to fetch and install the correct packages. |
+| |
 | It\'s crucial to ensure that the lock files (or their equivalents) are committed to version control systems (e.g., git) so that other developers or deployment systems can benefit from the reproducibility they provide. |
 +===========================================================================================================================================================================================================================+
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -105,449 +105,447 @@
 ### Code Review {#code-review .unnumbered}
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Code Review (in the context of CI/CD):                                                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                        |
+| Code Review (in the context of CI/CD): |
+| |
 | A code review in the context of Continuous Integration/Continuous Deployment (CI/CD) is the systematic examination of source code changes by one or more individuals other than the original author, before those changes are merged into the main codebase or deployed to production. |
 +========================================================================================================================================================================================================================================================================================+
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
--   Code review also provides the capability for other developers to find bugs, and to become more familiar with the changes occurring in the repository so that they can see how their integrations will fit in. [[IEEE Paper Template in A4 (V1) (microsoft.com)]{.underline}](https://www.microsoft.com/en-us/research/wp-content/uploads/2015/05/PID3556473.pdf) and [[output.pdf (microsoft.com)]{.underline}](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/bosu2015useful.pdf) and Code review quality. Proceedings of the 38th International Conference on Software Engineering - ICSE '16 \| 10.1145/2884781.2884840
+- Code review also provides the capability for other developers to find bugs, and to become more familiar with the changes occurring in the repository so that they can see how their integrations will fit in. [[IEEE Paper Template in A4 (V1) (microsoft.com)]{.underline}](https://www.microsoft.com/en-us/research/wp-content/uploads/2015/05/PID3556473.pdf) and [[output.pdf (microsoft.com)]{.underline}](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/bosu2015useful.pdf) and Code review quality. Proceedings of the 38th International Conference on Software Engineering - ICSE '16 \| 10.1145/2884781.2884840
 
--   Code review is a critical part of CI/CD, because they are a gatekeeper to prevent buggy code from reaching production, and can also provide opportunities for developers to provide higher-order ideas, such as usability, security, and design guidance. Therefore, it can help increase code quality, and provides opportunities for senior developers to help junior developers.
+- Code review is a critical part of CI/CD, because they are a gatekeeper to prevent buggy code from reaching production, and can also provide opportunities for developers to provide higher-order ideas, such as usability, security, and design guidance. Therefore, it can help increase code quality, and provides opportunities for senior developers to help junior developers.
 
--   During code review, other developer(s) will look at these changes and verify that they are correct. The reviewers will then comment on a specific line or lines in the PR, and add comments.
+- During code review, other developer(s) will look at these changes and verify that they are correct. The reviewers will then comment on a specific line or lines in the PR, and add comments.
 
--   Some general themes for code review are:
+- Some general themes for code review are:
 
-    -   Knowledge transfer. Having other people review the code allows them to be kept up-to-date on what is changing.
+  - Knowledge transfer. Having other people review the code allows them to be kept up-to-date on what is changing.
 
-    -   Finding bugs. For example, if a certain set of inputs would cause an undesirable output.
+  - Finding bugs. For example, if a certain set of inputs would cause an undesirable output.
 
-    -   Design. For example, certain programming patterns.
+  - Design. For example, certain programming patterns.
 
-    -   Verifying scope. For example, if a PR is changing something that wasn't supposed to be changed, then this should be identified in the code review.
+  - Verifying scope. For example, if a PR is changing something that wasn't supposed to be changed, then this should be identified in the code review.
 
-    -   Security. For example, a certain set of input(s) into a function, or a certain system state would cause secret data to be leaked, access granted to the wrong person, authorization issues, etc
+  - Security. For example, a certain set of input(s) into a function, or a certain system state would cause secret data to be leaked, access granted to the wrong person, authorization issues, etc
 
--   These steps help increase code quality, and prevent bugs from reaching production. Normally, there is a bit of back-and-forth when a developer comments on a task. Sometimes, developers might discuss an issue, especially if there isn't a single best solution.
+- These steps help increase code quality, and prevent bugs from reaching production. Normally, there is a bit of back-and-forth when a developer comments on a task. Sometimes, developers might discuss an issue, especially if there isn't a single best solution.
 
--   Developers might do many nitpicks in the review. Nitpicks are defined as spacing issues, or small, 1-3 character changes that do not affect functionality. It is important that these issues are identified during CR (code review) because overall they help make the code more consistent and easier to read. The nitpicks are not necessarily bad in and of themselves, rather, there should be tooling set up to make sure that as many nitpicks are automatically fixed before the PR process (i.e., linters.) This can automatically format the code, and make it easier for other developers to work on it. This is because code intending (or lack thereof) can decrease code comprehension and can make resolving merge conflicts more difficult.
+- Developers might do many nitpicks in the review. Nitpicks are defined as spacing issues, or small, 1-3 character changes that do not affect functionality. It is important that these issues are identified during CR (code review) because overall they help make the code more consistent and easier to read. The nitpicks are not necessarily bad in and of themselves, rather, there should be tooling set up to make sure that as many nitpicks are automatically fixed before the PR process (i.e., linters.) This can automatically format the code, and make it easier for other developers to work on it. This is because code intending (or lack thereof) can decrease code comprehension and can make resolving merge conflicts more difficult.
 
--   Or, if there are many, many comments on the PR, it might be more efficient to talk to the author of the PR instead. This is because there might be a misunderstanding about the PR. However, having written records is important, as other developers on the team can read the others reviews, and therefore learn about how to write better code in the future, including company policies. It can also be aggregated to find common issues, such as nitpicks, and can provide managers with a better understanding about how to improve their team.
+- Or, if there are many, many comments on the PR, it might be more efficient to talk to the author of the PR instead. This is because there might be a misunderstanding about the PR. However, having written records is important, as other developers on the team can read the others reviews, and therefore learn about how to write better code in the future, including company policies. It can also be aggregated to find common issues, such as nitpicks, and can provide managers with a better understanding about how to improve their team.
 
--   In addition to its communication advantages, it also has some softer advantages. For example, it allows teammates to develop a professional relationship, as trust can be established between teammates.
+- In addition to its communication advantages, it also has some softer advantages. For example, it allows teammates to develop a professional relationship, as trust can be established between teammates.
 
 #### Why is code review important? {#why-is-code-review-important .unnumbered}
 
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [[Microsoft Word - Best Kept Secrets of Peer Code Review-4-20.docx (csueastbay.edu)]{.underline}](http://borg.csueastbay.edu/~grewe/CS401/Mat/SWManagement/CodeReview/best-kept-secrets-of-peer-code-review_redirected.pdf)                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| Here are the key points extracted from the provided text relevant to a book about beginning CI/CD and code review:                                                                                                                                                                                                                                                |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 1\. \*\*Importance of Peer Code Review\*\*:                                                                                                                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- A simple bug can lead to significant losses, both in terms of time and customers.                                                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Peer code review can prevent such issues at their earliest stages, reducing costs.                                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 2\. \*\*Cost Savings with Code Review\*\*:                                                                                                                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Implementing peer code review can significantly reduce the cost of fixing bugs.                                                                                                                                                                                                                                                                                |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- A real-world case study showed savings of \$216k due to reduced bugs after code review.                                                                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 3\. \*\*Collaboration in Development\*\*:                                                                                                                                                                                                                                                                                                                         |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Collaboration is common during requirements and design phases, but less so during code writing.                                                                                                                                                                                                                                                                |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Peer code review reintroduces collaboration during the coding phase, catching errors earlier.                                                                                                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 4\. \*\*The Need for Review\*\*:                                                                                                                                                                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- All published works, like novels, undergo reviews and corrections from editors to improve quality.                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Similar review processes are essential for software development to catch and fix errors.                                                                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 5\. \*\*Business Implications of Bugs\*\*:                                                                                                                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Even major companies, like Adobe with their PDF format, face significant risks from undetected software bugs.                                                                                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- No feature addition is worth introducing bugs that could jeopardize a product\'s market position.                                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 6\. \*\*Competitive Advantage of Code Review\*\*:                                                                                                                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Companies that have implemented effective code review processes have a competitive edge in terms of code quality.                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Such techniques are often kept secret to maintain that advantage.                                                                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 7\. \*\*Overcoming Challenges with Code Review\*\*:                                                                                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Concerns exist about the time spent on reviews and potential negative social impacts.                                                                                                                                                                                                                                                                          |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- However, with proper techniques and tools, code review can be efficient and beneficial.                                                                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| Incorporating these key points into your book would provide readers with insights into the significance of code review, its benefits in the software development lifecycle, and how it complements CI/CD processes by ensuring that high-quality code gets deployed.                                                                                              |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| Certainly, here are the key points extracted from the text, tailored for a chapter or section on code review in a book about beginning CI/CD:                                                                                                                                                                                                                     |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 1\. \*\*Review Duration\*\*: Effectiveness in spotting defects during code reviews drops significantly after one hour. It\'s recommended to review for at most one hour at a time.                                                                                                                                                                                |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 2\. \*\*Review Depth\*\*: Slowing down code readings increases the number of defects detected. The time spent in review is a dominant factor in defect detection.                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 3\. \*\*Meeting Format\*\*: Traditional in-person, moderator-directed inspection meetings aren\'t always necessary. A lot of defects are identified in the pre-meeting reading phase. Meetings can be effective for identifying false positives and for knowledge transfer. Remote meetings or electronic communications (e.g., emails) can be just as effective. |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 4\. \*\*Defect Metrics\*\*: Using defects per line of code (kLOC) as a metric is unreliable. The number of defects per kLOC varies greatly across different studies and projects.                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 5\. \*\*Omission Defects\*\*: One of the toughest defects to catch are omissions or things that are missing in the code. Checklists can be helpful in reminding reviewers to look for potentially missing elements.                                                                                                                                               |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 6\. \*\*Statistical Significance\*\*: Many studies on code reviews are too small to be statistically significant by themselves. However, when considered collectively, they can provide valuable insights.                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 7\. \*\*Importance of Checklists\*\*: Using checklists during code reviews can help in ensuring that important aspects are not overlooked.                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| Given that this is for a CI/CD-focused book, you might also emphasize how automated testing and continuous integration can complement manual code reviews, catching different types of errors and improving the overall software quality.                                                                                                                         |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                                                                                                                                     |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| Certainly! Here are the key points extracted from the provided text, relevant for a chapter or section on code review in a book about beginning CI/CD:                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 1\. \*\*Importance of Different Perspectives\*\*: One\'s own code may look fine when reviewed by oneself, but external reviewers can spot issues more effectively. It\'s beneficial to view code in a different format or environment than the usual editor.                                                                                                      |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 2\. \*\*Benefits of Code Inspection\*\*: Regular code inspection, even if informal, makes developers more efficient and helps improve the quality of their code through feedback.                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 3\. \*\*Managing the Social Aspects\*\*:                                                                                                                                                                                                                                                                                                                          |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- \*\*Hurt Feelings\*\*: Criticism can be tough. Some developers can take it constructively, while others may feel personally attacked. It\'s essential to handle this aspect sensitively.                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- \*\*The "Big Brother" Effect\*\*: Metrics, while important for process measurement, can be intimidating. Developers might fear these metrics could negatively impact their performance evaluation.                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 4\. \*\*Addressing the Social Effects\*\*:                                                                                                                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Managers should address concerns collectively rather than singling out individuals.                                                                                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Emphasize that the goal is code improvement, not personal judgment.                                                                                                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Defects found during code review should not factor into personal evaluations.                                                                                                                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 5\. \*\*Redefining Defects\*\*:                                                                                                                                                                                                                                                                                                                                   |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- More defects in harder code: Complex code is expected to have defects, not necessarily because of the developer\'s incompetence.                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Time spent on review: The more time reviewers spend on the code, the more defects they find, and this doesn\'t necessarily reflect the original code\'s quality.                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Focus on code quality: The primary purpose of code review is to enhance the quality of the code, not to blame or point fingers.                                                                                                                                                                                                                                |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 6\. \*\*Embracing Defect Discovery\*\*: The more defects found during the review, the better. Every defect found is a potential problem averted in production. It\'s a proactive step towards quality assurance and making the software more maintainable.                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 7\. \*\*Collaborative Effort\*\*: Code review is a teamwork process where both the author and the reviewer work together to produce higher quality code than they could have individually. It\'s not about blaming but collaboratively improving.                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 8\. \*\*Personal Growth\*\*: Feedback from code reviews, including defects, is essential for developers to grow and improve their skills. It\'s a learning opportunity.                                                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| Integrating these key points into a CI/CD context, code reviews become a crucial checkpoint before code integration and deployment. They ensure that only quality, well-reviewed code moves through the pipeline, reducing the chances of defects in the production environment.                                                                                  |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                                                                                                                     |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| Certainly! Here are the key points extracted from the text that would be relevant for a chapter or section on code review in a book about beginning CI/CD:                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 1\. \*\*Importance of Checklists in Code Review\*\*:                                                                                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Checklists are effective at detecting omissions.                                                                                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Omissions are typically the most challenging errors to detect because they involve something that\'s missing.                                                                                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 2\. \*\*Role of Checklists\*\*:                                                                                                                                                                                                                                                                                                                                   |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- They act as reminders, such as ensuring all errors are handled, function arguments are tested for invalid values, and unit tests have been created.                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Not only reviewers but authors should also have access to checklists. Storing checklists in shared drives, intranets, or version control is beneficial.                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 3\. \*\*Personal Checklists\*\*:                                                                                                                                                                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- The Personal Software Process (PSP) and Software Engineering Institute (SEI) suggest authors should have personal checklists.                                                                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Each developer tends to make a set of common mistakes, and by identifying them, they can create a personal checklist. This can be shared with reviewers.                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 4\. \*\*Sample Checklist Items\*\*:                                                                                                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- \*\*Documentation\*\*: Ensure clear comments, document corner-case input, complex algorithms, dependencies on external libraries, units of measurement, incomplete code markers, and user-facing documentation updates.                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- \*\*Testing\*\*: Cover unit tests for new code paths, error cases, algorithm functionality, null pointers, array indexes, and avoid duplicating existing code.                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- \*\*Error Handling\*\*: Ensure proper handling of invalid parameters, error values, and manage resources under both error and non-error conditions.                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- \*\*Thread Safety\*\*: Safeguard global variables, access objects via locks, and manage locks properly to prevent deadlocks.                                                                                                                                                                                                                                   |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- \*\*Performance\*\*: Avoid unnecessary object duplication, busy-wait loops, ensure memory usage is within limits, and optimizations should be well-documented.                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 5\. \*\*Maintenance of Checklist\*\*:                                                                                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Keep refining the checklist based on defects found during reviews.                                                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- If a defect type frequently appears, turn it into a checklist item.                                                                                                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 6\. \*\*Improving the Review Process\*\*:                                                                                                                                                                                                                                                                                                                         |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Teams will gradually adapt to common checklist items and develop habits to prevent recurring issues.                                                                                                                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Review and address the "Top 5 Most Violated" checklist items to aid developers.                                                                                                                                                                                                                                                                                |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Tooling, like IDE features, can assist in automating or highlighting some of the checklist items.                                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| 7\. \*\*Staying Vigilant\*\*:                                                                                                                                                                                                                                                                                                                                     |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- Continuous attention to the review process is crucial. Even a well-tuned process needs adjustments as the team and project needs change.                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                                                                   |
-| \- It\'s essential to communicate with everyone involved and focus on the defined goals of the review process.                                                                                                                                                                                                                                                    |
+| [[Microsoft Word - Best Kept Secrets of Peer Code Review-4-20.docx (csueastbay.edu)]{.underline}](http://borg.csueastbay.edu/~grewe/CS401/Mat/SWManagement/CodeReview/best-kept-secrets-of-peer-code-review_redirected.pdf) |
+| |
+| Here are the key points extracted from the provided text relevant to a book about beginning CI/CD and code review: |
+| |
+| 1\. **Importance of Peer Code Review**: |
+| |
+| \- A simple bug can lead to significant losses, both in terms of time and customers. |
+| |
+| \- Peer code review can prevent such issues at their earliest stages, reducing costs. |
+| |
+| 2\. **Cost Savings with Code Review**: |
+| |
+| \- Implementing peer code review can significantly reduce the cost of fixing bugs. |
+| |
+| \- A real-world case study showed savings of \$216k due to reduced bugs after code review. |
+| |
+| 3\. **Collaboration in Development**: |
+| |
+| \- Collaboration is common during requirements and design phases, but less so during code writing. |
+| |
+| \- Peer code review reintroduces collaboration during the coding phase, catching errors earlier. |
+| |
+| 4\. **The Need for Review**: |
+| |
+| \- All published works, like novels, undergo reviews and corrections from editors to improve quality. |
+| |
+| \- Similar review processes are essential for software development to catch and fix errors. |
+| |
+| 5\. **Business Implications of Bugs**: |
+| |
+| \- Even major companies, like Adobe with their PDF format, face significant risks from undetected software bugs. |
+| |
+| \- No feature addition is worth introducing bugs that could jeopardize a product\'s market position. |
+| |
+| 6\. **Competitive Advantage of Code Review**: |
+| |
+| \- Companies that have implemented effective code review processes have a competitive edge in terms of code quality. |
+| |
+| \- Such techniques are often kept secret to maintain that advantage. |
+| |
+| 7\. **Overcoming Challenges with Code Review**: |
+| |
+| \- Concerns exist about the time spent on reviews and potential negative social impacts. |
+| |
+| \- However, with proper techniques and tools, code review can be efficient and beneficial. |
+| |
+| Incorporating these key points into your book would provide readers with insights into the significance of code review, its benefits in the software development lifecycle, and how it complements CI/CD processes by ensuring that high-quality code gets deployed. |
+| |
+| \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-- |
+| |
+| Certainly, here are the key points extracted from the text, tailored for a chapter or section on code review in a book about beginning CI/CD: |
+| |
+| 1\. **Review Duration**: Effectiveness in spotting defects during code reviews drops significantly after one hour. It\'s recommended to review for at most one hour at a time. |
+| |
+| 2\. **Review Depth**: Slowing down code readings increases the number of defects detected. The time spent in review is a dominant factor in defect detection. |
+| |
+| 3\. **Meeting Format**: Traditional in-person, moderator-directed inspection meetings aren\'t always necessary. A lot of defects are identified in the pre-meeting reading phase. Meetings can be effective for identifying false positives and for knowledge transfer. Remote meetings or electronic communications (e.g., emails) can be just as effective. |
+| |
+| 4\. **Defect Metrics**: Using defects per line of code (kLOC) as a metric is unreliable. The number of defects per kLOC varies greatly across different studies and projects. |
+| |
+| 5\. **Omission Defects**: One of the toughest defects to catch are omissions or things that are missing in the code. Checklists can be helpful in reminding reviewers to look for potentially missing elements. |
+| |
+| 6\. **Statistical Significance**: Many studies on code reviews are too small to be statistically significant by themselves. However, when considered collectively, they can provide valuable insights. |
+| |
+| 7\. **Importance of Checklists**: Using checklists during code reviews can help in ensuring that important aspects are not overlooked. |
+| |
+| Given that this is for a CI/CD-focused book, you might also emphasize how automated testing and continuous integration can complement manual code reviews, catching different types of errors and improving the overall software quality. |
+| |
+| \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-- |
+| |
+| Certainly! Here are the key points extracted from the provided text, relevant for a chapter or section on code review in a book about beginning CI/CD: |
+| |
+| 1\. **Importance of Different Perspectives**: One\'s own code may look fine when reviewed by oneself, but external reviewers can spot issues more effectively. It\'s beneficial to view code in a different format or environment than the usual editor. |
+| |
+| 2\. **Benefits of Code Inspection**: Regular code inspection, even if informal, makes developers more efficient and helps improve the quality of their code through feedback. |
+| |
+| 3\. **Managing the Social Aspects**: |
+| |
+| \- **Hurt Feelings**: Criticism can be tough. Some developers can take it constructively, while others may feel personally attacked. It\'s essential to handle this aspect sensitively. |
+| |
+| \- **The "Big Brother" Effect**: Metrics, while important for process measurement, can be intimidating. Developers might fear these metrics could negatively impact their performance evaluation. |
+| |
+| 4\. **Addressing the Social Effects**: |
+| |
+| \- Managers should address concerns collectively rather than singling out individuals. |
+| |
+| \- Emphasize that the goal is code improvement, not personal judgment. |
+| |
+| \- Defects found during code review should not factor into personal evaluations. |
+| |
+| 5\. **Redefining Defects**: |
+| |
+| \- More defects in harder code: Complex code is expected to have defects, not necessarily because of the developer\'s incompetence. |
+| |
+| \- Time spent on review: The more time reviewers spend on the code, the more defects they find, and this doesn\'t necessarily reflect the original code\'s quality. |
+| |
+| \- Focus on code quality: The primary purpose of code review is to enhance the quality of the code, not to blame or point fingers. |
+| |
+| 6\. **Embracing Defect Discovery**: The more defects found during the review, the better. Every defect found is a potential problem averted in production. It\'s a proactive step towards quality assurance and making the software more maintainable. |
+| |
+| 7\. **Collaborative Effort**: Code review is a teamwork process where both the author and the reviewer work together to produce higher quality code than they could have individually. It\'s not about blaming but collaboratively improving. |
+| |
+| 8\. **Personal Growth**: Feedback from code reviews, including defects, is essential for developers to grow and improve their skills. It\'s a learning opportunity. |
+| |
+| Integrating these key points into a CI/CD context, code reviews become a crucial checkpoint before code integration and deployment. They ensure that only quality, well-reviewed code moves through the pipeline, reducing the chances of defects in the production environment. |
+| |
+| \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-- |
+| |
+| Certainly! Here are the key points extracted from the text that would be relevant for a chapter or section on code review in a book about beginning CI/CD: |
+| |
+| 1\. **Importance of Checklists in Code Review**: |
+| |
+| \- Checklists are effective at detecting omissions. |
+| |
+| \- Omissions are typically the most challenging errors to detect because they involve something that\'s missing. |
+| |
+| 2\. **Role of Checklists**: |
+| |
+| \- They act as reminders, such as ensuring all errors are handled, function arguments are tested for invalid values, and unit tests have been created. |
+| |
+| \- Not only reviewers but authors should also have access to checklists. Storing checklists in shared drives, intranets, or version control is beneficial. |
+| |
+| 3\. **Personal Checklists**: |
+| |
+| \- The Personal Software Process (PSP) and Software Engineering Institute (SEI) suggest authors should have personal checklists. |
+| |
+| \- Each developer tends to make a set of common mistakes, and by identifying them, they can create a personal checklist. This can be shared with reviewers. |
+| |
+| 4\. **Sample Checklist Items**: |
+| |
+| \- **Documentation**: Ensure clear comments, document corner-case input, complex algorithms, dependencies on external libraries, units of measurement, incomplete code markers, and user-facing documentation updates. |
+| |
+| \- **Testing**: Cover unit tests for new code paths, error cases, algorithm functionality, null pointers, array indexes, and avoid duplicating existing code. |
+| |
+| \- **Error Handling**: Ensure proper handling of invalid parameters, error values, and manage resources under both error and non-error conditions. |
+| |
+| \- **Thread Safety**: Safeguard global variables, access objects via locks, and manage locks properly to prevent deadlocks. |
+| |
+| \- **Performance**: Avoid unnecessary object duplication, busy-wait loops, ensure memory usage is within limits, and optimizations should be well-documented. |
+| |
+| 5\. **Maintenance of Checklist**: |
+| |
+| \- Keep refining the checklist based on defects found during reviews. |
+| |
+| \- If a defect type frequently appears, turn it into a checklist item. |
+| |
+| 6\. **Improving the Review Process**: |
+| |
+| \- Teams will gradually adapt to common checklist items and develop habits to prevent recurring issues. |
+| |
+| \- Review and address the "Top 5 Most Violated" checklist items to aid developers. |
+| |
+| \- Tooling, like IDE features, can assist in automating or highlighting some of the checklist items. |
+| |
+| 7\. **Staying Vigilant**: |
+| |
+| \- Continuous attention to the review process is crucial. Even a well-tuned process needs adjustments as the team and project needs change. |
+| |
+| \- It\'s essential to communicate with everyone involved and focus on the defined goals of the review process. |
 +===================================================================================================================================================================================================================================================================================================================================================================+
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 #### How big should my PRs be? {#how-big-should-my-prs-be .unnumbered}
 
--   A common recommendation is for PRs to be concise and focused. However, this doesn\'t mean they should be trivial; instead, they should encapsulate a singular, coherent change or improvement. While it is unlikely that it will compile due to the syntax of programs, this doesn't allow for code review. It's too small to understand the intent or context of this change. It would also create a very large overhead if one had to document each character change. It also wouldn't be possible to have a meaningful discussion on the ramifications of the changes. Once sufficient changes have been added, it might be difficult to piece together the context from previous changes to understand how this change is related to the other ones.
+- A common recommendation is for PRs to be concise and focused. However, this doesn\'t mean they should be trivial; instead, they should encapsulate a singular, coherent change or improvement. While it is unlikely that it will compile due to the syntax of programs, this doesn't allow for code review. It's too small to understand the intent or context of this change. It would also create a very large overhead if one had to document each character change. It also wouldn't be possible to have a meaningful discussion on the ramifications of the changes. Once sufficient changes have been added, it might be difficult to piece together the context from previous changes to understand how this change is related to the other ones.
 
--   It is also difficult to revert the change. For example, say a new change caused a bug. Which part of the many PRs do you revert? They will be mixed in with the other changes, so it is difficult to remove it.
+- It is also difficult to revert the change. For example, say a new change caused a bug. Which part of the many PRs do you revert? They will be mixed in with the other changes, so it is difficult to remove it.
 
--   Therefore, even if you are creating something that isn't visible to users, there should be a way to test it, either by automated tests or by modifying the code (feature flags are preferable.) It doesn't have to be completed, and it might have errors if used in a certain way, but the overall framework or possibility of using or evaluating what context that thing that you're creating in should be apparent. This might include scaffolding, etc.
+- Therefore, even if you are creating something that isn't visible to users, there should be a way to test it, either by automated tests or by modifying the code (feature flags are preferable.) It doesn't have to be completed, and it might have errors if used in a certain way, but the overall framework or possibility of using or evaluating what context that thing that you're creating in should be apparent. This might include scaffolding, etc.
 
 #### On pair programming {#on-pair-programming .unnumbered}
 
--   Pair programming is a practice where usually two people (sometimes more) work together in real-time on a programming project, normally in a single editor on one person's screen. The advantages to pair programming is to allow people to actively communicate their ideas while coding, potentially causing synergy (where two people working together have more efforts combined than if they were working alone, combined.) This is especially advantageous if one person, such as a senior, is paired with a junior programmer, or someone who is unfamiliar with the project. This allows the person who is unfamiliar with the project to have a fast learning feedback loop: the unfamiliar person can ask questions and receive answers in nearly real-time (well, however fast the other person responds.) This is a very high-bandwidth communication channel, allowing for information and ideas to flow freely.
+- Pair programming is a practice where usually two people (sometimes more) work together in real-time on a programming project, normally in a single editor on one person's screen. The advantages to pair programming is to allow people to actively communicate their ideas while coding, potentially causing synergy (where two people working together have more efforts combined than if they were working alone, combined.) This is especially advantageous if one person, such as a senior, is paired with a junior programmer, or someone who is unfamiliar with the project. This allows the person who is unfamiliar with the project to have a fast learning feedback loop: the unfamiliar person can ask questions and receive answers in nearly real-time (well, however fast the other person responds.) This is a very high-bandwidth communication channel, allowing for information and ideas to flow freely.
 
--   Pair programming was initially popularized in XP (extreme programming) (verify this), where integration time was correlated to how long people pair programmed for. This was one of the earliest introductions to "integration hell", thus, encouraging people to integrate their work more frequently (verify this.)
+- Pair programming was initially popularized in XP (extreme programming) (verify this), where integration time was correlated to how long people pair programmed for. This was one of the earliest introductions to "integration hell", thus, encouraging people to integrate their work more frequently (verify this.)
 
--   This is similar to code review, but involves two people working together in real-time. Code review can occur during pair programming, but this term is commonly used for async code reviews, where someone leaves comments on a PR (and then they respond to it async.)
+- This is similar to code review, but involves two people working together in real-time. Code review can occur during pair programming, but this term is commonly used for async code reviews, where someone leaves comments on a PR (and then they respond to it async.)
 
 **Note: some projects are not "compiled" in the traditional sense (i.e., interpreted), so they don't necessarily generate output files (for example, Python.)**
 
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [[samples/framework/libraries/migrate-library at main · dotnet/samples (github.com)]{.underline}](https://github.com/dotnet/samples/tree/main/framework/libraries/migrate-library/) basically but this has some more info on the names of the folders and what they do.                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| Sure, here\'s a more concise version:                                                                                                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \### \*\*C# Project Layout:\*\*                                                                                                                                                                                                                                                                                                                                    |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/src\`\*\*: Main source code.                                                                                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*ProjectName:\*\* Contains C# source files and \`ProjectName.csproj\`.                                                                                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/tests\`\*\*: Unit and integration tests.                                                                                                                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*ProjectName.Tests:\*\* Contains test files and \`ProjectName.Tests.csproj\`.                                                                                                                                                                                                                                                                                |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/docs\`\*\*: Documentation and READMEs.                                                                                                                                                                                                                                                                                                                   |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/lib\`\*\*: Libraries not in package managers.                                                                                                                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/tools\`\*\*: Build and related tools.                                                                                                                                                                                                                                                                                                                    |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/scripts\`\*\*: Build, deployment, and migration scripts.                                                                                                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/packages\`\*\*: NuGet packages (less common in .NET Core).                                                                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/.git\`\*\*: Git version control metadata.                                                                                                                                                                                                                                                                                                                |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`.gitignore\` & \`.gitattributes\`\*\*: Git configuration.                                                                                                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \### \*\*Deployment:\*\*                                                                                                                                                                                                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/bin\`\*\*: Compiled binaries.                                                                                                                                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/bin/Debug\`\*\*: Debug build.                                                                                                                                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| **- \*\*\`/bin/Release\`\*\*: Release build for deployment.**                                                                                                                                                                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/obj\`\*\*: Intermediate files (not for deployment).                                                                                                                                                                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| For deployment, use \`/bin/Release\` or the appropriate build configuration.                                                                                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| --\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                    |
+| [[samples/framework/libraries/migrate-library at main · dotnet/samples (github.com)]{.underline}](https://github.com/dotnet/samples/tree/main/framework/libraries/migrate-library/) basically but this has some more info on the names of the folders and what they do. |
+| |
+| Sure, here\'s a more concise version: |
+| |
+| \### **C# Project Layout:** |
+| |
+| \- **\`/src\`**: Main source code. |
+| |
+| \- **ProjectName:** Contains C# source files and \`ProjectName.csproj\`. |
+| |
+| \- **\`/tests\`**: Unit and integration tests. |
+| |
+| \- **ProjectName.Tests:** Contains test files and \`ProjectName.Tests.csproj\`. |
+| |
+| \- **\`/docs\`**: Documentation and READMEs. |
+| |
+| \- **\`/lib\`**: Libraries not in package managers. |
+| |
+| \- **\`/tools\`**: Build and related tools. |
+| |
+| \- **\`/scripts\`**: Build, deployment, and migration scripts. |
+| |
+| \- **\`/packages\`**: NuGet packages (less common in .NET Core). |
+| |
+| \- **\`/.git\`**: Git version control metadata. |
+| |
+| \- **\`.gitignore\` & \`.gitattributes\`**: Git configuration. |
+| |
+| \### **Deployment:** |
+| |
+| \- **\`/bin\`**: Compiled binaries. |
+| |
+| \- **\`/bin/Debug\`**: Debug build. |
+| |
+| **- **\`/bin/Release\`**: Release build for deployment.** |
+| |
+| \- **\`/obj\`**: Intermediate files (not for deployment). |
+| |
+| For deployment, use \`/bin/Release\` or the appropriate build configuration. |
+| |
+| --\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-- |
+| |
 | Python applications can be packaged in different ways. If you want for other people to consume it then the instructions are pretty straightforward and standardized. If you want to publish it to a server, it depends. ChatGPT says this is a common project layout but I can't really verify it, it doesn't look like there are standard Python project layouts. |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| Python applications don\'t have as strict a structure as something like a C# solution, but there are certain conventional project layouts that developers commonly follow. Here\'s a concise overview of a typical Python project structure:                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \### \*\*Python Project Layout:\*\*                                                                                                                                                                                                                                                                                                                                |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| **- \*\*\`/src\`\*\*: Main source code (optional, but can make things tidy).**                                                                                                                                                                                                                                                                                     |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| **- \*\*\`your_package_name\`\*\*: Main package folder with \`.py\` files.**                                                                                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/tests\`\*\*: Unit tests.                                                                                                                                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- Common to use libraries like \`pytest\`.                                                                                                                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/docs\`\*\*: Documentation, often using tools like Sphinx.                                                                                                                                                                                                                                                                                                |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/scripts\`\*\*: Useful scripts, e.g., database migrations or utility scripts.                                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| **- \*\*\`/data\`\*\*: Data files (e.g., datasets, configurations).**                                                                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/venv\`\*\* or \*\*\`/env\`\*\*: Virtual environment folders (should be added to \`.gitignore\`).                                                                                                                                                                                                                                                         |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`setup.py\`\*\*: For packaging and distribution.                                                                                                                                                                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`requirements.txt\`\*\*: List of dependencies for the project.                                                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`.gitignore\`\*\*: Ignored files and directories in git.                                                                                                                                                                                                                                                                                                   |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \### \*\*Deployment:\*\*                                                                                                                                                                                                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- Deploy source code and install dependencies from \`requirements.txt\` using a package manager like \`pip\`.                                                                                                                                                                                                                                                     |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- Virtual environments (\`/venv\` or \`/env\`) should never be deployed. Instead, use the \`requirements.txt\` on the deployment server or target environment to recreate the necessary dependencies.                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| Note: Depending on the nature of the Python application (web app, CLI tool, library, etc.), the actual project structure can vary. Always consider the requirements and nature of your specific project.                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| --\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| Warning: this depends a lot lot lot on which type of JavaScript/TypeScript project you are creating. Normally, however, the dist folder is what you should be publishing. This ecosystem is very complex and changes rapidly.                                                                                                                                      |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| Sure, here\'s a concise overview of a common JavaScript or TypeScript project structure, especially for web projects or Node.js applications:                                                                                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \### \*\*JavaScript/TypeScript Project Layout:\*\*                                                                                                                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/src\`\*\*: Main source code.                                                                                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/components\`\*\*: For component-based architectures, like React components.                                                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/models\`\*\*: For data models or TypeScript types/interfaces.                                                                                                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/assets\`\*\*: Images, fonts, and other static files.                                                                                                                                                                                                                                                                                                     |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/utils\`\*\* or \*\*\`/lib\`\*\*: Utility functions and libraries.                                                                                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| **- \*\*\`/dist\`\*\* or \*\*\`/build\`\*\*: Compiled/transpiled code (e.g., from TypeScript to JavaScript). This directory is typically what you\'d deploy for a web app.**                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/tests\`\*\* or \*\*\`/\_\_tests\_\_\`\*\*: Unit and integration tests.                                                                                                                                                                                                                                                                                   |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- Often used with testing libraries like Jest or Mocha.                                                                                                                                                                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/public\`\*\*: Public static assets and the HTML entry point.                                                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`index.html\`\*\*: Main HTML file.                                                                                                                                                                                                                                                                                                                         |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/css\`\*\*: Stylesheets if not included in the build process.                                                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/js\`\*\*: JavaScript files if not part of the build system.                                                                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/node_modules\`\*\*: Dependencies installed via npm or Yarn (should be added to \`.gitignore\` and \*\*not\*\* deployed).                                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`package.json\`\*\*: Project metadata and dependency list.                                                                                                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`package-lock.json\`\*\* or \*\*\`yarn.lock\`\*\*: Exact dependency versions for deterministic builds.                                                                                                                                                                                                                                                     |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`tsconfig.json\`\*\*: TypeScript compiler configuration.                                                                                                                                                                                                                                                                                                   |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`.gitignore\`\*\*: Ignored files and directories in git.                                                                                                                                                                                                                                                                                                   |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`.eslintrc\`\*\* and \*\*\`.prettierrc\`\*\*: Configuration for linters and formatters.                                                                                                                                                                                                                                                                    |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \### \*\*Deployment:\*\*                                                                                                                                                                                                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- For web applications: Deploy the \`/dist\` or \`/build\` directory contents.                                                                                                                                                                                                                                                                                    |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- For Node.js apps: Depending on the build process, you might deploy the transpiled output in \`/dist\` or the raw \`/src\` if not using a transpiler.                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- Always exclude \`node_modules\` from source control. Instead, rely on \`package.json\` and \`package-lock.json\` (or \`yarn.lock\`) to recreate dependencies during deployment.                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| Remember that JavaScript and TypeScript projects can vary significantly based on the frameworks and tools being used (e.g., Angular, React, Vue, Express, etc.), so the above is a general guide and might not fit all scenarios. Always adapt based on the specific project\'s needs.                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| --\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| [[Maven -- Introduction to the Standard Directory Layout (apache.org)]{.underline}](https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html)                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| [[Organizing Gradle Projects]{.underline}](https://docs.gradle.org/current/userguide/organizing_gradle_projects.html)                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| Certainly! Java projects, especially when using build tools like Maven or Gradle, have a conventional directory structure. Here\'s a concise overview:                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \### \*\*Java Project Layout:\*\*                                                                                                                                                                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/src\`\*\*: Source code and resources.                                                                                                                                                                                                                                                                                                                    |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/main\`\*\*: Application\'s main code and resources.                                                                                                                                                                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/java\`\*\*: Java source code.                                                                                                                                                                                                                                                                                                                            |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/resources\`\*\*: Non-code resources like configuration files, images, etc.                                                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/test\`\*\*: Test-related source code and resources.                                                                                                                                                                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/java\`\*\*: Unit and integration test code.                                                                                                                                                                                                                                                                                                              |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/resources\`\*\*: Test-specific resources.                                                                                                                                                                                                                                                                                                                |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| **- \*\*\`/target\`\*\* or \*\*\`/build\`\*\*: Compiled bytecode, JARs, WARs, etc. (the output of the build process). This is where the build artifacts that should be deployed are usually found.**                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`pom.xml\`\*\* (for Maven projects): Defines project dependencies, plugins, goals, and other configurations.                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`build.gradle\`\*\* (for Gradle projects): Similar to \`pom.xml\` but for Gradle.                                                                                                                                                                                                                                                                          |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`.gitignore\`\*\*: List of files and directories to exclude from git.                                                                                                                                                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`README.md\`\*\*: Project documentation and instructions.                                                                                                                                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- \*\*\`/docs\`\*\*: Additional documentation if needed.                                                                                                                                                                                                                                                                                                          |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \### \*\*Deployment:\*\*                                                                                                                                                                                                                                                                                                                                           |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- For standalone applications: JARs from the \`/target\` or \`/build\` directory.                                                                                                                                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| \- For web applications: WARs or EARs (found in the same build directories).                                                                                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| Always remember to exclude the \`/target\` or \`/build\` directories from version control since these contain compiled bytecode and other artifacts. Instead, rely on the build tool (Maven, Gradle) to produce these during the CI/CD process.                                                                                                                    |
-|                                                                                                                                                                                                                                                                                                                                                                    |
-| As always, these guidelines can be adapted based on the specifics of the project, framework, or tooling in use.                                                                                                                                                                                                                                                    |
+| |
+| Python applications don\'t have as strict a structure as something like a C# solution, but there are certain conventional project layouts that developers commonly follow. Here\'s a concise overview of a typical Python project structure: |
+| |
+| \### **Python Project Layout:** |
+| |
+| **- **\`/src\`**: Main source code (optional, but can make things tidy).** |
+| |
+| **- **\`your_package_name\`**: Main package folder with \`.py\` files.** |
+| |
+| \- **\`/tests\`**: Unit tests. |
+| |
+| \- Common to use libraries like \`pytest\`. |
+| |
+| \- **\`/docs\`**: Documentation, often using tools like Sphinx. |
+| |
+| \- **\`/scripts\`**: Useful scripts, e.g., database migrations or utility scripts. |
+| |
+| **- **\`/data\`**: Data files (e.g., datasets, configurations).** |
+| |
+| \- **\`/venv\`** or **\`/env\`**: Virtual environment folders (should be added to \`.gitignore\`). |
+| |
+| \- **\`setup.py\`**: For packaging and distribution. |
+| |
+| \- **\`requirements.txt\`**: List of dependencies for the project. |
+| |
+| \- **\`.gitignore\`**: Ignored files and directories in git. |
+| |
+| \### **Deployment:** |
+| |
+| \- Deploy source code and install dependencies from \`requirements.txt\` using a package manager like \`pip\`. |
+| |
+| \- Virtual environments (\`/venv\` or \`/env\`) should never be deployed. Instead, use the \`requirements.txt\` on the deployment server or target environment to recreate the necessary dependencies. |
+| |
+| Note: Depending on the nature of the Python application (web app, CLI tool, library, etc.), the actual project structure can vary. Always consider the requirements and nature of your specific project. |
+| |
+| --\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-- |
+| |
+| Warning: this depends a lot lot lot on which type of JavaScript/TypeScript project you are creating. Normally, however, the dist folder is what you should be publishing. This ecosystem is very complex and changes rapidly. |
+| |
+| Sure, here\'s a concise overview of a common JavaScript or TypeScript project structure, especially for web projects or Node.js applications: |
+| |
+| \### **JavaScript/TypeScript Project Layout:** |
+| |
+| \- **\`/src\`**: Main source code. |
+| |
+| \- **\`/components\`**: For component-based architectures, like React components. |
+| |
+| \- **\`/models\`**: For data models or TypeScript types/interfaces. |
+| |
+| \- **\`/assets\`**: Images, fonts, and other static files. |
+| |
+| \- **\`/utils\`** or **\`/lib\`**: Utility functions and libraries. |
+| |
+| **- **\`/dist\`** or **\`/build\`**: Compiled/transpiled code (e.g., from TypeScript to JavaScript). This directory is typically what you\'d deploy for a web app.** |
+| |
+| \- **\`/tests\`** or **\`/\_\_tests\_\_\`**: Unit and integration tests. |
+| |
+| \- Often used with testing libraries like Jest or Mocha. |
+| |
+| \- **\`/public\`**: Public static assets and the HTML entry point. |
+| |
+| \- **\`index.html\`**: Main HTML file. |
+| |
+| \- **\`/css\`**: Stylesheets if not included in the build process. |
+| |
+| \- **\`/js\`**: JavaScript files if not part of the build system. |
+| |
+| \- **\`/node_modules\`**: Dependencies installed via npm or Yarn (should be added to \`.gitignore\` and **not** deployed). |
+| |
+| \- **\`package.json\`**: Project metadata and dependency list. |
+| |
+| \- **\`package-lock.json\`** or **\`yarn.lock\`**: Exact dependency versions for deterministic builds. |
+| |
+| \- **\`tsconfig.json\`**: TypeScript compiler configuration. |
+| |
+| \- **\`.gitignore\`**: Ignored files and directories in git. |
+| |
+| \- **\`.eslintrc\`** and **\`.prettierrc\`**: Configuration for linters and formatters. |
+| |
+| \### **Deployment:** |
+| |
+| \- For web applications: Deploy the \`/dist\` or \`/build\` directory contents. |
+| |
+| \- For Node.js apps: Depending on the build process, you might deploy the transpiled output in \`/dist\` or the raw \`/src\` if not using a transpiler. |
+| |
+| \- Always exclude \`node_modules\` from source control. Instead, rely on \`package.json\` and \`package-lock.json\` (or \`yarn.lock\`) to recreate dependencies during deployment. |
+| |
+| Remember that JavaScript and TypeScript projects can vary significantly based on the frameworks and tools being used (e.g., Angular, React, Vue, Express, etc.), so the above is a general guide and might not fit all scenarios. Always adapt based on the specific project\'s needs. |
+| |
+| --\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-- |
+| |
+| [[Maven -- Introduction to the Standard Directory Layout (apache.org)]{.underline}](https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html) |
+| |
+| [[Organizing Gradle Projects]{.underline}](https://docs.gradle.org/current/userguide/organizing_gradle_projects.html) |
+| |
+| Certainly! Java projects, especially when using build tools like Maven or Gradle, have a conventional directory structure. Here\'s a concise overview: |
+| |
+| \### **Java Project Layout:** |
+| |
+| \- **\`/src\`**: Source code and resources. |
+| |
+| \- **\`/main\`**: Application\'s main code and resources. |
+| |
+| \- **\`/java\`**: Java source code. |
+| |
+| \- **\`/resources\`**: Non-code resources like configuration files, images, etc. |
+| |
+| \- **\`/test\`**: Test-related source code and resources. |
+| |
+| \- **\`/java\`**: Unit and integration test code. |
+| |
+| \- **\`/resources\`**: Test-specific resources. |
+| |
+| **- **\`/target\`** or **\`/build\`**: Compiled bytecode, JARs, WARs, etc. (the output of the build process). This is where the build artifacts that should be deployed are usually found.** |
+| |
+| \- **\`pom.xml\`** (for Maven projects): Defines project dependencies, plugins, goals, and other configurations. |
+| |
+| \- **\`build.gradle\`** (for Gradle projects): Similar to \`pom.xml\` but for Gradle. |
+| |
+| \- **\`.gitignore\`**: List of files and directories to exclude from git. |
+| |
+| \- **\`README.md\`**: Project documentation and instructions. |
+| |
+| \- **\`/docs\`**: Additional documentation if needed. |
+| |
+| \### **Deployment:** |
+| |
+| \- For standalone applications: JARs from the \`/target\` or \`/build\` directory. |
+| |
+| \- For web applications: WARs or EARs (found in the same build directories). |
+| |
+| Always remember to exclude the \`/target\` or \`/build\` directories from version control since these contain compiled bytecode and other artifacts. Instead, rely on the build tool (Maven, Gradle) to produce these during the CI/CD process. |
+| |
+| As always, these guidelines can be adapted based on the specifics of the project, framework, or tooling in use. |
 +====================================================================================================================================================================================================================================================================================================================================================================+
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 #### Deployment and Release Strategies {#deployment-and-release-strategies-1 .unnumbered}
 
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Certainly! Deployment strategies dictate how new versions of an application are rolled out to users and environments. Here are five top deployment strategies commonly used in CI/CD:                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                       |
-| 1\. \*\*Blue-Green Deployment:\*\*                                                                                                                                                                                                                                                                                    |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Description:\*\* This strategy involves having two separate environments: Blue (current production) and Green (new version). When deploying, the new version is released to the Green environment. Once tested and ready, traffic is switched from Blue to Green, making Green the new production environment. |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Advantages:\*\* Enables quick rollback, reduces downtime, and allows for thorough testing before release.                                                                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Disadvantages:\*\* Requires duplicated environments, which can be resource-intensive.                                                                                                                                                                                                                          |
-|                                                                                                                                                                                                                                                                                                                       |
-| 2\. \*\*Canary Deployment:\*\*                                                                                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Description:\*\* Instead of releasing the new version to all users at once, it\'s rolled out gradually to a subset of users (the \"canaries\"). Monitoring tools track the application\'s performance and user feedback. If everything looks good, the new version is gradually rolled out to more users.      |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Advantages:\*\* Reduces the risk by testing the new release on a subset of users, allowing for early detection of issues.                                                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Disadvantages:\*\* Requires sophisticated routing and monitoring infrastructure. Can complicate troubleshooting due to having multiple versions running concurrently.                                                                                                                                          |
-|                                                                                                                                                                                                                                                                                                                       |
-| 3\. \*\*Rolling Deployment:\*\*                                                                                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Description:\*\* The new version is rolled out incrementally, replacing instances of the old version. This continues until all instances run the new version.                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Advantages:\*\* Simplifies deployment process and infrastructure. Does not require double the environment as in Blue-Green.                                                                                                                                                                                    |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Disadvantages:\*\* A period exists where different versions are running simultaneously, which can lead to inconsistencies. If issues arise, rollback might be more complex.                                                                                                                                    |
-|                                                                                                                                                                                                                                                                                                                       |
-| 4\. \*\*Feature Toggles (or Feature Flags):\*\*                                                                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Description:\*\* Instead of managing releases through deployments, features are released behind flags or toggles. This allows teams to deploy code to production but hide the new feature\'s functionality until it\'s ready to be released to users.                                                          |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Advantages:\*\* Provides more granular control over features, allows for A/B testing, and can be used to quickly roll back a feature without redeploying.                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Disadvantages:\*\* Can complicate the codebase with multiple toggle checks. Requires effective management of toggles to avoid \"stale\" flags.                                                                                                                                                                 |
-|                                                                                                                                                                                                                                                                                                                       |
-| 5\. \*\*Shadow Deployment:\*\*                                                                                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Description:\*\* The new version is deployed alongside the old version in the production environment, but no real users are directed to it. Instead, real user traffic is mirrored to the new version to simulate real-world usage, but the new version\'s responses are discarded and not seen by real users. |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Advantages:\*\* Allows testing in the production environment without affecting users. Helps detect issues under real-world load conditions.                                                                                                                                                                    |
-|                                                                                                                                                                                                                                                                                                                       |
-| \- \*\*Disadvantages:\*\* Can be resource-intensive as it duplicates traffic. Requires advanced infrastructure to mirror and manage traffic.                                                                                                                                                                          |
-|                                                                                                                                                                                                                                                                                                                       |
-| The best strategy often depends on the specific application, infrastructure, team capabilities, and the criticality of the release. It\'s also worth noting that many organizations use a combination of these strategies based on their needs.                                                                       |
+| Certainly! Deployment strategies dictate how new versions of an application are rolled out to users and environments. Here are five top deployment strategies commonly used in CI/CD: |
+| |
+| 1\. **Blue-Green Deployment:** |
+| |
+| \- **Description:** This strategy involves having two separate environments: Blue (current production) and Green (new version). When deploying, the new version is released to the Green environment. Once tested and ready, traffic is switched from Blue to Green, making Green the new production environment. |
+| |
+| \- **Advantages:** Enables quick rollback, reduces downtime, and allows for thorough testing before release. |
+| |
+| \- **Disadvantages:** Requires duplicated environments, which can be resource-intensive. |
+| |
+| 2\. **Canary Deployment:** |
+| |
+| \- **Description:** Instead of releasing the new version to all users at once, it\'s rolled out gradually to a subset of users (the \"canaries\"). Monitoring tools track the application\'s performance and user feedback. If everything looks good, the new version is gradually rolled out to more users. |
+| |
+| \- **Advantages:** Reduces the risk by testing the new release on a subset of users, allowing for early detection of issues. |
+| |
+| \- **Disadvantages:** Requires sophisticated routing and monitoring infrastructure. Can complicate troubleshooting due to having multiple versions running concurrently. |
+| |
+| 3\. **Rolling Deployment:** |
+| |
+| \- **Description:** The new version is rolled out incrementally, replacing instances of the old version. This continues until all instances run the new version. |
+| |
+| \- **Advantages:** Simplifies deployment process and infrastructure. Does not require double the environment as in Blue-Green. |
+| |
+| \- **Disadvantages:** A period exists where different versions are running simultaneously, which can lead to inconsistencies. If issues arise, rollback might be more complex. |
+| |
+| 4\. **Feature Toggles (or Feature Flags):** |
+| |
+| \- **Description:** Instead of managing releases through deployments, features are released behind flags or toggles. This allows teams to deploy code to production but hide the new feature\'s functionality until it\'s ready to be released to users. |
+| |
+| \- **Advantages:** Provides more granular control over features, allows for A/B testing, and can be used to quickly roll back a feature without redeploying. |
+| |
+| \- **Disadvantages:** Can complicate the codebase with multiple toggle checks. Requires effective management of toggles to avoid \"stale\" flags. |
+| |
+| 5\. **Shadow Deployment:** |
+| |
+| \- **Description:** The new version is deployed alongside the old version in the production environment, but no real users are directed to it. Instead, real user traffic is mirrored to the new version to simulate real-world usage, but the new version\'s responses are discarded and not seen by real users. |
+| |
+| \- **Advantages:** Allows testing in the production environment without affecting users. Helps detect issues under real-world load conditions. |
+| |
+| \- **Disadvantages:** Can be resource-intensive as it duplicates traffic. Requires advanced infrastructure to mirror and manage traffic. |
+| |
+| The best strategy often depends on the specific application, infrastructure, team capabilities, and the criticality of the release. It\'s also worth noting that many organizations use a combination of these strategies based on their needs. |
 +=======================================================================================================================================================================================================================================================================================================================+
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-
-

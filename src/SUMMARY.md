@@ -1,6 +1,5 @@
 # Summary
 
-[Preface](./chapters/Preface.md)
 [Introduction](./chapters/Introduction.md)
 
 # CI/CD Fundamentals

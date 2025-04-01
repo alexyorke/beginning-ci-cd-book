@@ -46,7 +46,7 @@ Continuous Integration: Upon merging, automated build and test processes kick in
 
 Feedback Loop: If any issues arise from the integration, testing, or build processes, developers address them immediately to ensure the trunk remains stable.
 
-![](./images/image13.png){width="4.703879046369204in" height="2.991958661417323in"}
+![](./images/image13.png)
 
 [[Beginners Guide to Trunk-Based Development (TBD) - StatusNeo]{.underline}](https://statusneo.com/trunk-based-development/)
 
@@ -79,7 +79,7 @@ Feedback Loop: If any issues arise from the integration, testing, or build proce
 | |
 | Hotfixes: If a critical bug arises in production, a hotfix/ branch is created off master. Once the hotfix is complete, it\'s merged back into both master and develop. |
 | |
-| ![](./images/image46.png){width="3.1093755468066493in" height="4.120598206474191in"} |
+| ![](./images/image46.png) |
 | |
 | [[A successful Git branching model » nvie.com]{.underline}](https://nvie.com/posts/a-successful-git-branching-model/) |
 +=========================================================================================================================================================================================================================+

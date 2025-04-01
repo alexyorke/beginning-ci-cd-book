@@ -4,57 +4,57 @@
 
 Clicking \"Run\" or \"Start\" in an IDE initiates a sequence of command-line tools that compile and manage dependencies to create build artifacts, simplifying the complex process with a single button. This abstraction can obscure the specific tools used, complicating tool selection for CI/CD pipelines.
 
-![](./images/image31.png){width="14.927083333333334in" height="11.59375in"}
+![](./images/image31.png)
 
-![](./images/image48.png){width="9.65625in" height="3.15625in"}
+![](./images/image48.png)
 
-![](./images/image26.png){width="15.010416666666666in" height="4.354166666666667in"}
+![](./images/image26.png)
 
-![](./images/image18.png){width="14.541666666666666in" height="17.885416666666668in"}
+![](./images/image18.png)
 
-![](./images/image74.png){width="15.25in" height="19.416666666666668in"}
+![](./images/image74.png)
 
-![](./images/image83.png){width="14.510416666666666in" height="17.8125in"}
+![](./images/image83.png)
 
-![](./images/image29.png){width="14.6875in" height="14.541666666666666in"}
+![](./images/image29.png)
 
-![](./images/image21.png){width="14.916666666666666in" height="19.072916666666668in"}
+![](./images/image21.png)
 
-![](./images/image19.png){width="14.979166666666666in" height="18.822916666666668in"}
+![](./images/image19.png)
 
-![](./images/image80.png){width="14.90625in" height="4.3125in"}
+![](./images/image80.png)
 
-![](./images/image90.png){width="14.854166666666666in" height="14.510416666666666in"}
+![](./images/image90.png)
 
-![](./images/image17.png){width="14.65625in" height="5.0625in"}
+![](./images/image17.png)
 
-![](./images/image39.png){width="14.875in" height="13.71875in"}
+![](./images/image39.png)
 
-![](./images/image71.png){width="14.0in" height="5.041666666666667in"}
+![](./images/image71.png)
 
-![](./images/image41.png){width="21.333333333333332in" height="14.09375in"}
+![](./images/image41.png)
 
-![](./images/image9.png){width="21.333333333333332in" height="15.625in"}
+![](./images/image9.png)
 
-![](./images/image82.png){width="11.1875in" height="7.34375in"}
+![](./images/image82.png)
 
-![](./images/image61.png){width="18.354166666666668in" height="9.71875in"}
+![](./images/image61.png)
 
-![](./images/image72.png){width="17.375in" height="6.135416666666667in"}
+![](./images/image72.png)
 
-![](./images/image63.png){width="14.979166666666666in" height="4.479166666666667in"}
+![](./images/image63.png)
 
-![](./images/image79.png){width="21.333333333333332in" height="8.791666666666666in"}
+![](./images/image79.png)
 
-![](./images/image22.png){width="7.875in" height="10.197916666666666in"}
+![](./images/image22.png)
 
-![](./images/image44.png){width="14.510416666666666in" height="12.916666666666666in"}
+![](./images/image44.png)
 
-![](./images/image85.png){width="14.229166666666666in" height="12.947916666666666in"}
+![](./images/image85.png)
 
 When creating a runner, typically, you would use the OS that most of your team members are using, or, the OS required to build the application
 
-![](./images/image11.png){width="17.510416666666668in" height="16.916666666666668in"}
+![](./images/image11.png)
 
 The instructions that github provides is for a stateful runner, much different from the runners cloud hosted by github. You will have to use kubernetes to re-create the nodes.
 
@@ -1229,9 +1229,9 @@ Table 1: The Secure Software Development Framework (SSDF) Version 1.1
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | [[ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3445-strategic-sampling-architectural-approaches-to-efficient-telemetry.mp4]{.underline}](https://ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3445-strategic-sampling-architectural-approaches-to-efficient-telemetry.mp4) |
 | |
-| ![](./images/image49.png){width="19.375in" height="12.510416666666666in"} |
+| ![](./images/image49.png) |
 | |
-| ![](./images/image53.png){width="20.28125in" height="12.635416666666666in"} |
+| ![](./images/image53.png) |
 +========================================================================================================================================================================================================================================================================================+
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
@@ -1704,7 +1704,7 @@ Different Integrated Development Environments (IDEs) have varied ways of present
 
 - **Build Order**: The build order can also be observed in the output window when you build the solution, especially if you\'ve set the verbosity to \"Detailed\" or \"Normal.\"
 
-![](./images/image45.png){width="6.473958880139983in" height="1.855573053368329in"}
+![](./images/image45.png)
 
 The build log might have many things. This is normally useful for troubleshooting, it's less likely that you'll need to provide manual commands. If you have a legacy project, or it's complex, then you might need to provide custom commands.
 

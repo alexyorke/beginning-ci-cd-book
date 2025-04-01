@@ -1134,7 +1134,7 @@ Build Status: Build status is an indicator of whether a build or integration pro
 
 - **Sequence**
 
-- ![](./images/image77.png){width="5.526042213473316in" height="3.2569411636045493in"}
+- ![](./images/image77.png)
 
 - Everything is done one-after the other. This is the default behavior.
 
@@ -1175,13 +1175,13 @@ Build Status: Build status is an indicator of whether a build or integration pro
 
 -
 
-- ![](./images/image91.png){width="5.515625546806649in" height="3.2508016185476816in"}
+- ![](./images/image91.png)
 
 -
 
 - **Control flow, parallel split**
 
-- ![](./images/image42.png){width="6.5in" height="3.6527777777777777in"}
+- ![](./images/image42.png)
 
 - If you have a job, and you want to split it up into multiple jobs or you just want the other jobs to run after this job completes, then you have to do a few things.
 
@@ -1408,7 +1408,7 @@ Build Status: Build status is an indicator of whether a build or integration pro
 
 -
 
-- ![](./images/image32.png){width="6.5in" height="3.6527777777777777in"}
+- ![](./images/image32.png)
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | jobs: |
@@ -1535,7 +1535,7 @@ It requires both technical and cultural shifts, including:
 
 Here is what the software development process looks like when using CI/CD. Note that many of these processes are automated.
 
-### ![](./images/image3.png){width="6.546875546806649in" height="4.348610017497813in"} {#section-15 .unnumbered}
+### ![](./images/image3.png) {#section-15 .unnumbered}
 
 Here\'s a description of what\'s going on in the diagram.
 
@@ -1904,7 +1904,7 @@ Implementing feature flags effectively requires a modular application architectu
 
 - Here are the popular times that workflows are scheduled. Try to avoid times (such as 12am) because they are very crowded. If you need a job to run at a specific time, instead, check if it is possible for the job to run prior to that time (so that it has a chance that, at that time, it will run), or consider using a webhook.
 
-  - ![Chart](./images/image23.png){width="6.359375546806649in" height="4.149761592300963in"}
+  - ![Chart](./images/image23.png)
 
 - If you need something that will run on the last day of the month, consider instead running it on the first day of the next month and then use the data (or commits) from the previous end of the month. This is because some months have 30 or 31 days, and some might have 29 (leap year) and it can't be specified cleanly in crontab syntax.
 

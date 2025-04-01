@@ -244,7 +244,7 @@
 
 - Software can\'t be completely bug-free because humans, libraries, and hardware are not perfect. Therefore, testing focuses on making software work well for users\' needs and business goals, rather than removing all bugs.
 
-- ![](./images/image36.png){width="5.616833989501313in" height="4.2126257655293085in"}
+- ![](./images/image36.png)
 
 - [[Guardrail - Armtec]{.underline}](https://armtec.com/specialty-products/guardrail/)
 
@@ -290,7 +290,7 @@
 
 - What is a test fixture? It has its roots in hardware, where a literal, physical test fixture was used to mount the hardware and prepare it for testing.
 
-- ![](./images/image30.png){width="3.151042213473316in" height="3.786979440069991in"}
+- ![](./images/image30.png)
 
 - [[Electronic test fixture design \| Bloomy]{.underline}](https://www.bloomy.com/media-gallery/detail/246/236)
 
@@ -298,7 +298,7 @@
 
 - A mock literally means a replica, or something that is like something else, but not exactly. For example, in hardware it might be a stand-in, or an object that performs some of the functionality but not all of the item that it is mocking. This is useful as the original hardware might be expensive, and many copies cannot be created purely for testing. In software development, mocking is used to refer to creating a function that is called instead of what you're trying to call, usually to avoid high overheads or expensive state management. This function is created by the user, and pretends to function as the original call, and can return and accept values and perform any processing desired on the data, usually less processing than what it is mocking.
 
-- ![](./images/image55.png){width="2.646351706036745in" height="3.0064424759405073in"}
+- ![](./images/image55.png)
 
 - In this case, the rubber duck is used in place of a real duck.
 
@@ -881,9 +881,9 @@ C#, .NET Core, .NET Depends, usually dotnet test
 
 - How do you analyze and interpret test results to identify issues and prioritize fixes?
 
-  - ![](./images/image59.png){width="6.114583333333333in" height="2.84375in"}
+  - ![](./images/image59.png)
 
-  - ![](./images/image57.png){width="6.40625in" height="3.3125in"}
+  - ![](./images/image57.png)
 
   - [[Publish Test Results · Actions · GitHub Marketplace]{.underline}](https://github.com/marketplace/actions/publish-test-results). Test results are sent to a global database where a report can run and you can view all of the results together.
 
@@ -1550,7 +1550,7 @@ C#, .NET Core, .NET Depends, usually dotnet test
 
 - One of the ways that people create a testing strategy is to reference the testing pyramid.
 
-- ![](./images/image2.png){width="3.1828477690288715in" height="1.705097331583552in"}
+- ![](./images/image2.png)
 
 - The testing pyramid is a guideline or suggestion on how to distribute the types of tests that you are writing. In this case, there should be fewer UI tests, and more unit tests in general. This is not a useful model, even if it is generic. This is because it enforces the technical solution before the business requirements. **Test where it makes sense.** **Do you need UI tests? Write them. Do you need unit tests? Write them.**
 
@@ -1574,7 +1574,7 @@ C#, .NET Core, .NET Depends, usually dotnet test
 
 - Code coverage and mutation testing can help "bleed" the edges of a graph or a point on a target to get higher coverage, but it is not a substitute for a good test strategy. This is because it only diversifies around its point but wide brush strokes can cover much more easily, although not as thoroughly. [[Coverage is not strongly correlated with test suite effectiveness \| Proceedings of the 36th International Conference on Software Engineering (acm.org)]{.underline}](https://dl.acm.org/doi/10.1145/2568225.2568271)
 
-- ![](./images/image43.png){width="6.5in" height="3.611111111111111in"}
+- ![](./images/image43.png)
 
 - [[(1) A Practical Example for Using AI to Improve your UI and API Testing - YouTube]{.underline}](https://www.youtube.com/watch?v=68mEgr0vO64)
 

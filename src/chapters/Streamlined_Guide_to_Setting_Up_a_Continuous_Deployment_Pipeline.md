@@ -1272,7 +1272,7 @@ Then for example, say if you want to turn the feature on or off or modify someth
 
 - Think of the metaphor like a physical tree. The branches on the tree aren't part of the main trunk.
 
-- ![](./images/image56.png){width="2.6653674540682415in" height="4.023196631671041in"}
+- ![](./images/image56.png)
 
 - [[Tree Free Stock Photo - Public Domain Pictures]{.underline}](https://www.publicdomainpictures.net/en/view-image.php?image=20740&picture=tree&large=1)
 

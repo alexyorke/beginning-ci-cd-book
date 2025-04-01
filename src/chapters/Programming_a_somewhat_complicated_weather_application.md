@@ -34,13 +34,13 @@ Imagine wearing a project manager\'s hat and envisioning potential features for 
 
 - User features will include account creation and subscription to event forecasts. A backend batch job will manage notifications through a queuing system, supporting large-scale user notifications with email tracking.
 
-![](./images/image62.png){width="5.463542213473316in" height="4.118670166229221in"}
+![](./images/image62.png)
 
 [[Interactive weather maps - OpenWeatherMap]{.underline}](https://openweathermap.org/weathermap?basemap=map&cities=false&layer=temperature&lat=30&lon=-20&zoom=3)
 
 Here\'s an overview of our application architecture.
 
-![](./images/image24.png){width="5.432292213473316in" height="3.259375546806649in"}
+![](./images/image24.png)
 
 Creating a new weather application using React involves several steps, from setting up your development environment to deploying the application. This book is not, of course, about how to learn React, so I won\'t be going into very much detail about how this React code actually works.
 
@@ -70,7 +70,7 @@ There are a lot of things that you will need to name, such as pipelines, and oth
 
 [[Define your naming convention - Cloud Adoption Framework \| Microsoft Learn]{.underline}](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming)
 
-![](./images/image54.png){width="8.885416666666666in" height="1.875in"}
+![](./images/image54.png)
 
 Let's call the resource type CDP and the workload is our weather application.
 
@@ -198,7 +198,7 @@ When you install Git, it typically comes with a tool called Git Credential Manag
 
 While you have the option to use a personal access token (PAT) for authentication, it\'s generally not recommended due to security risks, such as potential leaks and the extended lifespan of tokens. If you must use a PAT, consider setting its expiration to one week or less and arranging for it to be renewed periodically to enhance security.
 
-![](./images/image78.png){width="6.588542213473316in" height="4.2932972440944885in"}
+![](./images/image78.png)
 
 First, ensure that you have cloned your GitHub repository to your local machine. Haven\'t made a repository yet? Then create one by creating a GitHub account and then creating a new repository, then cloning it locally.
 
@@ -424,7 +424,7 @@ npm run start
 
 When you run the application, you should see that the API key has been successfully injected into the URL. In my case, since I didn't add my API key yet, there is an error.
 
-![](./images/image70.png){width="8.461674321959755in" height="4.15455271216098in"}
+![](./images/image70.png)
 
 Using the API key in production as we currently do is not ideal because it is exposed to the public. This exposure will lead to unauthorized use, resulting in significant charges or DDoS attack, meaning that our API quota will be exceeded. Fortunately, we\'re currently using a free version of the API, which limits the financial risk but not the operational risk; excessive fake requests could still deny legitimate users access.
 
@@ -1136,7 +1136,7 @@ If you need to upload more than one artifact, simply duplicate the action and ru
 
 I would like you to push that commit to your branch with the new workflow and create a pull request on that branch.The build should run Importantly, will not let you merge unless the pipeline is finished and also complete.
 
-![](./images/image69.png){width="7.073176946631671in" height="4.690124671916011in"}
+![](./images/image69.png)
 
 **Aside start**
 
@@ -1168,7 +1168,7 @@ To manually access and download artifacts from a GitHub repository, follow these
 
 5\. **Download Artifacts**: Click on the name of the artifact you want to download. GitHub will compile all the files into a single ZIP file and automatically start the download.
 
-![](./images/image14.png){width="7.8125in" height="4.114583333333333in"}
+![](./images/image14.png)
 
 ### Deployment and Release Strategies {#deployment-and-release-strategies .unnumbered}
 
@@ -1236,11 +1236,11 @@ az login
 
 Make sure to disable storage account key access.This is important because Georgia county keys can be used to access your BLOB container from almost anywhere with.A weak form of authentication. This is just essentially a password. We\'re gonna be using something instead called a managed identity or a Federated credential.
 
-![](./images/image8.png){width="10.706964129483815in" height="9.42763888888889in"}
+![](./images/image8.png)
 
 In the Storage account, navigate to either the Access Management tab or the Access Control (IAM) tab. Add yourself as a Storage Account Contributor and a Storage Blob Data Contributor at the storage account level.
 
-![](./images/image86.png){width="10.151042213473316in" height="4.857432195975503in"}
+![](./images/image86.png)
 
 Sample HTML file with just some trivial contents, for example the text Hello world.
 
@@ -1272,7 +1272,7 @@ az storage blob list \--container-name cicdbookweb \--output table
 
 - Choose or create a CDN profile and select a pricing tier (Standard Microsoft is recommended).To defaults and click.Next.
 
-![](./images/image27.png){width="5.42397419072616in" height="6.381673228346457in"}
+![](./images/image27.png)
 
 - **Deployment**: Note that it may take some time for the CDN to propagate globally.
 
@@ -1286,11 +1286,11 @@ Select review plus create.
 
 - If you have configured a custom domain, use that URL instead.
 
-![](./images/image52.png){width="9.005208880139982in" height="4.304735345581802in"}
+![](./images/image52.png)
 
 You navigate to the host and the previous screenshot that you should see your sample HTML file.
 
-![](./images/image76.png){width="8.76562554680665in" height="2.8666152668416447in"}
+![](./images/image76.png)
 
 Create a new workflow at .github/workflows/deploy.yml and insert the following content:
 
@@ -1441,7 +1441,7 @@ Let's get this set up and show how you can use jobs and environments to create a
 
 That workflow is displayed as follows.
 
-![](./images/image47.png){width="5.971965223097113in" height="2.5665671478565177in"}
+![](./images/image47.png)
 
 No steps in the "deploy" job start until the "build" job is complete. This is because the "deploy" job has a "needs" on the build job.
 
@@ -1449,19 +1449,19 @@ There are few reasons why this is helpful. First, it is very clear from a glance
 
 If we make a bunch of jobs, and a bunch of dependencies (e.g., needs), then it will be getting a bit more complex. When we start to create more complex workflows, jobs will be a way to help group related tasks together, and to provide them with dependencies.
 
-- ![](./images/image34.png){width="6.5in" height="4.236111111111111in"}
+- ![](./images/image34.png)
 
 - [[Revert \"Only evaluate own String/Number/Math methods\" · babel/babel@9ec1cb5 (github.com)]{.underline}](https://github.com/babel/babel/actions/runs/6761970399)
 
 This workflow setup allows you to specify inputs and set the release type. For instance, if you wish to deploy commits from your main branch to the staging environment, you can manually input this, ensuring deployment stops at staging. Alternatively, you can deploy directly to production, though it will pass through each environment requiring manual approvals. You must configure these approvals and designate who has the authority to advance to the next step, such as requiring manager approval to move from staging to production.
 
-![](./images/image60.png){width="6.03125in" height="4.25in"}
+![](./images/image60.png)
 
 You can select which environment you'd like as well.
 
 run-name: Pipeline run by @\${{ github.actor }} looks very useful for tracking release progress
 
-![](./images/image38.png){width="6.5in" height="4.583333333333333in"}
+![](./images/image38.png)
 
 If you try to start another instance of this workflow while it is running, then it will queue up and not run concurrently. This is important because otherwise you might have two scripts trying to deploy to production at the same time, which would cause a race condition (bad.)
 

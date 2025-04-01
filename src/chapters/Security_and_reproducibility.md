@@ -381,7 +381,7 @@
 
 - [[amazon.ca/Yubico-YubiKey-NFC-Authentication-USB/dp/B07HBD71HL]{.underline}](https://www.amazon.ca/Yubico-YubiKey-NFC-Authentication-USB/dp/B07HBD71HL?th=1)
 
-- ![](./images/image75.png){width="3.477898075240595in" height="4.098073053368329in"}
+- ![](./images/image75.png)
 
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Signing commits using a YubiKey and Git involves several steps, but it provides an added layer of security to your Git workflow. A YubiKey is a hardware security module (HSM) that can store private keys securely, making it harder for malicious actors to access them. By following the steps below, you\'ll be able to sign your Git commits using the private key stored on your YubiKey: |
@@ -1038,13 +1038,13 @@
 
   - If in doubt, try to change things and see if it fixes it or changes other parts of the file
 
-  - ![](./images/image5.png){width="4.932926509186352in" height="4.213542213473316in"}
+  - ![](./images/image5.png)
 
-  - ![](./images/image25.png){width="4.734375546806649in" height="1.7602165354330708in"}
+  - ![](./images/image25.png)
 
-  - ![](./images/image16.png){width="4.473958880139983in" height="1.1184897200349957in"}
+  - ![](./images/image16.png)
 
-  - ![](./images/image1.png){width="5.730603674540682in" height="0.6727755905511811in"}
+  - ![](./images/image1.png)
 
   - This corresponds to the [[tar (computing) - Wikipedia]{.underline}](<https://en.wikipedia.org/wiki/Tar_(computing)>) modification date section in the header (plus header checksum) that is different. This means that the file has a different modification date. Look into why that is the case and if tar has any options to disable modification dates.
 

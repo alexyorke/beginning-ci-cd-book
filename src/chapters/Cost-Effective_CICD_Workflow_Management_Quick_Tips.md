@@ -975,7 +975,7 @@ Sometimes, however, outputs might still be available from your steps but might n
 
 Deploying your application successfully doesn\'t always guarantee it\'s functioning as expected, especially in complex setups with a backend. For instance, refreshing the browser could reset the application since it doesn\'t maintain state server-side. Errors can also arise from other areas like backend server failures that require restarts, problematic builds that prevent the app from displaying content, or external API issues like the weather data endpoint failing.
 
-![](./images/image88.png){width="9.378940288713911in" height="5.472442038495188in"}
+![](./images/image88.png)
 
 2\. **Identifying Potential Errors**:
 
@@ -985,7 +985,7 @@ Deploying your application successfully doesn\'t always guarantee it\'s function
 
 - **Performance Issues**: Slow load times can degrade user experience, indicating the need for performance optimization.
 
-![](./images/image40.png){width="10.151042213473316in" height="3.6629002624671916in"}
+![](./images/image40.png)
 
 ### A note on software... {#a-note-on-software .unnumbered}
 

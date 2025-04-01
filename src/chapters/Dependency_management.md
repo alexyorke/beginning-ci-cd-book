@@ -261,11 +261,11 @@
 
 - Depending on your package manager, you may want to install package "A". This will install "A", and also "B", without you having to manually install it. This process is transparent to you.
 
-- ![](./images/image10.png){width="3.932292213473316in" height="2.972737314085739in"}
+- ![](./images/image10.png)
 
 - If I install package "A", then "B" also gets installed. Now, if I install C, which depends on B, then since B is already installed, then it's ok.
 
-- ![](./images/image7.png){width="4.421875546806649in" height="4.072100831146106in"}
+- ![](./images/image7.png)
 
 - A dependency conflict occurs when you try to install another package that depends on the same package installed, but of a different version. Depending on your package manager, this might not be possible to do if dependencies cannot be isolated per project. This would mean that it would not be possible to install package "D".
 

@@ -18,12 +18,12 @@ Benefits of this structured approach:
 
 - Standardization and Collaboration: The workflow syntax promotes consistency across projects and teams, facilitating collaboration and knowledge sharing.
 
-> ![](./images/image84.png){width="5.076037839020122in" height="2.8552712160979876in"}
+> ![](./images/image84.png)
 
 [[5 Things to Know About Pipe Scaffolding (supremepipe.com)]{.underline}](https://supremepipe.com/blog/pipe-scaffolding/)
 
 +-----------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+----------------------------------------------------+--------------------------------------------------------------------+
-| Workflow file, runs on your CI provider | Commands that you can run on your computer to do the equivalent | | ![](./images/image67.png){width="6.25in" height="4.09375in"} |
+| Workflow file, runs on your CI provider | Commands that you can run on your computer to do the equivalent | | ![](./images/image67.png) |
 +===========================================================================================================+=====================================================================+====================================================+====================================================================+
 | CI server | macOS/Linux | Windows | |
 +-----------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+----------------------------------------------------+--------------------------------------------------------------------+
@@ -172,7 +172,7 @@ steps:
 
 run: echo \"Hello world!\"
 
-![](./images/image15.png){width="9.60369094488189in" height="6.475926290463692in"}
+![](./images/image15.png)
 
 This example introduces the `workflow_dispatch` trigger, which allows you to manually start the workflow. This feature is particularly useful for debugging purposes. The workflow is set to execute on `ubuntu-latest`, a Linux-based runner that utilizes the Bash shell---a standard configuration for many GitHub Actions workflows.
 
@@ -196,11 +196,11 @@ Now commit this file and then push those changes to your branch. You should see 
 
 You should see "Hello World Workflow" in the sidebar on GitHub. Run it and check the output.
 
-![](./images/image37.png){width="7.343641732283465in" height="2.5566491688538933in"}
+![](./images/image37.png)
 
 After you've run it, then you should see the output.
 
-![](./images/image4.png){width="8.392474846894139in" height="7.052191601049869in"}
+![](./images/image4.png)
 
 The detailed breakdown of that workflow.
 
@@ -208,7 +208,7 @@ The detailed breakdown of that workflow.
 | +-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ |
 | | name: Hello World Workflow | The workflow's name is "Hello World Workflow". You can find it because we set the "name" mapping to "Hello World Workflow". This name shows up in the sidebar of your repository. The "name" mapping specifies the name of the workflow. This isn't required, however, if you omit it then the filename of the workflow will be used. | |
 | | | | |
-| | | ![](./images/image68.png){width="2.3116404199475067in" height="2.1042497812773404in"} | |
+| | | ![](./images/image68.png) | |
 | +===================================+=======================================================================================================================================================================================================================================================================================================================================+ |
 | +-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ |
 | |
@@ -264,7 +264,7 @@ The detailed breakdown of that workflow.
 
 Beyond the basic setup, templates in GitHub Actions offer a foundation for best practices and standards. This advantage is particularly significant for teams or individuals new to CI/CD or those transitioning to GitHub Actions from other systems. The templates can be easily customized and extended, allowing developers to adjust the workflows to fit their specific project needs while maintaining the integrity and efficiency of the initial setup.
 
-![](./images/image20.png){width="6.75in" height="4.145833333333333in"}
+![](./images/image20.png)
 
 #### Steps {#steps .unnumbered}
 
@@ -322,7 +322,7 @@ Pipeline Status:
 
 - Remember: A pipeline is only as good as the build scripts it runs. Ensure your scripts perform relevant tasks and tests to guarantee code quality.
 
-![](./images/image67.png){width="6.25in" height="4.09375in"}
+![](./images/image67.png)
 
 [[A Basic Continuous Integration Pipeline with GitHub Actions -- Burkhard Stubert (embeddeduse.com)]{.underline}](https://embeddeduse.com/2022/06/06/a-basic-continuous-integration-pipeline-with-github-actions/)
 

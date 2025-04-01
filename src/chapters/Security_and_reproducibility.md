@@ -19,7 +19,7 @@
 | |
 | After reviewing the information from Azure DevOps, GitLab, and GitHub Actions, we can combine the similar points and extract general themes as follows: |
 | |
-| \### 1. **Authentication and Access Control**: |
+| ### 1. **Authentication and Access Control**: |
 | |
 | \- **User and Admin Access**: Always grant the least required permissions. Use systems like Microsoft Entra Privileged Identity Management (PIM) for Azure or ID Tokens for OpenID Connect (OIDC) Authentication in GitLab for tighter access controls. |
 | |
@@ -27,7 +27,7 @@
 | |
 | \- **Cross-repository Access and Service Connections**: Scope access strictly to necessary resources, using service connections or authentication tokens, and avoid broad permissions. |
 | |
-| \### 2. **Pipeline and Workflow Security**: |
+| ### 2. **Pipeline and Workflow Security**: |
 | |
 | \- **Pipeline Construction and Execution**: Use templates in Azure Pipelines, manage definitions with YAML, and enforce code review policies. In GitLab, make use of project-level secure files. Ensure jobs, like in GitHub Actions, run on specific branches only and sanitize inputs in build scripts. |
 | |
@@ -35,19 +35,19 @@
 | |
 | \- **Secret Management**: Store secrets securely, using tools like Azure KeyVault, HashiCorp Vault in GitLab, or avoid logging them in pipeline variables. Use specific CI/CD variables for third-party integrations. |
 | |
-| \### 3. **Third-Party Integrations and Tools**: |
+| ### 3. **Third-Party Integrations and Tools**: |
 | |
 | \- **Integration Best Practices**: Disable outdated or insecure methods, like Azure Classic service connections or PAT-based GitHub authentication. When integrating GitHub with Azure DevOps, avoid personal accounts. |
 | |
 | \- **Tooling and Automated Checks**: Use tools like OpenSSF Scorecards in GitHub to detect supply chain risks, and consider tools for downloading secure files in GitLab or checking software bills of materials (SBOM) in GitHub runners. |
 | |
-| \### 4. **Auditing and Monitoring**: |
+| ### 4. **Auditing and Monitoring**: |
 | |
 | \- **Logging and Error Checks**: Monitor service account activity, utilize security logs for account activities, and audit logs for organization activities, especially in platforms like GitHub. In GitLab, use error messages and administrative tools for diagnosing issues. |
 | |
 | \- **Repository and Branch Monitoring**: Implement repository-specific security policies, disable potentially insecure features like repository forking in Azure, and monitor production build definitions for potential credential leaks. |
 | |
-| \### 5. **Deployment and Service Configuration**: |
+| ### 5. **Deployment and Service Configuration**: |
 | |
 | \- **Service Connection Scope**: In Azure DevOps, specifically scope service connections to necessary resources. Avoid generic contributor rights and use purpose-specific team accounts. |
 | |
@@ -517,7 +517,7 @@
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Commit signing in Git adds an extra layer of integrity checks to your project by showing that a commit was made by a particular individual and has not been tampered with. This is accomplished using GPG (GNU Privacy Guard) to sign your commits. Here are step-by-step instructions: |
 | |
-| \### Step 1: Install GPG |
+| ### Step 1: Install GPG |
 | |
 | \- **Linux**: You can install GPG using the package manager for your specific Linux distribution. For Ubuntu/Debian, you would use: |
 | |
@@ -539,7 +539,7 @@
 | |
 | \- **Windows**: Download and install it from the \[official website\](https://gnupg.org/download/). |
 | |
-| \### Step 2: Generate a GPG Key Pair |
+| ### Step 2: Generate a GPG Key Pair |
 | |
 | Open your terminal and enter the following command: |
 | |
@@ -551,7 +551,7 @@
 | |
 | You will be asked for the kind of key you want, its size, and the duration the key should be valid. Generally, the default settings are good enough. Finally, you\'ll be asked for your user ID (email) and a passphrase. |
 | |
-| \### Step 3: List GPG Keys |
+| ### Step 3: List GPG Keys |
 | |
 | Run the following command to list the GPG keys for which you have both a public and private key pair. |
 | |
@@ -561,7 +561,7 @@
 | |
 |` |
 | |
-| \### Step 4: Add GPG Key to Git Config |
+| ### Step 4: Add GPG Key to Git Config |
 | |
 | From the list of GPG keys, copy the GPG key ID you\'d like to use. It\'s the part after the `/` in the `sec` row. Next, set that GPG key in your Git configuration: |
 | |
@@ -571,7 +571,7 @@
 | |
 |` |
 | |
-| \### Step 5: Enable Automatic Commit Signing |
+| ### Step 5: Enable Automatic Commit Signing |
 | |
 | You can configure Git to sign all commits by default for a repository or globally. To enable it for all repos, use: |
 | |
@@ -589,7 +589,7 @@
 | |
 |` |
 | |
-| \### Step 6: Add GPG Key to GitHub/GitLab/Other |
+| ### Step 6: Add GPG Key to GitHub/GitLab/Other |
 | |
 | 1\. To get the GPG public key, use: |
 | |
@@ -607,7 +607,7 @@
 | |
 | \- On GitLab, go to User Settings -\> GPG Keys -\> Add Key. |
 | |
-| \### Step 7: Tell Git About Your GPG Key (Optional) |
+| ### Step 7: Tell Git About Your GPG Key (Optional) |
 | |
 | In case you are using different key pairs or your machine doesn\'t pick the right one, you can set the GPG program and the signing key for each repo or globally. |
 | |
@@ -627,7 +627,7 @@
 | |
 |` |
 | |
-| \### Step 8: Verify Your Commits |
+| ### Step 8: Verify Your Commits |
 | |
 | After these steps, your commits should be signed, and you can verify them with: |
 | |
@@ -782,7 +782,7 @@
 | |
 | A bug was identified in 2002 in the OpenSSH server. This bug stemmed from a \'fencepost error\'---an off-by-one error---where the programmer mistakenly used the \"greater than\" condition instead of \"greater than or equal to.\" Upon fixing, this seemingly significant vulnerability turned out to be a difference of just a single bit in the binary. The root cause was identified by comparing assembly and compilation outputs of the vulnerable and the fixed versions. |
 | |
-| \### Key Finding: |
+| ### Key Finding: |
 | |
 | A single bit can make the difference between having a remotely exploitable bug and not having one. The study emphasizes the importance of getting the conditions right in the source code because even a small error can lead to catastrophic outcomes. |
 | |
@@ -790,7 +790,7 @@
 | |
 | To further the argument, a kernel mode rootkit was written to demonstrate the potential risks during the compilation process. The rootkit altered what source code was read during compilation without changing the actual files on the disk. This meant that standard file integrity checks like SHA-1 sum would report the source code as unaltered, while in reality, a compromised version of the code was being compiled. |
 | |
-| \### Key Finding: |
+| ### Key Finding: |
 | |
 | This demo emphasized that the trust we put in our compilers and build environments can be misplaced. Even if the source code on disk is correct, malicious actors can intervene during the compilation process to produce compromised binaries. |
 | |

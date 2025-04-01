@@ -60,7 +60,7 @@ For example, workflow files must be stored in the `.github/workflows` directory 
 
 To create a new GitHub Enterprise repository, you first need to set up an account on GitHub and potentially get access to GitHub Enterprise, depending on your organization\'s setup. Here\'s how you can do it step-by-step:
 
-\### 1. Sign Up for GitHub
+### 1. Sign Up for GitHub
 
 \- Go to \[GitHub\](https://github.com/).
 
@@ -70,13 +70,13 @@ To create a new GitHub Enterprise repository, you first need to set up an accoun
 
 \- Verify your account by following the email verification link sent to your email.
 
-\### 2. Join or Set Up GitHub Enterprise
+### 2. Join or Set Up GitHub Enterprise
 
 \- **If your organization already has GitHub Enterprise**: You will need an invitation to join from your organization's GitHub Enterprise admin. Once invited, you can log in using the credentials or SSO (Single Sign-On) method prescribed by your organization.
 
 \- **If you are setting up a new GitHub Enterprise**: You can start a trial or purchase it by visiting the \[GitHub Enterprise page\](https://github.com/enterprise). Setting up GitHub Enterprise usually requires more extensive IT involvement to handle the installation on cloud or on-premises infrastructure.
 
-\### 3. Create a New Repository
+### 3. Create a New Repository
 
 Once you have access to GitHub (and GitHub Enterprise if using):
 
@@ -90,7 +90,7 @@ Once you have access to GitHub (and GitHub Enterprise if using):
 
 \- Click **Create repository**.
 
-\### 4. Clone the Repository
+### 4. Clone the Repository
 
 \- After creating your repository, clone it to your local machine to start working on the project. You can do this by opening your command line or terminal and running:
 
@@ -102,7 +102,7 @@ git clone https://github.com/username/repository-name.git
 
 Replace `username` and `repository-name` with your GitHub username and the new repository\'s name.
 
-\### 5. Start Pushing Code
+### 5. Start Pushing Code
 
 \- After cloning the repository, you can start pushing your code to the GitHub repository by using:
 

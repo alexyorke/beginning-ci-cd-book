@@ -120,7 +120,7 @@ Here are practical examples based on the topics you\'ve listed:
 
 Here are intentionally buggy examples for each of the scenarios you mentioned, along with the solutions for the reader to debug. These examples are suitable for inclusion in a teaching material or troubleshooting guide.
 
-\### 1. GitHub Actions and Workflows Issues
+### 1. GitHub Actions and Workflows Issues
 
 **Example:**
 
@@ -184,7 +184,7 @@ run: pip install -r requirements.txt
 
 ```
 
-\### 2. File Paths and Dependency Management
+### 2. File Paths and Dependency Management
 
 **Example:**
 
@@ -236,7 +236,7 @@ Ensure platform-independent file paths or change `runs-on` to a Linux OS if the 
 runs-on: ubuntu-latest
 ```
 
-\### 3. Environment Variables and Configuration Errors
+### 3. Environment Variables and Configuration Errors
 
 **Example:**
 
@@ -392,7 +392,7 @@ Copy code
 >
 > Regarding the GitHub Actions documentation, to prevent bugs in the provided text, authors should make sure to include clear and detailed instructions on how to set up the necessary tools and dependencies, and provide examples of correctly formatted workflow files. They should also include instructions on how to troubleshoot common issues that may arise during the build or testing process.
 
-\### Addressing Various Workflow Issues
+### Addressing Various Workflow Issues
 
 These scenarios provide readers with practical challenges that they might face in real-world CI/CD pipelines using GitHub Actions. The examples intentionally contain common pitfalls like outdated dependencies, incorrect OS settings, path issues, and environmental misconfigurations, which are typical in software development workflows. The solutions aim to guide the reader through the process of identifying and resolving these issues.
 

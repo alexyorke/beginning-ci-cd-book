@@ -509,7 +509,7 @@ It\'s designed to capture events such as input delays during usage, continuously
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Certainly! Let\'s consider an example involving a simple function to process user registration in a hypothetical application. |
 | |
-| \### Poor Logging Strategy |
+| ### Poor Logging Strategy |
 | |
 | `python |
 | |
@@ -547,7 +547,7 @@ It\'s designed to capture events such as input delays during usage, continuously
 | |
 | 4\. Sensitive information, like a password, might get logged inadvertently in the exception message. |
 | |
-| \### Good Logging Strategy |
+| ### Good Logging Strategy |
 | |
 | Using Python\'s `logging` module: |
 | |
@@ -1674,13 +1674,13 @@ git tag -a v1.0 -m \"First stable release\"
 - Docker packages software applications into deployable units called images. When running, these images are referred to as containers. With Docker, tags reference specific image versions.
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| \### **What is a Dockerfile?** |
+| ### **What is a Dockerfile?** |
 | |
 | A **Dockerfile** is a text file that contains a set of instructions used to create a Docker image. Docker images are the basis of containers, which are isolated, lightweight, and reproducible environments where applications run. The Dockerfile defines the environment inside the container, including all the software and dependencies that the application needs to run. By using a Dockerfile, developers can ensure that their applications will run the same way, regardless of where the Docker container is deployed. |
 | |
 | \-\-- |
 | |
-| \### **Simple Dockerfile for a Python Web Application** |
+| ### **Simple Dockerfile for a Python Web Application** |
 | |
 | `Dockerfile |
 | |
@@ -1752,7 +1752,7 @@ git tag -a v1.0 -m \"First stable release\"
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Tagging images in Docker is a vital part of managing and organizing your images, especially when collaborating or deploying applications. Here\'s a step-by-step guide on how to tag Docker images, push them to registries, and pull them based on their tags: |
 | |
-| \### 1. Building and Tagging a Docker Image: |
+| ### 1. Building and Tagging a Docker Image: |
 | |
 | Firstly, when you\'re building an image using a `Dockerfile`, you can tag it right away: |
 | |
@@ -1774,7 +1774,7 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | ` |
 | |
-| \### 2. Tagging an Existing Image: |
+| ### 2. Tagging an Existing Image: |
 | |
 | If you have an existing image that you\'d like to tag or retag, you can use the `docker tag` command: |
 | |
@@ -1792,7 +1792,7 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | ` |
 | |
-| \### 3. Pushing Tagged Image to Docker Hub: |
+| ### 3. Pushing Tagged Image to Docker Hub: |
 | |
 | Before pushing, ensure you\'re logged into Docker Hub (or another Docker registry): |
 | |
@@ -1818,7 +1818,7 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | ` |
 | |
-| \### 4. Pushing to Other Registries: |
+| ### 4. Pushing to Other Registries: |
 | |
 | If you\'re not using Docker Hub, but another registry like Google Container Registry (GCR), Amazon Elastic Container Registry (ECR), or any other, your image name (and tag) will usually include the registry URL: |
 | |
@@ -1830,7 +1830,7 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | ` |
 | |
-| \### 5. Pulling a Tagged Image: |
+| ### 5. Pulling a Tagged Image: |
 | |
 | To pull an image based on a specific tag: |
 | |
@@ -1856,7 +1856,7 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | ` |
 | |
-| \### Tips: |
+| ### Tips: |
 | |
 | \- It\'s good practice to use meaningful tags. Common tags include version numbers (`v1.0`, `v1.1`), development stages (`dev`, `prod`), or even Git commit hashes for granularity. |
 | |
@@ -1901,13 +1901,13 @@ git tag -a v1.0 -m \"First stable release\"
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Azure Container Registry (ACR) is a managed Docker container registry service used for storing private Docker container images. To publish your Docker image (`myapp:v1`) to ACR, follow these steps: |
 | |
-| \### 1. Prerequisites: |
+| ### 1. Prerequisites: |
 | |
 | \- Ensure you have the `azure-cli` (Azure Command-Line Interface) installed. |
 | |
 | \- Ensure you have Docker installed. |
 | |
-| \### 2. Authenticate with Azure: |
+| ### 2. Authenticate with Azure: |
 | |
 | Login to your Azure account: |
 | |
@@ -1919,7 +1919,7 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | A browser window will open asking you to sign in to your Azure account. |
 | |
-| \### 3. Create an Azure Container Registry (if you haven't already): |
+| ### 3. Create an Azure Container Registry (if you haven't already): |
 | |
 | Replace `myregistry` with a unique name for your registry, and `myresourcegroup` with the name of your Azure resource group: |
 | |
@@ -1931,7 +1931,7 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | You can choose different SKUs (`Basic`, `Standard`, or `Premium`) based on your needs. |
 | |
-| \### 4. Login to ACR: |
+| ### 4. Login to ACR: |
 | |
 | Before you can push an image, you need to authenticate Docker to the Azure Container Registry: |
 | |
@@ -1941,7 +1941,7 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | ` |
 | |
-| \### 5. Tag Your Image with the Full ACR Login Server Name: |
+| ### 5. Tag Your Image with the Full ACR Login Server Name: |
 | |
 | To push an image to ACR, it needs to be tagged with the full ACR login server name. |
 | |
@@ -1961,7 +1961,7 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | ` |
 | |
-| \### 6. Push the Image to ACR: |
+| ### 6. Push the Image to ACR: |
 | |
 | Now you can push the image to your Azure Container Registry: |
 | |
@@ -1971,7 +1971,7 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | ` |
 | |
-| \### 7. Verify: |
+| ### 7. Verify: |
 | |
 | You can verify that your image was successfully pushed by listing the images in your ACR: |
 | |
@@ -1991,7 +1991,7 @@ git tag -a v1.0 -m \"First stable release\"
 | |
 | You should see `v1` in the list of tags for `myapp`. |
 | |
-| \### 8. Optional - Logout from ACR: |
+| ### 8. Optional - Logout from ACR: |
 | |
 | After you\'ve finished working with ACR, it\'s a good practice to log out: |
 | |

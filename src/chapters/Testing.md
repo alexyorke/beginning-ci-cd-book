@@ -198,11 +198,11 @@
 | |
 | Certainly, from the provided content, here\'s a distillation of the main points and debates: |
 | |
-| \### Topic: E2E Testing |
+| ### Topic: E2E Testing |
 | |
 | **E2E (End-to-End) Testing** is a method used to check whether the flow of an application right from the start to the finish is behaving as expected. It ensures that the entire process of inputs, processing, and outputs is functioning smoothly. However, its application and importance seem to have sparked a debate in the software community. |
 | |
-| \#### Arguments in favor of E2E Testing: |
+| #### Arguments in favor of E2E Testing: |
 | |
 | 1\. **Holistic Testing**: E2E tests ensure that the entire system works together seamlessly. Mocking might miss testing the \'glue\' or integration between components. |
 | |
@@ -214,7 +214,7 @@
 | |
 | 5\. **Integration Challenges**: The integration of various systems is one of the most challenging parts of modern software development. E2E testing ensures that the entire integrated scenario works as expected. |
 | |
-| \#### Arguments against E2E Testing: |
+| #### Arguments against E2E Testing: |
 | |
 | 1\. **Time Consuming**: E2E tests often require more time, making them inefficient for some use cases. |
 | |
@@ -226,7 +226,7 @@
 | |
 | 5\. **Misleading Titles**: Some of the content seems to have used clickbait titles, causing confusion. Titles such as \"Don\'t Do E2E Testing\" were deemed misleading as the content advocated for doing E2E Testing correctly. |
 | |
-| \#### Other Points: |
+| #### Other Points: |
 | |
 | \- There\'s mention of terms like **Software Under Test (SUT)** and **Unit Testing**. |
 | |
@@ -1166,7 +1166,7 @@ C#, .NET Core, .NET Depends, usually dotnet test
 | |
 | Certainly, the provided text offers a critical look at the practice of unit testing in software development. Here are the key points: |
 | |
-| \### Limitations of Unit Testing |
+| ### Limitations of Unit Testing |
 | |
 | 1\. **Overemphasis on Code Coverage**: The text argues that code coverage is not a good metric for software quality, as it doesn\'t necessarily indicate that the code does what it\'s supposed to do. |
 | |
@@ -1176,7 +1176,7 @@ C#, .NET Core, .NET Depends, usually dotnet test
 | |
 | 4\. **Tests are Not Oracles**: It cautions against viewing tests as infallible oracles, emphasizing that the true goal should be insight into how the system behaves. |
 | |
-| \### Recommendations for Effective Testing |
+| ### Recommendations for Effective Testing |
 | |
 | 1\. **Test Longevity**: Keep regression tests for up to a year, but mostly at the system-level rather than unit tests. |
 | |

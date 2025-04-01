@@ -169,9 +169,9 @@ sleep 30
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Setting up user accounts in GitHub Enterprise and ensuring secure access involves several steps. Here's a comprehensive guide to help you manage user accounts and enforce security measures like two-factor authentication (2FA) for accessing your GitHub repository. |
 | |
-| \### Step 1: Create and Configure User Accounts |
+| ### Step 1: Create and Configure User Accounts |
 | |
-| \#### **For GitHub Enterprise Server (Self-Hosted)**: |
+| #### **For GitHub Enterprise Server (Self-Hosted)**: |
 | |
 | 1\. **Login as an Administrator**: |
 | |
@@ -187,7 +187,7 @@ sleep 30
 | |
 | \- Here, you can add new users by clicking "Invite user" and entering their email addresses. Users will receive an invitation to join your GitHub Enterprise environment. |
 | |
-| \#### **For GitHub Enterprise Cloud**: |
+| #### **For GitHub Enterprise Cloud**: |
 | |
 | 1\. **Organization Setup**: |
 | |
@@ -195,7 +195,7 @@ sleep 30
 | |
 | \- Click \"People\" and select \"Invite member\" to add new users by entering their GitHub usernames or their email addresses. |
 | |
-| \### Step 2: Configure Permissions |
+| ### Step 2: Configure Permissions |
 | |
 | 1\. **Assign Roles and Teams**: |
 | |
@@ -207,7 +207,7 @@ sleep 30
 | |
 | \- For each repository, you can specify who has read, write, or admin access. Navigate to the repository settings, click on \"Collaborators & teams,\" and then add the teams or individuals with the appropriate access levels. |
 | |
-| \### Step 3: Enforce Security Policies |
+| ### Step 3: Enforce Security Policies |
 | |
 | 1\. **Enable Two-Factor Authentication (2FA)**: |
 | |
@@ -217,7 +217,7 @@ sleep 30
 | |
 | \- For GitHub Enterprise Server, navigate to the admin dashboard, select "Settings," find the "Authentication" section, and enforce 2FA by checking "Require two-factor authentication for all users." |
 | |
-| \### Step 4: Secure Connections |
+| ### Step 4: Secure Connections |
 | |
 | 1\. **Use HTTPS or SSH for Repository Access**: |
 | |
@@ -225,7 +225,7 @@ sleep 30
 | |
 | \- Encourage users to set up SSH keys for a secure connection without needing to supply username and password each time. This can be done under their personal account settings by selecting \"SSH and GPG keys\" and adding a new SSH key. |
 | |
-| \### Step 5: Audit and Compliance |
+| ### Step 5: Audit and Compliance |
 | |
 | 1\. **Regular Audits**: |
 | |
@@ -237,7 +237,7 @@ sleep 30
 | |
 | \- Continually educate users on security best practices, including the importance of strong passwords, recognizing phishing attacks, and securely managing their authentication credentials. |
 | |
-| \### Additional Recommendations |
+| ### Additional Recommendations |
 | |
 | \- **Review Third-Party Access**: Regularly review and manage third-party application access from your organization's settings to ensure that only trusted applications have access to your data. |
 | |
@@ -352,11 +352,11 @@ Typically, the alerts have a priority associated with them, for example critical
 
 Here\'s how you can set up Dependabot for your repository:
 
-\### Step 1: Access Your GitHub Repository
+### Step 1: Access Your GitHub Repository
 
 Navigate to the GitHub repository where you want to enable Dependabot.
 
-\### Step 2: Create a Dependabot Configuration File
+### Step 2: Create a Dependabot Configuration File
 
 You need to create a `.github/dependabot.yml` file in your repository to configure Dependabot settings.
 
@@ -404,7 +404,7 @@ versions: \[\"4.x.x\"\]
 
 Modify the `package-ecosystem`, `directory`, and other fields as per your project\'s requirements.
 
-\### Step 3: Commit the Configuration File
+### Step 3: Commit the Configuration File
 
 \- After entering your configuration into the `dependabot.yml` file:
 
@@ -416,11 +416,11 @@ Modify the `package-ecosystem`, `directory`, and other fields as per your projec
 
 \- Click "Commit new file" or \"Propose new file\" if you're creating a pull request.
 
-\### Step 4: Dependabot Activation
+### Step 4: Dependabot Activation
 
 Once the `dependabot.yml` file is committed, GitHub automatically recognizes and activates Dependabot based on the settings you've defined. Dependabot will begin checking for updates and will open pull requests according to the schedule you\'ve set.
 
-\### Step 5: Review and Merge Pull Requests
+### Step 5: Review and Merge Pull Requests
 
 \- Dependabot will raise pull requests when it finds updates.
 
@@ -428,7 +428,7 @@ Once the `dependabot.yml` file is committed, GitHub automatically recognizes and
 
 \- Merge the pull requests to update the dependencies in your project.
 
-\### Additional Configurations
+### Additional Configurations
 
 You can customize Dependabot to ignore certain dependencies, apply labels automatically to pull requests, configure assignees, and more. For advanced configurations and specific settings for different ecosystems (like Maven, NuGet, Docker, etc.), refer to the \[Dependabot documentation\](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates).
 

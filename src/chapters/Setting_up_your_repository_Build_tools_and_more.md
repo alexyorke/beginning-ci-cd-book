@@ -1858,7 +1858,7 @@ Normally, the type of project you are trying to build can be determined via a fe
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Linting tools help developers identify issues like syntax errors, potential bugs, or non-adherence to coding standards. Here\'s a list of popular linting tools by programming language: |
 | |
-| \### JavaScript |
+| ### JavaScript |
 | |
 | 1\. **ESLint**: Extensible linting utility for JavaScript and JSX. |
 | |
@@ -1868,7 +1868,7 @@ Normally, the type of project you are trying to build can be determined via a fe
 | |
 | 4\. **StandardJS**: An opinionated linter that enforces a particular style guide. |
 | |
-| \### Python |
+| ### Python |
 | |
 | 1\. **PyLint**: Highly customizable and provides out-of-the-box support for coding standards. |
 | |
@@ -1878,7 +1878,7 @@ Normally, the type of project you are trying to build can be determined via a fe
 | |
 | 4\. **mypy**: For type checking Python code. |
 | |
-| \### Java |
+| ### Java |
 | |
 | 1\. **Checkstyle**: A tool for checking Java coding standards. |
 | |
@@ -1886,7 +1886,7 @@ Normally, the type of project you are trying to build can be determined via a fe
 | |
 | 3\. **FindBugs**: Static code analysis tool for Java. |
 | |
-| \### C/C++ |
+| ### C/C++ |
 | |
 | 1\. **cppcheck**: A static analysis tool for C/C++ code. |
 | |
@@ -1894,19 +1894,19 @@ Normally, the type of project you are trying to build can be determined via a fe
 | |
 | 3\. **CPPLint**: A tool for checking C++ code against Google\'s style guide. |
 | |
-| \### Ruby |
+| ### Ruby |
 | |
 | 1\. **RuboCop**: A Ruby static code analyzer based on the community Ruby style guide. |
 | |
 | 2\. **Reek**: Tool that examines Ruby classes, modules, and methods and reports code smells. |
 | |
-| \### Go |
+| ### Go |
 | |
 | 1\. **Golint**: A linter for Go source code that follows Google\'s Go style guide. |
 | |
 | 2\. **Go Vet**: A tool that comes with the Go compiler and checks for correctness. |
 | |
-| \### PHP |
+| ### PHP |
 | |
 | 1\. **PHP_CodeSniffer**: Detects violations of a defined set of coding standards. |
 | |
@@ -1914,27 +1914,27 @@ Normally, the type of project you are trying to build can be determined via a fe
 | |
 | 3\. **Psalm**: A static analysis tool for finding errors in PHP applications. |
 | |
-| \### Swift |
+| ### Swift |
 | |
 | 1\. **SwiftLint**: A tool to enforce Swift style and conventions. |
 | |
 | 2\. **Tailor**: A static analysis and linting tool for Swift code. |
 | |
-| \### Rust |
+| ### Rust |
 | |
 | 1\. **Clippy**: A collection of lints to catch common mistakes and improve Rust code. |
 | |
-| \### Shell |
+| ### Shell |
 | |
 | 1\. **ShellCheck**: A shell script static analysis tool for sh/bash scripts. |
 | |
-| \### HTML/CSS |
+| ### HTML/CSS |
 | |
 | 1\. **HTMLHint**: A static code analysis tool for HTML. |
 | |
 | 2\. **stylelint**: A linter that helps enforce consistent conventions and avoid bugs in your stylesheets. |
 | |
-| \### YAML/JSON/XML |
+| ### YAML/JSON/XML |
 | |
 | **1. **yamllint**: A linter for YAML files.** |
 | |

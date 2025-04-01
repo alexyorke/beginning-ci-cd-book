@@ -37,19 +37,19 @@
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Adding to the previous groupings, here\'s how the additional file path globs can be categorized by theme: |
 | |
-| \### Documentation |
+| ### Documentation |
 | |
 | \- `**.md`, `\*.md`, `**/\*.md`, `**.adoc`, `**/\*.txt`, `\*.txt`, `**.rst`, `**/\*.rst`, `docs/**`, `doc/**`, `docs/`, `docs/\*`, `Docs/\*`, `documentation/**`, `README.md`, `README\*`, `README.\*`, `readme.md`, `CHANGELOG.md`, `changelog.txt`, `CONTRIBUTING.md`, `LICENSE.md`, `LEGAL`, `NOTICE`, `CODEOWNERS`, `Vision.md`, `ToUpgrade.md`, `ToTest.md`, `TestEnv.md`, `README.ko.md`, `HowToSetProject.md`, `HowToSetProject.ko.md`, `Example.md`, `CODE_OF_CONDUCT.md`, `**/\*.markdown`, `\*.rst`, `**/\*.rst` |
 | |
-| \### Project Configuration and Setup |
+| ### Project Configuration and Setup |
 | |
 | \- `.gitignore`, `.gitattributes`, `.editorconfig`, `.travis.yml`, `.all-contributorsrc`, `.vscode/**`, `.github/**`, `.github/ISSUE_TEMPLATE/**`, `.github/workflows/**`, `.gitmodules`, `.gitlab-ci.yml`, `.dependabot/**`, `.cirrus.yml`, `.dockerignore`, `.circleci/**`, `.codecov.yml`, `.clang-format`, `.yamllint`, `.vscode`, `.spellcheck.dict.txt`, `.devcontainer`, `.ansible-lint`, `.prettierrc`, `.prettierignore`, `.lintstagedrc.js`, `config/**`, `package.json`, `appveyor.yml`, `Dockerfile`, `docker-compose.yml`, `docker/**`, `data/**`, `site/**`, `examples/**`, `build/**`, `snap/**`, `scripts/**`, `**/.gitignore`, `**/\*.yml`, `\*.yml`, `**.yml`, `\*.sh`, `**/\*.sh`, `**.nix`, `**.txt`, `**/\*.txt`, `Makefile`, `**.png`, `**/\*.png`, `\*.png`, `\*.html`, `\*.bat`, `\*.ini`, `**/\*.org`, `**.org`, `lombok.config`, `requirements.txt`, `Brewfile`, `**/argoDeploy.json`, `**/\*.rst`, `**.rst` |
 | |
-| \### License and Legal |
+| ### License and Legal |
 | |
 | \- `LICENSE`, `LICENCE`, `LICENSE.txt`, `**/LICENSE` |
 | |
-| \### Continuous Integration and Continuous Deployment (CI/CD) |
+| ### Continuous Integration and Continuous Deployment (CI/CD) |
 | |
 | \- `.github/workflows/macos.yml`, `.github/workflows/TagBot.yml`, `.github/workflows/pages.yml`, `.github/labels.yml`, `.github/workflows/test.yml`, `.github/workflows/windows.yml`, `.github/workflows/dockerhub-description.yml`, `.github/CONTRIBUTING.md`, `.github/dependabot.yml`, `.github/CODEOWNERS`, `.github/ISSUE_TEMPLATE/\*`, `.github/ISSUE_TEMPLATE`, `.github/renovate.json`, `.github/\*.yml`, `.github/\*`, `.github/workflows/generate.yml`, `.github/workflows/verify-pages.yml`, `.github/workflows/no-response.yml`, `.github/workflows/labels.yml`, `.github/workflows/ubuntu.yml`, `.github/workflows/release.yml`, `.github/workflows/buildx-release.yml`, `.github/workflows/buildx-latest.yml`, `.github/release.yml`, `.github/FUNDING.yml`, `.github/workflows/mingw-w64.yml`, `.github/workflows/docker.yml`, `./github/**`, `!./github/workflow/test.yml`, `!**/\*.yml`, `!**/\*.sh`, `!**/\*.png`, `!**/\*.html`, `!**/\*.bat`, `!**/\*.ini`, `!**/\*.org`, `!\*\*/\*.rst`, `ci/subst-release-info.py`, `ci/generate-docs.py`, `ci/build-docs.sh` |
 +=====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
@@ -59,25 +59,25 @@
 
 Sharing information between steps and jobs in a CI/CD pipeline is crucial for maintaining continuity and consistency across the workflow. Here\'s how it works more coherently explained:
 
-\### Information Sharing Between Steps
+### Information Sharing Between Steps
 
 1\. **In-Memory Structures**: Information that isn\'t persisted to the file system, like variables or environment variables, can be passed between steps within the same job.
 
 2\. **Outputs as Inputs**: Outputs from one step can be used as inputs in subsequent steps. For example, generating a version number in one step and using it in subsequent steps for tasks like stamping the version into source code, resource files, or naming artifacts.
 
-\### Job-to-Job Communication
+### Job-to-Job Communication
 
 1\. **Sequential Job Execution**: To pass information from one job to another, the first job must complete before the next starts if the subsequent job relies on outputs from the first.
 
 2\. **Using Outputs Across Jobs**: Outputs from one job can be set as inputs for the next job. This is particularly useful for sharing configuration data, such as release numbers or outcomes of tests.
 
-\### Practical Usage of Outputs
+### Practical Usage of Outputs
 
 1\. **Version Control**: A common use of outputs is to generate a version number that can be utilized across multiple steps, ensuring all parts of the application and its artifacts are version-coordinated.
 
 2\. **Conditional Steps Based on Outputs**: Outputs can determine workflow logic, such as skipping software installation steps if caches were successfully restored.
 
-\### Technical Implementation
+### Technical Implementation
 
 1\. **Unique Step Identification**: Ensure each step that generates outputs has a unique \"id\" so its outputs can be specifically referenced.
 
@@ -1051,7 +1051,7 @@ Additionally, proxying public registries like npmjs.org with your own server can
 
 To create and publish a new NPM package to GitHub Artifacts (assuming you want to use GitHub Packages as your artifact repository), follow these detailed instructions. This guide will also show you how to create three versions of your package.
 
-\### Step 1: Set Up Your Project
+### Step 1: Set Up Your Project
 
 1\. **Create a New Directory for Your Project:**
 
@@ -1087,7 +1087,7 @@ function greet(name) {
 module.exports = greet;
 ```
 
-\### Step 2: Configure GitHub Packages
+### Step 2: Configure GitHub Packages
 
 1\. **Authenticate to GitHub Packages:**
 
@@ -1123,7 +1123,7 @@ Add a `publishConfig` section to your `package.json` to specify the GitHub Packa
 
 Replace `YOUR-USERNAME` with your GitHub username.
 
-\### Step 3: Publish Your Package
+### Step 3: Publish Your Package
 
 1\. **Publish the Package:**
 
@@ -1139,7 +1139,7 @@ npm publish
 
 Check your GitHub repository under the \'Packages\' section to see your newly published npm package.
 
-\### Step 4: Update and Publish New Versions
+### Step 4: Update and Publish New Versions
 
 To publish new versions of your package, you will make changes, update the version in your `package.json`, and then run `npm publish` again. Here's how to create three versions:
 

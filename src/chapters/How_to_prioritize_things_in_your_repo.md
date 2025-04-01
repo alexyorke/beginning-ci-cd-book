@@ -238,14 +238,14 @@ For example, if a build fails, you can set up the system to automatically notify
 
 This integration ensures that stakeholders are kept informed in the most effective way possible, improving communication and response times across your projects.
 
-\### Deployment Pipeline Activation
+### Deployment Pipeline Activation
 
 The entire deployment pipeline can be activated by a single webhook call. However, for more complex workflows that involve multiple conditional steps, you might need to manage this process more finely. This involves using filters to selectively trigger specific steps based on certain conditions, similar to using filters in an email service to sort incoming emails.
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | To send a notification to Microsoft Teams when a build fails on the main branch, it\'s best to use official actions or direct HTTP requests to the Teams webhook from GitHub Actions, avoiding third-party actions unless necessary. Below, I\'ll guide you on setting up a workflow using GitHub Actions\' native capabilities for HTTP requests. |
 | |
-| \### Step 1: Set Up Microsoft Teams Incoming Webhook |
+| ### Step 1: Set Up Microsoft Teams Incoming Webhook |
 | |
 | First, you need to set up an incoming webhook in Microsoft Teams: |
 | |
@@ -255,7 +255,7 @@ The entire deployment pipeline can be activated by a single webhook call. Howeve
 | |
 | 3\. Find and configure the **Incoming Webhook**, give it a name, and copy the provided URL. |
 | |
-| \### Step 2: Create the GitHub Actions Workflow |
+| ### Step 2: Create the GitHub Actions Workflow |
 | |
 | Create a new YAML file in the `.github/workflows` directory of your repository, such as `notify_teams_on_failure.yml`. Here's how to configure it: |
 | |
@@ -349,7 +349,7 @@ The entire deployment pipeline can be activated by a single webhook call. Howeve
 | |
 |  `` |
 | |
-| \### Explanation of the Workflow: |
+| ### Explanation of the Workflow: |
 | |
 | \- **Trigger**: The workflow is triggered by pushes to the `main` branch. |
 | |
@@ -361,7 +361,7 @@ The entire deployment pipeline can be activated by a single webhook call. Howeve
 | |
 | \- **Notify Teams on failure**: Uses `actions/github-script` to execute JavaScript code. It makes an HTTP POST request to the Microsoft Teams webhook URL with a custom message formatted as a MessageCard. |
 | |
-| \### Setting Secrets: |
+| ### Setting Secrets: |
 | |
 | You should store your Microsoft Teams webhook URL securely: |
 | |
@@ -380,7 +380,7 @@ And this is a way where you can trigger a workflow based on a web hook. So for e
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Integrating a webhook inside Discord to initiate a build to production and setting up security measures involves several steps, including configuring Discord, setting up a server to handle the webhook, and ensuring proper access controls. Here's a detailed guide on how to accomplish this: |
 | |
-| \### Step 1: Setting Up a Discord Bot |
+| ### Step 1: Setting Up a Discord Bot |
 | |
 | 1\. **Create a Discord Bot**: |
 | |
@@ -398,7 +398,7 @@ And this is a way where you can trigger a workflow based on a web hook. So for e
 | |
 | \- Use the generated URL to invite the bot to your Discord server. |
 | |
-| \### Step 2: Creating a Server to Handle Webhook Calls |
+| ### Step 2: Creating a Server to Handle Webhook Calls |
 | |
 | You'll need a server that can receive commands from Discord and trigger actions on GitHub. This server will act as a middleman between Discord and GitHub. |
 | |
@@ -472,7 +472,7 @@ And this is a way where you can trigger a workflow based on a web hook. So for e
 | |
 |  `` |
 | |
-| \### Step 3: Configuring GitHub Actions |
+| ### Step 3: Configuring GitHub Actions |
 | |
 | Create a GitHub Actions workflow that listens for the `deploy-production` event. |
 | |
@@ -508,7 +508,7 @@ And this is a way where you can trigger a workflow based on a web hook. So for e
 | |
 | ` |
 | |
-| \### Security Considerations |
+| ### Security Considerations |
 | |
 | 1\. **Token Security**: Secure your Discord bot token and GitHub personal access token. Do not hard-code them in your source code. Use environment variables or secret management tools. |
 | |

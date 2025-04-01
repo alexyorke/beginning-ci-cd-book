@@ -78,7 +78,7 @@ It should therefore be prefixed with cdp-weather-web-prod
 
 This provides a nice name we can use later and helps us inventory and group our resources, making it clear which resource is assigned to what.
 
-\### Step 1: Set Up Your Development Environment
+### Step 1: Set Up Your Development Environment
 
 1\. **Install Node.js and npm:**
 
@@ -90,7 +90,7 @@ This provides a nice name we can use later and helps us inventory and group our 
 
 \- A code editor will help you to write your code more efficiently. \[Visual Studio Code\](https://code.visualstudio.com/) is a popular choice among developers because it supports JavaScript and React out of the box, along with many useful extensions.
 
-\### Installing Git
+### Installing Git
 
 **Windows:**
 
@@ -164,7 +164,7 @@ sudo dnf install git
 
 \- Type `git \--version` in the terminal to check the installed version.
 
-\### Installing GitHub Desktop (optional)
+### Installing GitHub Desktop (optional)
 
 **Windows and macOS:**
 
@@ -214,7 +214,7 @@ This command creates a new branch named \"initial-commit\" and checks it out, so
 
 Run the following commands in that repository.
 
-\### Step 2: Create a New React Application
+### Step 2: Create a New React Application
 
 Make sure that you have at least NPM 10.8.0 installed. You can update it by typing npm install -g npm@10.8.0 or whatever the latest version is.
 
@@ -236,7 +236,7 @@ npx create-react-app weather-app
 
 \- Change into the newly created project directory with `cd weather-app`.
 
-\### Step 3: Run the React Application
+### Step 3: Run the React Application
 
 \- Inside the project directory, start the development server by running:
 
@@ -248,7 +248,7 @@ npm start
 
 \- This command runs the app in development mode. Open `http://localhost:3000` to view it in the browser. The page will reload if you make edits.
 
-\### Step 4: Integrate Weather Data
+### Step 4: Integrate Weather Data
 
 1\. **Choose a Weather API:**
 
@@ -272,13 +272,13 @@ Later, we will explore solutions for safely using the API key in a production en
 
 **Aside**
 
-\### Understanding the Build Process:
+### Understanding the Build Process:
 
 \- **Compiled Files**: The files in the `dist` folder are the result of the compilation process. For example, if you\'re using a framework like React, the `npm run build` command transforms React code into plain JavaScript. This is necessary because browsers cannot interpret React code directly; they only understand JavaScript.
 
 \- **Deployment Preparation**: The `dist` folder contains the compiled version of your application, which is what you will deploy. This folder holds all the static files required to run your application on any standard web server.
 
-\### Why Compilation Matters:
+### Why Compilation Matters:
 
 The compilation step is crucial because it translates code from development frameworks (like React) into a format that can be executed by a web browser, typically JavaScript, HTML, and CSS. This process ensures compatibility across different environments and optimizes performance for production.
 
@@ -364,7 +364,7 @@ export default Weather;
 
 ```
 
-\### Step 5: Include the Weather Component in Your App
+### Step 5: Include the Weather Component in Your App
 
 \- Open `src/App.js`.
 
@@ -709,7 +709,7 @@ Let's do a small refactor and see how we can write some tests.
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | To write effective tests for the `Weather` component and to make the application more testable, we need to structure our code in a way that is easier to isolate and verify individual parts. Here are some improvements and test examples for the component: |
 | |
-| \### Improving Code Structure for Testing |
+| ### Improving Code Structure for Testing |
 | |
 | 1\. **Decouple Data Fetching from Component Rendering:** |
 | |
@@ -723,7 +723,7 @@ Let's do a small refactor and see how we can write some tests.
 | |
 | Add more robust error handling and loading state management to improve user experience and make testing these states easier. |
 | |
-| \### Refactored Component Code |
+| ### Refactored Component Code |
 | |
 | Here's an example of how you could refactor the `Weather` component to make it more testable: |
 | |
@@ -803,7 +803,7 @@ Let's do a small refactor and see how we can write some tests.
 | |
 |  `` |
 | |
-| \### Writing Tests |
+| ### Writing Tests |
 | |
 | Here are some test examples using Jest and React Testing Library: |
 | |
@@ -869,7 +869,7 @@ Let's do a small refactor and see how we can write some tests.
 | |
 | ` |
 | |
-| \### Additional Considerations |
+| ### Additional Considerations |
 | |
 | \- For production, consider implementing a backend service to handle API requests. This service can secure your API keys and manage the data before sending it to the frontend. |
 | |
@@ -1190,11 +1190,11 @@ Options:
 
 Deploying a simple static website using an Azure Storage Account and a Content Delivery Network (CDN) can be a more cost-effective and scalable option, especially for serving static content like HTML and JavaScript files globally. Here's a guide on how to set this up:
 
-\### Step 1: Install Azure CLI
+### Step 1: Install Azure CLI
 
 Before you start, ensure that the Azure CLI is installed on your computer. If not installed yet, download and install it from the \[official Azure CLI page\](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli).
 
-\### Step 2: Log in to Azure
+### Step 2: Log in to Azure
 
 Open your terminal or command prompt and log in to your Azure account using the following command:
 
@@ -1204,7 +1204,7 @@ az login
 
 ````
 
-\### Step 3: Create a Storage Account
+### Step 3: Create a Storage Account
 
 \- **Navigate to Storage Accounts**: In the Azure portal, click on \"Create a resource\" and search for \"Storage Account\".
 
@@ -1222,7 +1222,7 @@ az login
 
 \- **Review and Create**: Review your settings and create the storage account.
 
-\### Step 4: Enable Static Website Hosting
+### Step 4: Enable Static Website Hosting
 
 \- **Configure Static Website**:
 
@@ -1244,7 +1244,7 @@ In the Storage account, navigate to either the Access Management tab or the Acce
 
 Sample HTML file with just some trivial contents, for example the text Hello world.
 
-\#### Example:
+#### Example:
 
 To upload an HTML file named `index.html` from your local machine to the \'\$web` container in your storage account, use:
 
@@ -1254,7 +1254,7 @@ az storage blob upload \--account-name cicdbookweb \--container-name '\$web' \--
 
 ```
 
-\### Step 7: Verify Upload
+### Step 7: Verify Upload
 
 Confirm that your file has been successfully uploaded to the blob container:
 
@@ -1264,7 +1264,7 @@ az storage blob list \--container-name cicdbookweb \--output table
 
 ```
 
-\### Step 8: Set Up Azure CDN for Faster Content Delivery
+### Step 8: Set Up Azure CDN for Faster Content Delivery
 
 \- **Create a CDN Profile**:
 
@@ -1278,7 +1278,7 @@ az storage blob list \--container-name cicdbookweb \--output table
 
 Select review plus create.
 
-\### Step 9: Access Your Deployed Site
+### Step 9: Access Your Deployed Site
 
 \- **Site URL**:
 
@@ -1477,7 +1477,7 @@ You need GitHub Enterprise to set up pre-deployment checks (i.e., getting someon
 
 A typical scenario is to get QA to approve before it moves to the next stage. Let's show how to set up this sample scenario.
 
-\### Step 1: Define Environments in Your Repository
+### Step 1: Define Environments in Your Repository
 
 First, you need to set up environments in your GitHub repository where you can specify protection rules including manual approvals.
 
@@ -1503,7 +1503,7 @@ First, you need to set up environments in your GitHub repository where you can s
 
 \- Click \"Save protection rules\".
 
-\### Step 2: Update Your GitHub Actions Workflow
+### Step 2: Update Your GitHub Actions Workflow
 
 After setting up your environments with required approvals, you need to modify your GitHub Actions workflow to use these environments.
 
@@ -1563,7 +1563,7 @@ echo \"::set-output name=url::http://example.com\" \# Simulated deployment outpu
 
 ```
 
-\### Step 3: Commit and Push Changes
+### Step 3: Commit and Push Changes
 
 After editing your workflow file:
 
@@ -1571,7 +1571,7 @@ After editing your workflow file:
 
 \- Push the commit to your branch.
 
-\### Step 4: Trigger the Workflow
+### Step 4: Trigger the Workflow
 
 Push or merge a commit that triggers the modified workflow. If the workflow accesses a job that uses the protected environment:
 
@@ -1579,13 +1579,13 @@ Push or merge a commit that triggers the modified workflow. If the workflow acce
 
 \- Go to the \"Actions\" tab of your repository to see the pending approval.
 
-\### Step 5: Approve the Workflow
+### Step 5: Approve the Workflow
 
 \- Authorized reviewers can go to the \"Actions\" tab, click on the workflow run, and then click \"Review deployments\".
 
 \- They can then approve or reject the deployment.
 
-\### Step 6: Monitor the Deployment
+### Step 6: Monitor the Deployment
 
 After approval, watch the workflow continue its execution. If you provided an output URL in the environment configuration, GitHub would link the deployment to this URL for easy access.
 

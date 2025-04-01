@@ -403,100 +403,56 @@ Build servers offer several advantages over local builds:
 
 #### Popular security static analysis tools {#popular-security-static-analysis-tools .unnumbered}
 
-- Open-Source Tools
+Open-Source Tools
 
 - FindBugs with FindSecBugs Plugin: A static code analysis tool for Java that can identify security vulnerabilities with the FindSecBugs plugin.
-
--
-
 - Checkmarx: Although primarily a commercial tool, Checkmarx does offer a limited free version that performs static code analysis for multiple languages.
-
--
-
 - Bandit: Focuses on Python codebase and is designed to find common security issues.
-
--
-
 - Brakeman: A static analysis tool for Ruby on Rails applications.
-
--
-
 - SonarQube: Offers various language plugins and detects many types of vulnerabilities. The Community Edition is free.
-
--
-
 - ESLint with Security Plugin: A widely-used linting tool for JavaScript that can also be used for security checks with the right set of plugins.
-
--
-
 - Flawfinder: Scans C and C++.
-
--
-
 - Cppcheck: Another static analysis tool for C/C++ codebases.
-
--
-
 - YASCA (Yet Another Source Code Analyzer): Supports multiple languages including Java, C/C++, and HTML, but focuses primarily on web vulnerabilities.
 
--
-
-- Commercial Tools
+Commercial Tools
 
 - Checkmarx: A leading SAST tool that supports multiple programming languages and is designed for enterprise use.
-
--
-
 - Veracode: Offers a static analysis service as part of a larger application security suite.
-
--
-
 - Fortify Static Code Analyzer: Provided by Micro Focus, it covers multiple languages and offers integration with IDEs and CI/CD tools.
-
--
-
 - IBM AppScan: Focuses on identifying vulnerabilities in web and mobile applications, supporting multiple programming languages.
-
--
-
 - Kiuwan: Offers a broad range of language support and integrates with various IDEs and CI/CD tools.
-
--
-
 - Synopsys Coverity: Supports multiple languages and offers CI/CD integration.
-
--
-
 - GitLab Ultimate: Built-in SAST in their Ultimate plan. It supports many languages and is integrated directly into the GitLab CI/CD pipeline.
 
 #### Integrating with External Services and Tools {#integrating-with-external-services-and-tools .unnumbered}
 
-> Sometimes, your build pipeline might need to connect to other services because it doesn't have all of the information it needs inside of the repository. This is because there are external APIs, artifact repositories, secret managers, etc. that can't be part of the repository.
->
-> Why would you want to connect to external services, isn't everything I need in my repository? There are some things that can't be in your repository, because they are integrations, APIs, or managers that don't have a "physical" presence.
->
-> Security Reasons
->
-> Sensitive information, like API keys, database credentials, and other secrets, should never be stored directly in your repository. It\'s a security risk. Instead, these secrets are typically stored in specialized tools called secret managers (like HashiCorp\'s Vault, AWS Secrets Manager, or Azure Key Vault). When your pipeline needs to access a database or an external API, it will first fetch the necessary credentials from these managers. This ensures that sensitive information remains secure and doesn\'t accidentally get exposed or leaked.
->
-> Artifact Management
->
-> In many CI/CD pipelines, especially in large and complex projects, compiled code or built artifacts need to be stored or fetched. These artifacts are stored in artifact repositories like JFrog Artifactory or Nexus Repository. Connecting to these repositories can help fetch dependencies or store new ones post-build.
->
-> Integration and End-to-End Testing
->
-> Modern applications often rely on a myriad of microservices. When testing, it\'s crucial to ensure that these services work well together. For this, your pipeline might need to connect to service stubs, mocks, or even real services in a staging environment to perform integration or end-to-end tests.
->
-> Setup would depend on your CI software. You may need to connect a service to it.
->
-> After that, the secrets are normally available via environment variables in your pipeline. Typically, connecting to a service will pass along the inherited identity from the pipeline to the service, thereby authenticating you to it. Sometimes, you will need to manage these secrets manually.
+Sometimes, your build pipeline might need to connect to other services because it doesn't have all of the information it needs inside of the repository. This is because there are external APIs, artifact repositories, secret managers, etc. that can't be part of the repository.
+
+Why would you want to connect to external services, isn't everything I need in my repository? There are some things that can't be in your repository, because they are integrations, APIs, or managers that don't have a "physical" presence.
+
+Security Reasons
+
+Sensitive information, like API keys, database credentials, and other secrets, should never be stored directly in your repository. It\'s a security risk. Instead, these secrets are typically stored in specialized tools called secret managers (like HashiCorp\'s Vault, AWS Secrets Manager, or Azure Key Vault). When your pipeline needs to access a database or an external API, it will first fetch the necessary credentials from these managers. This ensures that sensitive information remains secure and doesn\'t accidentally get exposed or leaked.
+
+Artifact Management
+
+In many CI/CD pipelines, especially in large and complex projects, compiled code or built artifacts need to be stored or fetched. These artifacts are stored in artifact repositories like JFrog Artifactory or Nexus Repository. Connecting to these repositories can help fetch dependencies or store new ones post-build.
+
+Integration and End-to-End Testing
+
+Modern applications often rely on a myriad of microservices. When testing, it\'s crucial to ensure that these services work well together. For this, your pipeline might need to connect to service stubs, mocks, or even real services in a staging environment to perform integration or end-to-end tests.
+
+Setup would depend on your CI software. You may need to connect a service to it.
+
+After that, the secrets are normally available via environment variables in your pipeline. Typically, connecting to a service will pass along the inherited identity from the pipeline to the service, thereby authenticating you to it. Sometimes, you will need to manage these secrets manually.
 
 Exercises
 
-> Set up a very simple pipeline. This pipeline should initially not be attached to PRs but instead run after a commit is merged. This is because there might be many mistakes while you set up the pipeline, and it might add an unnecessary blocker to those trying to merge. The pipeline should be as simple as possible and should just build the code and then run the simple test suite. Don't worry about publishing build artifacts, it should only build the code and return a status regarding if the build succeeded or failed. Make sure that the test suite runs and confirm in the logs that the test name and status show up correctly so as to diagnose any failing tests. Try to use a build template to build your application, and make sure that the template reflects the build script as closely as possible.
->
-> Set up the continuous integration server (or build server) to compile and run the code. Using the information derived from the planning stage, set up the build server to compile and build the code as a baseline. Developers will perform changes on the codebase, and should have sufficient tooling on their workstation to test the changes. This tooling should match what is run on the continuous integration system. It is important that developers have a stable copy on their workstation so that they can perform changes to the code because otherwise it would be overwritten by other developers\' work. It is important that the tooling on the developer's machines matches the tooling on the build server because the build server's artifacts will be what is deployed. There should be sufficient tooling on the continuous integration system to make sure that there is a reasonable level of confidence that the changes are good. Choose activities that are prime for automation and are difficult for humans to do, such as compiling code, checking (tests), etc.
+Set up a very simple pipeline. This pipeline should initially not be attached to PRs but instead run after a commit is merged. This is because there might be many mistakes while you set up the pipeline, and it might add an unnecessary blocker to those trying to merge. The pipeline should be as simple as possible and should just build the code and then run the simple test suite. Don't worry about publishing build artifacts, it should only build the code and return a status regarding if the build succeeded or failed. Make sure that the test suite runs and confirm in the logs that the test name and status show up correctly so as to diagnose any failing tests. Try to use a build template to build your application, and make sure that the template reflects the build script as closely as possible.
 
-Review and refine: Continuously review and refine the documented process. Encourage feedback from the team for improvements.
+Set up the continuous integration server (or build server) to compile and run the code. Using the information derived from the planning stage, set up the build server to compile and build the code as a baseline. Developers will perform changes on the codebase, and should have sufficient tooling on their workstation to test the changes. This tooling should match what is run on the continuous integration system. It is important that developers have a stable copy on their workstation so that they can perform changes to the code because otherwise it would be overwritten by other developers\' work. It is important that the tooling on the developer's machines matches the tooling on the build server because the build server's artifacts will be what is deployed. There should be sufficient tooling on the continuous integration system to make sure that there is a reasonable level of confidence that the changes are good. Choose activities that are prime for automation and are difficult for humans to do, such as compiling code, checking (tests), etc.
+
+Continuously review and refine: Continuously review and refine the documented process. Encourage feedback from the team for improvements.
 
 A useful pattern, when you don't have all of the steps automated, is to add a manual approval step. All this does is pauses the pipeline at a certain step, and allows you to inspect the build artifacts. This step should only be temporary, and automation should slowly fill in the gaps where scripting is not available.

@@ -12,3 +12,4 @@ preferred-dark-theme = "navy"
 git-repository-url = "https://github.com/alexyorke/beginning-ci-cd-book"
 git-repository-icon = "fa-github"
 edit-url-template = "https://github.com/alexyorke/beginning-ci-cd-book/edit/main/{path}"
+mathjax-support = true

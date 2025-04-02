@@ -2,6 +2,8 @@
 
 Many developers and organizations embark on their journey with Continuous Integration and Continuous Deployment (CI/CD) full of optimism, yet the real-life experiences of countless developers reveal that the path to mastering CI/CD is fraught with complications, unexpected setbacks, and sometimes overwhelming obstacles. As we strip away the buzz and the lofty claims about CI/CD revolutionizing development, we often find developers entangled in tedious manual setups, scrambling to manage breakdowns in production, hindered by team silos, and grappling with complex, fragile systems.
 
+> **Note:** This book is currently in beta. As such, you may encounter content that is still being refined, sections that are being reorganized, or explanations that will be expanded in future updates. We welcome your feedback as we continue to improve and develop this resource.
+
 This book is an endeavor to peel back the layers of CI/CD, moving beyond mere automation and frequent code merging. We aim to guide you through the intricacies of what CI/CD truly entails and how to implement it effectively using GitHub Actions as a practical example. While the theory of CI/CD promises streamlined operations and faster deployments, the reality involves navigating through a myriad of challenges that can stymie even the most determined teams.
 
 ### What is CI/CD?

@@ -4,21 +4,21 @@ This section explores CI/CD through the practical lens of building a sophisticat
 
 Imagine wearing a project manager\'s hat and envisioning potential features for our weather application:
 
-- \- Displaying precipitation data for user-specified locations
+- Displaying precipitation data for user-specified locations
 
-- \- Zoom functionality for map visualization
+- Zoom functionality for map visualization
 
-- \- Backend database for storing updated weather information
+- Backend database for storing updated weather information
 
-- \- REST API to serve data to the front-end
+- REST API to serve data to the front-end
 
-- \- Geolocation service to convert addresses to coordinates
+- Geolocation service to convert addresses to coordinates
 
-- \- Caching mechanisms for performance optimization
+- Caching mechanisms for performance optimization
 
-- \- Historical precipitation data for a comprehensive user experience
+- Historical precipitation data for a comprehensive user experience
 
-- \- Pipeline feasibility for regenerating weather map tiles
+- Pipeline feasibility for regenerating weather map tiles
 
 **Key Features and Development Strategy:**
 
@@ -466,6 +466,7 @@ In the below example, use the pretend API key listed below. This is because we a
 
 Add the following policy to the inbound request:
 
+```
 \<!\--
 
 - Policies are applied in the order they appear.
@@ -521,11 +522,13 @@ Add the following policy to the inbound request:
 \</on-error\>
 
 \</policies\>
+```
 
 At select save, then go back to the Test tab and then we run the request. You should get the following response or something very similar to it.
 
 This is the expected response:
 
+```
 {
 
 \"args\": {
@@ -581,6 +584,7 @@ This is the expected response:
 \"url\": \"https://httpbin.org/anything?api-key=12345678901\"
 
 }
+```
 
 To ensure proper setup, start by creating a new Azure Key Vault and add a fake API key initially. This approach helps verify system functionality without exposing your real API key, especially since HttpBin is not secure for testing on a public website. Once you confirm that the system works as expected with the fake key, replace it with the actual API key. Additionally, update the endpoint to point to the actual weather API. Finally, conduct an end-to-end test by sending a sample request to see if everything is functioning correctly.
 
@@ -636,6 +640,7 @@ Here's how to do that.
 
 Now, update the policy to the following:
 
+```
 \<!\--
 
 - Policies are applied in the order they appear.
@@ -691,6 +696,7 @@ Now, update the policy to the following:
 \</on-error\>
 
 \</policies\>
+```
 
 Now, you can use your base URI instead of calling the API directly. In my case, this is mine: [[https://my-api-management-service.azure-api.net]{.underline}](https://my-api-management-service.azure-api.net). In the React code, replace the call to the weather API endpoint with this URL.
 
@@ -706,178 +712,121 @@ We are going to refactor the code a bit more to make it more modular. While it i
 
 Let's do a small refactor and see how we can write some tests.
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| To write effective tests for the `Weather` component and to make the application more testable, we need to structure our code in a way that is easier to isolate and verify individual parts. Here are some improvements and test examples for the component: |
-| |
-| ### Improving Code Structure for Testing |
-| |
-| 1\. **Decouple Data Fetching from Component Rendering:** |
-| |
-| Extract the logic that fetches data from the API into a separate function or custom hook. This separation makes it easier to test the fetching logic independently from the component\'s rendering logic. |
-| |
-| 2\. **Use Environment Variables Judiciously:** |
-| |
-| Ensure environment variables are used properly and securely, especially when building and testing. For production builds, consider server-side fetching or secure client-side API key handling mechanisms. |
-| |
-| 3\. **Error Handling:** |
-| |
-| Add more robust error handling and loading state management to improve user experience and make testing these states easier. |
-| |
-| ### Refactored Component Code |
-| |
-| Here's an example of how you could refactor the `Weather` component to make it more testable: |
-| |
-| `` jsx |
-| |
-| import React, { useState, useEffect } from \'react\'; |
-| |
-| import axios from \'axios\'; |
-| |
-| // Data fetching logic extracted to a custom hook |
-| |
-| function useWeather(apiKey) { |
-| |
-| const \[weather, setWeather\] = useState(null); |
-| |
-| const \[loading, setLoading\] = useState(true); |
-| |
-| const \[error, setError\] = useState(null); |
-| |
-| useEffect(() =\> { |
-| |
-| async function fetchWeather() { |
-| |
-| try { |
-| |
-| const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=London&appid=\${apiKey}`); |
-| |
-| setWeather(response.data); |
-| |
-| setLoading(false); |
-| |
-| } catch (error) { |
-| |
-| setError(error); |
-| |
-| setLoading(false); |
-| |
-| } |
-| |
-| } |
-| |
-| fetchWeather(); |
-| |
-| }, \[apiKey\]); |
-| |
-| return { weather, loading, error }; |
-| |
-| } |
-| |
-| function Weather() { |
-| |
-| const apiKey = process.env.REACT_APP_WEATHER_API_KEY; |
-| |
-| const { weather, loading, error } = useWeather(apiKey); |
-| |
-| if (loading) return \<p\>Loading weather\...\</p\>; |
-| |
-| if (error) return \<p\>Error fetching weather\</p\>; |
-| |
-| return ( |
-| |
-| \<div\> |
-| |
-| \<h1\>{weather.name}\</h1\> |
-| |
-| \<p\>Temperature: {weather.main.temp}°C\</p\> |
-| |
-| \<p\>Condition: {weather.weather\[0\].description}\</p\> |
-| |
-| \</div\> |
-| |
-| ); |
-| |
-| } |
-| |
-| export default Weather; |
-| |
-|  `` |
-| |
-| ### Writing Tests |
-| |
-| Here are some test examples using Jest and React Testing Library: |
-| |
-| `javascript |
-| |
-| import { render, screen, waitFor } from \'@testing-library/react\'; |
-| |
-| import axios from \'axios\'; |
-| |
-| import Weather from \'./Weather\'; |
-| |
-| jest.mock(\'axios\'); |
-| |
-| describe(\'Weather Component\', () =\> { |
-| |
-| test(\'renders weather data successfully\', async () =\> { |
-| |
-| const mockWeatherData = { |
-| |
-| data: { |
-| |
-| name: \'London\', |
-| |
-| main: { temp: 15 }, |
-| |
-| weather: \[{ description: \'Cloudy\' }\] |
-| |
-| } |
-| |
-| }; |
-| |
-| axios.get.mockResolvedValue(mockWeatherData); |
-| |
-| render(\<Weather /\>); |
-| |
-| await waitFor(() =\> expect(screen.getByText(\'London\')).toBeInTheDocument()); |
-| |
-| expect(screen.getByText(\'Temperature: 15°C\')).toBeInTheDocument(); |
-| |
-| expect(screen.getByText(\'Condition: Cloudy\')).toBeInTheDocument(); |
-| |
-| }); |
-| |
-| test(\'shows loading initially\', () =\> { |
-| |
-| render(\<Weather /\>); |
-| |
-| expect(screen.getByText(\'Loading weather\...\')).toBeInTheDocument(); |
-| |
-| }); |
-| |
-| test(\'handles errors in fetching weather\', async () =\> { |
-| |
-| axios.get.mockRejectedValue(new Error(\'Failed to fetch\')); |
-| |
-| render(\<Weather /\>); |
-| |
-| await waitFor(() =\> expect(screen.getByText(\'Error fetching weather\')).toBeInTheDocument()); |
-| |
-| }); |
-| |
-| }); |
-| |
-| ` |
-| |
-| ### Additional Considerations |
-| |
-| \- For production, consider implementing a backend service to handle API requests. This service can secure your API keys and manage the data before sending it to the frontend. |
-| |
-| \- Implement continuous integration (CI) to run these tests automatically when changes are made to the codebase. |
-| |
-| This structured approach enhances testability, security, and maintainability of the application. |
-+=================================================================================================================================================================================================================================================================+
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+To write effective tests for the `Weather` component and to make the application more testable, we need to structure our code in a way that is easier to isolate and verify individual parts. Here are some improvements and test examples for the component:
+
+### Improving Code Structure for Testing
+
+1. **Decouple Data Fetching from Component Rendering:**  
+   Extract the logic that fetches data from the API into a separate function or custom hook. This separation makes it easier to test the fetching logic independently from the component's rendering logic.
+
+2. **Use Environment Variables Judiciously:**  
+   Ensure environment variables are used properly and securely, especially when building and testing. For production builds, consider server-side fetching or secure client-side API key handling mechanisms.
+
+3. **Error Handling:**  
+   Add more robust error handling and loading state management to improve user experience and make testing these states easier.
+
+### Refactored Component Code
+
+Here's an example of how you could refactor the `Weather` component to make it more testable:
+
+```jsx
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+// Data fetching logic extracted to a custom hook
+function useWeather(apiKey) {
+  const [weather, setWeather] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchWeather() {
+      try {
+        const response = await axios.get(
+          `http://api.openweathermap.org/data/2.5/weather?q=London&appid=${apiKey}`
+        );
+        setWeather(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    }
+
+    fetchWeather();
+  }, [apiKey]);
+
+  return { weather, loading, error };
+}
+
+function Weather() {
+  const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+  const { weather, loading, error } = useWeather(apiKey);
+
+  if (loading) return <p>Loading weather...</p>;
+  if (error) return <p>Error fetching weather</p>;
+
+  return (
+    <div>
+      <h1>{weather.name}</h1>
+      <p>Temperature: {weather.main.temp}°C</p>
+      <p>Condition: {weather.weather[0].description}</p>
+    </div>
+  );
+}
+
+export default Weather;
+```
+
+### Writing Tests
+
+Here are some test examples using Jest and React Testing Library:
+
+```javascript
+import { render, screen, waitFor } from "@testing-library/react";
+import axios from "axios";
+import Weather from "./Weather";
+
+jest.mock("axios");
+
+describe("Weather Component", () => {
+  test("renders weather data successfully", async () => {
+    const mockWeatherData = {
+      data: {
+        name: "London",
+        main: { temp: 15 },
+        weather: [{ description: "Cloudy" }],
+      },
+    };
+
+    axios.get.mockResolvedValue(mockWeatherData);
+
+    render(<Weather />);
+
+    await waitFor(() => expect(screen.getByText("London")).toBeInTheDocument());
+    expect(screen.getByText("Temperature: 15°C")).toBeInTheDocument();
+    expect(screen.getByText("Condition: Cloudy")).toBeInTheDocument();
+  });
+
+  test("shows loading initially", () => {
+    render(<Weather />);
+    expect(screen.getByText("Loading weather...")).toBeInTheDocument();
+  });
+
+  test("handles errors in fetching weather", async () => {
+    axios.get.mockRejectedValue(new Error("Failed to fetch"));
+    render(<Weather />);
+    await waitFor(() =>
+      expect(screen.getByText("Error fetching weather")).toBeInTheDocument()
+    );
+  });
+});
+```
+
+### Additional Considerations
+
+- For production, consider implementing a backend service to handle API requests. This service can secure your API keys and manage the data before sending it to the frontend.
+- Implement continuous integration (CI) to run these tests automatically when changes are made to the codebase.
 
 If you were to run npm run test locally, you should see that all tests pass.
 
@@ -919,290 +868,199 @@ Here\'s a concise overview of how GitHub workflows are structured:
 
 - 4\. **Artifacts**: Typically, workflows end with steps for uploading artifacts, though the initial steps may also involve downloading or preparing artifacts.
 
-+-----------------------------------------------------------------------+
-| Workflow |
-| |
-| │ |
-| |
-| ├── Events (e.g., push, pull_request) |
-| |
-| │ |
-| |
-| ├── Jobs |
-| |
-| │ ├── Runs-on (Runner) |
-| |
-| │ │ |
-| |
-| │ ├── Needs (Dependencies on other jobs) |
-| |
-| │ │ |
-| |
-| │ ├── Steps |
-| |
-| │ │ ├── Uses (Actions) |
-| |
-| │ │ │ ├── Inputs |
-| |
-| │ │ │ ├── Outputs |
-| |
-| │ │ │ └── Environment (e.g., secrets, env variables) |
-| |
-| │ │ │ |
-| |
-| │ │ └── Run (Shell commands) |
-| |
-| │ │ |
-| |
-| │ ├── Environment Variables |
-| |
-| │ │ |
-| |
-| │ ├── Secrets |
-| |
-| │ │ |
-| |
-| │ ├── Services (Service Containers) |
-| |
-| │ │ |
-| |
-| │ └── Artifacts |
-| |
-| │ ├── Upload Artifact |
-| |
-| │ └── Download Artifact |
-| |
-| │ |
-| |
-| └── Workflow Commands (e.g., set-output, set-env) |
-+=======================================================================+
-+-----------------------------------------------------------------------+
+Below is the fixed Markdown version with improved formatting and organization:
 
-````
+---
 
-**Aside start**
+# Workflow Structure
 
-The script echo hello world is a bash script. It\'s important to note that while Bash is commonly used, some scripts might be written for `sh`, a different shell with slight syntax differences. For users operating on Windows runners, be aware that these runners execute PowerShell scripts, not Bash scripts. This guide does not cover PowerShell extensively, but if you are new to Bash and plan to use it extensively, it might be beneficial to read a beginner\'s guide to Bash. Given its long-standing usage, Bash is likely to remain relevant for some time.
+Below is an overview of a typical workflow structure:
 
-You might have noticed that the feedback loop for making changes to the workflow and seeing the results can be slow. Typically, you need to make edits, commit them, and then run the workflow on GitHub Actions to observe the output. To streamline this process, there are a few strategies you can employ:
+```plaintext
+Workflow
+│
+├── Events (e.g., push, pull_request)
+│
+├── Jobs
+│   ├── Runs-on (Runner)
+│   ├── Needs (Dependencies on other jobs)
+│   ├── Steps
+│   │   ├── Uses (Actions)
+│   │   │   ├── Inputs
+│   │   │   ├── Outputs
+│   │   │   └── Environment (e.g., secrets, env variables)
+│   │   └── Run (Shell commands)
+│   ├── Environment Variables
+│   ├── Secrets
+│   ├── Services (Service Containers)
+│   └── Artifacts
+│       ├── Upload Artifact
+│       └── Download Artifact
+│
+└── Workflow Commands (e.g., set-output, set-env)
+```
 
-1\. **Simplify Workflow Steps**: Ensure that the steps in your workflow are simple enough that they can be executed locally. This makes the whole process faster and more manageable.To use.Provider agnostic scripts, for example PowerShell scripts or bash scripts.
+---
 
-2\. **Use Docker Containers**: Create and use your own Docker container that mirrors the environment on GitHub Actions as closely as possible. This allows you to locally run and test your workflows in an environment that closely resembles the production setting on GitHub Actions.
+# Aside
 
-3\. **Utilize the \'act\' Library**: The \'act\' library enables you to run your GitHub Actions locally. While \'act\' doesn't replicate the GitHub Actions environment perfectly, it\'s generally sufficient for simpler scripts.You could find some more information in the appendix on more information on how to set this up.
+The script `echo hello world` is a Bash script. Note that while Bash is commonly used, some scripts might be written for `sh`, which has slight syntax differences. For Windows runners, remember that these execute PowerShell scripts—not Bash scripts. This guide does not cover PowerShell in detail, but if you are new to Bash, consider reading a beginner’s guide. Given Bash’s long-standing usage, it’s likely to remain relevant for some time.
 
-#### Setting up error notifications {#setting-up-error-notifications .unnumbered}
+The feedback loop for workflow changes can be slow—you typically need to edit, commit, and run the workflow on GitHub Actions to see the results. To streamline this process, consider these strategies:
 
-When it comes to handling errors in your workflow, encountering a syntax error provides a good opportunity to implement error notifications. These notifications are crucial for alerting your team about failures in the build pipeline. Such alerts are essential to maintaining confidence in the build artifacts, especially in production pipelines. While a failed build in a pull request might not warrant notifying the entire team---notifications should be configured for the main or production pipelines to ensure critical issues are addressed promptly.
+1. **Simplify Workflow Steps:**  
+   Ensure that workflow steps are simple enough to run locally. This improves speed and manageability. Use provider-agnostic scripts (e.g., PowerShell or Bash).
 
-**Setting Up Notifications**:
+2. **Use Docker Containers:**  
+   Create and use a Docker container that closely mirrors the GitHub Actions environment. This lets you test workflows locally in a similar setting.
 
-- **Email Notifications**: Configure GitHub Actions to send email notifications to a designated recipient when the workflow fails.
+3. **Utilize the `act` Library:**  
+   The [`act`](https://github.com/nektos/act) library lets you run GitHub Actions locally. While it may not perfectly replicate the GitHub Actions environment, it works well for simpler scripts. See the appendix for more details.
 
-- **Integration with Messaging Platforms**: You can also integrate the workflow with messaging platforms such as Microsoft Teams, Slack, Discord, and others. Numerous plugins and services are available that notify you through instant messaging or even text messages and phone calls when a build fails.
+#### Setting up error notifications {#setting-up-error-notifications}
 
-Setting up email notifications for a failed GitHub Actions workflow involves a few steps within the GitHub platform, using the available features to send alerts when certain conditions are met. Here's how you can set this up:
+Implement error notifications to alert your team when the build pipeline fails—especially for production workflows. Consider these notification methods:
 
-Step 1: Verify Email Settings in GitHub
+- **Email Notifications:** Configure GitHub Actions to send emails upon failure.
+- **Messaging Platform Integrations:** Integrate with platforms like Microsoft Teams, Slack, or Discord to receive instant alerts (including texts or phone calls).
 
-Before setting up notifications, ensure that your GitHub email settings are configured to receive notifications:
+Ensure your GitHub email settings are correctly configured to receive these notifications.
 
-- Go to GitHub: Open your browser and navigate to GitHub.
+---
 
-- Navigate to Settings: Click on your profile picture at the top right corner, then select Settings.
+# Making the Pipeline Build and Test Our Code
 
-- Access Notifications: From the sidebar, click on Notifications.
+The current pipeline merely prints "hello world" and does not inspire confidence in the build artifacts. Let’s update it to perform meaningful tasks like installing dependencies, building, and testing the project. Edit your main YAML file with the following content:
 
-- Configure Email Settings: Ensure that the email under \"How you receive notifications\" is correct and that \"Email\" is checked. Also, check that you have \"Includes failed workflows\" under \"GitHub Actions\" to receive notifications for failed workflows.
-
-- To rerun that failing workflow, then you should receive an e-mail that indicates that it is failed.Now I\'d like you to revert that commit to its initial state where the workflow was successful, because we\'re going to modify it somewhere.
-
-**Aside end**
-
-### Making the pipeline build and test our code {#making-the-pipeline-build-and-test-our-code .unnumbered}
-
-The pipeline just prints hello world and It doesn\'t instill any confidence in the build artifacts. Let\'s change it to do things that are a bit more useful, such as writing some of these steps that we\'ve run locally, such as installing the dependencies, building the project, as well as testing the project. Edit the main dot yaml file and fill in the following contents.
-
+```yaml
 name: Build client app
 
 on:
-
-workflow_dispatch:
-
-pull_request:
-
-types: \[opened\]
-
-push:
-
-branches:
-
-- main \# This trigger for the main branch means that if there is a push to the main branch in the workflow on the main branch will run.Since the workflow dispatch is also a trigger, this means that you can run the workflow manually, which is very useful for debugging purposes.
+  workflow_dispatch:
+  pull_request:
+    types: [opened]
+  push:
+    branches:
+      - main # Triggers on pushes to the main branch. With workflow_dispatch, you can also run it manually.
 
 jobs:
+  build-and-deploy: # A single job to run everything for now.
+    runs-on: ubuntu-latest
 
-build-and-deploy: \# A single job called build and deploy which is To run everything for now.
+    steps:
+      - uses: actions/checkout@v2 # Clones the repository.
 
-runs-on: ubuntu-latest
+      - name: Set up Node.js
+        uses: actions/setup-node@v2 # Installs Node.js.
+        with:
+          node-version: "14" # Specify your Node.js version.
 
-steps:
+      - name: Install dependencies
+        run: npm ci
 
-- uses: actions/checkout@v2 \# The case that we are using a GitHub Action.Looking into what it GitHub action is a little bit later on.In this case, this GitHub Action is cloning our code.
+      - name: Build the project
+        run: npm run build
 
-- name: Set up Node.js
+      - name: Test the project
+        run: npm run test
 
-uses: actions/setup-node@v2 \# Another GitHub action that installs.A version of Node specified by.The.Configuration options that it receives. In this case, the action is set up to receive a configuration called No version. We\'re passing in the version 14 to it. The ADV 2 specifies the version of a workflow and not the version of node.
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: my-artifact
+          path: path/to/artifact
+```
 
-with:
+**Workflow Steps Explanation:**
 
-node-version: \'14\' \# Specify your Node.js version, fill it in from the previous step
+1. **Checkout Step:**  
+   Uses `actions/checkout@v2` to clone your repository and set the working directory.
 
-- name: Install dependencies
+2. **Node Version Setup:**  
+   Sets up Node.js (version 14) for your build environment.
 
-run: npm ci
+3. **Dependency Installation:**  
+   Installs project dependencies with `npm ci`.
 
-- name: Build the project
+4. **Build and Test:**  
+   Runs the build and test commands (`npm run build` and `npm run test`).
 
-run: npm run build
+5. **Artifact Upload:**  
+   Uses `actions/upload-artifact` to preserve build artifacts (since the runner is ephemeral).
 
-- name: test the project
+After updating, push the commit to your branch and create a pull request. The build will run, and you won’t be allowed to merge until the pipeline completes successfully.
 
-run: npm run test
+---
 
-The workflow consists of a single job that includes several steps:
+# Additional Considerations
 
-1\. **Checkout Step**: Uses `actions/checkout@v2` to clone the repository onto the runner and changes the current working directory to the root of the repository.
+**Artifacts:**  
+In the current setup, the build server is wiped clean after each run, which means build artifacts are lost unless explicitly saved. Use the `actions/upload-artifact` action to preserve these artifacts for later deployment or verification.
 
-2\. **Node Version Setup**: Alters the node environment to use version 14, adjusting the path without removing the existing version of node.
+**Note on Non-Compiled Projects:**  
+Some projects (e.g., Python applications) might not generate traditional output files. In such cases, the source code itself (minus configuration files) may be considered the artifact.
 
-3\. **Dependency Installation**: Executes commands like `npm ci` to install dependencies, similar to what would be done locally.
+**Security Note:**  
+When using actions from the GitHub Marketplace (e.g., `actions/checkout@v2`), be aware that version tags like "V2" are mutable. To reduce risk:
 
-4\. **Build and Test**: Runs `npm run build` and `npm run test`, mirroring local development operations. However, it\'s important to note that the build server is wiped clean after these processes, leaving no artifacts for deployment except for possible log files.
+- Minimize reliance on public actions.
+- Reference actions by specific commit hashes rather than mutable tags.
 
-In our current setup, the build pipeline automatically deletes itself upon completion, which unfortunately means any artifacts created during the build are also lost. To address this, we must selectively determine which parts of our application we want to deploy and save these as artifacts.
+---
 
-Fortunately, GitHub Actions provides a solution through the `actions/upload-artifact` action. This action enables us to create and automatically upload artifacts to GitHub's artifact repository. The artifacts are compressed during the upload, facilitating efficient storage and retrieval. Moreover, they can be accessed and downloaded later, even from other actions for example, during deployment or manually.
+# Accessing Artifacts Manually
 
-**Aside:** If your workflow involves multiple artifacts from different parts of the build, you can replicate this action as needed to publish various artifacts. It\'s crucial to name your artifacts clearly and systematically, as they will need to be identified and retrieved in subsequent steps of your workflow or future builds. Normally artifacts are associated with a build number or commit hash.
+To download artifacts from a GitHub repository:
 
-Add this code to the end of your workflow.
-
-- uses: actions/upload-artifact@master
-
-with:
-
-name: my-artifact
-
-path: path/to/artifact
-
-And your application\'s artifacts path may not be the same one that is used in this React application. Look in the appendix in this book to find out where the most common artifact paths are for most programming languages and project types.
-
-Here is what the workflow looks like with all the steps together.
-
-jobs:
-
-all:
-
-runs-on: "ubuntu-latest"
-
-steps:
-
-- name: "Checkout code"
-
-uses: "actions/checkout@v2"
-
-- name: "Install dependencies"
-
-run: npm install
-
-- name: "Run tests"
-
-run: npm test
-
-- name: "Publish artifacts"
-
-uses: actions/upload-artifact@v3
-
-with:
-
-name: my-artifact-and-version
-
-if-no-files-found: error \# important because if there are no artifacts, then something is wrong
-
-path: \${{ github.workspace }}/output \# this path is wrong
-
-If you need to upload more than one artifact, simply duplicate the action and run it again, as many times as you need. You have to publish artifacts because the runner will be discarded, including everything on it. Publishing them as artifacts allows them to be retained.
-
-I would like you to push that commit to your branch with the new workflow and create a pull request on that branch.The build should run Importantly, will not let you merge unless the pipeline is finished and also complete.
-
-![](./images/image69.png)
-
-**Aside start**
-
-**Note: some projects are not "compiled" in the traditional sense (i.e., interpreted), so they don't necessarily generate output files (for example, Python.)** In this case, the source code would probably be the artifacts (except for some files that might not be part of the build, such as some configuration files, .editorconfig, .gitignore, etc.)
-
-Important Security Note: When using Actions from the GitHub Actions marketplace, you might notice a label like \"V2\" next to the action\'s name. This label represents a git tag associated with that action. For example, the \"actions/checkout@v2\" refers to version 2 of the checkout action from the \"actions\" repository. Using such tags can be convenient as it allows the action developer to update the code---such as introducing new features or fixing bugs---without users needing to manually update their workflows.
-
-However, there are significant security risks. Since git tags are mutable, they can be changed. If a malicious user were to delete and recreate a repository, they could push harmful code and assign it to these commonly used tags. Even the same repository can be tagged the same tag but different codes for each tag. This means that the supposed \"V2\" tag could point to a malicious commit.
-
-To mitigate these risks, consider two precautions:
-
-1\. Minimize the use of actions from public repositories where possible.
-
-2\. Instead of using a version tag, reference actions by the specific commit hash. While it\'s theoretically possible to replicate a commit hash in a different repository, it is highly unlikely and would be much more secure than using mutable tags.
-
-**Aside end**
-
-When you modify code, such as changing text in a React application, commit and push the changes, then wait for the workflow to complete. You will find artifacts from the pipeline run that can be downloaded and verified without needing React installed. This process ensures the deployed artifacts function correctly.
-
-To manually access and download artifacts from a GitHub repository, follow these steps:
-
-1\. **Navigate to Your Repository**: Log into your GitHub account and go to the repository where your workflow runs.
-
-2\. **Access Actions**: In the repository, click on the \"Actions\" tab. This tab displays a list of all the workflow runs associated with the repository.
-
-3\. **Select a Workflow Run**: Click on the specific workflow run you are interested in. This action will open a detailed page for that run.
-
-4\. **Find Artifacts**: On the workflow run detail page, look for a section titled \"Artifacts\" at the bottom of the page. This section lists all the artifacts generated during the run.
-
-5\. **Download Artifacts**: Click on the name of the artifact you want to download. GitHub will compile all the files into a single ZIP file and automatically start the download.
+1. **Navigate to Your Repository:** Log into GitHub and open your repository.
+2. **Access Actions:** Click the "Actions" tab to view workflow runs.
+3. **Select a Workflow Run:** Click on the desired run.
+4. **Find Artifacts:** Scroll to the "Artifacts" section at the bottom of the page.
+5. **Download Artifacts:** Click the artifact name to download a ZIP file containing the artifacts.
 
 ![](./images/image14.png)
 
-### Deployment and Release Strategies {#deployment-and-release-strategies .unnumbered}
+---
 
-Deployment involves transferring build artifacts from your artifact repository to a server accessible to customers. In the previous step, we uploaded the app artifacts, and we will now create a deployment pipeline to deploy them. It\'s important to note that deployment does not necessarily mean visibility to customers; for instance, features might be hidden behind feature flags and only activated when needed, existing within the client\'s functional domain.
+# Deployment and Release Strategies
 
-It is crucial not to rebuild artifacts once they are created. Rebuilding artifacts undermines confidence in the CI pipeline, as it suggests a lack of certainty about what is being deployed, potentially leading to unstable releases. Developers rely on the stability of these artifacts to trust the changes made.
+Deployment involves transferring build artifacts from the artifact repository to a customer-accessible server. In our workflow, after uploading the app artifacts, we can create a deployment pipeline. Note that deployment does not necessarily mean immediate customer visibility—a feature may be hidden behind feature flags.
 
-Initially, we used the portal to manually create resources, which I mentioned during the introduction. Although this method helps understand the setup process, it\'s challenging to track changes manually. To improve this, we are planning to implement infrastructure as code using Bicep templates in Azure, which are more manageable and readable compared to ARM templates.
+**Key Points:**
 
-To demonstrate, we\'ll first deploy using the portal to establish the initial setup. Subsequently, we will migrate to deploying with a Bicep template, which will automate the creation of the necessary architecture and infrastructure to deploy the website. This step-by-step approach not only helps in understanding the deployment process through the UI but also sets the stage for a more efficient and scalable deployment strategy using Bicep templates.
+- **Stable Artifacts:**  
+  Once created, do not rebuild artifacts. Rebuilding undermines confidence in the CI pipeline.
 
-Here are some options for deploying our static website application. Note that these methods may not apply to dynamic applications such as Java or Python web servers, which require a server to process requests and produce dynamic responses. Our current setup involves a client-side application that fetches data from a weather API. Later, we plan to integrate a backend as well.
+- **Infrastructure as Code (IaC):**  
+  Consider using tools like Azure Bicep templates for managing infrastructure. This approach is more manageable and scalable than manual portal setups.
 
-Options:
+### Deployment Options
 
-- For simple web applications consisting primarily of static content like HTML, CSS, and JavaScript, utilizing a Content Delivery Network (CDN) is highly efficient. In this case, since there is no dynamic content that requires server-side execution, all we need is to serve the static files. To achieve this, we can use a storage account coupled with a CDN. This setup ensures that the content is delivered quickly to the user, as everything is downloaded and executed directly in the web browser without the need for Docker containers or similar technologies.
+- **Static Websites:**  
+  For simple sites (HTML, CSS, JavaScript), using an Azure Storage Account and a Content Delivery Network (CDN) can be cost-effective and scalable.
 
-- For server-side applications that include backend logic, it\'s beneficial to use Docker containers or other server infrastructure. These applications require server-side execution, so as we expand our web application with backend services, Docker becomes invaluable. Containers can be published to a registry, facilitating version control and deployment. This setup allows for more complex applications that need to process data on the server before sending it to the client.
+- **Server-Side Applications:**  
+  For applications that require backend processing, consider Docker containers or other server infrastructures.
 
-Deploying a simple static website using an Azure Storage Account and a Content Delivery Network (CDN) can be a more cost-effective and scalable option, especially for serving static content like HTML and JavaScript files globally. Here's a guide on how to set this up:
+---
+
+# Setting Up Deployment with Azure
+
+Below are the initial steps to deploy a static website using an Azure Storage Account and a CDN.
 
 ### Step 1: Install Azure CLI
 
-Before you start, ensure that the Azure CLI is installed on your computer. If not installed yet, download and install it from the \[official Azure CLI page\](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli).
+Ensure that the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) is installed on your computer.
 
 ### Step 2: Log in to Azure
 
-Open your terminal or command prompt and log in to your Azure account using the following command:
+Open your terminal or command prompt and run:
 
 ```bash
-
 az login
+```
 
-````
+Follow the on-screen instructions to log in to your Azure account.
 
 ### Step 3: Create a Storage Account
 
@@ -1396,48 +1254,29 @@ Efficient Deployment Strategies:
 
 Let's get this set up and show how you can use jobs and environments to create a pipeline to production, including manual approval stages.
 
-+-----------------------------------------------------------------------+
-| jobs: |
-| |
-| build: |
-| |
-| runs-on: "ubuntu-latest" |
-| |
-| name: "Build" \# this is optional |
-| |
-| steps: |
-| |
-| \- name: "Checkout code" |
-| |
-| uses: "actions/checkout@v2" |
-| |
-| \- name: "Install dependencies and build" |
-| |
-| run: \| |
-| |
-| npm install |
-| |
-| npm run build |
-| |
-| test: |
-| |
-| runs-on: "ubuntu-latest" |
-| |
-| steps: |
-| |
-| \- name: "Checkout code" |
-| |
-| uses: "actions/checkout@v2" |
-| |
-| \- name: "Install dependencies and test" |
-| |
-| run: \| |
-| |
-| npm install |
-| |
-| npm test |
-+=======================================================================+
-+-----------------------------------------------------------------------+
+```yaml
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    name: "Build" # this is optional
+    steps:
+      - name: "Checkout code"
+        uses: "actions/checkout@v2"
+      - name: "Install dependencies and build"
+        run: |
+          npm install
+          npm run build
+
+  test:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout code"
+        uses: "actions/checkout@v2"
+      - name: "Install dependencies and test"
+        run: |
+          npm install
+          npm test
+```
 
 That workflow is displayed as follows.
 

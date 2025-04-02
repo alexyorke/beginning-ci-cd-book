@@ -22,37 +22,21 @@ Benefits of this structured approach:
 
 [[5 Things to Know About Pipe Scaffolding (supremepipe.com)]{.underline}](https://supremepipe.com/blog/pipe-scaffolding/)
 
-+-----------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+----------------------------------------------------+--------------------------------------------------------------------+
-| Workflow file, runs on your CI provider | Commands that you can run on your computer to do the equivalent | | ![](./images/image67.png) |
-+===========================================================================================================+=====================================================================+====================================================+====================================================================+
-| CI server | macOS/Linux | Windows | |
-+-----------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+----------------------------------------------------+--------------------------------------------------------------------+
-| name: CI | #!/bin/bash | \@echo off | |
-| | | | |
-| on: | echo \"Starting CI process\" | echo Starting CI process | |
-| | | | |
-| push: | \# Assuming Git and Node.js are already installed | REM Assuming Git and Node.js are already installed | |
-| | | | |
-| jobs: | git clone \<repository_url\> | git clone \<repository_url\> | |
-| | | | |
-| setup_and_test: | cd \<repository_directory\> | cd \<repository_directory\> | |
-| | | | |
-| runs-on: ubuntu-latest | \# Note: this depends on the NPM version installed on your computer | npm install | |
-| | | | |
-| steps: | npm install | npm test | |
-| | | | |
-| \- name: Checkout code | npm test | | |
-| | | | |
-| uses: actions/checkout@v2 | | | |
-| | | | |
-| \- name: Install dependencies | | | |
-| | | | |
-| run: npm install \# we will get into later as to why we shouldn't be running npm install, instead, npm ci | | | |
-| | | | |
-| \- name: Run tests | | | |
-| | | | |
-| run: npm test | | | |
-+-----------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+----------------------------------------------------+--------------------------------------------------------------------+
+| CI server                                                                                                | macOS/Linux                                                        | Windows                                            |
+| -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------- |
+| name: CI                                                                                                 | #!/bin/bash                                                        | @echo off                                          |
+| on:                                                                                                      | echo "Starting CI process"                                         | echo Starting CI process                           |
+| push:                                                                                                    | # Assuming Git and Node.js are already installed                   | REM Assuming Git and Node.js are already installed |
+| jobs:                                                                                                    | git clone <repository_url>                                         | git clone <repository_url>                         |
+| setup_and_test:                                                                                          | cd <repository_directory>                                          | cd <repository_directory>                          |
+| runs-on: ubuntu-latest                                                                                   | # Note: this depends on the NPM version installed on your computer | npm install                                        |
+| steps:                                                                                                   | npm install                                                        | npm test                                           |
+| - name: Checkout code                                                                                    | npm test                                                           |                                                    |
+| uses: actions/checkout@v2                                                                                |                                                                    |                                                    |
+| - name: Install dependencies                                                                             |                                                                    |                                                    |
+| run: npm install # we will get into later as to why we shouldn't be running npm install, instead, npm ci |                                                                    |                                                    |
+| - name: Run tests                                                                                        |                                                                    |                                                    |
+| run: npm test                                                                                            |                                                                    |                                                    |
 
 In this example, we demonstrate how you can execute commands on your local computer to simulate what a build server does. You can effectively use your own laptop as a server. As an exercise, consider installing the GitHub Actions agent on your computer. Then, set up a self-hosted runner and execute the build script on it. This process will allow you to recreate or emulate the actions performed by a build server, right from your local environment. You can find some more information to do this in the appendix if you\'re interested.
 
@@ -126,11 +110,13 @@ We\'ll be using a trigger to automatically trigger when we make a pull request. 
 
 These pipelines can also be brought on different branches and triggers, for example, any pushes to the main branch. For example, if you\'re practicing continuous deployment, you may want to automatically deploy changes that are pushed to the main branch. Therefore, you can add a trigger that will automatically run the workflow if there\'s a commit push to the main branch.
 
+```
 on:
 
 pull_request:
 
 push:
+```
 
 Just keep listing the items if you want to listen to more events. Note that the "push" event also accepts many options to narrow it down. It also ends with a colon because you can narrow it down with more filters.
 
@@ -138,11 +124,13 @@ Triggers are not isolated; they\'re evaluated as a set of rules within the workf
 
 Order doesn't matter. I could write it like this, it still works:
 
+```
 on:
 
 push:
 
 pull_request:
+```
 
 **Aside start**
 
@@ -154,6 +142,7 @@ It\'s important to configure workflow triggers to respond only to relevant event
 
 To create a basic \"Hello world!\" workflow in GitHub Actions, start by creating a new file named `main.yml` in the `.github/workflows` directory in your previously created branch and add the following content:
 
+```
 name: Hello World Workflow
 
 on:
@@ -171,6 +160,7 @@ steps:
 - name: Say Hello
 
 run: echo \"Hello world!\"
+```
 
 ![](./images/image15.png)
 
@@ -202,65 +192,52 @@ After you've run it, then you should see the output.
 
 ![](./images/image4.png)
 
-The detailed breakdown of that workflow.
+---
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| +-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ |
-| | name: Hello World Workflow | The workflow's name is "Hello World Workflow". You can find it because we set the "name" mapping to "Hello World Workflow". This name shows up in the sidebar of your repository. The "name" mapping specifies the name of the workflow. This isn't required, however, if you omit it then the filename of the workflow will be used. | |
-| | | | |
-| | | ![](./images/image68.png) | |
-| +===================================+=======================================================================================================================================================================================================================================================================================================================================+ |
-| +-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ |
-| |
-| +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ |
-| | on: | The "on" mapping specifies the list of triggers when this workflow runs. "workflow_dispatch" indicates that this workflow is manually triggered, so you can use GitHub's UI to start it. | |
-| | | | |
-| | workflow_dispatch: | | |
-| +===================================+==========================================================================================================================================================================================+ |
-| +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ |
-| |
-| jobs: \# For now, everything goes in a single job called "all". |
-| |
-| all: |
-| |
-| +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ |
-| | runs-on: "ubuntu-latest" | The runs-on attribute in your workflow file defines the container environment where your job executes. This choice determines the operating system and pre-installed software available. | |
-| | | | |
-| | | You should choose an operating system that your developers are running when they\'re testing the application.For example, if the vast majority of developers use Windows, that you should use a Windows runner instead.There is likely to be very few compatibility issues with NPM and node. Since it\'s designed to be cross-platform, it\'s important to maintain, maintain compatibility and consistency across.Of the different environments.If multiple team members are using different operating systems, there\'s a possibility for different teams to use different build tools and such, so it\'s kind of important that everyone uses the same operating system. | |
-| | | | |
-| | | Popular options: | |
-| | | | |
-| | | ubuntu-latest (Linux): Supports bash and cross-platform scripts (e.g., Node.js). | |
-| | | | |
-| | | Windows runners: For Windows-specific builds and PowerShell/CMD scripts. | |
-| | | | |
-| | | Considerations: | |
-| | | | |
-| | | Platform compatibility: Choose a runner that supports your required tools and scripts. | |
-| | | | |
-| | | Pre-installed software: Review available software to avoid unnecessary installation steps. | |
-| | | | |
-| | | For this guide, we\'ll use ubuntu-latest with bash scripts. | |
-| +===================================+==============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+ |
-| +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ |
-| |
-| steps: |
-| |
-| +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ |
-| | \- name: "Checkout code" | Step 1 | |
-| | | | |
-| | uses: "actions/checkout@v2" | We use the checkout action in our workflows because if our repository requires authentication, such as with private repositories owned by an organization, the checkout action manages this. Additionally, it checks out the correct branch associated with the workflow trigger---whether that\'s the main branch or another---and sets the working directory to the repository\'s content. This simplifies the execution of subsequent commands by eliminating the need to manually set the working directory. | |
-| +===================================+==================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+ |
-| +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ |
-| |
-| +-----------------------------------+-----------------------------------+ |
-| | \- name: Say Hello | Step 2 | |
-| | | | |
-| | run: echo \"Hello world!\" | | |
-| +===================================+===================================+ |
-| +-----------------------------------+-----------------------------------+ |
-+======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+### Workflow Name
+
+| Workflow Name        | Description                                                                                                                                                                                                                                                                                      |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Hello World Workflow | The workflow's name is "Hello World Workflow". You can find it because we set the **name** mapping to "Hello World Workflow". This name shows up in the sidebar of your repository. The **name** mapping specifies the name of the workflow. (If omitted, the workflow’s filename will be used.) |
+
+---
+
+### Triggers
+
+| Trigger            | Description                                                                                                                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| on:                | The **on** mapping specifies the list of triggers when this workflow runs. "workflow_dispatch" indicates that this workflow is manually triggered, so you can use GitHub’s UI to start it. |
+| workflow_dispatch: | (No additional details provided)                                                                                                                                                           |
+
+---
+
+### Jobs
+
+For now, everything goes in a single job called **all**.
+
+| Key                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| runs-on: "ubuntu-latest" | The **runs-on** attribute in your workflow file defines the container environment where your job executes. This choice determines the operating system and the pre-installed software available. You should choose an operating system that your developers are using when they test the application. For example, if the vast majority of developers use Windows, then you should use a Windows runner instead. There is likely to be very few compatibility issues with NPM and Node.js. Since GitHub Actions is designed to be cross-platform, maintaining consistency across different environments is important. If multiple team members use different operating systems, different build tools might be used—so it’s crucial that everyone uses the same operating system. |
+
+Popular options:
+
+- **ubuntu-latest (Linux):** Supports bash and cross-platform scripts (e.g., Node.js).
+- **Windows runners:** For Windows-specific builds and PowerShell/CMD scripts.
+  Considerations:
+- **Platform compatibility:** Choose a runner that supports your required tools and scripts.
+- **Pre-installed software:** Review the available software to avoid unnecessary installation steps.
+  For this guide, we'll use **ubuntu-latest** with bash scripts. |
+
+---
+
+### Steps
+
+| Step                    | Details                                                                                                                                                                                                                                                                                |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| - name: "Checkout code" | **Step 1:** Uses `actions/checkout@v2` to check out the repository. This action handles repository authentication (useful for private repositories) and checks out the correct branch associated with the workflow trigger, setting the working directory to the repository’s content. |
+| - name: Say Hello       | **Step 2:** Runs the command `echo "Hello world!"` to display a greeting message.                                                                                                                                                                                                      |
+
+---
 
 Beyond the basic setup, templates in GitHub Actions offer a foundation for best practices and standards. This advantage is particularly significant for teams or individuals new to CI/CD or those transitioning to GitHub Actions from other systems. The templates can be easily customized and extended, allowing developers to adjust the workflows to fit their specific project needs while maintaining the integrity and efficiency of the initial setup.
 
@@ -366,12 +343,9 @@ Build servers offer several advantages over local builds:
 
 #### Build notifications {#build-notifications .unnumbered}
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Webhooks are a mechanism for one system to notify another system of events or updates in real-time. In the context of continuous integration (CI), webhooks are essential for facilitating automation and communication between various tools and services in the CI/CD pipeline. For example, if a build fails, then a webhook can be called, which can "send" a message to another service, such as Teams, Slack, and many others. |
-| |
-| Webhooks are widely supported among many different integration providers. |
-+======================================================================================================================================================================================================================================================================================================================================================================================================================================+
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Webhooks are a mechanism for one system to notify another system of events or updates in real-time. In the context of continuous integration (CI), webhooks are essential for facilitating automation and communication between various tools and services in the CI/CD pipeline. For example, if a build fails, then a webhook can be called, which can "send" a message to another service, such as Teams, Slack, and many others.
+
+Webhooks are widely supported among many different integration providers.
 
 - Build notifications are important because stakeholders must know if the build pipeline is failing, as it is the only route to deliver changes to production.
 
@@ -447,7 +421,7 @@ Setup would depend on your CI software. You may need to connect a service to it.
 
 After that, the secrets are normally available via environment variables in your pipeline. Typically, connecting to a service will pass along the inherited identity from the pipeline to the service, thereby authenticating you to it. Sometimes, you will need to manage these secrets manually.
 
-Exercises
+#### Exercises
 
 Set up a very simple pipeline. This pipeline should initially not be attached to PRs but instead run after a commit is merged. This is because there might be many mistakes while you set up the pipeline, and it might add an unnecessary blocker to those trying to merge. The pipeline should be as simple as possible and should just build the code and then run the simple test suite. Don't worry about publishing build artifacts, it should only build the code and return a status regarding if the build succeeded or failed. Make sure that the test suite runs and confirm in the logs that the test name and status show up correctly so as to diagnose any failing tests. Try to use a build template to build your application, and make sure that the template reflects the build script as closely as possible.
 

@@ -4,3 +4,11 @@ language = "en"
 multilingual = false
 src = "src"
 title = "Beginning CI/CD"
+
+[output.html]
+site-url = "/"
+default-theme = "light"
+preferred-dark-theme = "navy"
+git-repository-url = "https://github.com/alexyorke/beginning-ci-cd-book"
+git-repository-icon = "fa-github"
+edit-url-template = "https://github.com/alexyorke/beginning-ci-cd-book/edit/main/{path}"

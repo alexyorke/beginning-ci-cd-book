@@ -24,55 +24,21 @@ Deployments are technical events managed by engineering, releasing (making those
 
 CD isn't all or nothing. See the appendix for more information on how to migrate a legacy application to CI/CD.
 
-1\. Evergreen Applications (e.g., web apps):
-
-Automatically serve the latest version, no user intervention needed.
-
-Users are always up-to-date.
-
-2\. Thick Clients:
-
-Require manual updates, often with application restarts.
-
-Updates can be major or minor.
-
-Users may delay or skip updates, leading to version fragmentation.
-
-3\. Hybrid Approaches:
-
-Some applications (e.g., web browsers) auto-update in the background, prompting users only for major updates.
-
-Others (e.g., communication tools) automatically apply minor updates but offer manual updates for significant changes (e.g., new UI).
-
-Continuous Delivery and Version Management:
-
-With continuous delivery, especially for thick clients, managing updates becomes crucial. Options include:
-
-Scheduled updates: Automatically check for updates daily or weekly to avoid overwhelming users.
-
-Version support: While technically supporting multiple versions is necessary, auto-updating minimizes the need to actively maintain older versions.
-
-Evergreen applications and API Versioning:
-
-Evergreen applications generally don\'t require strict versioning as users are constantly updated.
-
-However, for applications with APIs, versioning ensures backward compatibility and prevents breaking changes for existing users.
-
 #### CI/CD {#cicd .unnumbered}
 
 CI/CD aims to avoid \"integration hell\" by ensuring continuous integration and either continuous delivery or deployment. Work is constantly merged into the main/master branch after it has been verified via code review and the continuous integration pipeline. This involves practices like trunk-based development, where all developers work on a shared branch, promoting constant integration and minimizing merge conflicts.
 
-Personally accepted way to do continuous integration and development. Each company and team will have a slightly different interpretation of it. It isn\'t necessarily a rule or regulation, much like finances.
+> **Aside:** I've heard that some companies deploy a hundred times a day. Isn't deploying a thousand times a day even better? The act of deploying in continuous deployment is automated, thus, it occurs after every change if it meets the quality criteria. Frequent deploys are common because there is less of a delta between the last known good (LKG) version and the new version. Therefore, if there was a bug, then the changeset is much smaller and it is clearer what the root cause is. It also means that deployments occur quickly and so if there is a bug, then it can be reverted or re-deployed quickly which will reduce profit loss for the business. It also instills more confidence in the deployment process, if you've done it thousands of times then the process is likely robust. This does not mean that the app is better per-se, all it means is that there are many measures in place to continually push changes to the application with hundreds of engineers working on the product.
 
-**Aside:** I've heard that some companies deploy a hundred times a day. Isn't deploying a thousand times a day even better? The act of deploying in continuous deployment is automated, thus, it occurs after every change if it meets the quality criteria. Frequent deploys are common because there is less of a delta between the last known good (LKG) version and the new version. Therefore, if there was a bug, then the changeset is much smaller and it is clearer what the root cause is. It also means that deployments occur quickly and so if there is a bug, then it can be reverted or re-deployed quickly which will reduce profit loss for the business. It also instills more confidence in the deployment process, if you've done it thousands of times then the process is likely robust.
+A misunderstanding of CI/CD is that it's just a build pipeline that continually builds the software. CI/CD requires both technical and cultural shifts, including:
 
-It requires both technical and cultural shifts, including:
+- Smaller work units: Breaking down features into independently deployable and testable components. This allows the features to be continually deployed, or behind a feature flag, while other features are being worked on. If all features are large and are on their own feature branch, then this defeats the point of CI/CD as the feature has not yet been _integrated_, that is, it does not co-exist with the rest of the application. Other developers are unable to build around it, and feature flagging is not possible. Idea transmission is still possible, and it is a myth that developers do not communicate with each other if not practicing CI/CD.
 
-- Smaller work units: Breaking down features into independently deployable and testable components.
+- Modular codebase: Facilitating localized changes without impacting the entire application. This allows other developers to not be blocked while a parallel feature is in development.
 
-- Modular codebase: Facilitating localized changes without impacting the entire application.
+- Focus on rapid feedback: Prioritizing quick delivery of changes and gathering customer insights. If there is no need for fast customer feedback or to test changes, then moving to CI/CD becomes less important.
 
-- Focus on rapid feedback: Prioritizing quick delivery of changes and gathering customer insights.
+> Some cases, such as rewriting the app to use another framework, may require feature branching or interrupting others' work.
 
 Here is what the software development process looks like when using CI/CD. Note that many of these processes are automated.
 
@@ -160,7 +126,7 @@ Traditional software development is a methodology that is difficult to define be
 
 Traditional Development:
 
-- Teams often work in silos with limited visibility into each other\'s work.
+- Teams often work in silos with limited visibility into each other\'s work. This does not mean that team members do not communicate with each other, rather, the act of _integration_ is delayed.
 
 - Slow feedback loops and long development cycles are common.
 
@@ -186,11 +152,11 @@ CI/CD Development:
 
 A build server is a dedicated computer or virtual machine that automates tasks such as building, testing, linting, and conducting security scans, preparing code for deployment or integration. It acts as a quality gatekeeper, running CI/CD workflows before code is deployed or merged into the main branch. The build server doesn\'t inherently perform tasks but executes the instructions specified in the workflow file by developers. Anything can be run on a build server, since it\'s just a virtual machine.
 
-Then why build servers are used instead of developer workstations to prepare CI CD workflows are:
+Build servers are used instead of developer workstations to prepare CI CD workflows because:
 
-- Security: These servers handle sensitive resources like company source code and secrets. It is crucial to secure them to prevent unauthorized access and protect against lateral attacks.
+- Security: These servers handle sensitive resources like company source code and secrets. It is crucial to secure them to prevent unauthorized access and protect against lateral attacks. Simply storing them on a developer's machine means that other software could use the secrets, the secrets are transmitted over other mediums, etc.
 
-- Consistency and Isolation: Each server, agent, or VM should operate independently to minimize the impact of potential compromises
+- Consistency and Isolation: Each server, agent, or VM should operate independently to minimize the impact of potential compromises. The agent only runs for a fixed amount of time, then is erased. Developer machines are long-lived, and could have lots of software unnecessary for building the application.
 
 #### Automation {#automation .unnumbered}
 
@@ -208,7 +174,7 @@ A model for types and levels of human interaction with automation. IEEE Transact
 
 Testing and quality assurance are crucial for CI/CD, ensuring software quality and confidence in deployments. While both automated and manual testing play vital roles, they address different aspects:
 
-- Automated Testing: This process verifies functionality and performance through predefined tests, similar to controlled experiments, providing rapid feedback on code changes. Imagine a chemistry teacher at the front of a classroom, mixing two chemicals and instructing students to watch closely. This scenario serves as an example of a demonstration because the outcome is known beforehand, akin to how these tests predictably assess the impacts of changes in the code.
+- Automated Testing: This process verifies functionality and performance through predefined tests, similar to controlled experiments, providing rapid feedback on code changes. Imagine a chemistry teacher at the front of a classroom, mixing two chemicals and instructing students to watch closely. This scenario serves as an example of a **demonstration** because the outcome is known beforehand, akin to how these tests predictably assess the impacts of changes in the code.
 
 - Manual Testing: Leverages human judgment for evaluating usability, aesthetics, and user experience, crucial for aspects difficult to automate.Humans should not be doing the checking aspect.Rather, automated testing should be responsible for that.
 
@@ -216,7 +182,7 @@ Testing and quality assurance are crucial for CI/CD, ensuring software quality a
 
 - Skipping quality assurance in CI/CD can be tempting due to the fast-paced nature, but it\'s essential for ensuring customer satisfaction and protecting the business\'s reputation.It is additionally very tempting because the lack of automation will not show up for quite some time.
 
-**Aside:** fire QA, right?! Well, no. QA shifts left, and instead prioritizes testing PRs (which have a smaller scope and smaller changeset.) Since checking (testing an outcome that is known) is done mostly via unit tests, QA can use their human-ness to evaluate the product for quality, usability, functionality, and exploration testing. When a feature is developed under a feature flag, QA can test it in the pre-production environment (feature flag enabled for them), allowing developers to get early feedback.
+> **Aside:** fire QA, right?! Well, no. QA shifts left, and instead prioritizes testing PRs (which have a smaller scope and smaller changeset.) Since checking (testing an outcome that is known) is done mostly via unit tests, QA can use their human-ness to evaluate the product for quality, usability, functionality, and exploration testing. When a feature is developed under a feature flag, QA can test it in the pre-production environment (feature flag enabled for them), allowing developers to get early feedback.
 
 #### Rapid Feedback Loops {#rapid-feedback-loops .unnumbered}
 
@@ -256,6 +222,8 @@ Typically, developers can enable these feature flags by themselves. Here's an ex
 
 [[Implementing feature flags in React with Unleash - Case Study (claimcompass.eu)]{.underline}](https://www.claimcompass.eu/blog/en/feature-flags-in-react-with-unleash/)
 
+Feature flags need not be complicated or require third-party software. You can get started with a simple JSON file with a list of key/value pairs that is outside of the deployment system, but still accessible by your app. This does not require any subscription to a feature flag service. They can also be embedded in your application, for example, in a config file. This approach limits flexibility, however, as a redeployment is needed to change the config file.
+
 This approach is beneficial for trunk-based development, where changes are incremental. Developers can merge new features behind feature flags, allowing others to activate these flags for testing selectively.
 
 Feature flags also enable controlled risk-taking. For example, a promising feature might be released to a small user segment (e.g., 1%) to evaluate performance and gather feedback, minimizing risks of broader release.
@@ -266,7 +234,7 @@ Branches provide isolated workspaces for developers, supporting multiple applica
 
 **Limitations:**
 
-Feature flags should not be used to restrict feature access based on customer payments, as they are often visible and modifiable on the client-side. They are better suited for testing, phased rollouts, and controlled changes.
+Feature flags should not be used to restrict feature access (for example, paid features), as they are often visible and modifiable on the client-side. They are better suited for testing, phased rollouts, and controlled changes.
 
 **Maintenance:**
 

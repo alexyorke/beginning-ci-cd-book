@@ -18,7 +18,7 @@ This book is an endeavor to peel back the layers of CI/CD, moving beyond mere au
 
 **Continuous Delivery**, on the other hand, ensures that the code is always in a deployable state, but **it may not be deployed to production automatically. Instead, it might require manual approval.** It provides the business with the opportunity but not the obligation to deploy at any point. Continuous delivery is not simply an automated pipeline for on-demand deployment. For example, code in long-lived feature branches necessitates retrieving specific versions or bug fixes that require complex version control, which can disrupt other work. Or, the build requires a special ceremony, such as complex testing, an implicit contract with another service that has to be deployed in a certain order, manually run scripts, manual checks, etc. This indicates the code base is not always deployable, thus not fully meeting continuous integration principles. This also includes necessary automated testing to ensure its capacity to be deployed continuously.
 
-Deployments are technical events managed by engineering, releasing (making those features usable by customers) is both an engineering and business thing.
+Deployments are technical events managed by engineering, releasing (making those features usable by customers) is both an engineering and a business task.
 
 #### CI/CD {#cicd .unnumbered}
 
@@ -33,6 +33,8 @@ A misunderstanding of CI/CD is that it's just a build pipeline that continually 
 - Modular codebase: Facilitating localized changes without impacting the entire application. This allows other developers to not be blocked while a parallel feature is in development.
 
 - Focus on rapid feedback: Prioritizing quick delivery of changes and gathering customer insights. If there is no need for fast customer feedback or to test changes, then moving to CI/CD becomes less important.
+
+These shifts require that the application itself is modular and easy to modify, therefore, it could require code changes, depending on your application.
 
 > Some cases, such as rewriting the app to use another framework, may require feature branching or interrupting others' work.
 
@@ -170,7 +172,7 @@ To achieve continuous integration and efficient deployments, it\'s essential to 
 
 Feature flags are for **experimentation and release. They separate the act of deploying (moving the code to production, managed by engineering) and the act of making the changes usable by customers (commonly associated with a marketing event from the business's side.)** They are remote-controlled conditional statements that allow the selective activation or deactivation of application functionalities across different environments (development, integration, pre-production, production) without needing a redeployment. These flags can be toggled within seconds or minutes and can be set based on criteria like geographic location, IP address, or user type, facilitating targeted and gradual feature rollouts.
 
-What exactly constitutes a feature or needs to be released via a feature flag is up to the product managers and the business. Usually not everything is behind a feature flag, for example, logging statements, refactors, package upgrades\*, security fixes\*, bug fixes, or small changes like typo fixes.
+What exactly constitutes a feature or needs to be released via a feature flag is up to the product managers and the business. Usually not everything is behind a feature flag, for example, features that cannot be code compiled, those that are incomplete to the extent that they have security issues that could harm the product, logging statements, refactors, package upgrades, security fixes, bug fixes, or small changes like typo fixes.
 
 Typically, developers can enable these feature flags by themselves. Here's an example of an application in development, and it shows a special development overlay that allows developers to toggle feature flags.
 

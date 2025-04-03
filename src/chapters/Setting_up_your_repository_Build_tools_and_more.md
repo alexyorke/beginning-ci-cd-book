@@ -210,6 +210,70 @@ Typically, software development projects are complex and there may be different 
 
 If you're working with multiple developers, you may want to set up a GitHub organization to help manage multiple users access to your repositories. However, there are some security settings you should pay particular attention to. Below are the recommended settings when creating a new GitHub organization.
 
+### Setting up user accounts on GitHub {#setting-up-user-accounts-on-github .unnumbered}
+
+Setting up user accounts in GitHub Enterprise and ensuring secure access involves several steps. Here's a comprehensive guide to help you manage user accounts and enforce security measures like two-factor authentication (2FA) for accessing your GitHub repository.
+
+#### Step 1: Create and Configure User Accounts
+
+##### For GitHub Enterprise Server (Self-Hosted):
+
+1. **Login as an Administrator**:
+
+   - Sign in to your GitHub Enterprise Server as an administrator.
+
+2. **Navigate to the Admin Dashboard**:
+
+   - Click on the upper-right profile or organization icon, then select "Enterprise settings."
+
+3. **Manage Users**:
+   - Under the "Users" menu in the sidebar, click on "All users."
+   - Here, you can add new users by clicking "Invite user" and entering their email addresses. Users will receive an invitation to join your GitHub Enterprise environment.
+
+##### For GitHub Enterprise Cloud:
+
+1. **Organization Setup**:
+   - As an organization owner, go to your organization's page.
+   - Click "People" and select "Invite member" to add new users by entering their GitHub usernames or their email addresses.
+
+#### Step 2: Configure Permissions
+
+1. **Assign Roles and Teams**:
+
+   - Assign users to specific teams within your organization to manage repository access effectively.
+   - Teams can be created from the "Teams" tab in your organization settings. After creating a team, you can manage repository access and permissions through the team settings.
+
+2. **Set Repository Permissions**:
+   - For each repository, you can specify who has read, write, or admin access. Navigate to the repository settings, click on "Collaborators & teams," and then add the teams or individuals with the appropriate access levels.
+
+#### Step 3: Enforce Security Policies
+
+1. **Enable Two-Factor Authentication (2FA)**:
+   - For enhanced security, enforce two-factor authentication for all users.
+   - In GitHub Enterprise Cloud, go to your organization's settings, select "Security," then under "Authentication security," choose "Require two-factor authentication for everyone in your organization."
+   - For GitHub Enterprise Server, navigate to the admin dashboard, select "Settings," find the "Authentication" section, and enforce 2FA by checking "Require two-factor authentication for all users."
+
+#### Step 4: Secure Connections
+
+1. **Use HTTPS or SSH for Repository Access**:
+   - Ensure that all users access repositories using HTTPS or SSH.
+   - Encourage users to set up SSH keys for a secure connection without needing to supply username and password each time. This can be done under their personal account settings by selecting "SSH and GPG keys" and adding a new SSH key.
+
+#### Step 5: Audit and Compliance
+
+1. **Regular Audits**:
+
+   - Regularly audit user access and permissions to ensure compliance with your organization's policies.
+   - Use the audit log feature to monitor activities. Access this in GitHub Enterprise Server by going to the admin dashboard and selecting "Audit log." For GitHub Enterprise Cloud, find it under your organization settings.
+
+2. **Continuous Training**:
+   - Continually educate users on security best practices, including the importance of strong passwords, recognizing phishing attacks, and securely managing their authentication credentials.
+
+#### Additional Recommendations
+
+- **Review Third-Party Access**: Regularly review and manage third-party application access from your organization's settings to ensure that only trusted applications have access to your data.
+- **IP Whitelisting**: If using GitHub Enterprise Server, consider configuring IP allow lists to control which IP addresses are permitted to access your instance.
+
 ![](./images/image31.png)
 
 When you first set up your GitHub Actions enterprise repository, you may want to change a few things in the general actions permissions. First, allow "enterprise" and select "non-enterprise" actions and reusable workflows. Specifically, you want to only allow actions created by GitHub and disable the repository-level self-hosted runners. This is because allowing actions created by GitHub is technically a trusted source. However, if you allow actions from the marketplace, you must be careful about the creators you're using. If you only reference the version hash of that workflow file, arbitrary code could be executed. There have been instances where such code was not amenable to what you're trying to run in your repository. Additionally, avoid using self-hosted runners as they might allow someone to control or modify outputs for your runners, potentially injecting malicious code.

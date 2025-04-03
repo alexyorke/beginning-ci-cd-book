@@ -6,37 +6,95 @@ Clicking \"Run\" or \"Start\" in an IDE initiates a sequence of command-line too
 
 ![](./images/image31.png)
 
+When you first set up your GitHub Actions enterprise repository, you may want to change a few things in the general actions permissions. First, allow "enterprise" and select "non-enterprise" actions and reusable workflows. Specifically, you want to only allow actions created by GitHub and disable the repository-level self-hosted runners. This is because allowing actions created by GitHub is technically a trusted source. However, if you allow actions from the marketplace, you must be careful about the creators you're using. If you only reference the version hash of that workflow file, arbitrary code could be executed. There have been instances where such code was not amenable to what you're trying to run in your repository. Additionally, avoid using self-hosted runners as they might allow someone to control or modify outputs for your runners, potentially injecting malicious code.
+
 ![](./images/image48.png)
+
+The next one is artifact and log retention. Set it to the maximum value—90 days in this case. This allows you to check for any malicious code that might have interrupted or interacted with your repository by reviewing the logs to see when a certain dependency was injected. It's also useful for debugging. For example, if you want to check if a build was contaminated with malware, or if you’re testing and need to determine which version was vulnerable to a security issue, retaining artifacts and logs is crucial. For an enterprise, it might also support auditing requirements.
 
 ![](./images/image26.png)
 
+For fork pull request workflows from outside collaborators, enable the "Require approval for all outside collaborators" option. This is crucial because you don't want workflows to run automatically when any collaborator forks your repository and makes a pull request. Without approval, those pull requests could contain malicious code that either consumes your repository resources (like for Bitcoin mining) or tries to access secrets. Although GitHub has improved security, there's still a risk of arbitrary code running on your runners. This is especially important if you're using self-hosted runners, where someone could execute arbitrary code. It's better to enforce these settings at the enterprise or repository level to avoid accidental modifications to workflow files, which could compromise your processes.
+
 ![](./images/image18.png)
+
+For member privileges under repository comments, check the box "Allow members to see comment authors' profile name" in private repositories. This helps identify who made a comment, providing more transparency and accountability within your team. It’s particularly useful when multiple contributors are involved, ensuring that feedback and discussions are attributed correctly.
 
 ![](./images/image74.png)
 
+Under Rules, there are several settings to check. First, require a pull request before merging. Set the required approvals to at least two, unless there's only one person on your team. This ensures at least one other person approves the pull request. Requiring a pull request before merging ensures that continuous integration runs, preventing random merges.
+
+Next, dismiss stale pull request approvals when new commits are pushed. This is because an approval is based on the current state. If new code is pushed, it's a different pull request and needs re-approval.
+
+Require a review from code owners to ensure certain parts of the repository get the proper review before updates.
+
+Check "Require approval of the most recent reviewable push." This ties into the required approvals, ensuring each new push gets fresh approval.
+
+Require conversation resolution before merging for auditing and to ensure all feedback is addressed.
+
+Require status checks to pass to confirm continuous integration tests succeed.
+
+Check "Require branches to be up-to-date before merging" to prevent issues when merging. However, this can create a bottleneck in large teams, as merging each pull request may take longer.
+
 ![](./images/image83.png)
+
+Under Rules, check "Block force pushes" to prevent rewriting history. This is crucial for auditing and ensures that others pulling the repository don't need to rebase unexpectedly.
+
+You might also consider "Require workflows to pass before merging." However, it's wise to have a "break-glass" procedure for emergencies. For example, if your CI system is broken or you need to fix an urgent bug, bypassing checks can be necessary. This approach helps maintain operational flexibility while keeping security and stability in mind.
 
 ![](./images/image29.png)
 
+For repository roles, create a "break-glass" role used for emergencies only. Choose a role to inherit, which is write. Add permissions like "Jump to the front of the queue" under merge queue permissions, and "Request a solo merge." For repository permissions, allow bypassing branch protections. This role allows a member to elevate their permissions temporarily in emergencies. A repository administrator can assign this role, allowing them to bypass security checks once, ensuring break-glass procedures work as intended.
+
 ![](./images/image21.png)
+
+For two-factor authentication, ensure it's enabled. Check the box "Require two-factor authentication for everyone in the organization." This step greatly increases your organization's security.
 
 ![](./images/image19.png)
 
+Under Global Settings for Dependabot, you might want to check "Grouped security updates," though this depends on your preference. Also, enable Dependabot on actions runners to ensure it runs properly. If you have only self-hosted runners, check Dependabot on self-hosted runners to keep it in a trusted environment.
+
+For secret scanning push protection, check "Add a resource link in the CLI and web UI when a commit is blocked." This provides helpful context and guidance for developers when they encounter blocked commits.
+
 ![](./images/image80.png)
+
+For third-party application access policy, set the policy to "Access Restricted" and allow people to create pending requests. This ensures that applications can't access your entire codebase without approval from the application administrator. This is crucial for security, as it prevents unauthorized access and ensures applications operate only with proper permissions.
 
 ![](./images/image90.png)
 
+Under Personal Access Tokens, ensure the option "Allow access via fine-grained personal access tokens" is checked. This provides only the necessary permissions for users and applications to access your repositories and organization. Also, set "Do not require administrator approval" for creating tokens to avoid hassle, especially since tokens can expire quickly. Additionally, disable or restrict access via classic personal access tokens, as they lack fine-grained control and can allow excessive permissions unless needed for legacy support.
+
 ![](./images/image17.png)
+
+Under Scheduled Reminders, you may want to connect your Slack workspace to notify developers when pull requests are ready for review. This integrates with your workflow, making it more convenient for developers to stay on top of reviews. You might also consider integrating with a webhook or another provider like email to ensure developers receive timely notifications and keep pull requests moving smoothly.
 
 ![](./images/image39.png)
 
+Under Repository Policies, set the base permissions to "Write" for all organization repositories. This ensures members have the lowest necessary access level, and higher permissions granted elsewhere will override it. For repository creation, set it to "Disabled" so members can't create their own repositories, enhancing security.
+
+Disable repository forking to maintain a single source of truth and clear code control. Set outside collaborators to "Repository administrators allowed" to restrict who can invite external contributors.
+
+Set the default branch name to "main." Restrict repository visibility changes to organization owners to prevent accidental exposure.
+
+Disable repository deletion and transfer to maintain auditability and protect code history.
+
 ![](./images/image71.png)
+
+Under GitHub Codespaces, set it to "Disabled" unless you specifically want people to use it. GitHub Codespaces runs in a virtual machine outside your company's network, which can complicate auditing and security. It may also incur costs if developers leave Codespaces open for extended periods. Additionally, Codespaces might not meet your organization's data residency requirements.
 
 ![](./images/image41.png)
 
+Under Runners, set it to "Disabled for all organizations" to allow organizations to self-manage their own self-hosted runners. Avoid using self-hosted runners unless absolutely required, as they can be difficult to manage and keep up-to-date. They also run in an unsecure environment and operate on your company's network. It's better to keep everything isolated within GitHub. Allow self-hosted runners only if they need to access internal services that can't be run over the internet. Otherwise, disabling them prevents users from running self-hosted runners on personal devices, which could produce untrusted build outputs.
+
 ![](./images/image9.png)
 
+Create a new team called "Engineers" and potentially others like "QA." This avoids assigning permissions directly to each user. When a member leaves, you can remove them from the group, simplifying permission management. Assigning permissions at the team level makes auditing easier and ensures everyone in the group has the same access level.
+
+You can also create a "Break Glass" team to temporarily elevate an engineer’s access for emergencies. Afterward, you can easily remove them, keeping access transparent and controlled.
+
 ![](./images/image82.png)
+
+When you set up two-factor authentication for your GitHub account, it's a good idea to set up a security key like a YubiKey. You probably won't want to use it for every commit, as it can be inconvenient to touch the YubiKey every time you commit. Also, install the GitHub mobile app for two-factor authentication. It's more secure than SMS codes and serves as a backup if you lose your phone or change numbers.
 
 ![](./images/image61.png)
 

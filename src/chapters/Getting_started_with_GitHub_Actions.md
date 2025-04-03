@@ -1,6 +1,6 @@
 ﻿## Getting started with GitHub Actions {#getting-started-with-github-actions .unnumbered}
 
-Throughout this guide, we will explore the key features of GitHub Actions and how to effectively structure workflow files in YAML to maximize the benefits of CI/CD. We\'ll start by creating a somewhat simple weather application, but make it more complex overtime.This is designed to simulate a real world application.
+Throughout this guide, we will explore the key features of GitHub Actions and how to effectively structure workflow files in YAML to maximize the benefits of CI/CD. We\'ll start by creating a somewhat simple weather application, but make it more complex over time. This is designed to simulate a real world application.
 
 GitHub Actions is a CI/CD platform that automates software development tasks within GitHub repositories. It uses \"workflow files,\" which are YAML-based instructions that define the steps of a CI/CD pipeline, similar to a project manager for your build scripts.
 
@@ -38,11 +38,11 @@ Benefits of this structured approach:
 | - name: Run tests                                                                                        |                                                                    |                                                    |
 | run: npm test                                                                                            |                                                                    |                                                    |
 
-In this example, we demonstrate how you can execute commands on your local computer to simulate what a build server does. You can effectively use your own laptop as a server. As an exercise, consider installing the GitHub Actions agent on your computer. Then, set up a self-hosted runner and execute the build script on it. This process will allow you to recreate or emulate the actions performed by a build server, right from your local environment. You can find some more information to do this in the appendix if you\'re interested.
+> In this example, we demonstrate how you can execute commands on your local computer to simulate what a build server does. You can effectively use your own laptop as a server, albeit with caveats mentioned earlier. As an exercise, consider installing the GitHub Actions agent on your computer. Then, set up a self-hosted runner and execute the build script on it. This process will allow you to recreate or emulate the actions performed by a build server, right from your local environment. See the appendix for more info.
 
-For example, workflow files must be stored in the `.github/workflows` directory of your repository. This YAML file dictates the sequence of operations executed by GitHub Actions during the CI/CD process.
+Workflow files must be stored in the `.github/workflows` directory of your repository. This YAML file dictates the sequence of operations executed by GitHub Actions during the CI/CD process.
 
-To create a new GitHub Enterprise repository, you first need to set up an account on GitHub and potentially get access to GitHub Enterprise, depending on your organization\'s setup. Here\'s how you can do it step-by-step:
+In order to run a workflow, you need a GitHub account and potentially a GitHub Enterprise organization. To create a new GitHub Enterprise repository, you first need to set up an account on GitHub and potentially get access to GitHub Enterprise, depending on your organization\'s setup. Here\'s how you can do it step-by-step:
 
 ### 1. Sign Up for GitHub
 
@@ -215,9 +215,9 @@ After you've run it, then you should see the output.
 
 For now, everything goes in a single job called **all**.
 
-| Key                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| runs-on: "ubuntu-latest" | The **runs-on** attribute in your workflow file defines the container environment where your job executes. This choice determines the operating system and the pre-installed software available. You should choose an operating system that your developers are using when they test the application. For example, if the vast majority of developers use Windows, then you should use a Windows runner instead. There is likely to be very few compatibility issues with NPM and Node.js. Since GitHub Actions is designed to be cross-platform, maintaining consistency across different environments is important. If multiple team members use different operating systems, different build tools might be used—so it’s crucial that everyone uses the same operating system. |
+| Key                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| runs-on: "ubuntu-latest" | The **runs-on** attribute in your workflow file defines the container environment where your job executes. This choice determines the operating system and the pre-installed software available. You should choose an operating system that your developers are using when they test the application. For example, if the vast majority of developers use Windows, then you should use a Windows runner instead. Since GitHub Actions is designed to be cross-platform, maintaining consistency across different environments is important. If multiple team members use different operating systems, different build tools might be used—so it’s crucial that everyone uses the same operating system. |
 
 Popular options:
 
@@ -253,11 +253,13 @@ Scripts within these steps can span multiple lines. The scripting language used 
 
 This is called an action, and can be written in many different programming languages, but usually TypeScript/JavaScript. Actions can do many things, such as installing software, changing configuration, downloading files, etc. This action automatically clones the branch associated with this pipeline. For more information on what this action does, visit its documentation page for options on how to configure it.
 
-- Be careful not to use too many actions (only when they are necessary), because they are difficult to run locally on your own computer because they use GitHub's Workflow Engine that, at the time of this writing, does not have the ability to be called from a desktop application. This means that it might be hard to run the action locally to see if it is correct.
+- Warning: actions can be authored by those other than GitHub. Be careful when referencing actions by their tag as this allows the developer to push any arbitrary code to that tag, which could cause security issues (i.e., they can run any arbitrary code in your repository.) Only use actions from those you trust.
+
+- Be careful not to use too many actions (only when they are necessary), because they are difficult to run locally on your own computer because they use GitHub's Workflow Engine that, at the time of this writing, does not have the ability to be called from a desktop application. This means that it might be hard to run the action locally to see if it is correct and therefore developers will have a slow feedback loop.
 
 - [[GitHub - nektos/act: Run your GitHub Actions locally 🚀]{.underline}](https://github.com/nektos/act) works for most actions.
 
-- To debug your CI/CD pipelines effectively, consider setting up a self-hosted GitHub agent. This allows you to run builds and inspect the application and build server outputs in detail. You can also integrate \"sleep\" steps into your workflow to pause execution at key points for thorough examination of the process and file system.
+- To debug your CI/CD pipelines effectively, consider setting up a temporary self-hosted GitHub agent. This allows you to run builds and inspect the application and build server outputs in detail. You can also integrate \"sleep\" steps into your workflow to pause execution at key points for thorough examination of the process and file system.
 
 #### What is a Pipeline? {#what-is-a-pipeline .unnumbered}
 
@@ -397,7 +399,6 @@ Commercial Tools
 - IBM AppScan: Focuses on identifying vulnerabilities in web and mobile applications, supporting multiple programming languages.
 - Kiuwan: Offers a broad range of language support and integrates with various IDEs and CI/CD tools.
 - Synopsys Coverity: Supports multiple languages and offers CI/CD integration.
-- GitLab Ultimate: Built-in SAST in their Ultimate plan. It supports many languages and is integrated directly into the GitLab CI/CD pipeline.
 
 #### Integrating with External Services and Tools {#integrating-with-external-services-and-tools .unnumbered}
 
@@ -405,15 +406,15 @@ Sometimes, your build pipeline might need to connect to other services because i
 
 Why would you want to connect to external services, isn't everything I need in my repository? There are some things that can't be in your repository, because they are integrations, APIs, or managers that don't have a "physical" presence.
 
-Security Reasons
+#### Security Reasons
 
 Sensitive information, like API keys, database credentials, and other secrets, should never be stored directly in your repository. It\'s a security risk. Instead, these secrets are typically stored in specialized tools called secret managers (like HashiCorp\'s Vault, AWS Secrets Manager, or Azure Key Vault). When your pipeline needs to access a database or an external API, it will first fetch the necessary credentials from these managers. This ensures that sensitive information remains secure and doesn\'t accidentally get exposed or leaked.
 
-Artifact Management
+#### Artifact Management
 
 In many CI/CD pipelines, especially in large and complex projects, compiled code or built artifacts need to be stored or fetched. These artifacts are stored in artifact repositories like JFrog Artifactory or Nexus Repository. Connecting to these repositories can help fetch dependencies or store new ones post-build.
 
-Integration and End-to-End Testing
+#### Integration and End-to-End Testing
 
 Modern applications often rely on a myriad of microservices. When testing, it\'s crucial to ensure that these services work well together. For this, your pipeline might need to connect to service stubs, mocks, or even real services in a staging environment to perform integration or end-to-end tests.
 
@@ -428,5 +429,3 @@ Set up a very simple pipeline. This pipeline should initially not be attached to
 Set up the continuous integration server (or build server) to compile and run the code. Using the information derived from the planning stage, set up the build server to compile and build the code as a baseline. Developers will perform changes on the codebase, and should have sufficient tooling on their workstation to test the changes. This tooling should match what is run on the continuous integration system. It is important that developers have a stable copy on their workstation so that they can perform changes to the code because otherwise it would be overwritten by other developers\' work. It is important that the tooling on the developer's machines matches the tooling on the build server because the build server's artifacts will be what is deployed. There should be sufficient tooling on the continuous integration system to make sure that there is a reasonable level of confidence that the changes are good. Choose activities that are prime for automation and are difficult for humans to do, such as compiling code, checking (tests), etc.
 
 Continuously review and refine: Continuously review and refine the documented process. Encourage feedback from the team for improvements.
-
-A useful pattern, when you don't have all of the steps automated, is to add a manual approval step. All this does is pauses the pipeline at a certain step, and allows you to inspect the build artifacts. This step should only be temporary, and automation should slowly fill in the gaps where scripting is not available.

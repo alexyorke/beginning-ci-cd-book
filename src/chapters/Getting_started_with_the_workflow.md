@@ -176,15 +176,15 @@ Software testing is crucial for ensuring that applications meet quality standard
 
 There are two main categories of testing:
 
-- Automated Testing (\"Checking\"): These tests are predefined and can be run by computers. They are essential for verifying functionality and performance.
+- Automated Testing (\"Checking\"): These tests are predefined (automated tests), can be run by computers, and are coded by developers. They are essential for verifying functionality and performance but very tedious, time-consuming, expensive and boring for a human to do manually.
 
 - Manual Testing: This involves human judgment and focuses on aspects like usability, aesthetics, and user experience that are difficult to automate.
 
 Checking is like a demonstration. Imagine a chemistry teacher in front of an eager class. The teacher says, "Watch this!" and mixes two chemicals together. Then, everything changes color and makes a pop. The teacher already knew what was going to happen, and in this case demonstrated that fact in front of a class: the chemicals were going to change color, and make a pop. Or, say someone enters in 1+1 in the calculator. There is an expectation that it will always be "2".
 
-Now, contrast this with the other side of testing: tacit knowledge. You have to write a set of rules to determine if a website is designed well. It's not very easy to write a set of rules, or instructions for someone to determine that. But, it is easy to figure out using our human brains: we try to use the website, and if we are having issues, then we know that it's not usable. But we can't create a document that describes every possible facet in great detail for every possible situation of what usable means. It's highly subjective and complex.
+Now, contrast this with manual testing: tacit knowledge. You have to write a set of rules to determine if a website is designed well. It's not very easy to write a set of rules, or instructions for someone to determine that. But, it is easy to figure out using our human brains: we try to use the website, and if we are having issues, then we know that it's not usable. But we can't create a document that describes every possible facet in great detail for every possible situation of what usable means. It's highly subjective and complex. It's important to have both types of testing.
 
-Types of Testing:
+There are many types of automated tests, including:
 
 - Unit Testing: Verifies individual components of code.
 
@@ -204,7 +204,7 @@ Types of Testing:
 
 - Security Testing: Identifies vulnerabilities.
 
-- Usability Testing: Evaluates user-friendliness.
+- Usability Testing: Evaluates user-friendliness, which may or may not include a human reviewer.
 
 - Regression Testing: Ensures new changes don\'t break existing functionality.
 

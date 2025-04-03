@@ -2,6 +2,76 @@
 
 Throughout this guide, we will explore the key features of GitHub Actions and how to effectively structure workflow files in YAML to maximize the benefits of CI/CD. We\'ll start by creating a somewhat simple weather application, but make it more complex over time. This is designed to simulate a real world application.
 
+GitHub is a company that has a product called "Actions" (sometimes referred to as "GitHub Actions") that is a set of build servers and software that runs GitHub Actions workflows. These YAML workflows are created by the developer and normally build, test, and lint the code using the GitHub Actions YAML syntax and run on the GitHub Actions build servers.
+
+GitHub is a company, thus, it is not possible to install GitHub--it is not an application. Git is the version control system that can be installed.
+
+If you need more information on the specific intricacies of GitHub Actions, please see the GitHub Actions documentation. [[GitHub Actions documentation - GitHub Docs]{.underline}](https://docs.github.com/en/actions)
+
+Let's build a pipeline that can do the following:
+
+- Checkout the code (i.e., clone it onto the runner.)
+
+- Build the code.
+
+- Run automated tests, and linting.
+
+- Publish artifacts to an artifact server, in this case, to GitHub, along with a versioning strategy that will help identify which artifacts you are publishing.
+
+- Deployed the website to Azure.
+
+# Workflow Structure
+
+Here\'s an overview of how GitHub workflows are structured:
+
+- 1\. **Events**: Workflows begin with events, such as pushes or pull requests, which trigger the workflow.
+
+- 2\. **Jobs**: Workflows may contain multiple jobs, but we will focus on a single job for simplicity. Each job specifies an environment to run in, indicated by a string that corresponds to an operating system and a pre-configured image. This image includes pre-installed software, allowing us to get started quickly and reduce setup times and costs.
+
+- 3\. **Steps**: Each job is composed of multiple steps. These steps can use either the `uses` or `run` command:
+
+- \- **Uses**: This command utilizes actions provided by GitHub Actions, sourced from the GitHub Marketplace. These actions are pre-configured scripts that handle tasks like software installation, version management, or building.
+
+- \- **Run**: This command executes shell commands specific to the operating system defined in the job\'s environment, using bash scripting for Linux, for example.
+
+- 4\. **Artifacts**: Typically, workflows end with steps for uploading artifacts, though the initial steps may also involve downloading or preparing artifacts.
+
+Below is an overview of a typical workflow structure:
+
+```plaintext
+Workflow
+│
+├── Events (e.g., push, pull_request)
+│
+├── Jobs
+│   ├── Runs-on (Runner)
+│   ├── Needs (Dependencies on other jobs)
+│   ├── Steps
+│   │   ├── Uses (Actions)
+│   │   │   ├── Inputs
+│   │   │   ├── Outputs
+│   │   │   └── Environment (e.g., secrets, env variables)
+│   │   └── Run (Shell commands)
+│   ├── Environment Variables
+│   ├── Secrets
+│   ├── Services (Service Containers)
+│   └── Artifacts
+│       ├── Upload Artifact
+│       └── Download Artifact
+│
+└── Workflow Commands (e.g., set-output, set-env)
+```
+
+If you want to get started right away, GitHub Actions has several templates for many different project types. Use a template to get started quickly.
+
+#### Setting up error notifications {#setting-up-error-notifications}
+
+When your workflow fails, it means that continuous integration is no longer possible. Implement error notifications to alert your team when the build pipeline fails—especially for production workflows. Consider these notification methods:
+
+- **Email Notifications:** Configure GitHub Actions to send emails upon failure.
+- **Messaging Platform Integrations:** Integrate with platforms like Microsoft Teams, Slack, or Discord to receive instant alerts (including texts or phone calls).
+
+Ensure your GitHub email settings are correctly configured to receive these notifications.
 GitHub Actions is a CI/CD platform that automates software development tasks within GitHub repositories. It uses \"workflow files,\" which are YAML-based instructions that define the steps of a CI/CD pipeline, similar to a project manager for your build scripts.
 
 These workflows are triggered by specific events in your repository, like pushing code or creating a pull request. When triggered, they run on virtual build servers provided by GitHub, executing tasks such as building, testing, and deploying your application. These servers are ephemeral -- they\'re created for each workflow run and deleted afterward, ensuring a clean and consistent environment.
@@ -39,6 +109,23 @@ Benefits of this structured approach:
 | run: npm test                                                                                            |                                                                    |                                                    |
 
 > In this example, we demonstrate how you can execute commands on your local computer to simulate what a build server does. You can effectively use your own laptop as a server, albeit with caveats mentioned earlier. As an exercise, consider installing the GitHub Actions agent on your computer. Then, set up a self-hosted runner and execute the build script on it. This process will allow you to recreate or emulate the actions performed by a build server, right from your local environment. See the appendix for more info.
+
+## Aside
+
+The script `echo hello world` is a Bash script. Note that while Bash is commonly used, some scripts might be written for `sh`, which has slight syntax differences. For Windows runners, remember that these execute PowerShell scripts—not Bash scripts. This guide does not cover PowerShell in detail, but if you are new to Bash, consider reading a beginner’s guide. Given Bash’s long-standing usage, it’s likely to remain relevant for some time.
+
+The feedback loop for workflow changes can be slow—you typically need to edit, commit, and run the workflow on GitHub Actions to see the results. To streamline this process, consider these strategies:
+
+1. **Simplify Workflow Steps:**  
+   Ensure that workflow steps are simple enough to run locally. This improves speed and manageability. Use provider-agnostic scripts (e.g., PowerShell or Bash).
+
+2. **Use Docker Containers:**  
+   Create and use a Docker container that closely mirrors the GitHub Actions environment. This lets you test workflows locally in a similar setting.
+
+3. **Utilize the `act` Library:**  
+   The [`act`](https://github.com/nektos/act) library lets you run GitHub Actions locally. While it may not perfectly replicate the GitHub Actions environment, it works well for simpler scripts. See the appendix for more details.
+
+## Aside end
 
 Workflow files must be stored in the `.github/workflows` directory of your repository. This YAML file dictates the sequence of operations executed by GitHub Actions during the CI/CD process.
 

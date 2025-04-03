@@ -242,515 +242,358 @@ This integration ensures that stakeholders are kept informed in the most effecti
 
 The entire deployment pipeline can be activated by a single webhook call. However, for more complex workflows that involve multiple conditional steps, you might need to manage this process more finely. This involves using filters to selectively trigger specific steps based on certain conditions, similar to using filters in an email service to sort incoming emails.
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| To send a notification to Microsoft Teams when a build fails on the main branch, it\'s best to use official actions or direct HTTP requests to the Teams webhook from GitHub Actions, avoiding third-party actions unless necessary. Below, I\'ll guide you on setting up a workflow using GitHub Actions\' native capabilities for HTTP requests. |
-| |
-| ### Step 1: Set Up Microsoft Teams Incoming Webhook |
-| |
-| First, you need to set up an incoming webhook in Microsoft Teams: |
-| |
-| 1\. Go to the channel where you want the notifications. |
-| |
-| 2\. Click on the three dots (more options) and choose **Connectors**. |
-| |
-| 3\. Find and configure the **Incoming Webhook**, give it a name, and copy the provided URL. |
-| |
-| ### Step 2: Create the GitHub Actions Workflow |
-| |
-| Create a new YAML file in the `.github/workflows` directory of your repository, such as `notify_teams_on_failure.yml`. Here's how to configure it: |
-| |
-| `` yaml |
-| |
-| name: Notify Teams on Build Failure |
-| |
-| on: |
-| |
-| push: |
-| |
-| branches: |
-| |
-| \- main |
-| |
-| jobs: |
-| |
-| build-and-notify: |
-| |
-| runs-on: ubuntu-latest |
-| |
-| steps: |
-| |
-| \- name: Checkout code |
-| |
-| uses: actions/checkout@v2 |
-| |
-| \- name: Build project |
-| |
-| run: echo \"Build commands go here\" \# Replace this with your actual build command |
-| |
-| id: build |
-| |
-| \- name: Notify Teams on failure |
-| |
-| if: failure() \# This condition makes the step run only if the previous step fails |
-| |
-| uses: actions/github-script@v6 |
-| |
-| with: |
-| |
-| script: \| |
-| |
-| const webhookUrl = \'\${{ secrets.TEAMS_WEBHOOK_URL }}\'; |
-| |
-| const message = `{ |
-| |
-| \"@type\": \"MessageCard\", |
-| |
-| \"@context\": \"http://schema.org/extensions\", |
-| |
-| \"themeColor\": \"0076D7\", |
-| |
-| \"summary\": \"Build failure notification\", |
-| |
-| \"sections\": \[{ |
-| |
-| \"activityTitle\": \"Build Failed\", |
-| |
-| \"activitySubtitle\": \"Build failed on the main branch\", |
-| |
-| \"facts\": \[{ |
-| |
-| \"name\": \"Repository:\", |
-| |
-| \"value\": \"\${{ github.repository }}\" |
-| |
-| }, { |
-| |
-| \"name\": \"Commit:\", |
-| |
-| \"value\": \"\${{ github.sha }}\" |
-| |
-| }\], |
-| |
-| \"markdown\": true |
-| |
-| }\] |
-| |
-| }`; |
-| |
-| await axios.post(webhookUrl, JSON.parse(message), { |
-| |
-| headers: { |
-| |
-| \'Content-Type\': \'application/json\' |
-| |
-| } |
-| |
-| }); |
-| |
-|  `` |
-| |
-| ### Explanation of the Workflow: |
-| |
-| \- **Trigger**: The workflow is triggered by pushes to the `main` branch. |
-| |
-| \- **Jobs and Steps**: |
-| |
-| \- **Checkout code**: Checks out your repository under `\$GITHUB_WORKSPACE`, so it can access it. |
-| |
-| \- **Build project**: Replace the echo statement with your build command. The `id: build` is for reference but not used explicitly here. |
-| |
-| \- **Notify Teams on failure**: Uses `actions/github-script` to execute JavaScript code. It makes an HTTP POST request to the Microsoft Teams webhook URL with a custom message formatted as a MessageCard. |
-| |
-| ### Setting Secrets: |
-| |
-| You should store your Microsoft Teams webhook URL securely: |
-| |
-| 1\. Go to your repository on GitHub. |
-| |
-| 2\. Navigate to **Settings** \> **Secrets** \> **New repository secret**. |
-| |
-| 3\. Name it `TEAMS_WEBHOOK_URL` and paste your webhook URL as the value. |
-| |
-| This workflow configuration ensures a Teams message is sent only when a build fails on the main branch, integrating development updates directly into your communication tools, thereby enhancing the visibility of critical build statuses. |
-+====================================================================================================================================================================================================================================================================================================================================================+
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+To send a notification to Microsoft Teams when a build fails on the main branch, it’s best to use official actions or direct HTTP requests to the Teams webhook from GitHub Actions, avoiding third-party actions unless necessary. Below is a guide on setting up a workflow using GitHub Actions’ native capabilities for HTTP requests.
 
-And this is a way where you can trigger a workflow based on a web hook. So for example you would be a Microsoft Teams or Slack or wherever and then you click a button and then the workflow with initiate. You can also pass extra information to the workflow as well, so for example extra data that you want the workflow.Having GitHub, they could do custom things.
+### Step 1: Set Up Microsoft Teams Incoming Webhook
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Integrating a webhook inside Discord to initiate a build to production and setting up security measures involves several steps, including configuring Discord, setting up a server to handle the webhook, and ensuring proper access controls. Here's a detailed guide on how to accomplish this: |
-| |
-| ### Step 1: Setting Up a Discord Bot |
-| |
-| 1\. **Create a Discord Bot**: |
-| |
-| \- Go to the Discord Developer Portal. |
-| |
-| \- Create a new application and name it. |
-| |
-| \- Go to the "Bot" tab and click "Add Bot". |
-| |
-| 2\. **Invite the Bot to Your Server**: |
-| |
-| \- Under the OAuth2 tab, select "URL Generator". |
-| |
-| \- Choose "bot" in scopes and select permissions (e.g., send messages, manage messages). |
-| |
-| \- Use the generated URL to invite the bot to your Discord server. |
-| |
-| ### Step 2: Creating a Server to Handle Webhook Calls |
-| |
-| You'll need a server that can receive commands from Discord and trigger actions on GitHub. This server will act as a middleman between Discord and GitHub. |
-| |
-| **Example with Node.js and Express**: |
-| |
-| `` javascript |
-| |
-| const express = require(\'express\'); |
-| |
-| const axios = require(\'axios\'); |
-| |
-| const discord = require(\'discord.js\'); |
-| |
-| const client = new discord.Client(); |
-| |
-| const TOKEN = \'YOUR_DISCORD_BOT_TOKEN\'; |
-| |
-| const GITHUB_TOKEN = \'YOUR_GITHUB_PERSONAL_ACCESS_TOKEN\'; |
-| |
-| const GITHUB_REPO = \'https://api.github.com/repos/yourusername/yourrepo/dispatches\'; |
-| |
-| client.login(TOKEN); |
-| |
-| client.on(\'message\', async (message) =\> { |
-| |
-| if (message.content.startsWith(\'!deploy\')) { |
-| |
-| // Security check: Ensure only authorized users can trigger |
-| |
-| if (\![\'allowed_user_id1\', \'allowed_user_id2\'\].includes(message.author.id)) { |
-| |
-| return message.reply(\'You are not authorized to initiate deployments.\'); |
-| |
-| } |
-| |
-| try { |
-| |
-| await axios.post(GITHUB_REPO, { |
-| |
-| event_type: \'deploy-production\' |
-| |
-| }, { |
-| |
-| headers: { |
-| |
-| Authorization: `token \${GITHUB_TOKEN}`, |
-| |
-| Accept: \'application/vnd.github.everest-preview+json\' |
-| |
-| } |
-| |
-| }); |
-| |
-| message.channel.send(\'Deployment to production initiated!\'); |
-| |
-| } catch (error) { |
-| |
-| console.error(\'Failed to initiate deployment:\', error); |
-| |
-| message.channel.send(\'Failed to initiate deployment.\'); |
-| |
-| } |
-| |
-| } |
-| |
-| }); |
-| |
-| const app = express(); |
-| |
-| app.listen(3000, () =\> console.log(\'Server running on port 3000\')); |
-| |
-|  `` |
-| |
-| ### Step 3: Configuring GitHub Actions |
-| |
-| Create a GitHub Actions workflow that listens for the `deploy-production` event. |
-| |
-| **Example GitHub Action**: |
-| |
-| `yaml |
-| |
-| name: Production Deployment |
-| |
-| on: |
-| |
-| repository_dispatch: |
-| |
-| types: \[deploy-production\] |
-| |
-| jobs: |
-| |
-| deploy: |
-| |
-| runs-on: ubuntu-latest |
-| |
-| steps: |
-| |
-| \- name: Checkout code |
-| |
-| uses: actions/checkout@v2 |
-| |
-| \- name: Deploy to production |
-| |
-| run: echo \"Deploying to production\...\" |
-| |
-| \# Add your deployment scripts here |
-| |
-| ` |
-| |
-| ### Security Considerations |
-| |
-| 1\. **Token Security**: Secure your Discord bot token and GitHub personal access token. Do not hard-code them in your source code. Use environment variables or secret management tools. |
-| |
-| 2\. **User Authentication**: In the script, ensure that only authorized users can trigger the deployment by checking their user IDs against a list of allowed IDs. |
-| |
-| 3\. **Permissions**: Limit the bot's permissions on Discord. Only give it necessary permissions, like reading messages and sending messages. |
-| |
-| 4\. **Exposure**: By using a webhook, you expose part of your deployment process to an external platform (Discord). Make sure the communication between Discord and your server is secure, and consider using HTTPS for your server. |
-| |
-| 5\. **Error Handling**: Implement robust error handling in your server script to manage failures in calling the GitHub API or handling Discord commands. |
-| |
-| By following these steps, you can successfully integrate a webhook inside Discord to control production builds, while also keeping a check on security aspects to ensure that only authorized users can initiate these builds. |
-+===================================================================================================================================================================================================================================================================================================+
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+First, you need to set up an incoming webhook in Microsoft Teams:
+
+1. Go to the channel where you want the notifications.
+2. Click on the three dots (more options) and choose **Connectors**.
+3. Find and configure the **Incoming Webhook**, give it a name, and copy the provided URL.
+
+### Step 2: Create the GitHub Actions Workflow
+
+Create a new YAML file in the `.github/workflows` directory of your repository, such as `notify_teams_on_failure.yml`. Here’s how to configure it:
+
+```yaml
+name: Notify Teams on Build Failure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build project
+        run: echo "Build commands go here" # Replace this with your actual build command
+        id: build
+
+      - name: Notify Teams on failure
+        if: failure() # This condition makes the step run only if the previous step fails
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const webhookUrl = '${{ secrets.TEAMS_WEBHOOK_URL }}';
+            const message = `{
+              "@type": "MessageCard",
+              "@context": "http://schema.org/extensions",
+              "themeColor": "0076D7",
+              "summary": "Build failure notification",
+              "sections": [{
+                "activityTitle": "Build Failed",
+                "activitySubtitle": "Build failed on the main branch",
+                "facts": [{
+                  "name": "Repository:",
+                  "value": "${{ github.repository }}"
+                }, {
+                  "name": "Commit:",
+                  "value": "${{ github.sha }}"
+                }],
+                "markdown": true
+              }]
+            }`;
+
+            await axios.post(webhookUrl, JSON.parse(message), {
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
+```
+
+### Explanation of the Workflow
+
+- **Trigger**: The workflow is triggered by pushes to the `main` branch.
+- **Jobs and Steps**:
+  - **Checkout code**: Checks out your repository under `$GITHUB_WORKSPACE`, so it can access it.
+  - **Build project**: Replace the echo statement with your build command. The `id: build` is for reference but not used explicitly here.
+  - **Notify Teams on failure**: Uses `actions/github-script` to run JavaScript code. It makes an HTTP POST request to the Microsoft Teams webhook URL with a custom message formatted as a MessageCard.
+
+### Setting Secrets
+
+You should store your Microsoft Teams webhook URL securely:
+
+1. Go to your repository on GitHub.
+2. Navigate to **Settings** > **Secrets** > **New repository secret**.
+3. Name it `TEAMS_WEBHOOK_URL` and paste your webhook URL as the value.
+
+This workflow configuration ensures a Teams message is sent only when a build fails on the main branch, integrating development updates directly into your communication tools and enhancing the visibility of critical build statuses.
+
+---
+
+And this is a way you can trigger a workflow based on a webhook. For example, you might be in Microsoft Teams or Slack or another platform, click a button, and then the workflow will initiate. You can also pass extra information to the workflow, such as additional data you want the workflow to process. With GitHub, you can set up custom behaviors.
+
+---
+
+Integrating a webhook inside Discord to initiate a build to production and setting up security measures involves several steps, including configuring Discord, setting up a server to handle the webhook, and ensuring proper access controls. Here’s a detailed guide on how to accomplish this:
+
+### Step 1: Setting Up a Discord Bot
+
+1. **Create a Discord Bot**:
+
+   - Go to the Discord Developer Portal.
+   - Create a new application and name it.
+   - Go to the “Bot” tab and click “Add Bot”.
+
+2. **Invite the Bot to Your Server**:
+   - Under the OAuth2 tab, select “URL Generator”.
+   - Choose “bot” in scopes and select permissions (e.g., send messages, manage messages).
+   - Use the generated URL to invite the bot to your Discord server.
+
+### Step 2: Creating a Server to Handle Webhook Calls
+
+You’ll need a server that can receive commands from Discord and trigger actions on GitHub. This server will act as a middleman between Discord and GitHub.
+
+**Example with Node.js and Express**:
+
+```javascript
+const express = require("express");
+const axios = require("axios");
+const discord = require("discord.js");
+const client = new discord.Client();
+
+const TOKEN = "YOUR_DISCORD_BOT_TOKEN";
+const GITHUB_TOKEN = "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN";
+const GITHUB_REPO =
+  "https://api.github.com/repos/yourusername/yourrepo/dispatches";
+
+client.login(TOKEN);
+
+client.on("message", async (message) => {
+  if (message.content.startsWith("!deploy")) {
+    // Security check: Ensure only authorized users can trigger
+    if (!["allowed_user_id1", "allowed_user_id2"].includes(message.author.id)) {
+      return message.reply("You are not authorized to initiate deployments.");
+    }
+
+    try {
+      await axios.post(
+        GITHUB_REPO,
+        {
+          event_type: "deploy-production",
+        },
+        {
+          headers: {
+            Authorization: `token ${GITHUB_TOKEN}`,
+            Accept: "application/vnd.github.everest-preview+json",
+          },
+        }
+      );
+
+      message.channel.send("Deployment to production initiated!");
+    } catch (error) {
+      console.error("Failed to initiate deployment:", error);
+      message.channel.send("Failed to initiate deployment.");
+    }
+  }
+});
+
+const app = express();
+app.listen(3000, () => console.log("Server running on port 3000"));
+```
+
+### Step 3: Configuring GitHub Actions
+
+Create a GitHub Actions workflow that listens for the `deploy-production` event.
+
+**Example GitHub Action**:
+
+```yaml
+name: Production Deployment
+
+on:
+  repository_dispatch:
+    types: [deploy-production]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to production
+        run: echo "Deploying to production..."
+        # Add your deployment scripts here
+```
+
+### Security Considerations
+
+1. **Token Security**: Secure your Discord bot token and GitHub personal access token. Do not hard-code them in your source code. Use environment variables or secret management tools.
+2. **User Authentication**: In the script, ensure that only authorized users can trigger the deployment by checking their user IDs against a list of allowed IDs.
+3. **Permissions**: Limit the bot’s permissions on Discord. Only give it necessary permissions, like reading messages and sending messages.
+4. **Exposure**: By using a webhook, you expose part of your deployment process to an external platform (Discord). Make sure the communication between Discord and your server is secure, and consider using HTTPS for your server.
+5. **Error Handling**: Implement robust error handling in your server script to manage failures in calling the GitHub API or handling Discord commands.
+
+By following these steps, you can successfully integrate a webhook inside Discord to control production builds, while also keeping a check on security aspects to ensure that only authorized users can initiate these builds.
 
 ![](./images/image89.png)
 
-### Reporting, code coverage, etc. {#reporting-code-coverage-etc. .unnumbered}
+### Reporting, code coverage, etc. {#reporting-code-coverage-etc .unnumbered}
 
 - How do I process code coverage reports? Should I bother with them? How do I compile and aggregate test reports?
+- Coverage is the measure of how much the code is covered by tests, usually unit tests. You have to make sure that you understand the limitations and benefits of coverage; otherwise, it stops being a useful metric. For more information, see the Test Coverage Paradox.
 
-- Coverage is the measure of how much the code is covered by tests, usually unit tests.You have to make sure that you understand the limitations and benefits of coverage, otherwise it seeks to become a useful metric. More information, look at Test Coverage Paradox.
+These are popular integrations based on actual workflow data (aggregated):
 
-+-----------------------------------------------------------------------------------------------------------------------------+
-| These are popular integrations based on actual workflow data (aggregated) |
-| |
-| https://docs.coveralls.io/api-introduction |
-| |
-| https://docs.codeclimate.com/docs/finding-your-test-coverage-token |
-| |
-| https://docs.sonarcloud.io/advanced-setup/ci-based-analysis/github-actions-for-sonarcloud/ |
-| |
-| https://docs.codecov.com/docs |
-| |
-| So I should consider showing how I can integrate these tools into the pipeline and what they do, how the results work, etc. |
-+=============================================================================================================================+
-+-----------------------------------------------------------------------------------------------------------------------------+
+• https://docs.coveralls.io/api-introduction  
+• https://docs.codeclimate.com/docs/finding-your-test-coverage-token  
+• https://docs.sonarcloud.io/advanced-setup/ci-based-analysis/github-actions-for-sonarcloud/  
+• https://docs.codecov.com/docs
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ## **Setting up SonarCloud with GitHub Actions: A Step-by-Step Guide** {#setting-up-sonarcloud-with-github-actions-a-step-by-step-guide .unnumbered} |
-| |
-| This guide walks you through integrating SonarCloud code analysis into your GitHub Actions workflow, enabling automated code quality checks with every push or pull request. |
-| |
-| **Step 1: Generate a SonarCloud Token** |
-| |
-| 1. Log in to your SonarCloud account. |
-| |
-| 2. Navigate to \"My Account\" \> \"Security\". |
-| |
-| 3. Generate a new token. |
-| |
-| 4. Copy the token value; you\'ll need it in the next step. |
-| |
-| **Step 2: Store the Token as a GitHub Secret** |
-| |
-| 1. Go to your GitHub repository. |
-| |
-| 2. Click \"Settings\" \> \"Secrets\" \> \"Actions\". |
-| |
-| 3. Click \"New repository secret\". |
-| |
-| 4. Name the secret SONAR_TOKEN. |
-| |
-| 5. Paste the SonarCloud token you copied in Step 1 into the \"Value\" field. |
-| |
-| 6. Save the secret. |
-| |
-| **Step 3: Define SonarCloud Properties (Project-Specific)** |
-| |
-| You\'ll need to specify these properties for SonarCloud to identify your project. The location of these properties varies depending on your project type. |
-| |
-| - **Java (Maven):** pom.xml |
-| |
-| - **Java (Gradle):** build.gradle |
-| |
-| - **.NET:** Within the SonarScanner command line arguments |
-| |
-| - **Other:** Create a sonar-project.properties file in your repository\'s root |
-| |
-| **Inside these files, set the following:** |
-| |
-| sonar.projectKey=your-project-key |
-| |
-| sonar.organization=your-organization-key |
-| |
-| sonar.host.url=https://sonarcloud.io |
-| |
-| content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487). |
-| |
-| - Replace your-project-key and your-organization-key with your actual values from SonarCloud. |
-| |
-| **Step 4: Create the GitHub Actions Workflow File** |
-| |
-| 1. Create a file named .github/workflows/build.yml in your repository\'s root. |
-| |
-| **Choose the Workflow Configuration** based on your project type:\ |
-| **a) Single Project Workflow:\ |
-| ** name: SonarCloud Analysis |
-| |
-| on: |
-| |
-| push: |
-| |
-| branches: |
-| |
-| \- main |
-| |
-| pull_request: |
-| |
-| types: \[opened, synchronize, reopened\] |
-| |
-| jobs: |
-| |
-| sonarcloud: |
-| |
-| name: SonarCloud Scan |
-| |
-| runs-on: ubuntu-latest |
-| |
-| steps: |
-| |
-| \- uses: actions/checkout@v3 |
-| |
-| with: |
-| |
-| fetch-depth: 0 |
-| |
-| \- name: SonarCloud Scan |
-| |
-| uses: SonarSource/sonarcloud-github-action@master |
-| |
-| env: |
-| |
-| SONAR_TOKEN: \${{ secrets.SONAR_TOKEN }} |
-| |
-| content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487).Yaml\ |
-| **b) Monorepo Workflow (Multiple Projects):\ |
-| ** name: SonarCloud Monorepo Analysis |
-| |
-| on: |
-| |
-| push: |
-| |
-| branches: |
-| |
-| \- main |
-| |
-| \# Add path filters if needed (e.g., - \'project1/**\') |
-| |
-| pull_request: |
-| |
-| types: \[opened, synchronize, reopened\] |
-| |
-| jobs: |
-| |
-| sonarcloudScan1: |
-| |
-| name: Project 1 Scan |
-| |
-| runs-on: ubuntu-latest |
-| |
-| steps: |
-| |
-| \- uses: actions/checkout@v3 |
-| |
-| with: |
-| |
-| fetch-depth: 0 |
-| |
-| \- name: SonarCloud Scan |
-| |
-| uses: SonarSource/sonarcloud-github-action@master |
-| |
-| env: |
-| |
-| SONAR_TOKEN: \${{ secrets.SONAR_TOKEN }} |
-| |
-| with: |
-| |
-| projectBaseDir: project1/ \# Path to project 1 |
-| |
-| sonarcloudScan2: |
-| |
-| name: Project 2 Scan |
-| |
-| runs-on: ubuntu-latest |
-| |
-| steps: |
-| |
-| \# \... (Similar to sonarcloudScan1, but with projectBaseDir: project2/) |
-| |
-| content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487).Yaml\ |
-| **c) C/C++ Project Workflow:\ |
-| **This workflow simplifies the process by automatically installing necessary tools.\ |
-| name: SonarCloud C/C++ Analysis |
-| |
-| on: |
-| |
-| \# \... (Trigger events same as above) |
-| |
-| jobs: |
-| |
-| sonarcloud: |
-| |
-| name: SonarCloud Scan |
-| |
-| runs-on: ubuntu-latest |
-| |
-| steps: |
-| |
-| \- uses: actions/checkout@v3 |
-| |
-| with: |
-| |
-| fetch-depth: 0 |
-| |
-| \- name: SonarCloud Scan |
-| |
-| uses: SonarSource/sonarcloud-github-action@master |
-| |
-| env: |
-| |
-| SONAR_TOKEN: \${{ secrets.SONAR_TOKEN }} |
-| |
-| 2. content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487).Yaml |
-| |
-| **Step 5: Commit and Push Your Changes** |
-| |
-| Commit your updated project configuration files and the .github/workflows/build.yml file to your repository. This will trigger your first SonarCloud analysis. |
-| |
-| **Step 6: View the Analysis Report** |
-| |
-| 1. Go to your SonarCloud project dashboard. |
-| |
-| 2. You\'ll see the results of your code analysis, including code smells, bugs, security vulnerabilities, and code coverage. |
-| |
-| **Important Notes:** |
-| |
-| - **Reusable Workflows:** For reusable workflows, use the secret: inherit feature to pass the SONAR_TOKEN securely. |
-| |
-| - **Detailed Configuration:** For advanced configuration options, refer to the official SonarCloud documentation and the sonar-project.properties file. |
-| |
-| - **Language-Specific Setup:\*\* For languages not explicitly mentioned, check the SonarCloud documentation for specific setup instructions. |
-+==============================================================================================================================================================================+
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+So, you should consider how to integrate these tools into your pipeline—understanding what they do and how the results work, etc.
+
+---
+
+## **Setting up SonarCloud with GitHub Actions: A Step-by-Step Guide** {#setting-up-sonarcloud-with-github-actions-a-step-by-step-guide .unnumbered}
+
+This guide walks you through integrating SonarCloud code analysis into your GitHub Actions workflow, enabling automated code quality checks with every push or pull request.
+
+**Step 1: Generate a SonarCloud Token**
+
+1. Log in to your SonarCloud account.
+2. Navigate to “My Account” > “Security”.
+3. Generate a new token.
+4. Copy the token value; you’ll need it for the next step.
+
+**Step 2: Store the Token as a GitHub Secret**
+
+1. Go to your GitHub repository.
+2. Click “Settings” > “Secrets” > “Actions”.
+3. Click “New repository secret”.
+4. Name the secret SONAR_TOKEN.
+5. Paste the SonarCloud token you copied in Step 1 into the “Value” field.
+6. Save the secret.
+
+**Step 3: Define SonarCloud Properties (Project-Specific)**  
+You’ll need to specify these properties for SonarCloud to identify your project. The location of these properties varies depending on your project type.
+
+- **Java (Maven):** pom.xml
+- **Java (Gradle):** build.gradle
+- **.NET:** Within the SonarScanner command line arguments
+- **Other:** Create a sonar-project.properties file in your repository’s root
+
+Inside these files, set the following:
+
+```
+sonar.projectKey=your-project-key
+sonar.organization=your-organization-key
+sonar.host.url=https://sonarcloud.io
+```
+
+Replace `your-project-key` and `your-organization-key` with your actual values from SonarCloud.
+
+**Step 4: Create the GitHub Actions Workflow File**
+
+1. Create a file named `.github/workflows/build.yml` in your repository’s root.
+
+Choose the Workflow Configuration based on your project type:
+
+### a) Single Project Workflow
+
+```yaml
+name: SonarCloud Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+```
+
+### b) Monorepo Workflow (Multiple Projects)
+
+```yaml
+name: SonarCloud Monorepo Analysis
+
+on:
+  push:
+    branches:
+      - main
+  # Add path filters if needed (e.g., - 'project1/**')
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarcloudScan1:
+    name: Project 1 Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: project1/ # Path to project 1
+
+  sonarcloudScan2:
+    name: Project 2 Scan
+    runs-on: ubuntu-latest
+    steps:
+      # ... (Similar to sonarcloudScan1, but with projectBaseDir: project2/)
+```
+
+### c) C/C++ Project Workflow
+
+This workflow simplifies the process by automatically installing necessary tools:
+
+```yaml
+name: SonarCloud C/C++ Analysis
+
+on:
+  # ... (Trigger events same as above)
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+```
+
+**Step 5: Commit and Push Your Changes**  
+Commit your updated project configuration files and the `.github/workflows/build.yml` file to your repository. This will trigger your first SonarCloud analysis.
+
+**Step 6: View the Analysis Report**
+
+1. Go to your SonarCloud project dashboard.
+2. You’ll see the results of your code analysis, including code smells, bugs, security vulnerabilities, and code coverage.
+
+**Important Notes**
+
+- **Reusable Workflows**: For reusable workflows, use the `secret: inherit` feature to pass the SONAR_TOKEN securely.
+- **Detailed Configuration**: For advanced configuration options, refer to the official SonarCloud documentation and the `sonar-project.properties` file.
+- **Language-Specific Setup**: For languages not explicitly mentioned, check the SonarCloud documentation for specific setup instructions.

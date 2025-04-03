@@ -10,81 +10,87 @@
 
 - Make sure that a PR requires at least two approvers in order to be merged (not including the person who authored the PR.) These policies are usually managed by your CI/CD software. Of course, if there is only a single person on the team (or two people), then it might not make sense for two people to approve.
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [[Security best practices - Azure DevOps \| Microsoft Learn]{.underline}](https://learn.microsoft.com/en-us/azure/devops/organizations/security/security-best-practices?view=azure-devops) |
-| |
-| [[Use Azure Key Vault secrets in GitLab CI/CD \| GitLab]{.underline}](https://docs.gitlab.com/ee/ci/secrets/azure_key_vault.html) |
-| |
-| [[Security hardening for GitHub Actions - GitHub Docs]{.underline}](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions) |
-| |
-| After reviewing the information from Azure DevOps, GitLab, and GitHub Actions, we can combine the similar points and extract general themes as follows: |
-| |
-| ### 1. **Authentication and Access Control**: |
-| |
-| \- **User and Admin Access**: Always grant the least required permissions. Use systems like Microsoft Entra Privileged Identity Management (PIM) for Azure or ID Tokens for OpenID Connect (OIDC) Authentication in GitLab for tighter access controls. |
-| |
-| \- **Tokens and Service Accounts**: Use tokens like the GITHUB_TOKEN in GitHub, service principals in Azure, and ID tokens in GitLab with specific scopes. Service accounts should have limited privileges and zero interactive sign-in rights. PATs (Personal Access Tokens) should be scoped, time-limited, and securely stored. |
-| |
-| \- **Cross-repository Access and Service Connections**: Scope access strictly to necessary resources, using service connections or authentication tokens, and avoid broad permissions. |
-| |
-| ### 2. **Pipeline and Workflow Security**: |
-| |
-| \- **Pipeline Construction and Execution**: Use templates in Azure Pipelines, manage definitions with YAML, and enforce code review policies. In GitLab, make use of project-level secure files. Ensure jobs, like in GitHub Actions, run on specific branches only and sanitize inputs in build scripts. |
-| |
-| \- **Runner Impact and Management**: Understand the potential risks with compromised runners like in GitHub Actions. Utilize hardening measures, and if self-hosting runners, ensure they\'re isolated and grouped properly. Consider the use of ephemeral runners for added security. |
-| |
-| \- **Secret Management**: Store secrets securely, using tools like Azure KeyVault, HashiCorp Vault in GitLab, or avoid logging them in pipeline variables. Use specific CI/CD variables for third-party integrations. |
-| |
-| ### 3. **Third-Party Integrations and Tools**: |
-| |
-| \- **Integration Best Practices**: Disable outdated or insecure methods, like Azure Classic service connections or PAT-based GitHub authentication. When integrating GitHub with Azure DevOps, avoid personal accounts. |
-| |
-| \- **Tooling and Automated Checks**: Use tools like OpenSSF Scorecards in GitHub to detect supply chain risks, and consider tools for downloading secure files in GitLab or checking software bills of materials (SBOM) in GitHub runners. |
-| |
-| ### 4. **Auditing and Monitoring**: |
-| |
-| \- **Logging and Error Checks**: Monitor service account activity, utilize security logs for account activities, and audit logs for organization activities, especially in platforms like GitHub. In GitLab, use error messages and administrative tools for diagnosing issues. |
-| |
-| \- **Repository and Branch Monitoring**: Implement repository-specific security policies, disable potentially insecure features like repository forking in Azure, and monitor production build definitions for potential credential leaks. |
-| |
-| ### 5. **Deployment and Service Configuration**: |
-| |
-| \- **Service Connection Scope**: In Azure DevOps, specifically scope service connections to necessary resources. Avoid generic contributor rights and use purpose-specific team accounts. |
-| |
-| \- **Environment Distinction**: Maintain a clear boundary between test environments and production. Ensure production secrets are kept separate and securely stored. |
-| |
-| By consolidating similar points across the three platforms (Azure DevOps, GitLab, and GitHub Actions), these general themes provide an overarching perspective on best security practices in DevOps environments. |
-+========================================================================================================================================================================================================================================================================================================================================+
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+​// Start of Selection
+
+### Useful References
+
+- [Security best practices - Azure DevOps | Microsoft Learn](https://learn.microsoft.com/en-us/azure/devops/organizations/security/security-best-practices?view=azure-devops)
+- [Use Azure Key Vault secrets in GitLab CI/CD | GitLab](https://docs.gitlab.com/ee/ci/secrets/azure_key_vault.html)
+- [Security hardening for GitHub Actions - GitHub Docs](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions)
+
+After reviewing the information from Azure DevOps, GitLab, and GitHub Actions, we can combine the similar points and extract general themes as follows:
+
+### 1. **Authentication and Access Control**
+
+- **User and Admin Access**: Always grant the least required permissions. Use systems like Microsoft Entra Privileged Identity Management (PIM) for Azure or ID Tokens for OpenID Connect (OIDC) Authentication in GitLab for tighter access controls.
+
+- **Tokens and Service Accounts**: Use tokens like the GITHUB_TOKEN in GitHub, service principals in Azure, and ID tokens in GitLab with specific scopes. Service accounts should have limited privileges and zero interactive sign-in rights. PATs (Personal Access Tokens) should be scoped, time-limited, and securely stored.
+
+- **Cross-repository Access and Service Connections**: Scope access strictly to necessary resources, using service connections or authentication tokens, and avoid broad permissions.
+
+### 2. **Pipeline and Workflow Security**
+
+- **Pipeline Construction and Execution**: Use templates in Azure Pipelines, manage definitions with YAML, and enforce code review policies. In GitLab, make use of project-level secure files. Ensure jobs, like in GitHub Actions, run on specific branches only and sanitize inputs in build scripts.
+
+- **Runner Impact and Management**: Understand the potential risks with compromised runners (e.g., in GitHub Actions). Utilize hardening measures, and if self-hosting runners, ensure they're isolated and grouped properly. Consider ephemeral runners for added security.
+
+- **Secret Management**: Store secrets securely, using tools like Azure KeyVault, HashiCorp Vault in GitLab, or avoid logging them in pipeline variables. Use specific CI/CD variables for third-party integrations.
+
+### 3. **Third-Party Integrations and Tools**
+
+- **Integration Best Practices**: Disable outdated or insecure methods, like Azure Classic service connections or PAT-based GitHub authentication. When integrating GitHub with Azure DevOps, avoid personal accounts.
+
+- **Tooling and Automated Checks**: Use tools like OpenSSF Scorecards in GitHub to detect supply chain risks, and consider tools for downloading secure files in GitLab or checking software bills of materials (SBOM) in GitHub runners.
+
+### 4. **Auditing and Monitoring**
+
+- **Logging and Error Checks**: Monitor service account activity, utilize security logs for account activities, and audit logs for organization activities (especially in platforms like GitHub). In GitLab, use error messages and administrative tools for diagnosing issues.
+
+- **Repository and Branch Monitoring**: Implement repository-specific security policies, disable potentially insecure features like repository forking in Azure, and monitor production build definitions for potential credential leaks.
+
+### 5. **Deployment and Service Configuration**
+
+- **Service Connection Scope**: In Azure DevOps, specifically scope service connections to necessary resources. Avoid generic contributor rights and use purpose-specific team accounts.
+
+- **Environment Distinction**: Maintain a clear boundary between test environments and production. Ensure production secrets are kept separate and securely stored.
+
+By consolidating similar points across the three platforms (Azure DevOps, GitLab, and GitHub Actions), these general themes provide an overarching perspective on best security practices in DevOps environments.
 
 ### {#section-11 .unnumbered}
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| The integration of security into the development and deployment lifecycle is an essential part of modern software practices. The term \"DevSecOps\" has emerged to emphasize this integration, underscoring the importance of security throughout the DevOps lifecycle. When it comes to books about CI/CD and even broader software development topics, there are several security-related areas that are often underemphasized or overlooked: |
-| |
-| 1\. **Shift-Left Security**: The idea behind \"shifting security left\" is to integrate security considerations and checks earlier in the development process. While some CI/CD books might touch on automated testing or code quality checks, they may not delve into integrating security scanning tools, static analysis for security vulnerabilities, or dependency checks in the early stages of the pipeline. |
-| |
-| 2\. **Secrets Management**: Handling API keys, database credentials, certificates, and other secrets is critical in CI/CD pipelines. Many books might not detail best practices for secrets management, like using secret managers (e.g., HashiCorp Vault, AWS Secrets Manager) or how to rotate and revoke secrets. |
-| |
-| 3\. **Immutable Infrastructure**: The concept of immutability, where infrastructure is never modified after it\'s deployed (and is instead replaced), can enhance security. This approach reduces the attack surface and ensures consistency. Many books might not discuss the security benefits of this method in detail. |
-| |
-| 4\. **Container Security**: As containerized applications and microservices architectures become more popular, securing containers is paramount. This includes scanning container images for vulnerabilities, ensuring containers run with minimal permissions, and using trusted base images. Many books might not go into the intricacies of container security. |
-| |
-| 5\. **Infrastructure as Code (IaC) Security**: IaC tools like Terraform or CloudFormation have their vulnerabilities. Some books might not discuss how to secure IaC scripts, best practices for code reviews, or the importance of scanning IaC for misconfigurations. |
-| |
-| 6\. **Runtime Application Self-Protection (RASP)**: RASP solutions provide real-time application security, detecting and blocking attacks in real-time. The integration of RASP into CI/CD might be an overlooked topic in many beginner books. |
-| |
-| 7\. **DAST and SAST**: Dynamic Application Security Testing (DAST) and Static Application Security Testing (SAST) are methodologies for identifying vulnerabilities in running applications and source code, respectively. Their integration into CI/CD pipelines can be crucial but might not be thoroughly covered. |
-| |
-| 8\. **Incident Response in CI/CD**: How to handle security incidents, particularly in a CI/CD context (like rolling back insecure deployments or patching in a CI/CD model), can be a topic that\'s glossed over. |
-| |
-| 9\. **Supply Chain Attacks**: Ensuring the integrity of software components, packages, and dependencies is critical to prevent supply chain attacks. Some books might not delve into the importance of verifying component integrity or the risks of using outdated or compromised packages. |
-| |
-| 10\. **Compliance and Auditing**: In regulated industries, compliance with security standards is mandatory. How to ensure and validate compliance in a CI/CD model might not always be explored in depth. |
-| |
-| Given the importance of security in today\'s software landscape, those interested in CI/CD should seek out resources that give due attention to security considerations. If a general CI/CD book doesn\'t cover security in depth, consider complementing it with resources specifically focused on DevSecOps and security best practices in the context of modern software development and deployment. |
-+=================================================================================================================================================================================================================================================================================================================================================================================================================================================+
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+The integration of security into the development and deployment lifecycle is an essential part of modern software practices. The term "DevSecOps" has emerged to emphasize this integration, underscoring the importance of security throughout the DevOps lifecycle. When it comes to books about CI/CD and even broader software development topics, there are several security-related areas that are often underemphasized or overlooked:
+
+1. **Shift-Left Security**  
+   The idea behind "shifting security left" is to integrate security considerations and checks earlier in the development process. While some CI/CD books might touch on automated testing or code quality checks, they may not delve into integrating security scanning tools, static analysis for security vulnerabilities, or dependency checks in the early stages of the pipeline.
+
+2. **Secrets Management**  
+   Handling API keys, database credentials, certificates, and other secrets is critical in CI/CD pipelines. Many books might not detail best practices for secrets management, like using secret managers (e.g., HashiCorp Vault, AWS Secrets Manager) or how to rotate and revoke secrets.
+
+3. **Immutable Infrastructure**  
+   The concept of immutability, where infrastructure is never modified after it's deployed (and is instead replaced), can enhance security. This approach reduces the attack surface and ensures consistency. Many books might not discuss the security benefits of this method in detail.
+
+4. **Container Security**  
+   As containerized applications and microservices architectures become more popular, securing containers is paramount. This includes scanning container images for vulnerabilities, ensuring containers run with minimal permissions, and using trusted base images. Many books might not go into the intricacies of container security.
+
+5. **Infrastructure as Code (IaC) Security**  
+   IaC tools like Terraform or CloudFormation have their vulnerabilities. Some books might not discuss how to secure IaC scripts, best practices for code reviews, or the importance of scanning IaC for misconfigurations.
+
+6. **Runtime Application Self-Protection (RASP)**  
+   RASP solutions provide real-time application security, detecting and blocking attacks in real-time. The integration of RASP into CI/CD might be an overlooked topic in many beginner books.
+
+7. **DAST and SAST**  
+   Dynamic Application Security Testing (DAST) and Static Application Security Testing (SAST) are methodologies for identifying vulnerabilities in running applications and source code, respectively. Their integration into CI/CD pipelines can be crucial but might not be thoroughly covered.
+
+8. **Incident Response in CI/CD**  
+   How to handle security incidents, particularly in a CI/CD context (like rolling back insecure deployments or patching in a CI/CD model), can be a topic that's glossed over.
+
+9. **Supply Chain Attacks**  
+   Ensuring the integrity of software components, packages, and dependencies is critical to prevent supply chain attacks. Some books might not delve into the importance of verifying component integrity or the risks of using outdated or compromised packages.
+
+10. **Compliance and Auditing**  
+    In regulated industries, compliance with security standards is mandatory. How to ensure and validate compliance in a CI/CD model might not always be explored in depth.
+
+Given the importance of security in today's software landscape, those interested in CI/CD should seek out resources that give due attention to security considerations. If a general CI/CD book doesn't cover security in depth, consider complementing it with resources specifically focused on DevSecOps and security best practices in the context of modern software development and deployment.
 
 - [[https://stackoverflow.com/a/49552383/220935]{.underline}](https://stackoverflow.com/a/49552383/220935) for using the job token instead of long-lived ssh keys to clone repo
 
@@ -192,62 +198,52 @@
 
     - Rapid prototyping or test applications can hardcode their credentials, because setting up the necessary infrastructure can be time consuming. It may also require service connections and other boilerplate work that reduce the velocity.
 
-- +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-  | [[Sabotage: Code added to popular NPM package wiped files in Russia and Belarus \| Ars Technica]{.underline}](https://arstechnica.com/information-technology/2022/03/sabotage-code-added-to-popular-npm-package-wiped-files-in-russia-and-belarus/) |
-  | |
-  | **Malicious Code in Open-Source Software Targets Russia and Belarus** |
-  | |
-  | **Overview:** |
-  | |
-  | A developer inserted malicious code into the popular open-source package, node-ipc, targeting computers in Russia and Belarus. This act stirred controversy within the open-source community and raised concerns regarding the safety of free software. |
-  | |
-  | **Key Points:** |
-  | |
-  | 1\. **The Software Affected:** |
-  | |
-  | \- The software, node-ipc, enhances other open-source code libraries with remote interprocess communication and neural networking capabilities. |
-  | |
-  | \- As a dependency, node-ipc is automatically downloaded and integrated into other libraries, such as Vue.js CLI, which receives over 1 million weekly downloads. |
-  | |
-  | 2\. **Malicious Action:** |
-  | |
-  | \- The author of node-ipc introduced a version of the library that identified and sabotaged computers in Russia and Belarus, countries involved in the invasion of Ukraine. |
-  | |
-  | \- This malicious version identified developers based on their IP addresses. If the IP address was traced back to Russia or Belarus, the version would delete files and replace them with a heart emoji. |
-  | |
-  | \- To hide this malicious code, the author, Brandon Nozaki Miller, encoded the changes, making it challenging for users to detect the issue by visual inspection. |
-  | |
-  | 3\. **The Fallout:** |
-  | |
-  | \- Liran Tal, a researcher at Snyk, pointed out that this act represents a significant security risk for any system using the affected npm package if geolocated to Russia or Belarus. |
-  | |
-  | \- Tal highlighted that the node-ipc author manages 40 other libraries, raising concerns about potential malicious activity in those libraries as well. |
-  | |
-  | \- Many in the open-source community criticized the author\'s actions, raising questions about trust and the implications of such aggressive actions on the author\'s reputation and stake in the developer community. |
-  | |
-  | 4\. **Protestware Emergence:** |
-  | |
-  | \- The malicious node-ipc update is an example of what\'s being termed \"protestware.\" |
-  | |
-  | \- Other open-source projects have also released updates protesting Russia\'s actions in the war. |
-  | |
-  | \- This incident underscores the potential risks when individual developers can significantly impact many applications through open-source contributions. |
-  | |
-  | 5\. **Past Incidents:** |
-  | |
-  | \- In January, another incident occurred when a developer\'s update to two JavaScript libraries, with over 22 million downloads, caused over 21,000 dependent applications to malfunction. |
-  | |
-  | 6\. **Resolution:** |
-  | |
-  | \- After the discovery of the malicious code, the developer released updates to remove it from node-ipc versions 10.1.1 and 10.1.2. |
-  | |
-  | \- Snyk advises developers to cease using the compromised package or use an npm package manager to override the affected versions. |
-  | |
-  | 7\. **Snyk\'s Statement:** |
-  | |
-  | \- While Snyk supports Ukraine, they emphasized that such intentional abuse damages the global open-source community, leading them to flag the affected node-ipc versions as security vulnerabilities. |
-  +=========================================================================================================================================================================================================================================================+
-  +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+/// Start of Selection
+
+- [Sabotage: Code added to popular NPM package wiped files in Russia and Belarus | Ars Technica](https://arstechnica.com/information-technology/2022/03/sabotage-code-added-to-popular-npm-package-wiped-files-in-russia-and-belarus/)
+
+## Malicious Code in Open-Source Software Targets Russia and Belarus
+
+### Overview
+
+A developer inserted malicious code into the popular open-source package, node-ipc, targeting computers in Russia and Belarus. This act stirred controversy within the open-source community and raised concerns regarding the safety of free software.
+
+### Key Points
+
+1. **The Software Affected**
+
+   - The software, node-ipc, enhances other open-source code libraries with remote interprocess communication and neural networking capabilities.
+   - As a dependency, node-ipc is automatically downloaded and integrated into other libraries, such as Vue.js CLI, which receives over 1 million weekly downloads.
+
+2. **Malicious Action**
+
+   - The author of node-ipc introduced a version of the library that identified and sabotaged computers in Russia and Belarus, countries involved in the invasion of Ukraine.
+   - This malicious version identified developers based on their IP addresses. If the IP address was traced back to Russia or Belarus, the version would delete files and replace them with a heart emoji.
+   - To hide this malicious code, the author, Brandon Nozaki Miller, encoded the changes, making it challenging for users to detect the issue by visual inspection.
+
+3. **The Fallout**
+
+   - Liran Tal, a researcher at Snyk, pointed out that this act represents a significant security risk for any system using the affected npm package if geolocated to Russia or Belarus.
+   - Tal highlighted that the node-ipc author manages 40 other libraries, raising concerns about potential malicious activity in those libraries as well.
+   - Many in the open-source community criticized the author’s actions, raising questions about trust and the implications of such aggressive actions on the author’s reputation and stake in the developer community.
+
+4. **Protestware Emergence**
+
+   - The malicious node-ipc update is an example of what’s being termed “protestware.”
+   - Other open-source projects have also released updates protesting Russia’s actions in the war.
+   - This incident underscores the potential risks when individual developers can significantly impact many applications through open-source contributions.
+
+5. **Past Incidents**
+
+   - In January, another incident occurred when a developer’s update to two JavaScript libraries, with over 22 million downloads, caused over 21,000 dependent applications to malfunction.
+
+6. **Resolution**
+
+   - After the discovery of the malicious code, the developer released updates to remove it from node-ipc versions 10.1.1 and 10.1.2.
+   - Snyk advises developers to cease using the compromised package or use an npm package manager to override the affected versions.
+
+7. **Snyk’s Statement**
+   - While Snyk supports Ukraine, they emphasized that such intentional abuse damages the global open-source community, leading them to flag the affected node-ipc versions as security vulnerabilities.
 
 -
 
@@ -383,265 +379,202 @@
 
 - ![](./images/image75.png)
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Signing commits using a YubiKey and Git involves several steps, but it provides an added layer of security to your Git workflow. A YubiKey is a hardware security module (HSM) that can store private keys securely, making it harder for malicious actors to access them. By following the steps below, you\'ll be able to sign your Git commits using the private key stored on your YubiKey: |
-| |
-| 1\. **Prerequisites**: |
-| |
-| \- Ensure you have a YubiKey that supports OpenPGP. |
-| |
-| \- Install GnuPG (`gpg`). |
-| |
-| \- Install Git. |
-| |
-| 2\. **Set Up GnuPG with YubiKey**: |
-| |
-| a\. Insert your YubiKey and check if GnuPG recognizes it: |
-| |
-| `bash |
-| |
-| gpg \--card-status |
-| |
-| ` |
-| |
-| b\. If it\'s a new YubiKey, you might need to generate a new key pair: |
-| |
-| `bash |
-| |
-| gpg \--card-edit |
-| |
-| admin |
-| |
-| generate |
-| |
-| ` |
-| |
-| 3\. **Configure Git to Use GPG**: |
-| |
-| a\. Tell Git about GPG: |
-| |
-| `bash |
-| |
-| git config \--global gpg.program \$(which gpg) |
-| |
-| ` |
-| |
-| b\. Get your GPG key ID (usually the last 8 characters): |
-| |
-| `bash |
-| |
-| gpg \--list-secret-keys |
-| |
-| ` |
-| |
-| You should see output that looks like: |
-| |
-| `|
-| |
-| sec rsa4096/1234ABCD1234ABCD 2022-01-01 \[SC\] |
-| |
-|` |
-| |
-| In this case, `1234ABCD1234ABCD` is the key ID. |
-| |
-| c\. Tell Git to use this GPG key for signing: |
-| |
-| `bash |
-| |
-| git config \--global user.signingkey 1234ABCD1234ABCD |
-| |
-| ` |
-| |
-| 4\. **Automatically Sign All Commits**: |
-| |
-| If you want to sign all commits by default in every Git repository on your computer, run: |
-| |
-| `bash |
-| |
-| git config \--global commit.gpgsign true |
-| |
-| ` |
-| |
-| 5\. **Signing a Commit**: |
-| |
-| If you haven\'t enabled automatic signing, you can sign individual commits using the `-S` flag: |
-| |
-| `bash |
-| |
-| git commit -S -m \"Your commit message\" |
-| |
-| ` |
-| |
-| 6\. **Verify Signed Commits**: |
-| |
-| To verify the signed commit: |
-| |
-| `bash |
-| |
-| git log \--show-signature |
-| |
-| ` |
-| |
-| This will show if the commit was signed and if the signature was valid. |
-| |
-| 7\. **Pushing and Working Remotely**: |
-| |
-| When you push your signed commits to platforms like GitHub or GitLab, they should recognize and display the \"Verified\" badge next to each signed commit, confirming its authenticity. |
-| |
-| 8\. **Using Pinentry for Passphrase Prompting**: |
-| |
-| If you\'re using the passphrase for your GPG key and working in a GUI environment, you might need `pinentry` to be set up correctly for passphrase prompting. |
-| |
-| Check your `gpg-agent.conf` (often located in `\~/.gnupg/gpg-agent.conf`) and ensure it has the appropriate pinentry program set, e.g.: |
-| |
-| `|
-| |
-| pinentry-program /usr/bin/pinentry-gtk-2 |
-| |
-|` |
-| |
-| Restart `gpg-agent` after making changes: |
-| |
-| `bash |
-| |
-| gpgconf \--kill gpg-agent |
-| |
-| ` |
-| |
-| **Remember, while signing commits vouches for the integrity of the commit (i.e., that it has not been tampered with), it does not attest to the quality or safety of the code within the commit. Always review code carefully, regardless of its signature status.** |
-+=================================================================================================================================================================================================================================================================================================================================================================================================+
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+## Signing commits using a YubiKey and Git
 
-- If you do not have a YubiKey, you can use GPG with keys stored securely somewhere on your computer.
+Signing commits using a YubiKey and Git involves several steps, but it provides an added layer of security to your Git workflow. A YubiKey is a hardware security module (HSM) that can store private keys securely, making it harder for malicious actors to access them. By following the steps below, you’ll be able to sign your Git commits using the private key stored on your YubiKey:
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Commit signing in Git adds an extra layer of integrity checks to your project by showing that a commit was made by a particular individual and has not been tampered with. This is accomplished using GPG (GNU Privacy Guard) to sign your commits. Here are step-by-step instructions: |
-| |
-| ### Step 1: Install GPG |
-| |
-| \- **Linux**: You can install GPG using the package manager for your specific Linux distribution. For Ubuntu/Debian, you would use: |
-| |
-| `|
-| |
-| sudo apt-get update |
-| |
-| sudo apt-get install gnupg |
-| |
-|` |
-| |
-| \- **macOS**: If you have Homebrew installed, you can run: |
-| |
-| `|
-| |
-| brew install gnupg |
-| |
-|` |
-| |
-| \- **Windows**: Download and install it from the \[official website\](https://gnupg.org/download/). |
-| |
-| ### Step 2: Generate a GPG Key Pair |
-| |
-| Open your terminal and enter the following command: |
-| |
-| `|
-| |
-| gpg \--full-gen-key |
-| |
-|` |
-| |
-| You will be asked for the kind of key you want, its size, and the duration the key should be valid. Generally, the default settings are good enough. Finally, you\'ll be asked for your user ID (email) and a passphrase. |
-| |
-| ### Step 3: List GPG Keys |
-| |
-| Run the following command to list the GPG keys for which you have both a public and private key pair. |
-| |
-| `|
-| |
-| gpg \--list-secret-keys \--keyid-format LONG |
-| |
-|` |
-| |
-| ### Step 4: Add GPG Key to Git Config |
-| |
-| From the list of GPG keys, copy the GPG key ID you\'d like to use. It\'s the part after the `/` in the `sec` row. Next, set that GPG key in your Git configuration: |
-| |
-| `|
-| |
-| git config \--global user.signingkey \[your-key-id-here\] |
-| |
-|` |
-| |
-| ### Step 5: Enable Automatic Commit Signing |
-| |
-| You can configure Git to sign all commits by default for a repository or globally. To enable it for all repos, use: |
-| |
-| `|
-| |
-| git config \--global commit.gpgsign true |
-| |
-|` |
-| |
-| For a single repo, navigate to the repository directory and run: |
-| |
-| `|
-| |
-| git config commit.gpgsign true |
-| |
-|` |
-| |
-| ### Step 6: Add GPG Key to GitHub/GitLab/Other |
-| |
-| 1\. To get the GPG public key, use: |
-| |
-| `|
-| |
-| gpg \--armor \--export \[your-key-id-here\] |
-| |
-|` |
-| |
-| 2\. Copy the GPG key, beginning with `\-\-\-\--BEGIN PGP PUBLIC KEY BLOCK\-\-\-\--` and ending with `\-\-\-\--END PGP PUBLIC KEY BLOCK\-\-\-\--`. |
-| |
-| 3\. Add this key to your GitHub/GitLab account. |
-| |
-| \- On GitHub, go to Settings -\> SSH and GPG keys -\> New GPG key. |
-| |
-| \- On GitLab, go to User Settings -\> GPG Keys -\> Add Key. |
-| |
-| ### Step 7: Tell Git About Your GPG Key (Optional) |
-| |
-| In case you are using different key pairs or your machine doesn\'t pick the right one, you can set the GPG program and the signing key for each repo or globally. |
-| |
-| For each repo, navigate to its directory and run: |
-| |
-| `|
-| |
-| git config user.signingkey \[your-key-id-here\] |
-| |
-|` |
-| |
-| Or globally: |
-| |
-| `|
-| |
-| git config \--global user.signingkey \[your-key-id-here\] |
-| |
-|` |
-| |
-| ### Step 8: Verify Your Commits |
-| |
-| After these steps, your commits should be signed, and you can verify them with: |
-| |
-| `|
-| |
-| git log \--show-signature |
-| |
-|` |
-| |
-| This should show that your commits are GPG signed. |
-| |
-| And that\'s it! You\'ve now set up GPG signing for your Git commits. This adds a layer of security to your project, ensuring that your commits are verified as coming from you. |
-+=========================================================================================================================================================================================================================================================================================+
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1. **Prerequisites**:
+
+   - Ensure you have a YubiKey that supports OpenPGP.
+   - Install GnuPG (`gpg`).
+   - Install Git.
+
+2. **Set Up GnuPG with YubiKey**:
+   a. Insert your YubiKey and check if GnuPG recognizes it:
+
+   ```bash
+   gpg --card-status
+   ```
+
+   b. If it's a new YubiKey, you might need to generate a new key pair:
+
+   ```bash
+   gpg --card-edit
+   admin
+   generate
+   ```
+
+3. **Configure Git to Use GPG**:
+   a. Tell Git about GPG:
+
+   ```bash
+   git config --global gpg.program $(which gpg)
+   ```
+
+   b. Get your GPG key ID (usually the last 8 characters):
+
+   ```bash
+   gpg --list-secret-keys
+   ```
+
+   You should see output that looks like:
+
+   ```
+   sec rsa4096/1234ABCD1234ABCD 2022-01-01 [SC]
+   ```
+
+   In this case, `1234ABCD1234ABCD` is the key ID.
+
+   c. Tell Git to use this GPG key for signing:
+
+   ```bash
+   git config --global user.signingkey 1234ABCD1234ABCD
+   ```
+
+4. **Automatically Sign All Commits**:
+   If you want to sign all commits by default in every Git repository on your computer, run:
+
+   ```bash
+   git config --global commit.gpgsign true
+   ```
+
+5. **Signing a Commit**:
+   If you haven’t enabled automatic signing, you can sign individual commits using the `-S` flag:
+
+   ```bash
+   git commit -S -m "Your commit message"
+   ```
+
+6. **Verify Signed Commits**:
+   To verify the signed commit:
+
+   ```bash
+   git log --show-signature
+   ```
+
+   This will show if the commit was signed and if the signature was valid.
+
+7. **Pushing and Working Remotely**:
+   When you push your signed commits to platforms like GitHub or GitLab, they should recognize and display the "Verified" badge next to each signed commit, confirming its authenticity.
+
+8. **Using Pinentry for Passphrase Prompting**:
+   If you’re using the passphrase for your GPG key and working in a GUI environment, you might need `pinentry` to be set up correctly for passphrase prompting.
+
+   Check your `gpg-agent.conf` (often located in `~/.gnupg/gpg-agent.conf`) and ensure it has the appropriate pinentry program set, for example:
+
+   ```
+   pinentry-program /usr/bin/pinentry-gtk-2
+   ```
+
+   Restart `gpg-agent` after making changes:
+
+   ```bash
+   gpgconf --kill gpg-agent
+   ```
+
+**Remember, while signing commits vouches for the integrity of the commit (i.e., that it has not been tampered with), it does not attest to the quality or safety of the code within the commit. Always review code carefully, regardless of its signature status.**
+
+---
+
+If you do not have a YubiKey, you can use GPG with keys stored securely somewhere on your computer.
+
+---
+
+## Commit Signing with GPG (Without a YubiKey)
+
+Commit signing in Git adds an extra layer of integrity checks to your project by showing that a commit was made by a particular individual and has not been tampered with. This is accomplished using GPG (GNU Privacy Guard) to sign your commits. Here are step-by-step instructions:
+
+### Step 1: Install GPG
+
+- **Linux**: You can install GPG using the package manager for your specific Linux distribution. For Ubuntu/Debian:
+  ```
+  sudo apt-get update
+  sudo apt-get install gnupg
+  ```
+- **macOS**: If you have Homebrew installed, you can run:
+  ```
+  brew install gnupg
+  ```
+- **Windows**: Download and install it from the [official website](https://gnupg.org/download/).
+
+### Step 2: Generate a GPG Key Pair
+
+Open your terminal and enter the following command:
+
+```
+gpg --full-gen-key
+```
+
+You will be asked for the kind of key you want, its size, and the duration the key should be valid. Generally, the default settings are good enough. Finally, you’ll be asked for your user ID (email) and a passphrase.
+
+### Step 3: List GPG Keys
+
+Run the following command to list the GPG keys for which you have both a public and private key pair:
+
+```
+gpg --list-secret-keys --keyid-format LONG
+```
+
+### Step 4: Add GPG Key to Git Config
+
+From the list of GPG keys, copy the GPG key ID you’d like to use. It’s the part after the `/` in the `sec` row. Next, set that GPG key in your Git configuration:
+
+```
+git config --global user.signingkey [your-key-id-here]
+```
+
+### Step 5: Enable Automatic Commit Signing
+
+You can configure Git to sign all commits by default for a repository or globally. To enable it for all repos, use:
+
+```
+git config --global commit.gpgsign true
+```
+
+For a single repo, navigate to the repository directory and run:
+
+```
+git config commit.gpgsign true
+```
+
+### Step 6: Add GPG Key to GitHub/GitLab/Other
+
+1. To get the GPG public key, use:
+   ```
+   gpg --armor --export [your-key-id-here]
+   ```
+2. Copy the GPG key, beginning with `-----BEGIN PGP PUBLIC KEY BLOCK-----` and ending with `-----END PGP PUBLIC KEY BLOCK-----`.
+3. Add this key to your GitHub/GitLab account.
+   - On GitHub, go to Settings → SSH and GPG keys → New GPG key.
+   - On GitLab, go to User Settings → GPG Keys → Add Key.
+
+### Step 7: Tell Git About Your GPG Key (Optional)
+
+If you are using different key pairs or your machine doesn’t pick the right one, you can set the GPG program and the signing key for each repo or globally.
+
+For each repo, navigate to its directory and run:
+
+```
+git config user.signingkey [your-key-id-here]
+```
+
+Or globally:
+
+```
+git config --global user.signingkey [your-key-id-here]
+```
+
+### Step 8: Verify Your Commits
+
+After these steps, your commits should be signed, and you can verify them with:
+
+```
+git log --show-signature
+```
+
+This should show that your commits are GPG signed.
+
+That’s it! You’ve now set up GPG signing for your Git commits. This adds a layer of security to your project, ensuring that your commits are verified as coming from you.
 
 ### Introduction to Reproducible Builds
 
@@ -765,108 +698,89 @@
 
 - Even if the file is on a trusted source and might not be compromised (but see Handbrake as a counterexample), it could have a silent version change (or a DNS takeover) and the file will change. This means that the inputs/process is different, potentially causing the build to be non-reproducible.
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [[media.ccc.de - Reproducible Builds]{.underline}](https://media.ccc.de/v/31c3_-_6240_-_en_-_saal_g_-_201412271400_-_reproducible_builds_-_mike_perry_-_seth_schoen_-_hans_steiner#t=2178) |
-| |
-| [[Wayback Machine (archive.org)]{.underline}](https://web.archive.org/web/20020315061729/http://www.pine.nl/advisories/pine-cert-20020301.patch) |
-| |
-| [[NVD - CVE-2002-0083 (nist.gov)]{.underline}](https://nvd.nist.gov/vuln/detail/CVE-2002-0083) |
-| |
-| \# Case Study: Understanding the Importance of Source and Binary in CI/CD Pipelines |
-| |
-| \## Background |
-| |
-| The subject of this case study aims to delve into the intricate relationship between source code and its compiled binary, highlighting the avenues through which bugs and vulnerabilities can be introduced. The study presents real-world examples, one dating back to 2002 in the OpenSSH server, and conducts a demonstration using a kernel mode rootkit. |
-| |
-| \## The OpenSSH Vulnerability |
-| |
-| A bug was identified in 2002 in the OpenSSH server. This bug stemmed from a \'fencepost error\'---an off-by-one error---where the programmer mistakenly used the \"greater than\" condition instead of \"greater than or equal to.\" Upon fixing, this seemingly significant vulnerability turned out to be a difference of just a single bit in the binary. The root cause was identified by comparing assembly and compilation outputs of the vulnerable and the fixed versions. |
-| |
-| ### Key Finding: |
-| |
-| A single bit can make the difference between having a remotely exploitable bug and not having one. The study emphasizes the importance of getting the conditions right in the source code because even a small error can lead to catastrophic outcomes. |
-| |
-| \## The Kernel Mode Rootkit Demo |
-| |
-| To further the argument, a kernel mode rootkit was written to demonstrate the potential risks during the compilation process. The rootkit altered what source code was read during compilation without changing the actual files on the disk. This meant that standard file integrity checks like SHA-1 sum would report the source code as unaltered, while in reality, a compromised version of the code was being compiled. |
-| |
-| ### Key Finding: |
-| |
-| This demo emphasized that the trust we put in our compilers and build environments can be misplaced. Even if the source code on disk is correct, malicious actors can intervene during the compilation process to produce compromised binaries. |
-| |
-| \## Implications and Recommendations |
-| |
-| 1\. **Critical Code Review**: Even a small mistake in the code can lead to severe vulnerabilities; therefore, rigorous code reviews are vital. |
-| |
-| 2\. **Binary Analysis**: Going beyond source code, a close inspection of the binary could add another layer of security. |
-| |
-| 3\. **Integrity Checks**: Trusting the build environment is not enough; integrity checks must be more sophisticated and include in-process monitoring. |
-| |
-| \## Conclusion |
-| |
-| This case study stresses the need for increased vigilance at both the source and binary levels to minimize the risks of introducing vulnerabilities in a CI/CD pipeline. From small syntactic errors to rootkits affecting the compilation process, the risks are real and varied, and comprehensive security measures are the need of the hour. |
-+====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+/// Start of Selection
 
-- Concrete examples of non-determinism in a sample program
+[media.ccc.de - Reproducible Builds](https://media.ccc.de/v/31c3_-_6240_-_en_-_saal_g_-_201412271400_-_reproducible_builds_-_mike_perry_-_seth_schoen_-_hans_steiner#t=2178)
 
-+-----------------------------------------------------------------------+
-| // example of non-determinism |
-| |
-| async Task\<Task\> DoWork(int id) |
-| |
-| { |
-| |
-| await Task.Delay(TimeSpan.FromSeconds(1)); |
-| |
-| Console.WriteLine(id); |
-| |
-| return Task.CompletedTask; |
-| |
-| } |
-| |
-| var tasks = new List\<Task\>(); |
-| |
-| for (int i = 0; i \< 10; i++) |
-| |
-| { |
-| |
-| tasks.Add(DoWork(i)); |
-| |
-| } |
-| |
-| await Task.WhenAll(tasks.ToArray()); |
-| |
-| // produces different output depending on when you run it |
-+=======================================================================+
-+-----------------------------------------------------------------------+
+[Wayback Machine (archive.org)](https://web.archive.org/web/20020315061729/http://www.pine.nl/advisories/pine-cert-20020301.patch)
 
-- Sleep is only sleeping for a second, however, it is not exactly a second each time. This is probably jitter, which is not really related to non-determinism.
+[NVD - CVE-2002-0083 (nist.gov)](https://nvd.nist.gov/vuln/detail/CVE-2002-0083)
 
-+-----------------------------------------------------------------------+
-| // example of jitter |
-| |
-| async Task DoWork(int id) |
-| |
-| { |
-| |
-| await Task.Delay(TimeSpan.FromSeconds(Random.Shared.Next(0, 5))); |
-| |
-| Console.WriteLine(id); |
-| |
-| return; |
-| |
-| } |
-| |
-| for (int i = 0; i \< 10; i++) |
-| |
-| { |
-| |
-| await DoWork(i); |
-| |
-| } |
-+=======================================================================+
-+-----------------------------------------------------------------------+
+# Case Study: Understanding the Importance of Source and Binary in CI/CD Pipelines
+
+## Background
+
+The subject of this case study aims to delve into the intricate relationship between source code and its compiled binary, highlighting the avenues through which bugs and vulnerabilities can be introduced. The study presents real-world examples, one dating back to 2002 in the OpenSSH server, and conducts a demonstration using a kernel mode rootkit.
+
+## The OpenSSH Vulnerability
+
+A bug was identified in 2002 in the OpenSSH server. This bug stemmed from a 'fencepost error'—an off-by-one error—where the programmer mistakenly used the "greater than" condition instead of "greater than or equal to." Upon fixing, this seemingly significant vulnerability turned out to be a difference of just a single bit in the binary. The root cause was identified by comparing assembly and compilation outputs of the vulnerable and the fixed versions.
+
+### Key Finding:
+
+A single bit can make the difference between having a remotely exploitable bug and not having one. The study emphasizes the importance of getting the conditions right in the source code because even a small error can lead to catastrophic outcomes.
+
+## The Kernel Mode Rootkit Demo
+
+To further the argument, a kernel mode rootkit was written to demonstrate the potential risks during the compilation process. The rootkit altered what source code was read during compilation without changing the actual files on the disk. This meant that standard file integrity checks like SHA-1 sum would report the source code as unaltered, while in reality, a compromised version of the code was being compiled.
+
+### Key Finding:
+
+This demo emphasized that the trust we put in our compilers and build environments can be misplaced. Even if the source code on disk is correct, malicious actors can intervene during the compilation process to produce compromised binaries.
+
+## Implications and Recommendations
+
+1. **Critical Code Review**: Even a small mistake in the code can lead to severe vulnerabilities; therefore, rigorous code reviews are vital.
+
+2. **Binary Analysis**: Going beyond source code, a close inspection of the binary could add another layer of security.
+
+3. **Integrity Checks**: Trusting the build environment is not enough; integrity checks must be more sophisticated and include in-process monitoring.
+
+## Conclusion
+
+This case study stresses the need for increased vigilance at both the source and binary levels to minimize the risks of introducing vulnerabilities in a CI/CD pipeline. From small syntactic errors to rootkits affecting the compilation process, the risks are real and varied, and comprehensive security measures are the need of the hour.
+
+---
+
+### Concrete Examples of Non-Determinism in a Sample Program
+
+```csharp
+// example of non-determinism
+async Task<Task> DoWork(int id)
+{
+    await Task.Delay(TimeSpan.FromSeconds(1));
+    Console.WriteLine(id);
+    return Task.CompletedTask;
+}
+
+var tasks = new List<Task>();
+
+for (int i = 0; i < 10; i++)
+{
+    tasks.Add(DoWork(i));
+}
+
+await Task.WhenAll(tasks.ToArray());
+
+// produces different output depending on when you run it
+```
+
+Sleep is only sleeping for a second; however, it is not exactly a second each time. This is probably jitter, which is not really related to non-determinism.
+
+```csharp
+// example of jitter
+async Task DoWork(int id)
+{
+    await Task.Delay(TimeSpan.FromSeconds(Random.Shared.Next(0, 5)));
+    Console.WriteLine(id);
+    return;
+}
+
+for (int i = 0; i < 10; i++)
+{
+    await DoWork(i);
+}
+```
 
 - How do I make my builds deterministic?
 
@@ -1173,8 +1087,9 @@
 
   18. xdelta3 shows copied binary segments (e.g., files were concatenated non-deterministically)
 
+```md
 +--------------------------------------------------------------------------------------------------------+
-| alex@DESKTOP-7M8V9ET:/mnt/c/users/Alex Yorke/Desktop\$ xdelta3 printdelta test1-3-2-4_to_3-4-1-2.delta |
+| alex@DESKTOP-7M8V9ET:/mnt/c/users/Alex Yorke/Desktop$ xdelta3 printdelta test1-3-2-4_to_3-4-1-2.delta |
 | |
 | VCDIFF version: 0 |
 | |
@@ -1210,7 +1125,7 @@
 | |
 | VCDIFF addr section length: 8 |
 | |
-| Offset Code Type1 Size1 \@Addr1 + Type2 Size2 \@Addr2 |
+| Offset Code Type1 Size1 @Addr1 + Type2 Size2 @Addr2 |
 | |
 | 000000 019 CPY_0 10000 S@10000 |
 | |
@@ -1221,6 +1136,7 @@
 | 030000 051 CPY_2 10000 S@20000 |
 +========================================================================================================+
 +--------------------------------------------------------------------------------------------------------+
+```
 
 19. Windows-specific tips
 

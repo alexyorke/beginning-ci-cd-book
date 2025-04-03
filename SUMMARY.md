@@ -30,42 +30,16 @@
 
 # CI/CD Patterns and Best Practices
 
-- [Complex Quoting for Kubernetes Deployment](src/chapters/CICD_script_with_complex_quoting_for_Kubernetes_deployment.md)
-- [Improved Approach with a Separate Script](src/chapters/Improved_approach_with_a_separate_script.md)
-- [Complex Quoting (Example 2)](<src/chapters/Bash_script_with_complex_quoting_(example_2).md>)
-- [Dedicated Script Using Python](src/chapters/Dedicated_script_using_Python.md)
 - [Workflow Design Patterns](src/chapters/Workflow_design_patterns.md)
-- [Time Management and Prioritizing](src/chapters/Time_managementprioritizing.md)
-- [File Transforms](src/chapters/File_Transforms.md)
 - [CI/CD Anti-patterns](src/chapters/General_CICD_Anti-patterns.md)
 - [Tips and Tricks](src/chapters/Tips_and_tricks.md)
-- [Caching and Optimization](src/chapters/Caching_and_optimization.md)
 
 # Practical Command Examples
 
-- [Echo in GitHub Actions](src/chapters/Concrete_Examples_of_echo_in_GitHub_Actions.md)
 - [Git Commands for CI/CD](src/chapters/Practical_Git_Commands_for_CICD.md)
-- [Sudo Examples in CI/CD](src/chapters/Practical_sudo_Examples_in_CICD.md)
-- [Docker Commands in CI/CD](src/chapters/Practical_Docker_Commands_in_CICD.md)
-- [CD Commands in CI/CD](src/chapters/Practical_Examples_of_cd_in_CICD.md)
-- [Conditional Statements in Bash](<src/chapters/Practical_Examples_of_Conditional_Statements_in_Bash_(GitHub_Actions).md>)
-- [mkdir and curl Commands](src/chapters/Practical_Examples_for_mkdir_and_curl.md)
-- [Adding Paths to PATH](src/chapters/Adding_Paths_to_$PATH.md)
-- [cp Command Examples](src/chapters/cp_Command_Examples.md)
-- [chmod Command Examples](src/chapters/chmod_Command_Examples.md)
-- [rm, ls, wget, cat, and mv Examples](src/chapters/Practical_Examples_of_rm,_ls,_wget,_cat,_and_mv.md)
-- [sed Examples](src/chapters/Practical_Examples_of_sed.md)
 - [Common Linux Commands](src/chapters/Practical_Examples_of_Common_Linux_Commands.md)
 - [Additional Linux Commands](src/chapters/Practical_Examples_for_Additional_Linux_Commands.md)
 
 # Appendix
 
-- [The Open-Core Model](src/chapters/The_open-core_model.md)
 - [Considerations for Businesses](src/chapters/Considerations_for_businesses.md)
-- [Additional Readings](src/chapters/Additional_readings.md)
-- [History](src/chapters/History.md)
-- [Self-Hosted Runners](src/chapters/Self_Hosted_Runners.md)
-
----
-
-[Table of Contents](src/chapters/Table_of_Contents.md)

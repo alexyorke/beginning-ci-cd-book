@@ -25,13 +25,11 @@
 # Debugging and Troubleshooting
 
 - [Debugging GitHub Actions Workflows](chapters/Debugging_GitHub_Actions_Workflows.md)
-- [Generic Debugging Techniques](chapters/Generic_Debugging_Techniques.md)
 
 # CI/CD Patterns and Best Practices
 
 - [Workflow Design Patterns](chapters/Workflow_design_patterns.md)
 - [CI/CD Anti-patterns](chapters/General_CICD_Anti-patterns.md)
-- [Tips and Tricks](chapters/Tips_and_tricks.md)
 
 # Practical Command Examples
 

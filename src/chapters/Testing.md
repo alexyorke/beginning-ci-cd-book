@@ -1,1564 +1,727 @@
-﻿## Testing {#testing .unnumbered}
+﻿## Chapter 4: The Crucial Role of Testing in CI/CD
 
-### Introduction
+### Introduction: Why Test?
 
-- Testing is about providing a holistic interpretation of the extent that the application can reliably achieve a user's goal(s). Tests are only as good as the effort you put into them.
+At its heart, software testing is about understanding the extent to which an application can reliably achieve a user's goals. It's a holistic interpretation, providing confidence not just that the code runs, but that it runs _correctly_ and _effectively_ for its intended purpose. However, it's crucial to remember that tests are only as good as the effort you put into them.
 
-- Testing is mostly about finding defects; however, it is a very broad and large topic and encompasses multiple facets of software development, such as quality, usability, performance, etc., some of which are considered "checking," which are operations that can be performed by a computer (i.e., demonstrations). Demonstrations are things that are known to be true, and the computer verifies if it still holds true.
+While often perceived primarily as a process for finding defects or bugs, testing is a broad discipline encompassing multiple facets of software development. These include quality, usability, performance, and more. Some aspects of testing fall into the category of "checking" – operations, often automated, that verify if specific, known conditions still hold true. Think of these as demonstrations: things we believe to be true, which a computer programmatically verifies.
 
-- Software can\'t be completely bug-free because humans, libraries, and hardware are not perfect. Therefore, testing focuses on making software work well for users\' needs and business goals, rather than removing all bugs.
+It's an illusion to think software can be completely bug-free. Humans make mistakes, the libraries we rely on aren't perfect, and even hardware can fail. Therefore, the focus of testing isn't the impossible goal of eliminating _all_ bugs. Instead, it's about ensuring the software works well enough to meet user needs and achieve business objectives, managing risk rather than pursuing theoretical perfection.
 
-- ![](./images/image36.png)
+Testing often refers to the structured evaluation of software against predefined criteria, frequently using automated tests. When developers or teams claim they "don't test," they usually mean they lack a _formal_ testing plan or extensive automation. In reality, even fundamental actions like compiling code or navigating a website after deployment are forms of testing. Any interaction with software, whether by developers during creation or by customers during use, inherently involves testing. If software is never used, and no one notices if it's broken, its value and relevance become highly questionable.
 
-- [[Guardrail - Armtec]{.underline}](https://armtec.com/specialty-products/guardrail/)
+Think of testing like guardrails on a highway. They help ensure traffic stays on the intended path but cannot absolutely guarantee it. Too many rigid guardrails (overly specific or numerous tests) can make it difficult to change the path later – for instance, when refactoring code or adding new features. Conversely, too few guardrails (insufficient testing) make it hard to assess the impact of changes, especially in complex systems. Finding the right balance, knowing how "tight" to make your tests, is essential.
 
-- Testing typically refers to the structured evaluation of software against set criteria, often using automated tests. When people claim they \"don\'t test\", they usually mean they lack a formal testing plan or automation. However, even basic actions like compiling software or navigating a post-deployment website are forms of testing. Software use, whether by developers or customers, inherently involves testing. If no one interacts with or notices issues in the software, its value and relevance are questionable.
+In the context of Continuous Integration and Continuous Deployment (CI/CD), automated testing provides a rapid feedback loop. Developers can quickly verify their changes without disrupting the entire system or requiring lengthy manual checks. Tests are typically run automatically before changes are integrated (e.g., on pull requests) and sometimes during the integration process itself. This ensures that tests remain reliable, as a failed test can, and often should, halt a deployment. This efficiency means developers catch errors swiftly, speeding up the overall development cycle, leading to higher-quality products for customers, and freeing up Quality Assurance (QA) professionals to focus on more complex, exploratory, and user-centric testing activities.
 
-- Testing is like guardrails. It helps ensure that a certain path is taken but cannot guarantee it. Having too many guardrails makes it difficult to change the path in the future (e.g., changing features or adding new ones.) Having too few means it is difficult to assess the impact of changes in complex programs. It is very important to know how "tight" to make your tests.
+Going forward in this chapter, we will often discuss testing in two broad categories: **automated testing** and **manual testing**. This is, technically, a false dichotomy, as the lines can blur. However, this distinction is practical for CI/CD because automated tests can be executed by CI/CD runners and contribute directly to the automated pipeline, whereas manual testing requires human intervention. We will use these terms with this distinction in mind. Automated testing is a cornerstone of effective CI/CD, enabling the fast feedback loop that allows developers to confidently introduce changes with reduced risk.
 
-- Automated testing in CI/CD provides a rapid feedback loop, allowing developers to quickly verify their changes without disrupting the system. Tests are run before and sometimes during integration, ensuring they are reliable since a failed test can halt deployment. This efficiency means developers swiftly catch errors, speeding up development, leading to higher-quality products for customers, and freeing QA to focus on more complex issues.
+It's also vital to understand that writing tests is not a one-time task. Tests must evolve alongside the application. As features change or are added, corresponding tests need to be created, updated, or sometimes removed. Tests are typically written concurrently with the feature code and should be included in the same pull request (PR) for review. Critically, tests should undergo the same level of scrutiny during code review as the feature code itself.
 
-- Some of the types of testing are: unit testing, integration, E2E (end to end), etc. It's important to know when to use each type of test, because it can help provide a better picture on how your application performs in the real world.
+Testing becomes particularly crucial when a system grows too large or complex for a single developer to effectively reason about the full impact of their changes. There must be some level of testing for any feature; otherwise, there's no verifiable evidence that the feature works as intended, breaking the chain of integrity from requirement to deployment.
 
-- Going forward, I will split testing up into two categories: automated testing and manual testing. This is, technically, a false dichotomy however. The reason why it is split is because automated testing can be run on CI/CD runners, while manual testing cannot. I will use the terms in this way to refer to it like that. Automated testing is a core part of CI/CD, and contributes to a fast feedback loop that allows developers to derisk their changes.
+Tests, in essence, are designed to keep things working as expected – to maintain invariants. However, software development often involves constant evolution and change. This creates a natural tension: tests aim for stability, while development introduces change. Excessive or poorly designed tests can drag down development velocity. Therefore, a balance must be struck. It's impossible to test code 100%, nor would it be desirable, as it would imply testing for an infinite amount of time and scenarios. The goal is to write _useful_ tests that provide real value. This involves knowing _what_ to test – focusing on critical functionalities, areas prone to change, or aspects that might not evolve frequently but are vital. There's an inherent complexity in many systems that cannot simply be architected away; tests are a key tool for managing this complexity and the interdependencies between modules. Without them, developers would need to perform extensive manual checks or spend inordinate amounts of time tracing code paths – processes that are both time-consuming and highly error-prone.
 
-- Writing tests is not a one time ordeal. Tests constantly evolve with the application.
+### What is Quality? [Concerning Quality]
 
-- Tests are normally written when a feature is created, and are part of the PR to be reviewed. Tests should be reviewed with the same scrutiny as the feature code.
+Defining "quality" in software is challenging because it's inherently subjective. It's rooted in the alignment between perceived expectations and actual standards or outcomes. Because expectations and standards can shift depending on the context, user, or business need, quality is dynamic.
 
-- Testing is useful when the system is too large to be able to effectively reason about your changes. There has to be some testing done for a feature; otherwise, there is no evidence that it exists. There must be a chain of integrity. Tests are designed to keep things the way they are. With constant evolutionary designs and changes, it means that it can drag down development. There has to be some balance between writing tests and code because it isn't possible to test code 100%. Therefore, you'd be writing tests for an infinite time. There has to be a certain value derived in testing. It's about writing useful tests, if you are going to write tests. It's also about knowing what to test and the important things to test that might not change often. There is a certain amount of complexity that can't be architected away, and thus, tests are useful for managing that, the inter-relatedness between modules that would otherwise have developers having to do the tests themselves or spend an inordinate amount of time tracing through the code, which would be very error-prone.
+There's also a degree of ethics involved. Quality implies that a product is offered in good faith, meeting certain implicit or explicit promises. This is particularly important when consumers cannot immediately assess the true quality at the point of purchase. The perceived quality directly impacts the seller's reputation, influencing customer trust and future decisions.
 
-- What is quality?
+Utility – the product's ability to meet or exceed the functional expectations of its users – is a core aspect of quality. Does the software solve the problem it was intended to solve? Does it fulfill its purpose effectively? Significant deviation from these expectations typically leads to negative perceptions of quality.
 
-  - [[Why Quality? \| Concerning Quality]{.underline}](https://concerningquality.com/why-quality/)
+Interestingly, the lifetime or perpetual existence of a product doesn't necessarily equate to its quality. A piece of software might solve a specific, time-bound problem and then be retired, yet still have provided immense value during its lifespan. Its quality might even intangibly improve the quality of other processes or products it interacted with. Even deleted software retains the immutable value of the problems it solved in the past. Furthermore, software currently serving no active purpose might hold future value, perhaps for mitigating risks, complying with audits, or being repurposed later. This again highlights the subjective and context-dependent nature of quality.
 
-  - Quality is subjective, rooted in the alignment of perceived expectations with actual standards. It is inherently dynamic, shifting according to the expectations and standards at play in any given scenario.
+Testing serves as the mechanism to ensure the product meets these varied expectations. It verifies that the product indeed solves the intended problem and fulfills its purpose for the users and the business.
 
-  - Quality involves a degree of ethics, as it implies that the product is being sold in good faith. This aspect is particularly important in scenarios where the actual quality cannot be immediately assessed by the consumer.
+Writing tests shouldn't feel like a chore, akin to "eating your vegetables." Tests are written because they provide tangible utility. Performing all necessary verification manually is often inefficient and error-prone. Developers need a reasonable level of confidence that their changes haven't inadvertently broken something elsewhere in the application – something they might not even be aware of. In large applications, holding the entire system's complexity in one's head is impossible. Tests provide the necessary safety net and validation mechanism.
 
-  - The perceived quality of a product or service can impact the seller\'s reputation, affecting the customers\' trust and influencing their decision-making regarding future purchases.
+### A Little History: Fixtures and Mocks
 
-  - The utility of a product and its ability to meet or exceed expectations is also an aspect of quality. Too much deviation from expectations, however, can lead to negative outcomes.
+To understand some common testing terminology, it helps to look at its origins, particularly from hardware engineering.
 
-  - The lifetime or the existence of the product doesn\'t necessarily relate to its quality. A product may not exist perpetually but still provides value. Also, quality can intangibly improve other products\' quality.
+**Test Fixtures:** The term "test fixture" originates from hardware manufacturing. A physical test fixture was literally a device designed to securely hold a piece of hardware (like a circuit board) in a consistent position for testing. This ensured reliable and repeatable measurements.
 
-  - Testing ensures that the product meets the expectations of its users. It verifies that the product solves the problem for which it was intended, fulfilling its purpose.
+In software testing, this concept was adapted. A software test fixture refers to a known, baseline state or environment set up before tests are run. This might involve initializing variables, setting up database records, configuring global states, or preparing other dependencies so that tests can execute from a consistent starting point and easily access the required state.
 
-  - The utility of a software product, for example, isn\'t erased even if the software gets deleted. The software might have solved problems in the past, and that usefulness is immutable.
+**Mocks:** In everyday language, a "mock" is a replica or imitation. In hardware, a mock object might be a stand-in that mimics some, but not all, functionality of a real component. This could be useful if the real component is expensive, rare, or unavailable during testing.
 
-  - Software that serves no purpose currently might still be valuable for potential future use, like mitigating risks or proving useful in audits. This aspect also speaks to the subjective nature of quality.
+In software development, "mocking" involves creating substitute objects or functions that are called _instead_ of the real ones during a test. These mock objects are created by the developer to simulate the behavior of the real dependency, often in a simplified way. This is useful for isolating the code under test from its dependencies, avoiding the overhead of interacting with real databases, networks, or third-party services, or simulating specific scenarios (like network errors or empty database results) that might be hard to reproduce otherwise. Mocks typically perform less processing than the components they imitate but can be configured to return specific values, accept certain inputs, or verify that they were called correctly.
 
-- Writing tests should not be akin to eating your vegetables. You write them because they have utility. It is not efficient to do all of the testing manually. And you have to have a certain level of confidence that your feature doesn't break something else somewhere in the application (that you might have not known about). Large applications are especially difficult to hold the entire thing in your head.
+_(Historical timeline omitted for chapter flow, but the concepts are introduced here)_
 
-### Precedent
+### The Role and Purpose of Tests Revisited
 
-- What is a test fixture? It has its roots in hardware, where a literal, physical test fixture was used to mount the hardware and prepare it for testing.
+Why do we fundamentally need tests? Because systems, and the humans who build them, are fallible. If developers always knew the exact intent and consequences of every change, and could perfectly verify alignment with desired behavior, formal tests might be redundant. The verification would happen implicitly during development.
 
-- ![](./images/image30.png)
+Tests exist to check invariants – conditions or properties that are expected to remain true. Many tests, especially granular ones like unit tests, implicitly assume that any change causing a deviation from the tested behavior is undesirable. For example, if a function's output changes and a unit test fails, it could signal a newly introduced bug. However, it could _also_ signal an intentional feature change that requires the function to behave differently. The test itself doesn't inherently know the difference; it only knows the previously defined contract has been violated. It provides information, and the programmer must interpret it. This highlights a potential friction point: in fast-moving projects with frequent requirement changes (like early-stage startups), tests might need frequent rewriting, potentially reducing their immediate return on investment.
 
-- [[Electronic test fixture design \| Bloomy]{.underline}](https://www.bloomy.com/media-gallery/detail/246/236)
+Tests act as safeguards against unwanted changes, but their effectiveness is limited by the scope and quality of the test coverage and specific test cases. They provide critical information, especially in large systems where it's impossible for one person to fully grasp the ripple effects of their changes. Tests help prevent excessive or unintended change by enforcing known contracts.
 
-- In software, this is used as a base environment where different states are set up, like variables, globals, databases, etc. and are usually prepared such that the tests can easily access the state.
+This inherent nature of tests – preventing change – means they introduce a trade-off. Tests generally slow down the _initial_ development process (time spent writing and running them) in exchange for increased resilience and predictability, preventing unintended consequences later. Apps naturally evolve due to new feature requests or external factors like security updates and library deprecations, which require refactoring. There's a constant push and pull between the desire for stability (enforced by tests) and the need for change.
 
-- A mock literally means a replica, or something that is like something else, but not exactly. For example, in hardware it might be a stand-in, or an object that performs some of the functionality but not all of the item that it is mocking. This is useful as the original hardware might be expensive, and many copies cannot be created purely for testing. In software development, mocking is used to refer to creating a function that is called instead of what you're trying to call, usually to avoid high overheads or expensive state management. This function is created by the user, and pretends to function as the original call, and can return and accept values and perform any processing desired on the data, usually less processing than what it is mocking.
+Is slowing down development necessarily bad? Not always. It depends on the value derived. While tests add overhead to the initial creation of a feature, they can significantly increase speed in the long term by preventing rework. Fixing bugs caught by tests during development is far cheaper and faster than fixing them after they've reached production and impacted users. The overall effect on development speed depends heavily on factors like how quickly tests run, the risk tolerance of the application, and the quality of the testing strategy itself.
 
-- ![](./images/image55.png)
+One might argue that even if tests run instantaneously and consume no resources, they still slow down the process because their output (pass/fail information) _must_ be processed and potentially acted upon. If the information from tests doesn't influence decisions or software outcomes, then running them is pointless, as their computation isn't used by customers and their state isn't retained. Therefore, testing inherently introduces a delay because its informational output needs to impact the workflow.
 
-- In this case, the rubber duck is used in place of a real duck.
+A counter-argument suggests that the mere act of _writing_ tests is valuable, even if failures are ignored, because it forces developers to understand the code better and can serve as documentation. However, to gain that understanding or use it as documentation, one must verify that the test _works_, which brings us back to needing the information derived from running the test (i.e., knowing if it passed or failed).
 
--
+Ultimately, tests serve several key purposes:
 
-- **1960s-1980s: Hardware Testing Era**
+1.  **Preserving Intent:** Ensuring that changes have the intended effect (e.g., changing a button's color changes only that button, not the page background).
+2.  **Verifying Functionality:** Treating the application (or parts of it) as a function that must produce expected outputs or state changes given certain inputs, within acceptable tolerances.
+3.  **Confirming User Goals:** Checking if users can successfully complete their intended tasks. It doesn't matter how many low-level API tests pass if the end user cannot achieve their goal.
+4.  **Meeting Business Needs:** Ensuring requirements beyond immediate user interaction are met (e.g., auditing requirements, telemetry collection). Customers might not directly care about these, but the business does.
+5.  **Maintaining Established Quality:** If prior versions established certain levels of usability, performance, clarity, and relevance, tests serve as a proxy for maintaining these qualities by ensuring the application behaves consistently (within defined boundaries).
 
-- \- **1960s:** The concept of test fixtures originates from the hardware domain. Physical test fixtures are designed to hold the hardware securely and ensure it\'s positioned correctly for testing. They are particularly common in the electronics manufacturing industry, where they ensure consistent and reliable testing of circuit boards and other electronic components.
-
-- \- **Late 1970s:** With the advent and growth of personal computing, there\'s a significant push towards more complex electronics and, consequently, more advanced test fixtures. This era marks a distinction between simple, manually-operated test fixtures and the more complex, automated fixtures.
-
--
-
-- **1980s-1990s: Birth of Software Testing Tools**
-
-- \- **1980s:** As software becomes more intricate, the idea of setting up a standard environment or \"fixture\" for testing software starts to emerge. It's based on the concept from the hardware domain but adjusted for the software paradigm.
-
-- \- **Late 1980s to Early 1990s:** The concept of \"mock objects\" begins to emerge in the software domain. Developers realize that they need a way to test software components in isolation, without needing to use the real resources (like databases or third-party services) they interact with.
-
--
-
-- **2000s: Growth and Maturation of Software Testing Frameworks**
-
-- \- **Early 2000s:** Software testing tools and libraries like JUnit for Java introduce the idea of \"test fixtures\" as a formal concept in software testing.
-
-- \- **Mid-2000s:** Mocking libraries, such as Mockito for Java and Moq for .NET, gain popularity. They provide a systematic way to replace real objects with simulated ones for testing, reflecting the "mock" concept from the hardware domain.
-
-- \- **Late 2000s:** As agile methodologies and test-driven development (TDD) become more prevalent, the use of test fixtures and mocks becomes even more common. This is due to the emphasis on writing tests before actual code, and the need for isolated, quick tests.
-
--
-
-- **2010s: Integration and Acceptance Testing**
-
-- \- **Early 2010s:** With the rise of microservices and distributed systems, the need for integration testing grows. Tools like Postman and WireMock emerge, allowing testers to mock entire services or APIs.
-
-- \- **Mid to Late 2010s:** Concepts like Behavior-Driven Development (BDD) emerge, leading to the growth of tools like Cucumber and SpecFlow. These tools focus on writing tests in a more human-readable format and often employ fixtures and mocks to simulate real-world scenarios.
-
--
-
-- **2020s: Shift-Left and Modern Testing Paradigms**
-
-- \- **Early 2020s:** The \"shift-left\" testing paradigm starts gaining traction. The idea is to introduce testing as early as possible in the software development lifecycle, leading to the development of more tools that integrate with CI/CD pipelines.
-
-### The Role and Purpose of Tests
-
-- Testing exists because systems and humans are fallible. If we truly always knew the exact intent of our changes and precisely if they were desired, then tests would not be needed. This is because tests are designed to check invariants. In a way, if you knew precisely what the test was, then therefore you would not have to test it because you would be implicitly doing the testing by verifying that the changes align with expected behavior.
-
-- Some types of tests assume that all changes to software that do not align with the test are unwanted. These tests are usually very concrete and small, for example, unit tests. For example, if an invariant is no longer met, then it could have meant that a bug was introduced into the function, or, there was a feature change that caused the function to return different output to accommodate different scenarios. ThThe tests doesn't know that.This may or may not be a good thing, depending on your stage of product (e.g., a fast-moving startup that changes often may have to rewrite tests many times, thus reducing their purpose.)
-
-- Tests provide information on whether the previously defined contracts have been violated and let the programmer decide. It is not normally possible for one person to fully understand the full cause-and-effect of their changes throughout the entire system.
-
-- Testing prevents unwanted changes, but the definition of what changes are unwanted are only specified by the test coverage and cases.
-
-- In very large systems, it may not be possible to fully reason about how your change will impact the entire system. Therefore, tests prevent excessive change.
-
-- Tests slow down the development process in exchange for higher resilience and preventing unintended changes. Tests assume that the app will remain constant (within a tolerance threshold), so there will always be some push-and-pull; apps normally require adding features for stakeholders or through security updates (deprecating legacy software, requiring refactoring.)
-
-- Slowing down a process isn't necessarily bad. It depends on what value it brings.
-
-- It can help with increasing speed long-term, as it can prevent re-work of code that has to be rewritten.
-
-- Tests assume that tests do not slow down the development process overall, and in fact increase the speed of development, as rework due to broken features is more costly to fix in production vs. fixing once it was introduced. This depends on how quickly the tests run and how much risk the app is willing to take.
-
-- Counter argument: assume the tests ran instantaneously and required no computational resources. Then, the output of the test is considered information. This information must be processed or acted upon in some way, otherwise testing is not useful. This is because the act of simply running a test doesn't do anything, its computations are not used by customers and the business usually does not retain its computational state. Therefore, testing must slow down the process, because the information from the tests must impact decision making or the outcome of the software.
-
-- Counter-counter argument is: the act of writing tests, even if the fact that they have failed is discarded is still useful, because it makes developers able to gain a better understanding of the code, and can be used for documentation purposes. However, in order to gain an understanding of the code, you have to verify if the test case works, therefore, it goes back to the fact that information derived from tests is necessary, so you have to know if it failed.
-
-- Whether intent is preserved through code changes (e.g., I change the color of a button, therefore that button's color should be changed, not the background color of the page)
-
-- The entire app is a function, and the function must produce expected outputs within a tolerance given a set of inputs (or mutate state)
-
-- To check if users can complete a goal or goals successfully
-
-- It doesn't matter how many API tests succeeded, if the user cannot complete their goal (with appropriate state changes), then the app is useless
-
-- Goals aren't always 100% aligned. Consider auditing requirements or telemetry. If these aren't performed, customers don't care but the business does.
-
-- If usability, performance, clarity, and relevance are previously established in a prior version of the application, then a proxy for maintaining those is that the app must remain the same (thus keeping its goals.)
-
-- CI/CD can make testing more difficult due to the constant flow of changes. It might be unreasonable to do testing prior to releases, as this would be a bottleneck for the releases, as they are continuous. It also might put additional pressure on the QA team, as they would be unable to fully understand the full extent of the changes.
-
-- You have to be able to have a developer's workspace locally, and be able to test locally. By locally, I mean on your computer, but that is allowed to contact other servers. It should be fast, i.e., there should be some sort of isolated environment (perhaps locally, perhaps on another server) where you can test.
-
-- Depending on your project type, it might require different commands to test the project. Here are a few.
+Okay, continuing the chapter draft.
 
 ---
 
-**Source** **How to test**
+### Types of Testing in the CI/CD Workflow
+
+While there are many ways to categorize software tests, several types are particularly relevant within a CI/CD context. Understanding their purpose helps in building an effective testing strategy.
+
+#### Unit Testing
+
+Unit tests focus on the smallest testable parts of an application, often individual functions or methods within a class. They test these "units" in isolation from the rest of the system. The primary goal is to validate that each piece of code performs its specific task correctly according to its design.
+
+Because they operate on small, isolated code segments, unit tests are typically very fast to run. This makes them ideal for inclusion early in the development workflow, often run by developers locally before they even commit their code, and again automatically on every pull request. They provide rapid feedback on the correctness of individual components.
+
+To achieve isolation, unit tests often employ **mocks** or **stubs** to replace dependencies (like database connections, network calls, or other functions). This ensures the test focuses solely on the logic within the unit itself, without being affected by the behavior or availability of external systems.
 
 ---
 
-Ruby rake test
+**Example: Simple Unit Test (C# using MSTest)**
 
-Node npm test
+Imagine a simple `Calculator` class:
 
-Clojure lien test
+```csharp
+// In YourNamespaceWhereCalculatorExists
+public class Calculator
+{
+    public int Add(int a, int b)
+    {
+        return a + b;
+    }
+}
+```
 
-Python python -m unittest (this will depend)
+A unit test for the `Add` method might look like this:
 
-Java mvn test
+```csharp
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+// Make sure to reference the project containing Calculator
+using YourNamespaceWhereCalculatorExists;
 
-Java (again) gradlew test
+[TestClass]
+public class CalculatorTests
+{
+    [TestMethod]
+    public void Add_TwoNumbers_ReturnsCorrectSum()
+    {
+        // Arrange: Set up the test.
+        var calculator = new Calculator();
+        int number1 = 3;
+        int number2 = 4;
+        int expectedSum = 7;
 
-PHP Could be many options
+        // Act: Execute the code under test.
+        var result = calculator.Add(number1, number2);
 
-Go go test
+        // Assert: Verify the outcome.
+        Assert.AreEqual(expectedSum, result, "The sum was not calculated correctly.");
+    }
+}
+```
 
-C#, .NET Core, .NET Depends, usually dotnet test
+_This test follows the common Arrange-Act-Assert (AAA) pattern: set up prerequisites, invoke the code, and verify the result._
 
 ---
 
-### {#section-9 .unnumbered}
+Unit tests excel at verifying internal logic, handling edge cases (e.g., what happens when input is null or zero?), and ensuring that specific functions meet their contracts. They are particularly useful when dealing with complex algorithms or logic that might be difficult to trigger or observe through the user interface alone. For example, testing error handling for an "out of stock" scenario might be easier with a unit test than by manipulating inventory levels in a full application environment.
 
-- Tests are normally included as part of your other code in your project.
-
-- Testing can be a positive ROI activity, because they catch bugs before they enter production.
-
-- When we say "we don't test", what is usually meant is that testing isn't formalized. I don't think it is useful to say that startups shouldn't be writing tests, rather, it's important to look at how the overall testing strategy is employed with everything else. Startups usually don't have lots of guardrails, given the diversity of requirements and rapid change. A startup would prioritize software quality to some extent, for example, there is no purpose to continually write features if production is down and nobody can use your product. Someone, somewhere, or something has to evaluate it, whether it's customers, employees, monitoring, someone clicking on the website occasionally, etc. There might be customer reports, the CEO tries it out, etc. If nobody cares that the software is completely broken, then you have other issues with your business.
-
-  - Testing is designed to prevent change. If something works, and all of a sudden it's different, then sound an alarm! In a way, this is good. My website has a shopping cart in the corner, and all of a sudden I can't find it. That's not good, and that's a form of change. Too much change is bad if you do not want too much change. If you want lots of change, then it's not helpful.
-
-  - Testing slows down new work, but reduces overall effort to fix existing work. It makes changes more predictable as they are less likely to cause unintended changes, which smooths out the delivery lifecycle. This is only if your testing strategy is good. If you write lots of unit tests, for example, then this could impact the ability to refactor and could slow down both new work and existing work.
-
-  - In an extreme approach, automated tests are just used once and rewritten. Therefore, they don't have much value, if any, as they were never run. They could be useful during development, although manually verifying the functionality might be straightforward.
-
-  - Usually, what startups are aiming for is rapid change, so testing might drag down development velocity because there is so, so much change.
-
-  - In more mature applications, there isn't usually that super high level of change. There are lots of small changes, but those can be accompanied by changing a few tests at a time. In startups, there is nothing to something, and testing something that isn't known yet is difficult.
-
-  - You could argue that this form of testing (e.g., loading the website in your browser and clicking on some links) could be automated. And that is true. But the amount of testing that you get by just looking at it and just using the website is enormous, even if it doesn't feel like you're doing much. Automated testing is very streamlined and only demonstrates what has been proven. People have tacit knowledge and know when something is wrong, even if it cannot be formalized in computer code. Say there's a header that is a bit too small, the colors aren't quite right, or something flickers. These could, in theory, be part of the automated test suite, but there has to be an observation first for the computer to know that this is wrong. Automated tests are usually small in scope as well.
-
-### How to write a test and types of tests
-
-#### Testing frameworks
-
-- What are some testing tools that are available? JUnit, Selenium, Jest are testing frameworks that allow you to better structure your tests. They can also integrate with the CI/CD pipeline and can generate a report (which is in a format suitable for the CI/CD pipeline to consume) which can show you different statistics, such as code coverage, which tests failed, how long the tests took to run, which tests were disabled/enabled, etc. These reports can be aggregated and used to find out which tests normally fail, allowing the developers to prioritize which tests are the most important. They can also help you write tests, by providing common methods or functions that can be used to setup test environments, and check for equality to reference data. These allow for other developers on your team to collaborate on a common framework and can increase understanding, as the test frameworks are usually very popular and many developers have had experience with them. They can also automate much of the "grunt-work", such as the internals of UI testing.
-
-#### Unit testing
-
-- _Unit tests are a type of software testing where individual units or components of a software application are tested in isolation from the rest of the code. The purpose of unit testing is to validate that each unit of the software performs as designed. A \"unit\" is the smallest testable part of an application and can be as small as a single function or method within a class._
-
-- +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-  | Certainly! Let\'s consider a simple example where we\'re testing a method that adds two numbers. |
-  | |
-  | Here\'s the method we\'re testing: |
-  | |
-  | `csharp |
-| |
-| public class Calculator |
-| |
-| { |
-| |
-| public int Add(int a, int b) |
-| |
-| { |
-| |
-| return a + b; |
-| |
-| } |
-| |
-| } |
-| |
-| ` |
-  | |
-  | To write a unit test for this method, you\'ll typically use a unit testing framework like NUnit or MSTest. I\'ll demonstrate using MSTest: |
-  | |
-  | 1\. Create a new MSTest Test Project if you haven\'t. |
-  | |
-  | 2\. Reference the project that contains the `Calculator` class in your test project. |
-  | |
-  | 3\. Write the test: |
-  | |
-  | `csharp |
-| |
-| using Microsoft.VisualStudio.TestTools.UnitTesting; |
-| |
-| using YourNamespaceWhereCalculatorExists; // Replace with the correct namespace |
-| |
-| \[TestClass\] |
-| |
-| public class CalculatorTests |
-| |
-| { |
-| |
-| \[TestMethod\] |
-| |
-| public void Add_TwoNumbers_ReturnsCorrectSum() |
-| |
-| { |
-| |
-| // Arrange |
-| |
-| var calculator = new Calculator(); |
-| |
-| // Act |
-| |
-| var result = calculator.Add(3, 4); |
-| |
-| // Assert |
-| |
-| Assert.AreEqual(7, result); |
-| |
-| } |
-| |
-| } |
-| |
-| ` |
-  | |
-  | In this unit test: |
-  | |
-  | \- We use the `\[TestClass\]` attribute to denote that `CalculatorTests` is a test class. |
-  | |
-  | \- We use the `\[TestMethod\]` attribute to specify that `Add_TwoNumbers_ReturnsCorrectSum` is a test method. |
-  | |
-  | \- The test method follows the Arrange-Act-Assert (AAA) pattern: |
-  | |
-  | \- **Arrange**: Set up the prerequisites for your test. |
-  | |
-  | \- **Act**: Invoke the method or function you\'re testing. |
-  | |
-  | \- **Assert**: Verify that the function behaved as expected. |
-  | |
-  | You\'d run this test using Visual Studio\'s Test Explorer or another test runner that supports MSTest. If everything is set up correctly and the `Add` method works as expected, the test should pass. |
-  +==========================================================================================================================================================================================================+
-  +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-
-- Unit tests are good for testing components that are being worked on during the development period, and can be run very quickly in a developer's workflow. They are designed for testing a single unit, which could be a single function or a few functions together. These are likely fragile tests, as they check implementation details. This doesn't mean that you shouldn't write them, rather, it depends on what application you are making and what your test strategy is.
-
-- Unit testing in and of itself should not be the goal, unless you're working on safety critical systems (in which case regulations may vary.)
-
-- Unit tests are useful, for example, when the response may not exist. For example, testing a weather app and you want to know if your app can display if it is sunny. However, the weather may not be sunny, and it isn't possible to access historical data. Here, it makes sense to mock the response.
-
-- Think of a car motor analogy, you can test all of the parts individually on your desk, but it's meaningless if they are not put together and run. However, testing each part individually can yield insights that would not be possible by testing the system as whole, namely issues that could occur in the future, or potential failure scenarios that would be difficult to create when everything is put together. The system should fail cleanly if there is an issue with a single part, but might be difficult to test when it is all put together.
-
-- Unit testing has the ability to test theoretical inputs and outputs, in addition to practical concerns.
-
-- Unit tests are better when testing a single component in isolation or if there is a situation that is an edge case or is difficult to reproduce through the UI. For example, if an item is out of stock, then the UI might not allow adding it to the cart, but a unit test can verify that it actually cannot be added. If you have to "reach through" the UI to do testing, then it might mean that you are testing too high-level. If you have to "reach up" and have to connect multiple components together, then you might benefit from component testing (or a higher-level testing approach.)
-
-- Unit tests are also good for ensuring that internal state and outputs to APIs are ok. This makes them partially suited for the back-end, because each step of the operation may require special handling. It might not be clear from an E2E test if data was intermittently calculated correctly. For example, consider an application that detects if there is fraud. The input is the variables and the output is a probabilistic estimate. One can determine if the inputs are the same as the output (effectively treating it as a blackbox), however, if it is an ensemble and there is one provider that is not responding, then this would be a cause for concern, something that an E2E test could not catch.
-
-- Unit tests useful for verifying integrations with other software, which may or may not have intimate knowledge about what your function accepts. They are also useful when integrating with other systems (e.g., to preserve backwards compatibility.)
-
-- Unit tests can help identify a particular component that is not operating correctly or to an expectation. Therefore, they are useful proactive debugging tools. It might be difficult to narrow down the cause with an E2E test or a component test as it takes the entire system as black box and then evaluates its inputs and outputs, as if a customer was using it.
-
-- Unit testing can be helpful in situations where you need to mock something. For example, consider an application that wraps a database in a cache. In order to test the function, an E2E test could be used, but this neglects testing the cache, it tests everything. A function without the cache would return the same result. Therefore, you can use a unit test to check if the cache is being used because you can inspect and modify the internal state.
+However, unit tests are often tightly coupled to the implementation details. Refactoring code, even if the external behavior remains the same, can easily break unit tests, leading to maintenance overhead. Over-reliance solely on unit tests can also lead to situations where individual components work perfectly in isolation but fail when integrated.
 
 #### Integration Testing
 
-- "Integration tests are a type of software testing where individual units or components of a software are combined and tested as a group. The primary purpose is to validate the interactions between the different parts of a system, such as modules, functions, or services. While unit tests focus on ensuring that individual parts of the system work as expected in isolation, integration tests aim to uncover issues that may arise when these parts are combined." ChatGPT
+Integration tests take the next step up from unit tests. They verify the interaction _between_ different units, components, or layers of the application. The focus shifts from isolated correctness to ensuring that combined parts work together as expected.
 
-- +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-  | Certainly! Integration tests differ from unit tests in that they usually test the interactions between multiple components or layers of an application, such as the communication between a service and a database, or between different services. |
-  | |
-  | For this example, let\'s consider an integration test for a service that interacts with a database. We\'ll use Entity Framework Core (EF Core) to illustrate this. |
-  | |
-  | 1\. First, let\'s define a simple entity and a context for EF Core: |
-  | |
-  | `csharp |
-| |
-| public class User |
-| |
-| { |
-| |
-| public int Id { get; set; } |
-| |
-| public string Name { get; set; } |
-| |
-| } |
-| |
-| public class AppDbContext : DbContext |
-| |
-| { |
-| |
-| public AppDbContext(DbContextOptions\<AppDbContext\> options) : base(options) |
-| |
-| { |
-| |
-| } |
-| |
-| public DbSet\<User\> Users { get; set; } |
-| |
-| } |
-| |
-| ` |
-  | |
-  | 2\. Create a service that uses this context: |
-  | |
-  | `csharp |
-| |
-| public class UserService |
-| |
-| { |
-| |
-| private readonly AppDbContext \_context; |
-| |
-| public UserService(AppDbContext context) |
-| |
-| { |
-| |
-| \_context = context; |
-| |
-| } |
-| |
-| public User GetUser(int id) |
-| |
-| { |
-| |
-| return \_context.Users.Find(id); |
-| |
-| } |
-| |
-| } |
-| |
-| ` |
-  | |
-  | 3\. Now, let\'s write an integration test for the `GetUser` method using MSTest and the `Microsoft.EntityFrameworkCore.InMemory` package (an in-memory database provider for EF Core): |
-  | |
-  | `csharp |
-| |
-| using Microsoft.EntityFrameworkCore; |
-| |
-| using Microsoft.VisualStudio.TestTools.UnitTesting; |
-| |
-| \[TestClass\] |
-| |
-| public class UserServiceTests |
-| |
-| { |
-| |
-| private AppDbContext \_context; |
-| |
-| private UserService \_service; |
-| |
-| \[TestInitialize\] |
-| |
-| public void TestInitialize() |
-| |
-| { |
-| |
-| // Set up the in-memory database. |
-| |
-| var options = new DbContextOptionsBuilder\<AppDbContext\>() |
-| |
-| .UseInMemoryDatabase(databaseName: \"TestDatabase\") // Unique name for the in-memory database. |
-| |
-| .Options; |
-| |
-| \_context = new AppDbContext(options); |
-| |
-| \_service = new UserService(\_context); |
-| |
-| // Add sample data. |
-| |
-| \_context.Users.Add(new User { Id = 1, Name = \"Alice\" }); |
-| |
-| \_context.SaveChanges(); |
-| |
-| } |
-| |
-| \[TestMethod\] |
-| |
-| public void GetUser_ValidId_ReturnsUser() |
-| |
-| { |
-| |
-| // Act |
-| |
-| var user = \_service.GetUser(1); |
-| |
-| // Assert |
-| |
-| Assert.IsNotNull(user); |
-| |
-| Assert.AreEqual(\"Alice\", user.Name); |
-| |
-| } |
-| |
-| \[TestCleanup\] |
-| |
-| public void TestCleanup() |
-| |
-| { |
-| |
-| // Clean up resources, e.g., dispose the context, etc. |
-| |
-| \_context.Database.EnsureDeleted(); |
-| |
-| \_context.Dispose(); |
-| |
-| } |
-| |
-| } |
-| |
-| ` |
-  | |
-  | Here\'s what happens in the integration test: |
-  | |
-  | \- `\[TestInitialize\]`: This method runs before each test. We\'re setting up an in-memory database, adding a sample user, and initializing the `UserService`. |
-  | |
-  | \- `GetUser_ValidId_ReturnsUser`: This test method checks whether the `GetUser` method retrieves the correct user from the database. |
-  | |
-  | \- `\[TestCleanup\]`: This method runs after each test. We\'re ensuring the in-memory database is deleted and disposing the context. |
-  | |
-  | By using an in-memory database for integration testing, we simulate interactions with a real database without the overhead of actual database operations. |
-  +====================================================================================================================================================================================================================================================+
-  +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Examples include testing:
 
--
+- Communication between a service layer and a database.
+- Interaction between different microservices via API calls.
+- The flow of data through multiple components.
 
-#### Regression Testing
+Integration tests often require more setup than unit tests, potentially involving real databases (or in-memory versions), network communication, or interaction with other actual services. Consequently, they tend to be slower to run.
 
-- "Regression testing is a type of software testing that aims to ensure that new code changes do not adversely affect the existing functionalities of a system. The primary objective is to catch bugs that may have been introduced into previously working code, or to ensure that recent changes or additions haven\'t broken any existing features." - ChatGPT
+---
 
-- If my application has a bug, and then I fix it, and then that bug appears again, then I should write a regression test to make sure that that bug doesn't happen again (i.e., a regression.)
+**Example: Simple Integration Test (C# with EF Core In-Memory DB)**
 
-- This is more of a concept, because it's just a regular test that has been created to fix a previously existing bug.
+Consider a `UserService` interacting with a database via Entity Framework Core:
 
-#### Performance and Load Testing
+```csharp
+// Entity and DbContext (simplified)
+public class User { public int Id { get; set; } public string Name { get; set; } }
 
-- Useful to make sure that the application can still meet performance requirements of users.
+public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+    public DbSet<User> Users { get; set; }
+}
 
-- This is important because changes to the source code (and new features) can impact the performance in small but subtle ways. The application can _still work, per-se_ but it might not operate quickly. Tests normally have a timeout of about 30s to a minute, sometimes with no timeout (requires human intervention.) This means that all of the other tests can still pass, as they normally don't have criteria on how much time has elapsed. Also, performance and load testing tests deliberately create many thousands or hundreds of thousands of requests, and may also offer profiling tools and more precise measures of request timings that are not necessary for regular unit tests.
+// Service using the DbContext
+public class UserService
+{
+    private readonly AppDbContext _context;
+    public UserService(AppDbContext context) { _context = context; }
+    public User GetUser(int id) { return _context.Users.Find(id); }
+}
+```
+
+An integration test verifying the service retrieves data from the (simulated) database:
+
+```csharp
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+// Add necessary using statements for your classes
+
+[TestClass]
+public class UserServiceIntegrationTests
+{
+    private AppDbContext _context;
+    private UserService _service;
+
+    [TestInitialize] // Runs before each test
+    public void TestInitialize()
+    {
+        // Use an in-memory database for testing
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: System.Guid.NewGuid().ToString()) // Unique name per test run
+            .Options;
+        _context = new AppDbContext(options);
+        _service = new UserService(_context);
+
+        // Seed database with test data
+        _context.Users.Add(new User { Id = 1, Name = "Alice" });
+        _context.SaveChanges();
+    }
+
+    [TestMethod]
+    public void GetUser_ValidId_ReturnsUserFromDatabase()
+    {
+        // Act
+        var user = _service.GetUser(1);
+
+        // Assert
+        Assert.IsNotNull(user);
+        Assert.AreEqual("Alice", user.Name);
+    }
+
+    [TestCleanup] // Runs after each test
+    public void TestCleanup()
+    {
+        _context.Database.EnsureDeleted(); // Clean up the in-memory database
+        _context.Dispose();
+    }
+}
+```
+
+_This test verifies the interaction between `UserService` and `AppDbContext` using a realistic (though in-memory) database setup._
+
+---
+
+Integration tests are crucial for uncovering issues that arise at the boundaries between components, such as data format mismatches, incorrect assumptions about dependencies, or communication failures.
 
 #### End-to-End (E2E) Testing
 
-- Useful to make sure that the entire application functions as a whole. When I click on a button, then I see an output for example, big picture tests.
+End-to-end tests simulate a complete user workflow through the application, from the user interface (UI) down through the various layers (services, databases, external integrations) and back. They aim to validate the system as a whole from a user's perspective.
 
-- For example, I want to click on a button and then see something happen. I don't care how the implementation works, I just care about the output or the outcome.
+Examples include:
 
-- Or, I'm making an HTTP request to a server and I want to see what the result is. I don't care what programming language it is written in or its implementation, I'm just checking its output.
+- Simulating a user logging in, adding an item to a shopping cart, and checking out.
+- Making an API request to a specific endpoint and verifying the entire response structure and data, simulating how a client application would interact with it.
 
-- These are usually very customer- or user-oriented tests because they might operate on the UI that the customer sees.
+E2E tests are typically the most comprehensive but also the slowest and potentially most brittle type of test. They often involve automating a web browser (using tools like Selenium, Cypress, or Playwright) or making actual HTTP requests to deployed environments. Because they interact with the full system, including the UI, changes to layout, element IDs, or underlying service behavior can easily break them.
 
-#### non-functional testing/user testing/security testing
+They are invaluable for ensuring that critical user journeys function correctly and that all the integrated parts truly deliver the expected end-user experience. A failure in an E2E test often indicates a significant problem that would likely impact real users.
 
-- Non-functional testing is the ability to test things that don't have a defined result that can be clearly articulated, it's "you know it when you see it." For example, one is able to view a piece of art and know that it looks nice but they might not be able to create new art that looks nice as they do not know the criteria.
+#### Regression Testing
 
-- This might also include user testing, which is also tacit knowledge. For example, the layout of the application is too confusing and difficult for users to navigate. Here, automated tests wouldn't be able to identify this, because they merely follow instructions that they were programmed to do, and don't have a concept as to whether something is intuitive for a user to use.
+Regression testing isn't a distinct _type_ of test like unit or E2E, but rather a _purpose_ for running tests. Its goal is to ensure that new code changes (features, bug fixes, refactoring) have not negatively impacted existing functionality. Essentially, it aims to prevent "regressions" – bugs reappearing or previously working features breaking.
+
+Any existing unit, integration, or E2E test can serve as a regression test. When a bug is found and fixed, it's common practice to write a specific test (often a unit or integration test) that reproduces the bug. This test initially fails, passes once the fix is applied, and is then kept in the test suite to ensure the bug doesn't resurface later. Running the entire relevant test suite after changes provides confidence that existing functionality remains intact.
+
+#### Performance and Load Testing
+
+These tests focus on the non-functional aspects of application speed, responsiveness, stability, and resource utilization, especially under load.
+
+- **Performance Testing:** Measures response times and resource consumption under typical or specific conditions.
+- **Load Testing:** Simulates concurrent user access to see how the system behaves under heavy traffic, identifying bottlenecks and capacity limits.
+
+While standard functional tests might have timeouts, performance and load tests use specialized tools (like k6, JMeter, or Locust) to generate significant traffic, measure precise timings, and collect detailed metrics (CPU usage, memory consumption, network I/O). Changes to code, even small ones, can subtly degrade performance over time. Regular performance testing helps ensure the application continues to meet user expectations and Service Level Agreements (SLAs). These tests are often run less frequently than functional tests, perhaps nightly or before major releases, due to their resource-intensive nature.
+
+#### Non-functional, User, and Security Testing
+
+This broad category encompasses tests that don't focus solely on whether a specific function produces the correct output but rather on other qualities:
+
+- **Usability Testing:** Evaluating how easy and intuitive the application is for users. This often involves observing real users interacting with the system and relies heavily on human judgment and feedback. Automated tests struggle here as they lack the concept of intuitiveness.
+- **Accessibility Testing:** Ensuring the application is usable by people with disabilities (e.g., screen reader compatibility, keyboard navigation, sufficient color contrast). Some aspects can be automated, but manual checks are often essential.
+- **Security Testing:** Identifying vulnerabilities and ensuring the application protects against threats like SQL injection, cross-site scripting (XSS), unauthorized access, etc. This involves specialized tools (scanners, penetration testing frameworks) and expertise.
+- **Exploratory Testing:** A less structured approach where testers simultaneously learn about the software, design tests, and execute them, often based on intuition and experience. This human-driven activity is excellent for finding unexpected issues that rigid test scripts might miss.
+
+While CI/CD heavily emphasizes _automated_ tests for speed and consistency, these other forms of testing, often involving manual effort and human expertise, remain critical for delivering a truly high-quality, secure, and user-friendly product.
+
+### Testing Frameworks and Tools
+
+To write, organize, and run tests efficiently, developers rely on testing frameworks and tools. Frameworks like JUnit (Java), pytest (Python), Jest (JavaScript), MSTest/NUnit/xUnit (.NET), and Google Test (C++) provide structure and utilities for testing.
+
+Key benefits of using a testing framework include:
+
+1.  **Structure:** They provide conventions for defining tests (e.g., using attributes like `[TestMethod]` or specific function naming patterns), making tests easier to write and understand.
+2.  **Execution:** They include test runners that discover and execute tests automatically.
+3.  **Assertions:** They offer built-in functions (`Assert.AreEqual`, `expect(value).toBe`, etc.) for verifying expected outcomes.
+4.  **Setup/Teardown:** They provide mechanisms (like `[TestInitialize]` / `[TestCleanup]` or `beforeEach` / `afterEach`) to set up preconditions before tests and clean up afterward, ensuring test independence.
+5.  **Reporting:** They can generate reports detailing test results (pass/fail counts, duration, errors), often in formats consumable by CI/CD systems (like JUnit XML). This allows pipelines to track test outcomes, display results, and make decisions (e.g., fail the build if tests fail).
+6.  **Integration:** Many frameworks integrate well with IDEs (for easy local running and debugging) and CI/CD platforms.
+
+Tools like Selenium, Cypress, or Playwright focus specifically on automating browser interactions for E2E testing. Others like Postman or REST Assured help with API testing. Mocking libraries (Mockito, Moq, NSubstitute) assist in creating mock objects for unit testing. These tools often work in conjunction with the core testing frameworks. Using established frameworks and tools promotes consistency within a team, leverages community knowledge, and automates much of the boilerplate work involved in testing.
+
+### Organizing Your Tests
+
+As a project grows, so does its test suite. Proper organization is crucial for maintainability and efficient execution.
+
+- **Location:** Conventions vary by language and framework, but common patterns include:
+  - Placing test files alongside the source files they test (e.g., `myFunction.js` and `myFunction.test.js`).
+  - Using a dedicated test directory structure that mirrors the source directory structure (common in Java and C#).
+  - Having a top-level `tests` or `spec` directory.
+- **Naming Conventions:** Clear and consistent naming is vital. A good test name describes what scenario is being tested and what the expected outcome is (e.g., `Add_TwoNegativeNumbers_ReturnsCorrectNegativeSum`).
+- **Grouping/Suites:** Frameworks often allow grouping tests into suites (e.g., by feature, type like "unit" vs "integration", or speed like "fast" vs "slow"). This enables running specific subsets of tests. For instance, during local development or on a PR build, you might only run fast unit tests, reserving slower integration or E2E tests for a nightly build or pre-deployment stage. Some advanced test runners can even automatically determine which tests are relevant based on the code changes made.
+
+Good organization prevents test duplication, helps ensure adequate coverage across different functionalities, makes it easier for developers to find and run relevant tests, and simplifies debugging when tests fail.
+
+Okay, let's continue building the chapter, focusing on best practices, challenges, and developing a sound testing philosophy within the CI/CD context.
+
+---
 
 ### Best Practices and Challenges in Software Testing
 
-- Importance of avoiding overlaps and ensuring broad test coverage. This requires that the tests are well organized and understood to prevent testing duplicate functionality, although, it is likely that there will be some overlap in tests (e.g., setup.) By having the tests organized, it also helps with ensuring that there is sufficient test coverage (in terms of functionality) because you know which things are and are not tested.
-
-- When you're writing tests, chances are that there will be a lot. Therefore, make sure that you know how to selectively run a certain test or a suite of tests that are likely to be impacted by what you are changing. This will greatly improve the feedback loop. In some frameworks, the test agent can be run in the background and automatically determine which test(s) to run based on what code you've changed. In your CI pipeline, you may want to either selectively run tests based on what has changed, or run all tests.
-
-- In order to organize the tests well, make sure that you have a good naming convention, and, if applicable, store the tests next to the modules that they are testing. There are lots of exceptions, and each programming language might have best practices on how to store and manage test cases.
-
-- +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-  | The \"top 5 programming languages\" can vary depending on the context and metric being used, such as popularity, job demand, or performance. However, as of my last training cut-off in January 2022, the TIOBE Index, RedMonk Rankings, Stack Overflow Developer Survey, and other sources often listed languages like Java, Python, JavaScript, C#, and C (or C++) among the top ranks. |
-  | |
-  | Here\'s a brief overview of how testing is structured on disk for these languages: |
-  | |
-  | 1\. **Java**: |
-  | |
-  | \- Framework: JUnit (most popular) |
-  | |
-  | \- Test Structure: Java tests are typically placed in a separate `test` directory that mirrors the structure of the `src` directory. For example: |
-  | |
-  | `|
-| |
-| project-root/ |
-| |
-| ├── src/ |
-| |
-| │ ├── main/ |
-| |
-| │ │ ├── java/ |
-| |
-| │ │ │ └── com/example/MyClass.java |
-| |
-| │ ├── test/ |
-| |
-| │ │ ├── java/ |
-| |
-| │ │ │ └── com/example/MyClassTest.java |
-| |
-|` |
-  | |
-  | 2\. **Python**: |
-  | |
-  | \- Framework: pytest, unittest |
-  | |
-  | \- Test Structure: Python tests can be placed alongside the source code or in a separate `tests` directory. Some projects use a `test\_\*.py` naming convention for test modules. |
-  | |
-  | `|
-| |
-| project-root/ |
-| |
-| ├── my_module.py |
-| |
-| ├── test_my_module.py |
-| |
-|` |
-  | |
-  | Or: |
-  | |
-  | `|
-| |
-| project-root/ |
-| |
-| ├── src/ |
-| |
-| │ ├── my_module.py |
-| |
-| ├── tests/ |
-| |
-| │ ├── test_my_module.py |
-| |
-|` |
-  | |
-  | 3\. **JavaScript**: |
-  | |
-  | \- Framework: Jest, Mocha, Jasmine |
-  | |
-  | \- Test Structure: For many JavaScript projects, especially those using Node.js, tests are often in a `\_\_tests\_\_` directory or alongside the source code with a `.test.js` or `.spec.js` suffix. |
-  | |
-  | `|
-| |
-| project-root/ |
-| |
-| ├── src/ |
-| |
-| │ ├── myFunction.js |
-| |
-| │ ├── myFunction.test.js |
-| |
-|` |
-  | |
-  | 4\. **C#**: |
-  | |
-  | \- Framework: MSTest, NUnit, xUnit |
-  | |
-  | \- Test Structure: C# tests are typically placed in a separate test project, which might be in the same solution. For example: |
-  | |
-  | `|
-| |
-| solution-root/ |
-| |
-| ├── MyProject/ |
-| |
-| │ ├── MyClass.cs |
-| |
-| ├── MyProject.Tests/ |
-| |
-| │ ├── MyClassTests.cs |
-| |
-|` |
-  | |
-  | 5\. **C/C++**: |
-  | |
-  | \- Framework: Google Test, Catch2 |
-  | |
-  | \- Test Structure: Tests in C++ are typically separated into their own files, which might be placed in a `test` or `tests` directory. |
-  | |
-  | `|
-| |
-| project-root/ |
-| |
-| ├── src/ |
-| |
-| │ ├── my_function.cpp |
-| |
-| │ ├── my_function.h |
-| |
-| ├── tests/ |
-| |
-| │ ├── test_my_function.cpp |
-| |
-|` |
-  | |
-  | It\'s worth noting that the structure of tests can vary depending on the project\'s conventions, the testing framework, or the developer\'s personal preferences. The examples provided are common conventions but are by no means strict rules. |
-  +===========================================================================================================================================================================================================================================================================================================================================================================================+
-  +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-
--
-
-- Understanding code coverage and mutation testing. Code coverage is somewhat useful but has many limitations and it is important that one knows what it can and cannot do. Code coverage is a metric that shows if there is a test that covers (i.e., runs) that part of the function or code, and then it is averaged out among all of the methods or statements in the project. It cannot test whether the tests are useful or make sense, it only checks if the code is executed. This is akin to a very large paintbrush; if there is zero percent code coverage, then the module isn't tested. If it's anywhere from not zero to 100%, then the module is tested. Aiming for 100% code coverage, for most applications, might be unnecessary because it does not encourage a useful high-level test strategy and can cause developers to write useless or less useful tests, purely to make the number get to 100%. Some items in the project aren't worth being tested, and writing too many tests can make refactoring very difficult. [[testing - What is code coverage and how do YOU measure it? - Stack Overflow]{.underline}](https://stackoverflow.com/questions/195008/what-is-code-coverage-and-how-do-you-measure-it?rq=3)
-
-- If you have 90% code coverage, it is unclear what the 10% uncovered code does. Was it just difficult to test, or was it worthwhile to test?
-
-- How do you analyze and interpret test results to identify issues and prioritize fixes?
-
-  - ![](./images/image59.png)
-
-  - ![](./images/image57.png)
-
-  - [[Publish Test Results · Actions · GitHub Marketplace]{.underline}](https://github.com/marketplace/actions/publish-test-results). Test results are sent to a global database where a report can run and you can view all of the results together.
-
-- When should the tests run? Should they be run on the PR, after it is merged, pre-deployment, or post-deployment?
+Writing tests is one thing; writing _effective_ tests and managing them within a dynamic CI/CD environment presents its own set of practices and challenges.
 
-  - Running tests on the PR allows for catching bugs before they impact other developers or break the central pipeline. Usually, when phrases such as "keeping the pipeline green" are used, they mean to keep the deployment pipeline green (and the post-merge pipeline) as if these are not working, then it is not possible to generate a release. Sometimes, your PR run (on a PR pipeline) might fail. This doesn't impact other developers, but it is still vital that it is fixed because otherwise you won't be able to merge.
+#### Ensuring Broad Coverage While Avoiding Overlap
 
-  - Some tests have hard requirements. For example, if you want to test the entire application deployed, then it will have to be a post-deployment test. Post-deployment tests are useful when you want to test the entire application's functionality. The only way to truly know if your application is running as intended.
+A good test suite provides confidence by covering the application's critical functionalities. However, simply writing _more_ tests isn't always better. Strive for broad coverage of requirements and user scenarios, but be mindful of redundant tests. Overlapping tests (multiple tests verifying the exact same narrow piece of logic) increase maintenance overhead without significantly improving confidence. Well-organized tests, perhaps structured by feature or user story, help identify gaps and prevent unnecessary duplication. While some overlap is inevitable (e.g., setup steps), deliberate effort should be made to ensure each test adds unique value.
 
-- How do you manage test results and test cases over time?
+#### Selectively Running Tests
 
-  - After the tests have concluded on the CI runner (usually post-merge, pre-deployment, or post-deployment), the results can be published to a test server, where they are aggregated. This is usually vendor-specific.
+As test suites grow, running _all_ tests on every single code change locally can become prohibitively slow, hindering the fast feedback loop. Developers need the ability to selectively run tests relevant to their current changes. Most testing frameworks support running individual tests or specific suites. Some modern tools even offer test impact analysis, attempting to automatically determine which tests _could_ be affected by a given code change and running only that subset.
 
-  - Normally, test results from a single PR are available on the PR itself, but might not be available on the central test repository dashboard. This is because PRs are still, in theory, a work in progress and don't represent the entirety of the application. Therefore, once a PR is merged, it is temporary and has been erased. If one tries to calculate or aggregate the test coverage from all of the PRs, it might be difficult to determine what the true test coverage for the application is. Therefore, normally, the test coverage of the application is derived from a post-merge task/build task.
+In the CI pipeline, the strategy might differ. Pull request builds often run a faster subset (e.g., unit tests and core integration tests), while post-merge builds or pre-deployment stages might execute the full suite, including slower E2E and performance tests. The key is balancing feedback speed with test thoroughness at different stages.
 
-  - You can normally publish the test results when setting up a pipeline. Many testing frameworks automatically allow generating test artifact/run data in a format suitable for consumption by a computer, usually in JSON or XML.
+#### Understanding Code Coverage (and its Limitations)
 
-  - Some testing dashboards can show which tests commonly fail, how long the tests took to run, and which tests are flaky. This can help prioritize where to add more tests and to find areas of your application that need special attention.
+Code coverage tools measure which lines or branches of your source code are executed by your test suite, typically expressed as a percentage. It can be a useful _indicator_, but it's crucial to understand its limitations.
 
-  - Note: because an area has more failing tests does not mean that it is intrinsically more fallible. This is because someone could not write tests for a component, and therefore no tests would fail--this does not mean that the component is safer or better written. It also doesn't mean that the tests are written well; flaky tests or useless tests may fail or pass respectively and fail to provide useful information.
+- **What it shows:** If a section of code has 0% coverage, it means no test executes it. This is a clear signal that part of your application is untested.
+- **What it _doesn't_ show:** High coverage (e.g., 90% or even 100%) does **not** guarantee the tests are meaningful or that the code is bug-free. It only shows that the code was _executed_, not that the assertions within the tests were correct or comprehensive. A test could run through code without actually verifying the right behavior.
+- **The danger of targets:** Setting arbitrary high coverage targets (e.g., mandating 90% coverage) can incentivize developers to write trivial or low-value tests simply to "hit the number," potentially making the codebase harder to refactor later due to the sheer volume of tests, some of which might be brittle. It's often unclear what the untested 10% in a 90% coverage scenario represents – was it low-risk boilerplate code, or a critical edge case that was hard to test?
 
-- Spend a bit more on testing environments if they're slow. It's a useful tool, so invest in it. The increased ROI by CI/CD (i.e., the more profit generated by creating more features) should significantly outweigh any additional testing costs.
+Use code coverage as a tool to identify _untested_ areas, but don't treat it as a definitive measure of test quality. Focus on testing critical paths and complex logic thoroughly, rather than chasing a percentage.
 
-- Why do we need to run tests on the CI, and developers machines?
+#### Mutation Testing: A Deeper Look
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Key Points: [[https://softwareengineering.stackexchange.com/a/308517/22753]{.underline}](https://softwareengineering.stackexchange.com/a/308517/22753) |
-| |
-| 1\. Developers may not always run all unit tests before committing to master due to: |
-| |
-| a\. Lack of discipline. |
-| |
-| b\. Forgetfulness. |
-| |
-| c\. Incomplete commit sets. |
-| |
-| d\. Running only a selection of tests. |
-| |
-| e\. Testing on their branch before merging. |
-| |
-| 2\. It\'s essential to run tests on a machine different from the developer\'s to: |
-| |
-| a\. Identify issues relying on specific configurations, data, timezone, locale, etc., unique to the developer\'s machine. |
-| |
-| 3\. CI (Continuous Integration) builds offer multiple benefits: |
-| |
-| a\. Tests can be run on platforms other than the primary development platforms. |
-| |
-| b\. Acceptance, Integration, End-to-End, and long-running tests are often conducted on the CI server. |
-| |
-| c\. CI servers can detect overlooked minor changes made by developers who assume such changes are safe. |
-| |
-| d\. CI servers\' configuration is usually free of developer-specific tools, making it more akin to the production system. |
-| |
-| e\. CI systems ensure repeatable builds by constructing the project from scratch every time. |
-| |
-| f\. In the event of a library modification, CI servers can be set up to build all dependent codebases to pinpoint potential downstream issues. |
-+========================================================================================================================================================+
-+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+Mutation testing offers a more sophisticated way to assess test suite quality than simple code coverage. It works by automatically introducing small changes ("mutations") into your source code (e.g., changing a `+` to a `-`, `>` to `<`, or deleting a line). It then runs your test suite against each mutated version.
 
-- On the CI runner, tests are normally run on the pull request and blocks the pull request from being merged if the tests fail. Tests may also run at other points, such as after the PR is merged, prior to deployment, and after deployment.
+- If a test fails, the mutation is considered "killed" – meaning your tests were effective enough to detect that specific change.
+- If all tests still pass despite the mutation, the mutation "survives" – indicating a potential weakness in your tests; they weren't specific enough to catch that particular alteration.
 
-```{=html}
-<!-- -->
-```
+A high percentage of killed mutants suggests a more robust test suite compared to one where many mutants survive. However, mutation testing is computationally expensive and often run less frequently than standard tests.
 
-- When are mocks useful?
+#### Analyzing and Interpreting Test Results
 
-  - Testing a shopping cart to ensure that it can handle multiple items and provide the correct total price, even when one of the items is out of stock.
+Tests generate data – pass/fail status, execution time, error messages. Effectively analyzing this data is key. CI/CD platforms often provide dashboards to visualize test results over time. Look for patterns:
 
-  - Testing a login page to ensure that it handles invalid passwords correctly and provides the correct error message.
+- **Frequently Failing Tests:** Which tests fail most often? This might indicate brittle tests or unstable areas of the application needing attention.
+- **Slow Tests:** Which tests take the longest? Can they be optimized, run less frequently, or parallelized?
+- **Flaky Tests:** Tests that pass and fail intermittently without code changes (discussed more under Anti-patterns). These erode confidence and must be addressed.
 
-  - Testing a search function to ensure that it returns results that match the search criteria, even if the actual search engine returns no results.
+Publishing test results (often via standard formats like JUnit XML) allows aggregation and trend analysis. This data helps prioritize fixing problematic tests and identifying systemic quality issues. Remember, however, that a lack of failing tests in one area doesn't automatically mean it's high quality – it might simply lack adequate testing.
 
-  - Testing an e-commerce site to ensure that it can handle high traffic during holiday shopping seasons.
+#### Where and When to Run Tests
 
-  - Testing a payment gateway to ensure that it processes transactions correctly, even when the bank\'s system is down for maintenance.
+The placement of tests within the CI/CD pipeline influences the feedback loop and risk mitigation:
 
-- In the end, if you absolutely cannot make the tests any shorter, try to understand what value the tests are providing to the business. Consider only running a selection of tests, and some others less often. Can the customers not tolerate faulty software, and require extensive testing procedures? Reference the triangle of quality, speed, and cost. You may want to get a better understanding of what your customers really want, and could consider customer segmentation. For example, providing a beta version of your software that is not as tested but to outsource the priorities of the testing to the customers. Or, to allow customers to get the software sooner but it might not be as well tested, while also providing a more stable version for those who want a more tested software.
+1.  **Locally (Developer Machine):** Running fast tests (mainly unit tests) locally before committing/pushing provides the quickest feedback, catching errors before they affect others.
+2.  **On Pull Request (PR):** Running a core set of automated tests (unit, key integration) automatically when a PR is created/updated acts as a gatekeeper. Failing tests block merging, preventing broken code from entering the main branch and "keeping the pipeline green" for deployments.
+3.  **Post-Merge (Main Branch):** After a PR is merged, a more comprehensive suite (potentially including slower integration tests) might run on the main branch to ensure integration integrity. This build often generates the artifacts used for deployment.
+4.  **Pre-Deployment (Staging/PPE):** Before deploying to production, tests (often E2E, performance) might run against a production-like environment (Staging or Pre-Production Environment - PPE) to validate the actual deployment artifact and configuration in a realistic setting.
+5.  **Post-Deployment (Production):** Some tests ("smoke tests" or health checks) run against the live production environment immediately after deployment to quickly verify core functionality is working. This is the ultimate validation but carries the risk of impacting real users if not done carefully (e.g., using read-only checks or dedicated test accounts).
 
-- **Testing Philosophy & Prioritization:**
+#### Why Run Tests on CI _and_ Locally?
 
-  - Ultimately, the user sees what is displayed on the screen, i.e., an end-to-end test. However, it might not be feasible to always write end-to-end tests, because they might be slow to run (which might be difficult to improve if your application is complex), and if there is a failure in a lower layer, it might be ambiguous as to if the UI or the lower layer is responsible for the bug, i.e., tests can be used as debugging tools. Normally, end-to-end tests do not run at the same frequency as your unit tests, and so the feedback loop is a bit slower. This will depend on your company, and is usually a reactive approach: as you find bugs that are found in your E2E tests, then you have to track them against which commit fixed that bug, therefore, small commits are good to have to be able to associate them together. Once you find the root cause of the bug, then you can determine, over time, in general, if the tests are too high level or too low level.
+It might seem redundant, but running tests in both environments is crucial:
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [[https://www.youtube.com/watch?v=lDG1KVrO8X0&t=1627s]{.underline}](https://www.youtube.com/watch?v=lDG1KVrO8X0&t=1627s) |
-| |
-| In this company, 95% of the issues found by the UI automated tests were data errors, like getting 2.21 instead of 2.22. These errors come from backend calculations, not the UI. Using slower E2E tests for these isn\'t efficient. It\'s better to use unit tests that focus on these calculations. This approach makes testing quicker and gives developers faster feedback. |
-| |
-| Key point is: make sure to track the failures for the tests, and why they failed. Test at the level where it makes sense. |
-+================================================================================================================================================================================================================================================================================================================================================================================+
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+- **Discipline & Oversight:** Developers might forget, lack discipline, or only run a subset of tests locally. The CI server acts as an unbiased enforcer, ensuring all necessary tests pass before integration.
+- **Environment Differences:** A developer's machine is rarely identical to the CI environment or production. Tests might pass locally due to specific configurations, installed tools, data, timezones, or OS differences that don't exist elsewhere. The CI server provides a cleaner, more standardized environment, closer to production.
+- **Comprehensive Testing:** CI servers are better suited for running long, resource-intensive tests (E2E, load, performance) that might be impractical locally.
+- **Clean Builds:** CI systems typically build projects from scratch, avoiding issues caused by leftover artifacts or inconsistent state on a developer machine, ensuring repeatable builds.
+- **Dependency Checks:** If a shared library changes, a CI server can potentially trigger builds for all dependent projects to catch downstream breakages early.
 
-- In some cases, it depends on what you are trying to test. For example, if I am doing an end-to-end test to add an item to my shopping cart, and I am trying to figure out if accounting receives the electronic paperwork, then since this is not exposed to the customer, I can't write an end-to-end test for this, unless I inject myself into private methods. It depends a bit on the testing scenario as well; if you want to do a complex purchase order and also see whether accounting gets the paperwork, then an end to end test might be useful.
+#### When are Mocks Useful?
 
-- Recall that tests are useful debugging tools as well, as they show which assumption was violated. Therefore, say you have three functions, A, B, and C. They all produce an output, and are summed together via D. I could write a test for D, but if A, B, or C fails then I won't know which one failed, only that the output from D is wrong. So, I'd have to look into all four functions to find the root cause of the bug. In this case, you could have written a unit test for A, B, or C and then have been able to find the issue.
+Mocking shines when you need to isolate the code under test or control its environment:
 
-- Consider a real-world scenario where you\'re developing a financial application that helps users visualize their potential savings growth using a monte-carlo simulation. The application integrates with third-party banking APIs to fetch the user\'s financial transactions over the past year. Users simply connect their bank accounts, press "Run," and a report is generated to display projected savings based on their historical data.
+- **Isolating Logic:** Testing complex calculations in a shopping cart (e.g., handling discounts, taxes, out-of-stock items) without needing a real UI or database.
+- **Simulating External Systems:** Testing how your login page handles an invalid password response from an authentication service, without needing a live service that might be unavailable or slow. Testing how a search function behaves when the underlying search engine returns no results or throws an error.
+- **Controlling Difficult States:** Verifying how a payment gateway integration handles a scenario where the bank's system is temporarily down – a state hard to reproduce on demand with the real system.
+- **Performance:** Avoiding slow network calls or database queries during fast unit tests.
+- **Verifying Interactions:** Ensuring specific methods on dependencies were called (e.g., checking if a logging service was invoked correctly).
 
-- Now, here\'s the challenge:
+### Testing Philosophy and Prioritization
 
-  - Variability in Results: Each time the report is run, the monte-carlo simulation provides slightly different results due to its inherent probabilistic nature.
+Simply knowing the _types_ of tests isn't enough. You need a coherent philosophy and strategy to guide _what_, _when_, and _how_ to test effectively.
 
-  - Opaque Data: While users see a summarized report, the finer details fetched from the bank via the API---details crucial for the computation---are not accessible through the UI. Scraping this data from the UI is not only complicated but also prone to errors.
+#### Beyond the Pyramid: Test Where it Makes Sense
 
-- Given these conditions, how can you ensure, with confidence, that the monte-carlo calculations are accurate? Relying on high-level E2E tests would mean:
+The "Testing Pyramid" (many unit tests, fewer integration tests, fewest E2E tests) is a popular heuristic. It emphasizes placing tests at the lowest possible level for speed and isolation. While the underlying principle (prefer faster, more focused tests when appropriate) is sound, rigidly adhering to the pyramid's shape can be misleading.
 
-  - Using a Threshold: You\'d need to set a threshold to account for the variability in the monte-carlo results. But what should this threshold be? Setting it too broad might overlook significant computational errors, while setting it too narrow could trigger false negatives.
+**Don't write unit tests just to make the pyramid look right if the real risks or integration points demand integration or E2E tests.** Conversely, don't use slow, brittle E2E tests to verify simple algorithmic logic that a unit test could cover instantly.
 
-  - Dependence on External Data: E2E tests would rely on the data from third-party APIs, meaning any change or unavailability on their part could disrupt your testing.
+The critical question is: **What are you trying to verify, and what's the most effective and efficient way to do it?**
 
-- Contrast this with the clarity and control offered by unit testing:
+- If you need to validate complex business logic involving multiple components interacting, an integration test might be necessary.
+- If you need to ensure a user can complete a critical workflow through the UI, an E2E test is likely required.
+- If you need to verify a specific calculation or edge case within a single function, a unit test is probably best.
 
-  - Consistent Results: By mocking methods, like the random number generation used in the monte-carlo simulation, you can use seeds to ensure consistent results across runs. This allows you to precisely verify calculations without the variability introduced by true randomness.
+Track _why_ your tests fail. If 95% of UI test failures are actually due to calculation errors in the backend (as noted in one example), then using slow UI tests for this purpose is inefficient. Add targeted unit or integration tests at the source of the calculation instead. Test at the layer where the potential issue originates and can be most directly verified.
 
-  - Focused Testing: Unit tests would isolate and test just the computational logic, removing dependencies on the UI or third-party APIs. This way, you can simulate various financial scenarios and verify the accuracy of the monte-carlo logic independently.
+#### Outcome vs. Process Testing
 
-- In conclusion, this is why it is important to develop a good testing strategy: what I am trying to measure is the result of the computation, and whether the computations are accurate. It is possible that those computations might not be displayed correctly on the UI, thus, it might be useful to have an E2E test too.
+Consider _what_ aspect of the behavior is important:
 
-- A case where a unit test would be useful is to verify if a caching layer for a database works. If the caching layer does not exist, then it still returns the same data, thus, there isn't a failure case necessarily. TDD is very useful in this scenario (how would you know if the caching layer failed?) This might help you to figure out which layer to write your test on.
+- **Outcome-Focused:** Do you primarily care about the final result, regardless of how it was achieved? Example: Testing if clicking the "Login" button successfully navigates the user to their dashboard. You don't care _exactly_ how the button was rendered or which internal services were called, only that the user-visible outcome is correct. E2E tests often excel here.
+- **Process-Focused:** Is the _way_ the result is achieved critical? Example: Testing if a caching layer is actually being used when retrieving data. Simply checking the returned data isn't enough, as the data would be the same whether the cache was hit or the database was queried directly. You need to verify the _internal process_ (e.g., by mocking the database and ensuring it _wasn't_ called, or by inspecting the cache state). Unit or integration tests with mocking/spying capabilities are often better suited for this. Another example is verifying that specific audit logging functions are called during a transaction, even though the user never sees the audit log.
 
-  - In very over-simplified terms: if you need more control and there is uncontrollable factors (such as third-party integrations, different data, etc.) use unit tests, if you find yourself re-creating the entire environment or you want to see what the customer sees, trying to capture multi-page navigation, animations, network failures, buttons/ui elements, click handlers, whether the database displays the correct results to the user, use E2E tests.
+Understanding whether you're testing the outcome or the process helps select the appropriate test type and level.
 
-- Say if you are writing a calendar application that allows you to schedule appointments with other people. The application provides the ability to schedule an appointment with someone else in the future, by checking their schedule and your schedule. Then, the list of potential dates that work for both people are shown in the UI, but only the top 10 are shown. You want to be able to find out all of the dates that the two people can be scheduled together. In this case, a unit test might make more sense, because it might be complex to parse the information from the UI (say that it is in multiple cultures), and you want to have more information than what is listed on the UI. This might also make it less brittle from a test perspective because any changes to the UI (say that it is undergoing a redesign with some new icons and colors), then the unit tests are less likely to be impacted.
+#### E2E Tests: Necessary but Handle with Care
 
-- Understand the balance between quality, speed, and cost.
+There's sometimes a push to minimize E2E tests because they can be slow and brittle. While reducing unnecessary E2E tests is good, eliminating them entirely is often unwise. They are the only tests that truly verify the integrated system from the user's perspective.
 
-- Consider what the business wants and the acceptable quality of software. Testing too much or too little is inefficient. Testing the wrong things is also inefficient.
+Instead of just reducing their number, focus on:
 
-- Consider timeboxing the testing. Prioritize tests and get as much done within a set timeframe.
+- **Stability:** Use reliable selectors, wait strategies, and consider tools designed for robustness (like Cypress or Playwright).
+- **Scope:** Focus E2E tests on critical user journeys, not every single UI element interaction.
+- **Placement:** Run them at appropriate pipeline stages (e.g., pre-deployment) rather than on every commit.
+- **Optimization:** Can they be run in parallel? Can the underlying environment be made faster?
 
-- Use real user metrics to evaluate frequently used parts of the application. Prioritize testing for these sections.
+#### The Confidence Factor
 
-- It may be necessary to compromise on quality if efficiency cannot be improved.
+Ultimately, tests are about providing confidence to developers and the business that changes can be deployed safely. Tests should be meaningful and well-designed. A suite full of trivial tests passing gives a false sense of security. Code passing tests doesn't automatically mean the code is correct; it only means it meets the specific expectations encoded in _those_ tests. Well-designed tests, however, significantly increase the probability that passing tests correlates with correct code.
 
-- Sometimes, reduce emphasis on quality temporarily to gather customer feedback.
+Okay, let's continue drafting the chapter, moving into operational strategies, test management, and tackling common challenges.
 
-- If customers are indifferent to test results, evaluate your customer base and potential quality issues.
+---
 
-- If tests are deemed slow, understand what they\'re slow relative to. Consider potential trade-offs for keeping these tests.
+### Operational Strategies for Testing in CI/CD
 
-```{=html}
-<!-- -->
-```
+Beyond writing individual tests, effectively managing the testing process within a fast-paced CI/CD environment requires strategic operational thinking.
 
-- **Operational Strategies:**
+#### Dealing with Slow Tests
 
-  - Create multiple test accounts or run parallel tests across multiple environments to address slow tests.
+Slow tests are a common bottleneck, particularly E2E or complex integration tests. If tests become too slow, they delay feedback and can hinder developer productivity. Instead of simply accepting the slowdown or, worse, disabling valuable tests, consider these strategies:
 
-  - If unsure about bug prioritization, release the software and gather bug reports.
+- **Optimize:** Can the test itself be made more efficient? Is the environment it runs in slow? Investing in faster testing infrastructure can have a significant return on investment (ROI), as developer time is valuable. The increased feature velocity enabled by CI/CD should ideally outweigh marginal increases in testing costs.
+- **Parallelize:** Can tests be run concurrently across multiple agents or environments? Many CI platforms and test runners support parallel execution.
+- **Categorize and Schedule:** Separate tests into suites based on speed ("fast," "medium," "slow"). Run fast tests frequently (locally, on PRs), medium tests post-merge, and slow tests less often (e.g., nightly or pre-deployment).
+- **Prioritize:** If you absolutely must reduce test execution time for a specific stage, prioritize running the tests covering the most critical functionalities or highest-risk areas first. Consider randomized sampling of less critical tests if full execution isn't feasible in the available time window.
+- **Re-evaluate Level:** Is a slow E2E test verifying something that could be checked more quickly and reliably with a lower-level integration or unit test?
 
-  - Consider a beta program where users actively search for bugs.
+#### Prioritizing Bugs and Test Failures
 
-  - QA testing should not impede developers. The testing process should be swift, and mainly require human insights.
+Not all test failures or bugs have the same severity. When a test fails in the CI pipeline:
 
-  - Identifying areas that could be automated, or areas that should not be automated, and the role of the QA tester (if there is one). For example, testing plans consist (usually) of a set of instructions that testers are to follow and also contain expected outputs. If the tests are not open to interpretation, then it might mean that they are candidates for automation. Having these test plans as part of the test repository allows for a streamlined and holistic view of all of the testing and its statuses.
+- **Triage Immediately:** Someone needs to quickly assess the failure. Is it a genuine bug in the code? A problem with the test itself (flaky)? An environment issue?
+- **Impact Assessment:** How critical is the failure? Does it block a core user journey? Is it an edge case? This assessment informs the priority of fixing it.
+- **Don't Ignore Flaky Tests:** While a flaky test might not represent a real regression _this time_, it erodes trust in the test suite. It needs to be investigated and fixed or quarantined (see Anti-patterns section).
+- **Production Failures:** Failures detected in post-deployment tests running against production require immediate attention. The goal should be to quickly revert the deployment or apply a hotfix. Ensure your deployment process allows for easy and fast rollbacks.
 
-  - Monitoring how many test cases exist, and how many are disabled.
+Sometimes, especially in early product stages or when exploring new features, it might be acceptable to release with known, non-critical bugs. The strategy might involve releasing faster to gather user feedback, potentially using a **beta program** where engaged users actively look for issues in exchange for early access. However, this depends heavily on the product domain, user expectations, and risk tolerance.
 
-  - Consider outsourcing if the app\'s complexity impedes the QA process.
+#### The Role of QA
 
-  - Integrate testers with developers early on. Encourage mutual responsibilities in testing to share the workload.
+In a mature CI/CD environment, the role of dedicated QA professionals often shifts. With developers writing more automated tests (unit, integration) and the pipeline handling regression checks, QA can focus on higher-value activities that are difficult or impossible to automate:
 
-  - Explore architectural reviews if frequent bugs emerge.
+- **Exploratory Testing:** Probing the application creatively to find unexpected issues.
+- **Usability Testing:** Assessing the user experience.
+- **Complex Scenarios:** Testing intricate workflows or edge cases not easily covered by automated scripts.
+- **Test Strategy & Planning:** Helping define _what_ needs testing and how best to achieve coverage.
+- **Analyzing Results:** Interpreting trends in test failures and bug reports to identify systemic quality issues.
+- **Tooling & Automation Support:** Helping select, implement, and maintain testing tools and frameworks.
 
-  - Think about implementing CI/CD and weigh its benefits. It can expedite software delivery but may require quality compromises.
+QA should not be a bottleneck. Integrating testers early in the development process, fostering collaboration between developers and testers ("shift-left" testing), and ensuring clear responsibilities can streamline the quality assurance process. If manual testing processes consistently slow down releases, investigate which parts can be automated and ensure QA focuses on tasks requiring human insight. In some complex domains, **outsourcing** specialized testing (like security penetration testing or large-scale performance testing) might be considered.
 
-  - Ensure easy reversion processes. If a production bug arises, reverting should be quick.
+#### Architectural Considerations
 
-- **Test Building & Management:**
+If bugs frequently emerge despite testing, or if tests are consistently difficult to write or maintain, it might indicate underlying architectural problems. Consider periodic architectural reviews to identify areas causing friction for testability or introducing excessive coupling.
 
-  - How does one construct maintainable tests?
+### Building and Managing Maintainable Tests
 
-  - For tracking test failures, correlate tests to source files.
+Tests are code, and they require the same care in design and maintenance as production code.
 
-  - Focus on abstraction levels and automation patterns.
+- **Clarity and Readability:** Use clear naming conventions (for tests and variables). Follow patterns like Arrange-Act-Assert (AAA) to structure tests logically. Add comments where necessary to explain complex setups or non-obvious assertions. Remember, others (or your future self) will need to understand and maintain these tests.
+- **Independence:** Tests should ideally be independent of each other. One test's failure should not prevent others from running, nor should its execution leave behind state that affects subsequent tests. Use proper setup (`TestInitialize`, `beforeEach`) and teardown (`TestCleanup`, `afterEach`) mechanisms provided by your framework to manage state.
+- **Deterministic Behavior:** Tests should produce the same result every time they are run against the same code, assuming no external factors change. Avoid dependencies on things like current date/time, random numbers (unless explicitly testing randomness and using fixed seeds), or uncontrolled external services within core functional tests. Use mocks and stubs to control dependencies.
+- **Focus:** Each test should ideally verify a single logical concept or scenario. Tests trying to do too much become hard to debug when they fail.
+- **Abstraction and Patterns:** For complex setup or repeated actions (like logging in for E2E tests), use helper functions or Page Object Models (in UI testing) to abstract details and reduce duplication. Create declarative tests where the intent is clear, hiding imperative setup details.
+- **Dependency Management:** Avoid brittle dependencies. In infrastructure or environment setup, use version pinning (e.g., `package-lock.json` in Node.js, specific Docker image tags) rather than always pulling "latest," which can introduce unexpected changes.
+- **Test Impact Analysis:** Understand how changes in production code might affect tests. Tools can sometimes help, but good organization (e.g., locating tests near the code they test) also aids developers in identifying potentially impacted tests manually.
+- **Equivalence Relations:** When asserting equality, consider _what level_ of equality matters. Does the order of elements in a list matter? Does floating-point precision need to be exact, or within a tolerance? Define assertions clearly. Sometimes, hash functions can serve as approximate equality checks for complex objects, though with potential for collisions.
+- **Retiring Tests:** Tests aren't sacred. Regularly review your test suite. Tests that are consistently flaky despite fixing efforts, tests for removed features, or tests that are completely redundant due to newer, better tests should be considered for retirement. Deleting or rewriting a test requires as much consideration as creating one.
 
-  - Create declarative tests with clear dependencies.
+### Correlating Failures and Root Cause Analysis (RCA)
 
-  - Test popular third-party browser extensions.
+When a bug slips through to production, or a test fails unexpectedly, effective analysis is key to improving the process.
 
-  - Understand test impact analysis.
+- **Bug Correlation:** When a production bug is found, investigate: Was there a test that _should_ have caught this? If yes, why didn't it (e.g., bug in test logic, incorrect assertion, flaky execution)? If no, write a new test (typically a regression test) that reproduces the bug before fixing it.
+- **Failure Tracking:** Use CI/CD dashboards and test reporting tools to track failure history. Link test failures back to specific commits or changes (tools like `git bisect` can help identify when a regression was introduced).
+- **Root Cause Analysis:** Don't just fix the symptom. Understand _why_ the bug occurred or _why_ the test failed. Was it a misunderstanding of requirements? A concurrency issue? An environmental difference? A faulty assumption in a mock? Addressing the root cause prevents similar issues in the future.
 
-  - Consider the goals and purposes of the tests. Define parameters clearly.
+### Handling Specific Challenges
 
-  - Investigate equivalence theory. Understand relaxed equivalence specifications.
+#### Race Conditions and Asynchronous Processing
 
-  - Committing should include both excluded and focused tests.
+Testing code involving concurrency or asynchronous operations is notoriously tricky. Flakiness often arises here.
 
-  - Hash functions can serve as approximate equality functions.
+- **Shared State:** Be extremely careful when tests modify shared resources (static variables, shared files, database entries). Ensure proper cleanup or use techniques to isolate test runs (e.g., unique database names per run, transactions that get rolled back).
+- **Asynchronous Waits:** If testing code that performs background work, don't rely on fixed delays (`sleep(500ms)`). This is unreliable. Use mechanisms provided by your language or framework, such as:
+  - Callbacks or Promises/Futures/Async-Await to wait for completion.
+  - Polling: Repeatedly check for an expected state change, with a reasonable timeout to prevent infinite loops if the condition is never met. Libraries often provide utilities for this ("wait for condition").
+- **Resource Contention:** Ensure tests don't collide over limited resources like network ports. Use mechanisms to acquire resources exclusively or use dynamically assigned resources.
+- **Temporary Files/Folders:** Use library functions designed to create unique temporary files or directories and ensure they are cleaned up afterward.
+- **Database Transactions:** Where possible, wrap test database operations in transactions that are rolled back after the test, leaving the database in its original state.
 
-  - Creating tests should be as carefully considered as deleting them.
+#### Fuzzing
 
-- **Bug Evaluation & Addressing:**
+Fuzz testing (fuzzing) involves feeding unexpected, invalid, or random data into an application to see if it crashes or behaves unexpectedly. While often used in security testing, the principle can apply more broadly.
 
-  - Determine types of bugs found in production (requirements-oriented, automatable, usability).
+- **Edge Cases:** Ensure code handles minimum/maximum values, empty inputs, and unusually long inputs gracefully.
+- **Character Encodings:** Be cautious when generating random strings; invalid UTF-8 sequences can cause issues in unexpected places.
+- **HTTP Timeouts:** When fuzzing APIs, ensure client settings allow for potentially long-running calls if the fuzzer generates complex requests.
 
-  - Assess the impact of bugs in production. Implement solutions based on their severity.
+#### Maintaining a Consistent Environment
 
-  - Re-evaluate overly detailed requirements. Too much detail can cloud the overall objective.
+Differences between developer machines, CI runners, staging, and production are a major source of "it works on my machine" problems and test flakiness.
 
-  - Consider shorter development cycles or Agile methodologies to address severe production bugs.
+- **Infrastructure as Code (IaC):** Define environments using tools like Docker, Terraform, or Ansible to ensure consistency.
+- **Dependency Pinning:** Lock down versions of OS packages, libraries, and tools (as mentioned before).
+- **Clean Slate:** Ensure CI jobs start from a known clean state, deleting artifacts from previous runs.
+- **Configuration Management:** Manage configuration differences between environments explicitly and carefully. Avoid hardcoding environment-specific values.
+- **Permissions:** Ensure tests run with appropriate permissions (e.g., file system access) that match the target environment where possible, or mock interactions requiring special privileges if necessary.
+- **Canary Pipelines:** For infrastructure changes (like updating the base OS image for CI runners or deployments), use a canary approach: route a small amount of traffic/builds to the new version first, monitor closely, and roll out more broadly only when confident.
 
-- **Customer-Centric Testing:**
+Okay, let's continue with the chapter, focusing on common pitfalls like flaky tests and the crucial task of developing a robust testing strategy.
 
-  - Understand customer needs. Evaluate the balance between quality, feature quantity, and release speed.
+---
 
-  - Offer different versions: a less-tested, fast-release version and a more stable, thoroughly-tested version.
+### Anti-patterns in Testing
 
-  - Gauge what customers truly prioritize. Is it a faster release, more features, or higher quality?
+While tests are essential, certain common practices, or "anti-patterns," can undermine their value, waste effort, and even introduce instability.
 
-  - Understand the testing pyramid. Adapt tests according to the application\'s needs. For instance, E2E UI API tests might be unnecessary if an API is used by another system only.
+#### The Bane of Flaky Tests
 
-  - Stopping writing tests because they're slow or because they're flaky means that these are addressing the symptoms, not the root causes. If they're slow, then this is relative to something else. Are they important to be run? Does that mean that all future tests are by default of lesser priority than everything thus far?
+Perhaps the most frustrating anti-pattern is the **flaky test**. These are tests that produce inconsistent results – sometimes passing, sometimes failing – when run against the _exact same code_ without any relevant changes.
 
-- **Race Conditions and Asynchronous Processing:**
+- **Why are they bad?** Flaky tests destroy trust. When a test fails, developers should have confidence that it indicates a genuine problem. If tests fail randomly, developers start ignoring them ("Oh, that's just the flaky login test again"), builds get manually overridden, and real regressions can slip through unnoticed. They inject noise into the feedback loop, masking the real signal. A test that fails unpredictably provides very little reliable information.
+- **Why do they occur?** Flakiness often stems from:
+  - **Race Conditions/Concurrency:** Issues with timing in asynchronous operations or contention for shared resources (databases, ports, files).
+  - **Environment Differences:** Subtle variations between test environments (local vs. CI, different CI agents).
+  - **Order Dependency:** Tests that implicitly rely on other tests running first (or not running) to set up or clean up state.
+  - **Uncontrolled External Dependencies:** Reliance on third-party services (APIs, networks) that might be slow, unavailable, or return varying data.
+  - **Infrastructure Issues:** Intermittent network glitches, insufficient resources on test runners.
+  - **Non-Deterministic Code:** Relying on factors like current time/date or unseeded random number generators within the test logic or the code under test.
+  - **Brittle Locators (UI Tests):** Relying on unstable element IDs or CSS paths that change frequently.
+  - **Incorrect Timeouts/Waits:** Insufficient waiting times for asynchronous operations to complete, especially under varying load conditions.
+  - **Resource Leaks:** Tests not properly cleaning up resources (files, database entries, ports), causing conflicts for subsequent tests.
+- **Handling and Mitigating Flaky Tests:**
+  1.  **Prioritize Fixing:** Treat flaky tests as high-priority bugs. Don't let them linger.
+  2.  **Identify Them:** CI platforms or test reporting tools can often help identify flaky tests by tracking pass/fail rates over time or supporting automatic reruns on failure. Running tests multiple times locally, potentially under stress (e.g., using tools like `stress-ng` on Linux to simulate load, or running tests in parallel), can sometimes reveal flakiness.
+  3.  **Isolate and Debug:** Reproduce the flakiness consistently if possible. Debug the test and the code it covers, looking for common causes like timing issues or resource conflicts.
+  4.  **Improve Test Logic:** Make assertions more robust, use reliable waiting mechanisms instead of fixed sleeps, ensure proper isolation and cleanup.
+  5.  **Quarantine (Temporary):** If a fix isn't immediate but the flakiness is blocking others, temporarily quarantine the test. This means marking it so it still runs but its failure doesn't fail the entire build. This should be a _temporary_ measure, tracked with a high-priority bug ticket to fix it properly. Don't let the quarantine list grow indefinitely.
+  6.  **Annotate:** Some frameworks allow annotating tests as potentially flaky, perhaps triggering automatic retries within the CI pipeline. This can be a pragmatic step but doesn't fix the root cause.
+  7.  **Consider Deletion:** If a test is chronically flaky, difficult to fix, and its value is questionable or covered by other, more reliable tests, consider deleting it.
 
-  - Ensure the cleanliness of the shared state.
+Remember, a UI flicker causing a test to fail might sometimes indicate a genuine usability issue, not just a test problem. Address the root cause, which might be in the application code itself.
 
-  - Utilize callbacks for asynchronous processes.
+#### Other Common Anti-patterns
 
-  - Use polling for updated values, timing out after a specified interval if dependent on another service.
+- **Testing on Production Resources (Q7):** While testing _in_ a production-like environment (Q1) is crucial, using actual production resources (especially databases with live customer data) for destructive or high-load testing is extremely dangerous and should generally be avoided. Data corruption or service disruption can occur. Use dedicated test accounts in production for smoke tests if necessary, or rely on high-fidelity staging environments.
+- **Lack of Production-Like Environment (Q1):** The inverse problem. If the test environment doesn't closely mirror production (configuration, data characteristics, infrastructure), tests might pass but miss issues that only manifest in the real world. Strive to keep staging/PPE environments as close to production as possible, using IaC and configuration management.
+- **Blindly Chasing Coverage Thresholds (Q4):** As discussed earlier, focusing solely on hitting a coverage percentage leads to low-value tests. Using previous builds' coverage as a fixed target (Q3) is also problematic, as removing well-tested legacy code could artificially lower coverage, penalizing necessary cleanup.
+- **Manual Execution of Automated Checks (Q8):** If tests are designed for automation (deterministic inputs, clear pass/fail criteria) but are still executed manually, it negates the speed and consistency benefits of CI/CD. Automate what can be reliably automated.
+- **Ignoring Test Maintenance:** Treating tests as write-once artifacts. Tests need refactoring, updating, and retiring just like production code.
 
-  - Employ library functions to make temporary folders and files.
+### Automated vs. Manual Testing: A Necessary Partnership
 
-  - Use transactions, where possible, for database interactions.
+It's common to hear debates about "automated vs. manual" testing, often positioning them as opposing forces. However, as Michael Bolton and others argue, this is largely a **false dichotomy**. They are different activities with different strengths, and a mature testing strategy needs both.
 
-- **Fuzzing:**
+- **Automated Checks:** What we typically call "automated testing" is more accurately described as _automated checking_. Computers excel at executing predefined steps and verifying expected outcomes against specific, unambiguous criteria. They are fast, consistent, tireless, and ideal for regression checking, verifying known invariants, and covering many scenarios quickly. They handle the repetitive verification that humans are ill-suited for.
+- **Human-Centric Testing:** "Manual testing" should not mean humans manually executing automatable scripts. Instead, it leverages unique human capabilities:
+  - **Exploration & Learning:** Exploring the application, learning how it works, identifying usability issues, questioning assumptions, and finding unexpected bugs that no script was designed to look for. This is _exploratory testing_.
+  - **Subjectivity & Experience:** Assessing qualities like usability, aesthetics, clarity, and overall user experience – things computers struggle to quantify.
+  - **Tacit Knowledge:** Applying intuition and experience built from understanding users, the domain, and past issues.
+  - **Adaptability:** Designing and modifying tests on the fly based on observations.
+  - **Critical Thinking:** Evaluating _if_ the software meets the _intent_ behind the requirements, not just the letter of the specification.
 
-  - Ensure code can manage both minimum and maximum values within a range.
+Computers check conformance to specifications; humans evaluate fitness for purpose. Relying solely on automated checks leaves blind spots regarding usability, discoverability, and unexpected interactions. Relying solely on manual effort for things computers _can_ check reliably is inefficient and slow.
 
-  - Be cautious with invalid UTF-8 characters in random strings.
+In CI/CD, automated checks are essential for the fast feedback loop and regression safety net. Human-centric testing complements this by providing deeper insights, evaluating user experience, and finding bugs that automation misses. The goal is to **automate the checks** to free up **human testers to focus on testing** (evaluation, exploration, learning).
 
-  - Understand the probability of flaky tests.
+### Developing a Test Strategy
 
-  - You should probably run the test many times if this is the first time committing it, so that you can proactively avoid committing flaky tests.
+Given that you can't test everything, and different tests serve different purposes, you need a **test strategy**. This is a plan outlining the approach to testing for a specific project or product. It defines _what_ to test, _how_ to test it (which types of tests, tools), _when_ to test (at which pipeline stages), and _who_ is responsible, all aligned with business goals, risk tolerance, and available resources.
 
-  - Post-deployment testing is useful because there is a possibility that your PPE environments are not aligned with production. Production is what users will see, so it doesn't matter how fancy your PPE env is, Prod is what matters. Definitely do triage it immediately, and if it should not be fixed, then it should be disabled. It depends on the level of trust in the team and if people are self-sufficient and can prioritize correctly, or, if they should handle it immediately because the probability of deferring a test would be too risky. If one had to immediately fix all flaky tests, irregardless of priority, then this would eventually force only writing high-priority tests, which may not align with the test strategy, or, it might mean that future tests are not written because that could increase the number of tests, thus, the probability of flaky tests increases. If you have 100000 tests, there's bound to be flaky ones that come up and if you're not careful, then you'll be fixing tests forever and not getting any work done.
+#### Why Do You Need a Strategy?
 
-  - If you have 100,000 or 10,000 tests and some are flaky, can you narrow it down to certain ones? You should keep track of test fail/pass rates and if they succeed when re-running them. If there is a single one that is flaky, it can be triaged. If there are many that are flaky, then it might be more difficult.
+- **Finite Resources:** Time, budget, and people are limited. A strategy helps allocate these resources effectively to maximize value and mitigate the most significant risks.
+- **Complexity:** Modern applications are complex. A strategy provides a framework for tackling this complexity systematically.
+- **Alignment:** Ensures the testing effort supports business objectives (e.g., rapid feature delivery vs. extremely high reliability).
+- **Consistency:** Provides a common approach for the team.
 
-  - Also consider running the tests on single-threaded or multi-threaded CPUs, or slower CPUs, or ones with a stress-test running. This might help reveal flakyness (? #review# add in paper here that had those suggestions.)
+#### Key Questions to Address:
 
-- **Consistent Environment:**
+- **What are the goals?** What does "quality" mean for this product? What are the critical user journeys? What are the biggest risks (technical, business, security)?
+- **What is the risk appetite?** Is this a life-critical system where bugs are unacceptable, or a fast-moving consumer app where some imperfections might be tolerated in exchange for speed?
+- **What types of tests are needed?** Based on the application architecture and risks, what mix of unit, integration, E2E, performance, security, and manual exploratory testing is appropriate?
+- **How will tests be implemented and managed?** Which frameworks and tools? How will tests be organized and maintained?
+- **When will tests run?** Define the testing stages within the CI/CD pipeline.
+- **How will results be analyzed and acted upon?** Define the process for handling failures, tracking metrics, and improving the strategy over time.
 
-  - Determine whether you\'re checking the quantity or precision of received events.
+#### Balancing Quality, Speed, and Cost
 
-  - Avoid tagging dependencies as \"latest.\"
+Testing exists within the classic project management triangle:
 
-  - Utilize `package.lock.json` for locking dependencies.
+- **Quality:** How reliable, usable, and performant the software is. More testing generally aims for higher quality.
+- **Speed:** How quickly features can be delivered to users. Extensive testing can slow down delivery cycles.
+- **Cost:** The resources (people, infrastructure, tools) required for testing.
 
-  - Clean up by deleting temporary files.
+A test strategy must find the right balance based on context. A startup prioritizing market fit might lean towards speed, accepting slightly lower initial quality (and relying more on user feedback and fast iteration), while a financial institution might prioritize quality and regulatory compliance, accepting higher costs and slower delivery. There's no single "right" balance; it's context-dependent.
 
-  - Consider environment dependencies and restrictions.
+#### Risk-Based Testing (RBT)
 
-- **Tips and Best Practices:**
+A common approach to prioritize testing efforts is **Risk-Based Testing**. This involves identifying areas of the application with the highest risk (likelihood of failure \* impact of failure) and focusing testing resources there.
 
-  - Use DOM testing instead of snapshot testing for visual regressions.
+- **Identify Risks:** Brainstorm potential problems. Consider:
+  - Complex features
+  - Frequently changed areas
+  - Business-critical functionalities (e.g., payment processing)
+  - Integration points with external systems
+  - Security-sensitive areas
+  - Areas with a history of bugs
+  - Performance-sensitive operations
+- **Assess Likelihood and Impact:** Estimate how likely each risk is to occur and how severe the consequences would be if it did.
+- **Prioritize:** Focus testing effort on high-risk items first. Low-risk items might receive less intensive testing or rely more on basic smoke tests.
 
-  - Prioritize testing where it makes the most sense, without getting overly focused on the test pyramid.
+**Caveats of RBT:**
 
-  - Delete temporary files and ensure you have permission to write files.
+- **Subjectivity:** Risk assessment is inherently subjective and can be biased. Involving multiple stakeholders helps.
+- **Blind Spots:** Focusing only on known high risks might neglect testing newer or less understood areas where "unknown unknowns" might lurk. It can also de-prioritize non-functional requirements like usability or long-term maintainability if they aren't framed as immediate risks.
+- **The Long Tail:** While focusing on the top risks is efficient initially, neglecting the "long tail" of lower-risk items entirely can lead to an accumulation of minor issues that eventually impact quality or user experience.
+- **Diminishing Returns:** After addressing major risks, finely prioritizing among many small, similar risks can become difficult and bureaucratic.
 
-  - Be wary of tagging dependencies as the latest version.
+RBT is a valuable tool for initial prioritization but shouldn't be the _only_ factor. Combine it with coverage goals for critical areas and dedicated time for exploratory testing to mitigate its potential blind spots. Use risk to guide the _intensity_ and _order_ of testing, but ensure a baseline level of testing exists even for lower-risk areas.
 
-  - Employ Canary pipelines to test new versions of resources, like an Ubuntu image.
+#### Other Prioritization Factors
 
-  - When defining equivalence relations, consider context, precision, alternative definitions, and potential drawbacks.
+Beyond pure risk, consider:
 
-  - Be mindful of potential pitfalls with race conditions, like making sure ports aren\'t in use, or ensuring sockets and resources become available.
+- **Usage Data:** Prioritize testing frequently used features (based on analytics).
+- **Customer Impact:** Focus on areas impacting high-value customers or core workflows.
+- **Regulatory Requirements:** Mandated testing for compliance (e.g., accessibility, data privacy).
+- **Team Expertise:** Leverage team members' knowledge of historically problematic areas.
 
-  - For fuzzing, be vigilant of HTTP settings for long-running calls and adhere to valid character sets.
+#### Should I Write a Test For It? The Pragmatic Approach
 
-  - Maintain a consistent environment, ensuring permissions, handling database buffers, and being aware of potential environmental dependencies.
+When faced with a specific piece of code or functionality, ask:
 
-  -
+- **Is the behavior critical or complex?** If yes, it likely warrants a dedicated test.
+- **Is it likely to break due to future changes?** Tests act as future-proofing.
+- **Can it be verified effectively at a lower level?** Prefer unit/integration tests over E2E if they provide sufficient confidence faster.
+- **Is it already covered adequately by other tests (manual or automated)?** Avoid redundant effort.
+- **Is the behavior easily demonstrable and verifiable?** If the expected outcome is clear and stable, it's a good candidate for an automated check. If it's highly subjective or rapidly changing (like early UI prototypes), extensive automated tests might be premature.
+- **What's the cost/benefit?** How long will the test take to write and maintain vs. the risk of not having it?
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [[Why-Most-Unit-Testing-is-Waste.pdf (rbcs-us.com)]{.underline}](https://rbcs-us.com/documents/Why-Most-Unit-Testing-is-Waste.pdf) |
-| |
-| Certainly, the provided text offers a critical look at the practice of unit testing in software development. Here are the key points: |
-| |
-| ### Limitations of Unit Testing |
-| |
-| 1\. **Overemphasis on Code Coverage**: The text argues that code coverage is not a good metric for software quality, as it doesn\'t necessarily indicate that the code does what it\'s supposed to do. |
-| |
-| 2\. **Duplication of Effort**: It suggests that unit tests often duplicate what system tests and integration tests are designed to do. |
-| |
-| 3\. **Green Bar Fever**: The text warns against a narrow focus on making tests pass (the \"Green Bar\") at the expense of a more comprehensive understanding of the system. |
-| |
-| 4\. **Tests are Not Oracles**: It cautions against viewing tests as infallible oracles, emphasizing that the true goal should be insight into how the system behaves. |
-| |
-| ### Recommendations for Effective Testing |
-| |
-| 1\. **Test Longevity**: Keep regression tests for up to a year, but mostly at the system-level rather than unit tests. |
-| |
-| 2\. **Targeted Unit Testing**: Only keep unit tests for key algorithms that have a formal, independent oracle of correctness and significant business value. |
-| |
-| 3\. **Prefer System Tests**: If you can test something with either a system test or a unit test, the text advises opting for a system test as context is crucial. |
-| |
-| 4\. **Quality over Quantity**: Design tests with more care than the code they are testing. |
-| |
-| 5\. **Turn Tests into Assertions**: Where possible, it suggests turning unit tests into assertions within the code. |
-| |
-| 6\. **Discard Old Tests**: It recommends getting rid of tests that haven\'t failed within a year. |
-| |
-| 7\. **Focus on Development Practices**: High test failure rates are indicative of the need to improve the development process, including perhaps shorter development intervals and better architecture. |
-| |
-| 8\. **Beware of Incentives**: The text warns against rewarding developers for meaningless metrics like coverage, as it may lead to a rapid decay in the architecture. |
-| |
-| 9\. **Human Element**: Finally, the text argues that tests alone don\'t improve quality; developers do. |
-| |
-| The text overall encourages a more balanced, thoughtful approach to testing that is in tune with the realities and complexities of software development. |
-+=============================================================================================================================================================================================================+
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Be pragmatic. In a fast-moving startup with evolving requirements, writing comprehensive E2E tests for every minor UI tweak might be counterproductive. Focus initial automated tests on core logic and critical paths. In a mature, stable application, more extensive regression testing is appropriate. Adapt your strategy to the project's lifecycle stage and risk profile. Look at past bugs – they are excellent indicators of where your previous testing strategy might have had gaps.
 
--
+### When Should a Test Fail? Finding the Right Sensitivity
 
-#### Anti-patterns
+Tests check for deviations from expectations. But how much deviation should trigger a failure?
 
-- Flaky tests
+- **Exact Match:** For calculations or specific data outputs, an exact match might be required.
+- **Thresholds:** For performance tests or floating-point comparisons, failing only if a value exceeds a certain threshold or differs by more than a small epsilon might be appropriate.
+- **UI Brittleness:** UI tests are prone to this. Should a test fail if a button's color changes slightly? If it moves 2 pixels? If its internal ID changes but its text remains the same? Relying on volatile implementation details (like exact CSS paths or generated IDs) makes tests brittle. Prefer testing based on user-visible attributes (text content, accessibility roles, dedicated `data-testid` attributes) where possible.
+- **Snapshot Testing:** Tools can capture a "snapshot" (e.g., of a UI component's rendered output or an API response structure) and fail the test if the snapshot changes. This catches unexpected changes but requires manual review and updating of the snapshot whenever an _intentional_ change occurs. It can be useful but requires discipline.
 
-  - What are flaky tests?
+The goal is to make tests fail when meaningful changes occur but remain resilient to irrelevant implementation details. This often involves careful selection of assertion methods and UI locators. Allow manual overrides for test failures in CI pipelines, but only with scrutiny – is the failure truly insignificant, or is it masking a real issue?
 
-    1.  Flaky tests are tests that pass and fail randomly, and fail to provide useful information as to whether the underlying functionality is correct.
+Okay, let's wrap up the chapter on testing, bringing together the strategies and philosophies discussed.
 
-    2.  Flaky tests are bad. Avoid them at all costs, however, if there is a flaky test, triage it and file a bug for it appropriately. Understand how this impacts the overall test strategy. Perform the test manually in the meantime. It's important to not stop the build unconditionally on all flaky tests, because each test might have a different importance or priority, and it's important to acknowledge that tests themselves can be buggy. Running the test is an act of verifying if a test works, although this cannot be 100% proven because a test could still pass and not do anything useful.
+---
 
-    3.  It's important to not stop the build unconditionally on all flaky tests, because each test might have a different importance or priority, and it's important to acknowledge that tests themselves can be buggy.
+### Refining Your Strategy: Choosing the Right Tests
 
-    4.  Running the test is an act of verifying if a test works, although this cannot be 100% proven because a test could still pass and not do anything useful.
+We've established that blindly following the testing pyramid isn't optimal. The core principle remains: **test at the appropriate level to gain the necessary confidence efficiently.** How do you decide between unit, integration, or E2E?
 
-  - Why should I care?
+- **Too many isolated unit tests:** Can lead to a situation where individual components work perfectly alone, but the integrated whole fails. You might have 100% unit test coverage, but event handlers aren't connected, data doesn't flow correctly between services, or buttons simply don't trigger the right actions in the complete application.
+- **Over-reliance on mocked dependencies:** Mocking is essential for unit testing, but tests relying heavily on mocks provide less confidence about real-world interactions. If your tests mock _all_ external services, you aren't verifying the actual contracts or handling real network latency/errors. At some point, you need integration tests that interact with real (or realistic, like containerized) dependencies. If an external service is genuinely flaky in production, your integration tests _should_ reflect that (perhaps with retry logic mirroring production) to provide realistic feedback. If it's slow in production, your tests reflecting that slowness provide valuable performance insights, though you need to balance this with feedback loop time.
+- **When implementation details matter (Unit/Integration):** Consider the cache example again. If the _process_ of retrieving data (i.e., hitting the cache vs. the database) is what you need to verify, an E2E test checking only the final data is insufficient. You need a lower-level test that can inspect or control the internal behavior (e.g., mocking the DB and asserting it wasn't called). Similarly, verifying internal state changes or calls to private/internal methods (like audit logging) often requires unit or integration tests.
+- **When the integrated outcome matters (E2E):** If you need to verify a user can complete a multi-step workflow across different parts of the UI and backend services, an E2E test is often the most direct approach. Testing if a button is visible and clickable _within the context of the entire application page_ requires an E2E perspective; a unit test of the button component in isolation doesn't guarantee it renders correctly or is accessible in the final assembly.
 
-    1.  The issue with flaky tests is that they have high entropy and do not reflect the underlying signal well. If it passes, then it works (? #review#), if it fails, then it might have had to actually fail or it might have passed. So, 50% \* (0-100%) which would be 0% to 50%. It also calls into question if the test is actually working, or if there's some underlying threading issue that could cause the test to stop working.
+Think about the **opposite** situation: How would you know if this _didn't_ work? What's the simplest, fastest test that could reliably detect that failure? Often, this mental model helps choose the right test level.
 
-    2.  It also calls into question if the test is actually working, or if there's some underlying issue causing the unpredictability.
+#### Happy Path vs. Sad Path Testing
 
-  - Why do they occur?
+- **Happy Path:** This tests the ideal, error-free scenario where the user does everything correctly (provides valid input, follows the expected sequence). Example: Successfully logging in with correct credentials, adding an item to the cart, and checking out smoothly. Happy path tests are essential to verify core functionality works under normal conditions.
+- **Sad Path:** This tests scenarios involving errors, invalid input, or unexpected user actions. Example: Trying to log in with an incorrect password, attempting to add an expired coupon code, submitting a form with missing required fields, transferring a negative amount of money. Sad path tests are crucial for ensuring the application handles errors gracefully and provides informative feedback rather than crashing or producing incorrect results.
 
-    1.  Non-deterministic inputs. For example, running a function with "A" and then "B" might cause it to return a different output.
+A balanced test strategy needs both. Over-focusing on the happy path leaves the application vulnerable to breaking under common error conditions or user mistakes. Over-focusing _only_ on edge cases and errors might mean the core, successful workflows aren't adequately verified. Aim to cover the main happy paths and the most probable or impactful sad paths. Techniques like fuzzing can help explore less obvious sad paths.
 
-    2.  Reliance on third-party resources. For example, querying a third-party weather API that might not be available.
+#### Mutation Testing Revisited
 
-    3.  Using a shared resource. For example, a database or trying to acquire a lock and those resources aren't available. Or, trying to read and write to a shared resource, which interferes with others who are using that resource, causing unexpected behavior.
+As mentioned earlier, mutation testing provides a stricter assessment of test suite quality than code coverage. By making small code changes and checking if your tests fail ("kill the mutant"), it verifies if your tests are sensitive enough to detect actual code alterations. While computationally intensive, incorporating periodic mutation testing runs (perhaps less frequently than standard tests) can provide deeper confidence in your test suite's effectiveness, especially for critical logic. It helps counteract the weakness of tests that achieve high code coverage but lack meaningful assertions.
 
-    4.  Unnecessary element ordering. For example, verifying if the elements returned by a query match a specific order, when the order doesn't matter.
+### Retiring Tests: When to Let Go
 
-    5.  No version pinning. For example, installing the software "curl" without using a specific version, which means that the latest version is installed. The latest version may remove or add new CLI flags that make using the program different in between runs.
+Tests incur a maintenance cost. Just as features become obsolete, so can tests. Consider retiring or significantly rewriting tests when:
 
-    6.  Dates and times. For example, doing calendar arithmetic or relying on certain dates to be true in order for the test to run. The test might be run on any day, at any point.
+- **The Feature is Removed:** If the functionality a test covers is deleted from the application, the test is no longer needed.
+- **Redundancy:** A newer, better test (perhaps at a different level, like an integration test covering what several brittle unit tests did) now provides the same or better coverage more reliably.
+- **Chronic Flakiness:** If a test is persistently flaky despite significant effort to stabilize it, and its value doesn't justify the ongoing disruption and maintenance burden, deletion might be the best option (assuming the coverage is acceptable or replaced).
+- **Low Value & High Maintenance:** If a test covers a very low-risk, stable area of the code but is complex and frequently breaks due to unrelated refactoring, its maintenance cost might outweigh its benefit.
 
-    7.  Different environment. For example, some of the resources that the test needs aren't available or are different.
+Retiring tests should be done thoughtfully. Ensure you understand what coverage is being lost and that it's acceptable given the current risk assessment and overall test strategy.
 
-    8.  Too granular or too fine-grained. For example, the test is too specific or not specific enough. If a function returns an array, the test could verify that the array contains the identical elements in the same order, a certain element must exist in the array, the arrays must be the same but order doesn't matter, the length of the array must be not zero, etc. These testing functions are highly different and allow for many different things to be returned. If one over specifies the test (i.e., the output's order doesn't matter) but the test is verifying that the output order matters, then the test might fail more often. Not specifying it enough, for example checking the length of the array, might mean that the objects are corrupted, but there aren't zero of them for example.
+### Testing: The Safety Net for CI/CD
 
-  - Handling and Mitigating Flaky Tests
+Continuous Integration and Continuous Deployment are built on the principle of making small, frequent changes and getting them to production quickly and reliably. Automated testing is the essential safety net that makes this possible.
 
-    1.  How many times do I need to run my tests to make sure that they aren't flaky?
+Without a robust testing strategy integrated into the pipeline:
 
-    2.  How do I fix them? Are there ways to proactively identify them? E.g., stress-ng? Are there any frameworks?
+- **CI becomes Risky Integration:** Merging code frequently without validation leads to an unstable main branch ("integration hell").
+- **CD becomes Continuous Disaster:** Deploying unverified changes frequently leads to production failures, eroding user trust and requiring constant firefighting.
 
-    3.  A source of test flakiness does not always 100% mean there is something wrong with the test. For example, a weird flickering UI that causes the test to think that a button isn't on the page is probably a usability issue, not a testing issue. It is possible to "plaster" over it and make the rest more resilient, but there might be deeper issues.
+Testing provides the confidence needed to automate the integration and deployment process. It enables:
 
-    4.  Identifying flaky tests, or tests that are too slow. Usually, publishing the test results can provide the information to a vendor-specific UI that can sort the tests by duration. From there in the dashboard, you can see which tests are slow. This might mean that you need to make the test more efficient, or break it up into smaller tests if it is testing too much.
+- **Fast Feedback:** Catching errors early in the cycle, reducing the cost of fixing them.
+- **Risk Reduction:** Decreasing the likelihood of deploying breaking changes to production.
+- **Increased Velocity:** Allowing developers to merge and deploy more frequently and confidently, knowing the safety net is in place.
+- **Improved Code Quality:** Encouraging testable design and providing a regression suite to prevent degradation over time.
+- **Collaboration:** Providing a shared understanding of expected behavior and system health.
 
-    5.  If a flaky test cannot be easily resolved, quarantine it. This will prevent other developers from being blocked. The test should be fixed quickly to ensure that new code runs the test. Don't quarantine too many tests simultaneously because this means more and more code might not be correct and can cause an avalanche effect.
+### Conclusion
 
-    6.  If a test can't be easily improved or requires additional research, consider adding a flaky annotation. This keeps track of the flaky tests and can allow automatic rerunning those tests. Some test frameworks can create a flaky test report, including how many times the flaky test failed to run and how many are currently running. The test can still run, but won't fail the entire test suite unless it cannot run a certain amount of times.
+Testing in a CI/CD world is not just about finding bugs; it's a fundamental pillar supporting the entire philosophy of rapid, reliable software delivery. It requires a strategic approach, balancing different types of tests, managing them effectively, and understanding their strengths and limitations. From fast unit tests providing immediate feedback to developers, through integration tests verifying component interactions, to E2E tests validating user journeys, and including vital human-centric exploratory and usability testing, a comprehensive strategy is key.
 
-    7.  Consider deleting the test if it no longer serves its purpose, or a set of other tests cover it.
-
-    8.  Consider refactoring or rewriting the test if there are too many changes to make it non-flaky.
-
-#### Missing smoke test, set of tests to verify the testability of the build (BM7)
-
-#### Testing is not fully automated (Q8)
-
-- "Concerning testing automation, the need for a fully-automated testing process (Q8) was considered important, because manual tests would be excluded from automated build within CI."
-
-- Counterpoints:
-
-  1.  I don't agree with this point. Testing should not be fully absolutely automated, because fully automated testing ignores issues like usability, performance, and other human-nature issues that automated tests cannot find, such as exploratory testing. Testers should not be doing automated tests manually, however.
-
-#### Production resources are used for testing purposes (Q7)
-
-- " Respondents considered as relevant the lack of testing in a production-like environment (Q1), while at the same time they considered dangerous the use of production resources for testing purposes (Q7). The latter has been also highly discussed in SO. Indeed, in a SO post, a user searching ". . . for the CI server to be useful, my thoughts are that it needs to be run in production mode with as close-as-possible a mirror of the actual production environment (without touching the production DB, obviously).". By analyzing the provided answers on SO, we found that "Testing environment should be (configured) as close as it gets to the Production." concluding the discussion by highlighting that "The best solution is to mimic the production environment as much as possible but not on the same physical hardware."."
-
-- 10.1.1.7 is the act of testing production data in production (e.g., if someone does a SQL injection in production, the entire database could be erased, and this should have been performed on a production-like system so that customer data isn\'t risked). 10.1.1.12 is sort of a subpoint of 10.1.1.7, that is, the environment used to test doesn\'t mimic production closely so it\'s difficult to do the testing.
-
-- Counterpoints:
-
-  1.  Additional testing resources can cost more money, and might be impossible (e.g., a spare rocketship to shoot into space.)
-
-  2.  Testing envs can drift from the real-world unless carefully managed. This can cause differences in behavior.
-
-  3.  Dedicated special testing accounts can exist in production instead of creating a testing environment.
-
-#### Lack of testing in a production-like environment (Q1)
-
-- "About Quality Assurance, out of 14 bad smells, five received a positive assessment by the majority of respondents, and six more positive than negative assessments (see Table 8). Respondents considered as relevant the lack of testing in a production-like environment (Q1), while at the same time they considered dangerous the use of production resources for testing purposes (Q7). The latter has been also highly discussed in SO. Indeed, in a SO post, a user searching ". . . for the CI server to be useful, my thoughts are that it needs to be run in production mode with as close-as-possible a mirror of the actual production environment (without touching the production DB, obviously).". By analyzing the provided answers on SO, we found that "Testing environment should be (configured) as close as it gets to the Production." concluding the discussion by highlighting that "The best solution is to mimic the production environment as much as possible but not on the same physical hardware."."
-
-#### Coverage thresholds are too high (Q4)
-
-- 100% coverage on everything may create unnecessary tests, and 100% coverage does not mean the application is 100% tested.
-
-- Testing slows down the development process.
-
-#### Coverage thresholds are fixed on what reached in previous builds (Q3)
-
-- Deleting code with 100% coverage can reduce total code coverage.
-
-```{=html}
-<!-- -->
-```
-
-- Tips on better test performance
-
-  - Imagine there is a set of manual testing that is very slow that has to be done after all tests run. The manual testing has to be redone if it doesn't pass. To speed up the testing, one may initially look at making manual testing itself faster, however, one can improve the automatic test coverage (or do some quick testing beforehand) to rule out any issues
-
-  - Manual tests take a very long time, and they can add up quickly.
-
-  - Think about time management: even spending 1% of time on automating tests can quickly add up and free up even more time for automation.
-
-  - Tests that never fail are not useless. This is because they offer a guarantee that the invariant is satisfied (unless the testing framework is broken.) Very important to note: the invariant must be identical to your goal, otherwise it offers false confidence.
-
-### Maintaining and analyzing test results
-
-- Correlating bugs with test cases (i.e., was there a test case that should have prevented this bug? If not, make one, otherwise if there was one, why didn\'t it catch it?)
-
-- So one way that you can correlate bugs with the test cases.Is.Um.Saying well OK, when was this bug introduced?What, where, what, what commits?Um, introduced and when you have that information, then you can say, well, OK.At that point.Was there any tests that were touched with that were checking in?And.The fact that you\'re able to narrow it down. For example, you can get bisect.Is important. You have enough itself for a root cause analysis, but.It\'s also important to know like which type of test look as well.
-
-- Identifying flaky tests and slow tests. So I think there\'s usually some plugins that can do this. The main thing that I look at is they try to rerun the tests multiple times usually.And what they do is they.Yeah. Have you run the tests multiple times?And.When?If they get different results, assuming that the test is well, soon puts all the same. So for example like the same test run or something like that, and some of them failing, some of them succeed. That\'s like wow.This if you considered of like a flapping or a flaky test because.Um, the tests given the same inputs, well, at least presumably, and all of a sudden it fails sometimes and then there\'s likely some issue with how the test is written.Or something it puts are are changing and they shouldn\'t be heard. There\'s a.There\'s a threading issue or something like that.
-
-- Automation potential and the role of QA tester
-
-- Test coverage and code coverage monitoring
-
-- Tracking test cases and disabled tests
-
-- The importance of a test repository
-
-- RCA (root cause analysis), in this case, if there was a bug in production, this means that it slipped past all of the tests and code review. Are the tests missing something or was it an edge case? This is useful for someone to explore.
-
-### Automated vs. manual testing: a false dichotomy
-
-- Manual and automated testing is a false dichotomy because they are not mutually exclusive, and not all manual testing can be automated. Automated testing is automatic output checking, and manual testing is exploratory to some degree. Humans should be doing much more than automated output checking.
-
-- [[PREMIER: Michael Bolton: What's Wrong with Manual Testing? - YouTube]{.underline}](https://www.youtube.com/watch?v=DBzz04M01r8)
-
-- **Introduction and Background**:
-
-  - \- Computers and people are good at very different things.
-
-  - \- It is more efficient to allocate resources to a computer than to a human, to an extent. Computational resources are cheaper than a human brain manually accessing all code paths. People have emotions and aren't good with being 100% perfect.
-
-  - \- The divide between automated testing and manual testing is a false dichotomy.
-
-  - \- The terms \"manual\" and \"automated\" testing don\'t necessarily oppose each other; they aren\'t mutually exclusive.
-
-- **Strengths of Automated Testing**:
-
-  - \- Automated testing focuses on automatic output verification.
-
-  - \- Automation isn\'t just about efficiency but reproducibility and consistency.
-
-  - \- Some automated tests might be infeasible for humans due to their complexity or need for extreme precision.
-
-  - \- Automated tests excel when expectations are clear, deviations aren\'t tolerated, and code changes are incremental.
-
-- **Limitations of Pure Automation and the Value of Human Testing**:
-
-  - \- Not all manual tests can be automated. Conversely, solely relying on automation is not optimal.
-
-  - \- Things like usability, accessibility, and functionality testing can't easily be evaluated by automated tests.
-
-  - \- In software development, tacit knowledge is knowledge that is embedded in your framework but is difficult to explain.
-
-  - \- At this point in time, it's not possible to program a computer with tacit knowledge.
-
-  - \- An automated test can only know if something is wrong if it can compare it to an internal expected value, provided by a human.
-
-- **Exploratory and Human-centric Testing**:
-
-  - \- Testing is an exploratory procedure, and its insights are tacit knowledge that can\'t be captured purely through demonstrations.
-
-  - \- Exploratory testing is essential to uncover bugs that automation might miss.
-
-  - \- Human testing allows the evaluation of whether an application meets non-quantitative standards.
-
-  - \- Testing is inevitable; even writing code involves a type of manual testing. Verification often happens through PR reviews.
-
-  - \- Human testing emphasizes its experiential, exploratory, speculative, responsible, and growth-centric nature.
-
-  - \- Experiential testing involves the tester interacting with the product as users might, while exploratory testing has the tester making choices based on their agency.
-
-  - \- Testers need immersion in the user\'s environment to genuinely grasp user needs, spotting bugs, and suggesting potential upgrades.
-
-  - \- Speculative testing involves human testers being curious and asking questions, in contrast to demonstrative testing that proves specific aspects.
-
-  - \- In responsible testing, human testers are accountable for the work quality. In contrast, with machine testing, the onus lies with the machine or tool creators.
-
-  - \- Growth in human testing refers to the continuous learning, ideation, and risk identification by testers.
-
-- **Conclusion and Call to Action**:
-
-  - \- Automation should enhance human responsibility, and tools should serve as aids, not replacements, for human expertise and judgment.
-
-  - \- It\'s essential to recognize the specific nature and advantages of both approaches.
-
-  - \- The term \"manual testing\" can sometimes portray a negative image of human testers who aren\'t coding. Thus, precise terminology is crucial to communicate their role.
-
-  - \- Instrumented testing was introduced, suggesting that a medium influences the tester\'s interaction with a product.
-
-### Developing a test strategy
-
-- What is a test strategy?
-
-  - A test strategy defines a framework on how to allocate business resources to do testing, including how and which tests to write, and when.
-
-  - To boost developers\' confidence in their changes, tests should be meaningful and well-constructed to avoid a false sense of assurance. Writing code that passes tests does not mean that the code is correct. It just means that it passes the tests. If the tests are designed well, then it can also verify the correctness of the code.
-
-  -
-
-- How do I know what to test?
-
-  - Tests are great. Let's test everything given that we have AI-based tools to do this for us, and can generate tests all day. Can we do that? Conduct a thorough human review first, then automate tests for all elements and interactions, including visuals and functionalities. Assume this is feasible.
-
-  - The issue is that you have to create new features in your application, or modify existing functionality to continue to meet business requirements. Those tests would break immediately, and so you would have to use your own judgment to evaluate whether those tests broke _because_ of something intentional (i.e., adding a new feature), or something unintentional (i.e., a bug.) In effect, there's no way of getting out of human judgment. You could get the AI to rewrite those tests if they failed, but this would negate the purpose of the information gained from the feedback of the tests.
-
-  - It would also incur a large compute cost if you were to test _everything_. This would inevitably slow down the development process significantly.
-
-  - It does cost more to fix bugs in production, but it costs even more if features are delayed (and thus your competitors get to you first), or, the revenue generated from the new features if they were released sooner.
-
-  - But things are a bit more complicated. This would imply that you must write tests 100% of the time, thus, there would not be a way to release any features, because there is still more testing to be done. So therefore testing must be subject to constraints. This calls into question the value of testing, and how to maximize the value or worthwhileness of the tests. This involves creating a test strategy in order to figure out which tests to write, and how to write them.
-
-  - You could argue that if your application never had to change, then you should write lots and lots of tests for it, and the above would apply because you wouldn't have to modify existing functionality. But verifying something that is already present is a one-time task if it will never change. Writing automated tests for it that run once are useful, but are of limited use. They've run once, and it was a lot of work.
-
-  - This provides the foundation for a testing strategy: how do we efficiently use our resources to test?
-
-  - Really consider how much testing that you want to do. It is disappointing to see an application fail, but how bad is it? Is someone going to die, or is someone just going to get an error page?
-
-  - If people are very sensitive to bugs, do they also want lots of features, or are they also conservative in that aspect?
-
-  - Be pragmatic when writing automated tests. If you have a mature project that isn't changing often, then these types of tests are useful. If you have a fast, startup project, then automated testing might cause unnecessary drag and provide too many guardrails for functionality that will be continually changing. When in a startup, the priority is to get features created with the risk that they might fail (and thus have to be tested in other means), given that they change often in response to customer feedback. Creating automated tests for a product that might not exist in the next few months could be considered wasteful.
-
-  - Look at your previous bugs. They exist because they slipped through the entire testing procedure and quality control. How can your test strategy be revised? Are these critical, customer bugs or just small bugs? Be careful not to overdo it on testing if these bugs were non-critical in nature or had minimal customer impact. The goal for CI/CD is to release changes quickly, at the cost of sometimes making mistakes, which should be easily reverted.
-
-  - Should I write a test for it? If it can be demonstrated like a chemistry experiment, then yes. If you are sure of its outcome and can specify it concretely. The more ambiguous the outcome the more difficult it is to write tests for it. For example, early on in a software's lifecycle with lots of changing requirements.
-
-  - What types of bugs are being found in production? Are they requirements-oriented bugs? Are they simple to automate bugs? Are they usability bugs? This can help narrow down the issue. Specifying requirements right to the letter is a bit annoying, you might want to consider adopting Agile to make it a bit easier for people to understand the big picture. Otherwise there are too many instructions, and you have to continually specify more, and more, and more instructions to which people follow it right to the letter. It's a vicious cycle.
-
-  - How large are the bugs in production, are they catastrophic or just something small, like the color of some text? There are some ways to prevent regressions, like screenshot tests. If they are catastrophic, then you might want to do more demos to make sure that the features are coming along as expected and use shorter development cycles. This is sort of like Agile.
-
-  - Should I write a unit test for a homepage?
-
-    - Will it be tested through manual testing already? In this case it might not be needed.
-
-    - However, automated testing will prevent any features that cause the homepage to stop working. This means it can be caught earlier in the development process.
-
-    - Why not write tests for everything, as it is valuable that it can be caught earlier in the development process?
-
-      1.  Tests take time to run and to write
-
-      2.  Tests have to have a concrete output, for example, usability is very abstract and a test doesn't know how to measure or quantify that. There is accessibility testing, but it can't catch everything. Things that require subjective judgment are important to be tested manually.
-
-      3.  Tests can test things that are difficult to manually test, except they can be done automatically.
-
-      4.  Some things cannot be manually tested.
-
-      5.  Might be covered indirectly by other automated tests or through manual testing
-
-      6.  Might not be worth it to the end customer.
-
-      7.  Customer expectations
-
-      8.  Final goal: Risk assessment and extent that things have to be rolled back if there was an error introduced earlier in the process.
-
-    - Test strategy might be too abstract for some, and might not have necessary information on how to create the strategy (e.g., integrations with other teams and their future plans)
-
-    - Test strategy can be applied recursively as if it was a fractal, each of those sub-tests can also have multiple variables and values that can be strategized to do more comprehensive testing. For example, an application contains multiple attributes. The most important attribute is selected for testing. But what values should you use to test it? If the application is a black box, it is unclear what data to use, and testing might be inefficient and the strategy is not as good.
-
-    - Testing machine learning applications should begin by only providing suggestions when the model is highly confident. This can help maximize user trust. A spell-checker is given as an example.
-
-    - Too much testing can be counterproductive. For instance, when adding a new field on a login page with 1000 tests can result in a significant number of tests failing. Correcting all the failed tests can be a time-consuming and challenging task, especially when dealing with strict deadlines.
-
-    - Without testing, the business may have to rely on indicators such as customer feedback, non-functioning demos, delays in product or service delivery, and unfulfilled app needs to evaluate the system\'s efficiency.
-
-    - The text raises a question about the balance between relying on customer feedback for testing versus doing in-house testing. This could be influenced by several factors, including the risk associated with the product malfunctioning (e.g., life-critical systems like pacemakers).
-
-    - Startups often need to assess market fit more frequently than larger companies, which presumably have already established their market fit.
-
-    - The text suggests that a company\'s approach to product testing and market fit assessment is influenced by factors such as organizational strategy, corporate governance, and corporate ethics.
-
-    - Products marketed as beta versions may bypass some ethical restrictions and product usage requirements, although this may depend on the industry.
-
-    - A company\'s reputation is closely tied to the quality of its products. If a product is so poor that people refuse to use it, customer feedback may become irrelevant. Customers typically do not provide feedback on the company\'s vision, long-term goals, or security.
-
-    - Meeting product expectations is essential for ensuring future market share and business success, aligning with corporate strategy. Testing is, therefore, necessary to ensure the product\'s quality and usability.
-
-  - Can someone who doesn't know how the application works write tests for it? What does that show about the tests? For example, is it just running the code and taking the outputs?
-
-  - Failing tests can bring changes up to your attention, but cannot differentiate between intentional and unintentional changes.
-
-  - If you have 1200 unit tests, and your application is completely broken, and not a single test failed, then you may have to revisit your test strategy.
-
-  - If something is important, test it. Don't make excuses that it is hard to test, refactor it to that it is easier to test it.
-
-  - When things are taught, it's easier to make hard rules if the person doesn't know better. For example, children are taught not to touch a hot stove, when in reality a stove could be of any temperature. There isn't a good reason to touch the stove, and the nuance is difficult to convey.
-
-  - To some extent, tests can be diagnostics, however diagnostics are for after-development to diagnose issues (e.g., asserts) so tests can theoretically help you to tell you what's wrong if there is an issue during development (e.g., the login pages fail, therefore there's an issue with the login.)
-
-  - Questions to ask prior to testing things:
-
-    - What is the probability that this does not complete the user's goal?
-
-    - How much testing is required to adequately meet customers expectations?
-
-    - What is being added/modified, and to what extent does that touch other components? How big is the testing scope?
-
-    - Not as important to test in depth early on when things are vague as a lot of it might be thrown out, and customers may have not have had time to explore all areas of the product that have yet to be tested, and it might be unclear where the customer's testing pain points are
-
-    - Not all risks are quantifiable, how do we keep track of the other ones such as usability?
-
-    - Performance can be benchmarked against common benchmarks, although users may have different performance expectations.
-
-    - Make sure to not misunderstand metrics: for example, page view time that is high could signal that documentation isn't good (as people are having a hard time finding what they need)
-
-    - Unchanged features are misleading not to test because the application is treated as a black box, and there could be multiple unnecessary hidden dependencies between multiple components (i.e., due to tech debt)
-
-    - Should one spend a little bit of time testing the non-high pri things? This helps reduce uncertainty, as if there is no testing at all, then it is unclear if it might be more buggy than expected
-
-  - If there are too many tests to run, then a subset of the tests can be randomized and run instead which can allow them to run more frequently
-
-  - Small items that are not risky can have a large impact on customer experience. For example, if a small UI element is not accessible or is unresponsive, and is used often as part of another workflow, then this can detract from the customer experience.
-
-  - May want to discern between someone actively looking for bugs via exploratory testing vs. reporting bugs while using the application, as if someone accidently hits a bug while using it then it is more likely that other bugs exist, whereas if someone is going out of their way to trigger something, then it's less likely. This is because of a normal distribution of bug patterns.
-
-  - The definition of done and testing go hand-in-hand. For something to be considered done, there has to be at least _some_ testing done, whether manual or just by creating the feature, to make sure that it is something users will recognize and are able to use. For example, the feature may be documented, or marketers may want to use the feature to sell it. Demos of the product for potential clients.
-
-    - Even if you can write your feature perfectly, there is a chance it could be broken by an unrelated change that you have no control over. Therefore, testing is good to be defensive.
-
-  - Mutation testing (counteracting poor unit tests)
-
-  - If you write a test strategy that involves lots of E2E tests, then that's ok, even if they're slow. Don't necessarily worry that they're slow right away. Instead, you can split up the test such that it covers the same functionality as that E2E test, or, however you want the implementation: whatever technical implementation sufficiently provides confidence in what you're trying to test, so that could be some E2E tests, maybe some unit tests, or maybe just lots of E2E tests.
-
-#### What is happy path testing?
-
-- Happy path testing is testing the desired path that the user does to complete their goal. The user is perfect: they type in the perfectly correct data, click on the perfect buttons in the perfect order, and wait the perfect amount of time. No errors are triggered during their session. For example, in an installation wizard, this would involve the user clicking "Next", and agreeing to the terms and conditions. This is useful for software used by professionals as they are very familiar with the software, thus, they might benefit more from these types of test cases.
-
-- Signs that you might be doing too much happy path testing is that if the user clicks on anything else (for example, the Back button), then the application crashes or produces incorrect results. The user must click on everything in the exact right order, and if an operation can be performed twice, then the user might not be able to do it because the test only checked if it could be performed once.
-
-- This is important because users are unlikely to be as familiar with the application as developers, thus, they might click on other items in an attempt to understand the application, explore its functionality, or by accident.
-
-- To fix this, you may want to make your business test cases more fuzzy. For example, the user is allowed to add as many items as they wish (up until the maximum of 100 which is allowed in the UI for example) in this list. Then, the test can randomly choose between 0 and 100 items to add. The test should, however, log its seed somewhere so that, if there is an issue with the tests, then they can be reproduced.
-
-#### What is sad path testing?
-
-- Sad path testing occurs when you test things that the user might do, but cause an error. For example, the user would like to transfer -\$1.00 to their bank account. This isn't possible, so they should receive an error message.
-
-- Signs there might be too much sad path testing is that the users are unable to complete their goals without errors.
-
-#### Test the things and level that matters and issues with testing pyramid
-
-- One of the ways that people create a testing strategy is to reference the testing pyramid.
-
-- ![](./images/image2.png)
-
-- The testing pyramid is a guideline or suggestion on how to distribute the types of tests that you are writing. In this case, there should be fewer UI tests, and more unit tests in general. This is not a useful model, even if it is generic. This is because it enforces the technical solution before the business requirements. **Test where it makes sense.** **Do you need UI tests? Write them. Do you need unit tests? Write them.**
-
-- **The issue with the testing pyramid is that it is misconstrued to suggest writing different types of tests divorced from business requirements, when it might not make sense.** Don't write a bunch of unit tests just because you have a lot of UI tests to make the pyramid fit.
-
-- Think about where things need to be tested at, and then do the technical implementation. Don't think "oh, I only have one e2e test, I should write more".
-
-- From "Death of Inspection by Sachin Natu"
-
-  - Find out where the bugs are coming from. Does it make sense to test the UI layer if there are data issues coming from a layer beneath? Consequently, does it make sense to add more unit tests if buttons are not working or the text isn't rendering correctly?
-
-  - If the team owns quality, what is the role of the tester? Testers may feel threatened if they are no longer needed. However, they should be working on higher-order tasks such as evaluation rather than just checking. This means that most of the tests could be automated, and they will then have more time to spend on doing higher-level checking that can't be easily covered by automation. Think about the bugs that the testers are reporting, and see if they could have been covered by automation, look at the root cause of the bug (e.g., git bisect.) For example, a form displays incorrect data. The form just displays whatever is given to it, then as you go down you find out that a function computed the wrong result. It doesn't make sense to add a UI test here, because the root cause of the issue was with the function, not the form.
-
-  - If a test is at a certain layer, ask why and check if it should be pulled up or pushed down to another layer. Is there a more simple way to write the test?
-
-  - If there are going to be testers, then they should have a development background and be able to work on real-world problems and also work with developers, and may even have to conduct interviews with stakeholders to get business requirements to determine what is important.
-
-```{=html}
-<!-- -->
-```
-
-- Code coverage and mutation testing can help "bleed" the edges of a graph or a point on a target to get higher coverage, but it is not a substitute for a good test strategy. This is because it only diversifies around its point but wide brush strokes can cover much more easily, although not as thoroughly. [[Coverage is not strongly correlated with test suite effectiveness \| Proceedings of the 36th International Conference on Software Engineering (acm.org)]{.underline}](https://dl.acm.org/doi/10.1145/2568225.2568271)
-
-- ![](./images/image43.png)
-
-- [[(1) A Practical Example for Using AI to Improve your UI and API Testing - YouTube]{.underline}](https://www.youtube.com/watch?v=68mEgr0vO64)
-
-#### Tips on choosing the type of test to write
-
-- Too many unit tests (and not enough E2E tests) can lead to a patchwork approach. Things work in isolation, but not together. Event handlers for submit buttons for example aren't hooked up, and clicking on buttons doesn\'t do anything yet all of the unit tests pass. It is much easier to write a theoretical unit test than a non-practical E2E test.
-
-- Tests whose external dependencies are mocked are still useful, but less useful. At some point, you want to mock the external dependencies. If the external dependencies are that flaky, then something is wrong with those dependencies and your customers might not be happy. If you're retrying it in prod, retry it in your tests. If it's slow, well, depends on business needs. It might be slow for your customers too, depending on how comprehensive your tests are, of course and how much you're testing it.
-
-- Imagine you are building a calculator that contains many internal wires to perform computations. This calculator was created sloppily, and some of the wires are unintentionally crossed, however, the output is still correct based on the E2E tests. Should the calculator be trusted? In this case, it would make sense to make unit tests because the implementation details have already been guaranteed to work, therefore, deviation from those implementation details may or may not cause the calculator to malfunction.
-
-- Unit tests or different types of tests should be an implementation detail in and of themselves stemming from a proper test strategy.
-
-- Are we testing the outcome, or do we need to know _how_ the application is producing that outcome? For example, imagine we are checking if a cache works correctly. The process as to which the data is fetched is more important than returning a value (although that is important as well.) Checking the output does not verify the cache works correctly because there could be no cache and a value could still be returned. If the outcome was XYZ, does it matter, in any shape or form, how it was generated? Could it have gotten the value from anything at all? In this case, a unit test would be more appropriate.
-
-- Or, for example, say there is a shopping website. You place an order and then get a receipt. Unbeknownst to the customer, there is some important recordkeeping, such as audit logs, etc. In this case, mocking is helpful because you want to know if those functions are called. This might involve creating a unit test, because the application is unlikely to expose this functionality to the customer.
-
-- On the other hand, sometimes the outcome is more valuable than the process. For example, say I want to render a button on the page and I want to check if the user can click the button. I don't care what size, shape, dimensions, or text rendering or click handlers (or what the click handlers are doing), I just want to know if the user can click on it and they will go to the next page. It would be impossible to know where that button is on the application, since only testing it in isolation means that it does not have any interference with anything else that could exist. Therefore, the outcome matters and I don't care how the button itself is rendered, just that it exists and the user can see it and can click on it.
-
-- Testing whether a chosen item has been randomly chosen could be a good one for implementation testing or e2e testing, so it depends. You could run the function thousands of times and then you would be assured that the distribution is within a certain tolerance (granted, the probability of winning the lottery would be higher) although this requires many thousands or tens of thousands of trials and the potential for the test to be flaky. However, you could test the implementation details and mock the random function to return non-random numbers, but this does not guarantee that the random function has been implemented correctly because you could divide the random by itself to always get one.
-
-- There is too much focus on which type of test to make versus knowing what to test and how to test it. There is also too much focus on merely reducing E2E tests because there are too many. What constitutes too many? Is it slow? If so, engineering tasks should be secondary to ensure quality. There are many optimizations that can be made to E2E tests, including running them later, less frequently, prioritizing them, etc.
-
-- Use mental models. Think about the opposite situation. What criteria would the cache not work, how would I test for that?
-
-  - For accessibility testing, consider doing it async, where you deploy something and then find the bugs. The issue is that it does make the process for fixing the bugs slower but if someone skilled is required to fix them then it can help unblock new work, and can help prioritize which accessibility bugs need to be fixed. Doing testing on each PR would be very time consuming. Therefore, QA should test a batch of changes at once, with some indication of what new features were added.
-
-#### Are tests that never fail always useless?
-
-- A test that never fails is not always useless. The fact that the test always passed is feedback and showed that that scenario was successful and instilled confidence in your changes. Tests can also be used for examples and documentation.
-
-- One could argue that you should write a test that fails first, and then make it pass, thus showing that it is valid and thus useful. However, one can still write a useful test that passes without having to fail first, and can verify that after the fact. Even if it was, there isn't a way to predict with 100% certainty if it would have failed, so the cost has already been paid and thus unrecoverable. It provided assurance that the validation was successful, similar to an insurance policy that you never pay out. It allows you to take risks that you otherwise wouldn't have, which is difficult to quantify, given that tests are designed to provide confidence. You've written some code for a function that has tests, those tests never failed, but they ran on your changes, giving you confidence. You can also use the fact that the test was passing to help with debugging: if only one test failed, and another one didn't, then you can logic-ify your way to figure out what the issue was. It's also useful for docs, too, like example code. The expected value is higher, because the probability of a bug occurring is non-zero, and the benefits of a test is non-zero (assuming that it is not trivial.) Are airbags that are never deployed useless? Would you want to drive a car without airbags, assuming an identical option with an airbag?
-
-- The intuition behind the fact that if none of the tests fail, then they are useless is because programmers make mistakes, and tests are designed to prevent them. Given that you're very likely to make mistakes, and the fact that the tests never triggered means that you're an excellent programmer, or the tests aren't great.
-
-- This usually stems from the impression that tests are designed to catch defects, and if they don't report any defects then they are not useful. This isn't correct, because the ability to catch defects is different from the defect occurring, and reporting it. Reporting a defect could mean that the test is invalid, there is no defect. If I have an assembly line that produces widgets, and I have a test that ensures that they are at most 3cm tall, and the company stops creating those widgets at some point in the future, the test never failed, then was it useless? The absence of the test doesn't make the widgets suddenly change their heights, thus, in retrospect, if the test was removed, it would have not changed the output. Let's consider we went back in time and removed the test. Would we be able to have the assurance that the widgets are at most 3cm tall? What would happen if they are taller than 3cm? It is possible that the check itself was not necessary, as it doesn't matter how tall the widgets are. But if there is a risk of a recall for widgets taller than 3cm, and the fact that there is assurance that that can't be the case, then the business can mitigate that risk. While hindsight is 20/20, it is important to create effective tests, otherwise they are not useful.
-
-#### Risk-Based Testing
-
-- testing just based on risk might have some caveats, namely
-
-  - Could be remedied by using mental models instead to identify risks, although there is a risk that only evidence that is associated with your priors is accepted
-
-  - Testing via risk is a good value to effort, value curve, however, degrades rapidly when there is a larger scope of items to be tested
-
-  - After large risks are addressed, it may be difficult to finely-prioritize smaller risks because they are too small and might not fit within the risk framework nicely. For example, non-functional requirements (although this could be tangentially related to consumer risk, as if the product is too slow then people might not want to use it based on industry benchmarks.)
-
-  - Shaped by industry as well
-
-  - Customer experience could theoretically be a "risk" but if customer experience is poor then tests might neglect it
-
-  - Is it risk-based to test a feature after it has been completed to ensure it works as expected?
-
-  - Testing to meet laws and regulations is a risk-based endeavor because failure to comply with those regulations can lead to fines
-
-  - A risk-based approach would say that only feature A should be tested, even though all other features compromise more of the application holistically. For example, feature A is used 40% of the time, feature B 10%, feature C 10%, feature D 10%, feature E 10%, feature F 10%. Here, features B-F are 60% of the share, while feature A is only 40%. Depending on how you slice risk, since it is subjective, then this might be missing out.
-
-    1.  Alternatively, it can be spread out among the long-tail of the distribution. Or, prioritized to clients that spend more money (so that you can make sure that the people that are spending lots of money get a good experience.)
-
-    2.  Each feature may be used by multiple customers, and the larger features may have less complexity, so it might have less inherent risk.
-
-    3.  More people using a specific feature may also reveal more bugs sooner (e.g., during beta testing), so over time it may have less risk if it is well-tested
-
-    4.  Ultimately, any framework is shaped by politics, so do be aware.
-
-  - Exploratory testing can mimic customer behavior, and could have better coverage. This is because it is not possible to predict with 100% accuracy what will be the most popular feature, or what customers are likely to use or how they interact with the system. Exploratory testing doesn't have a risk profile per-se or goals associated with it, so it can be difficult to know how to accomplish this. It's unlikely customers are robots that precisely perform every activity precisely as in the test.
-
-    1.  Exploratory testing could be called "testing the risk of the unknown", but the risk wasn't assessed beforehand so it's unclear what exactly is being tested
-
-  - Risks are inherently biased, so need to figure out a way to make them less biased
-
-  - To overcome some of the challenges, use risk to identify high priority items and make sure those are tested. Then, divide the remaining items using another framework that is not risk-based.
-
-#### Issues with a purely risk-based focus
-
-- The maximization of short-term utility via risk-based planning can produce a local minima in high resource environments as long-term goals may not have immediate short-term policy rewards.
-
-- Everything in testing isn't about risk, because risk is not ontological. You can't see risk, it is not concrete and it is always relative to something else, or as an undesired behavior. For example, saying that bad performance equals performance risk is true, but it misses the fact that risk is relative and subjective, and this is only a stepping stone.
-
-  1.  This argument can also be made for any attribute, as everything derives from a core concept, it does not mean that it is rooted inside of it.
-
-  2.  Testing should assess performance, because bad performance would mean a performance risk. It's too far removed from what a risk is, because a risk isn't well defined because it is a concept, not a thing or a concrete measurement, or something that can be derived from.
-
-- Knowing risks and mitigating them are two separate things. For example, if a test finds that a very strange sequence of characters (or a very long sequence) causes something to break, but fixing it would be very time consuming, then the business may not proceed with it. However, they should be aware that this is being deprioritized.
-
-- Testing is about risk management.
-
-  1.  What is the risk of letting a security issue get released?
-
-  2.  "A risk premium is a measure of excess return that is required by an individual to compensate being subjected to an increased level of risk." Wikipedia.
-
-      1.  Excess return means that time spent working on the product now will have a much higher ROI than in the future.
-
-  3.  One could argue that startups are less likely to benefit from tests because they don't have a product yet that can be tested, and don't have a clear understanding of their customer requirements. This means that preservation of future cash flow is undetermined because there is none, whereas large companies may have many contracts and evidence that there are customers already that use the products.
-
-  4.  Customer expectations for a startup or new product might be lower, or they might be able to compensate for their expectations based on what value that the product provides to them.
-
-      1.  Risk appetite and risk premium. For example, startups are willing to risk it all, sometimes. It would depend on the startup's goals and current industry (for example FinTech doesn't like low testing.) There could be high competitive pressures as well.
-
-      2.  Large companies want to preserve existing customers who are happy with the product, so want to make sure that the product is stable and may benefit from more tests. However, if a large company is threatened by competition, then it could be less likely to create tests because more effort has to be put into making a competitor versus testing it (which slows down development.) If the company misses the competition, then it risks a business opportunity, and so making sure it is well tested might be less relevant because the customers may want a large amount of changes anyway. This means that it is unclear what has to be tested, and might be too abstract.
-
-      3.  Brand and image as well, large companies have more to risk.
-
-      4.  Does it make sense to verify a typical customer scenario if it can be manually verified? How much testing overlap is needed?
-
-- Performance could be deprioritized in a risk-based situation. This means that larger customers, depending on how the algorithms process their data, could receive much longer response times or poorer performance.
-
-  1.  Counterpoint: companies selling the software can push the costs to the purchasers by making them purchase expensive hardware which will run their application more smoothly, or, create consultants who can fine-tune the system based on their needs
-
-- Long-term investments (provided that more resources are available) can prove to have a higher ROI, but require very smart and thoughtful strategic planning. Their effects may not be immediately visible in the short-term, and the long-term might be too abstract to fully understand the consequences or benefits.
-
-- Assessing user platforms based on risk is not very innovative (i.e., choosing what audience to cater to or to test for) because this excludes people who aren't using their devices because the software doesn't work on those devices. For example, say there is low macOS usage. Then, it would be deprioritized in testing, and would continue to become lower over time because there would be fewer resources dedicated to it. This could be a market that could be important, but it is unclear due to prior decisions. Even with more testing, there is a very large momentum that has to be broken for people to begin to use the app again. There is a high upfront cost to start testing on new platforms, however.
-
-- Risk is logarithmic, which means that lower-prioritized items have higher uncertainty about how much risk they will have, and so decisions to sub-prioritize those might not be useful because arbitrary decision-making processes may be required as the quantitative risk is too similar to understand which ones should come first because each item would have a small amount of standard deviation or error to its estimates.
-
-- Talk about game theory and risk taking, and the extent that the utility curve is concave
-
-- [[Pseudocertainty effect - Wikipedia]{.underline}](https://en.wikipedia.org/wiki/Pseudocertainty_effect) is a risk when creating the risk matrix because one might overestimate expected value depending on prereqs, even though both decisions are the same (cognitive bias.) Solution is to involve more stakeholders.
-
-- If everything is high risk, then nothing is important. It is possible that everything is equally as important, however, although this might mean that you're underestimating the scope and features of the application, and missing non-functional requirements.
-
-- Lower risk items, by definition, do not require the attention of multiple stakeholders to prioritize finely because they are, by definition, low risk. Risk-based activities can be complex, and so there is a risk that too much time is spent on risking meetings.
-
-  1.  Time is spent more efficiently if testers can create a testing plan for the low risk items. This is because finer priorities that have lots of detail may be difficult to communicate at a high-level to multiple stakeholders. It may also require a comprehensive but shallow testing plan to do "canary in a coal mine" testing to quickly identify any issues with some of the features that would prohibit them from being used correctly. These issues can then be sent back to the stakeholders for review.
-
-#### When should a test fail?
-
-- If the user's goals are no longer possible
-
-  - Is a user going to click on a button based on its ID selector? Probably not, but there has to be a way to unambiguously refer to a button. However, that button might not be visible on the screen.
-
-  - What about a button's content? This is more flexible, but if the button was moved to a strange position, then the text will not catch it.
-
-  - There is a gradient between when a test fails and succeeds. Something could be moved by a few pixels, or more, or change color and be ok, but sometimes it might not be (for example, a bad CSS style.) It is up to the program to designate a threshold for this. Is it better to fail just in case, or is it too much work to fix the tests?
-
-  - How much time should I be writing tests vs. creating value for the customer? Tests should be able to be manually bypassed if needed (e.g., programmer manually checks if test is working, or convert it to a manual test while the test is being worked on)
-
-  - This overlaps with auditing (i.e., do a shallow test and see if anything fails) rather than selectively testing one component (and then critical components might fail but you would not know.)
-
-#### Organizing tests
-
-- It is important to categorize and name your tests well. This is because
-
-  - It prevents duplicate tests and can help create more effective tests by identifying what components are tested, and to what extent
-
-  - If needed, a test can be run manually and the steps should be very clear. This can help debug any issues with the test, or, if there is something wrong with the test runner. Note that some testing frameworks can provide guidance through UI prompts and videos on what exactly is being tested, and at every step, so this could be helpful
-
-  - Other people will be extending the tests. They have to know where in the flow they need to modify entries.
-
-- Application code has to run in order to be tested, but to what extent?
-
-  - Mocking and stubbing can mean that not all of the application code runs, and third-party APIs also complicate things as well as it is unclear how these are connected.
-
-  - If a code path is not executed, then it will have an unknown state because nothing has run it. However, the unknown state is likely, to some extent, to be known upon inspecting the code.
-
-  - Code coverage is about verifying that a subset of the paths through the code meet the expected behavior. This does not mean that the expectations are correct, nor does it mean that the behaviors of the code are covered either. It just means that the paths in the code meet the expectations that were provided in the tests, so the expectations would have to be correct.
-
-  - The next thing is there could be a combination of states that might not be possible to know if they are tested through code coverage. For example, sequences of methods that run in different orders that can set up certain things to trigger.
-
-  - Code coverage could be a better proxy in stateless applications, where a single function or method is tested and does not retain any state. For example, in unit tests or when a single function has a set of zero or more inputs and a set of zero or more outputs and does not change its environment, and is idempotent and immutable.
-
-```{=html}
-<!-- -->
-```
-
-- Other stuff
-
-  - [[Too Much Test Automation \| StickyMinds]{.underline}](https://www.stickyminds.com/article/too-much-test-automation) interesting article
-
-  - Test impact analysis: [[The Rise of Test Impact Analysis]{.underline}](https://martinfowler.com/articles/rise-test-impact-analysis.html)
-
-```{=html}
-<!-- -->
-```
-
-- When to retire tests
-
-  - [[When Should You Rewrite or Retire a Test \| Software Test Automation (subject7.com)]{.underline}](https://www.subject7.com/when-should-you-rewrite-or-retire-a-test/)
-
-- +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-  | The provided text discusses the importance, multifaceted nature, and benefits of software testing in depth. However, using the framework of the 5 W\'s (Who, What, When, Where, Why) and \"How,\" let\'s identify questions the text might not clearly address: |
-  | |
-  | 1\. **Who**: |
-  | |
-  | \- Who conducts these tests? Are they developers, QA professionals, or both? |
-  | |
-  | \- Who is responsible for setting up the testing environments? |
-  | |
-  | 2\. **What**: |
-  | |
-  | \- What types of testing methods are being discussed (unit, integration, system, acceptance)? |
-  | |
-  | \- What tools or frameworks are typically used for these tests? |
-  | |
-  | \- What are the common challenges faced during testing? |
-  | |
-  | 3\. **When**: |
-  | |
-  | \- When should each type of testing be conducted during the development process? |
-  | |
-  | \- When are tests updated or retired? |
-  | |
-  | 4\. **Where**: |
-  | |
-  | \- The text does mention \"local testing environment,\" but where else can these tests be executed? Production? Staging? |
-  | |
-  | \- Where are test results stored and reported? |
-  | |
-  | 5\. **Why**: |
-  | |
-  | \- The text does provide a lot of reasons for why testing is essential. However, why might some teams or organizations neglect or underestimate its importance? |
-  | |
-  | 6\. **How**: |
-  | |
-  | \- How are tests integrated into the development workflow? |
-  | |
-  | \- How are tests maintained over time, especially as software evolves? |
-  | |
-  | \- How can teams ensure that their testing approach remains relevant and effective? |
-  | |
-  | While the text provides a comprehensive understanding of the importance of testing, answering these additional questions would give readers a more holistic view of the software testing landscape. |
-  +=================================================================================================================================================================================================================================================================+
-  +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+By embracing testing not as a separate phase but as an integral part of the development workflow, embedded within the CI/CD pipeline, teams can gain the confidence needed to innovate faster, deploy more frequently, and ultimately deliver higher-quality software that truly meets user needs. Remember, tests are only as good as the effort and strategy behind them – invest wisely, and they will pay dividends in stability, speed, and confidence.-

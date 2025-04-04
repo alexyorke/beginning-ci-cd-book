@@ -2,6 +2,8 @@
 
 A comprehensive guide to Continuous Integration and Continuous Deployment practices, workflows, and tools for software developers, DevOps professionals, and teams.
 
+Read it online (free): https://alexyorke.github.io/beginning-ci-cd-book/chapters/Introduction.html
+
 ## Work in Progress
 
 ⚠️ **IMPORTANT NOTE**: This book is currently in manuscript form and is a work in progress. Many elements remain unfinished or require further refinement:

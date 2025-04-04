@@ -25,7 +25,6 @@
 # Debugging and Troubleshooting
 
 - [Debugging GitHub Actions Workflows](chapters/Debugging_GitHub_Actions_Workflows.md)
-- [Concise Debugging Techniques](chapters/Concise_Debugging_Techniques_with_Practical_Examples.md)
 - [Generic Debugging Techniques](chapters/Generic_Debugging_Techniques.md)
 
 # CI/CD Patterns and Best Practices

@@ -1,6 +1,7 @@
 # Summary
 
 [Introduction](chapters/Introduction.md)
+[Notes for Reviewers](chapters/Notes_for_Reviewers.md)
 
 # CI/CD Fundamentals
 

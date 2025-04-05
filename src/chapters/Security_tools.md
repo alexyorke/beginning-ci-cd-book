@@ -90,43 +90,6 @@ Sure, here's a list of instructions on how to utilize lock files during installa
 
 It's crucial to ensure that the lock files (or their equivalents) are committed to your version control system so others can benefit from consistent builds.
 
-### Code Review <a id="code-review" class="unnumbered"></a>
-
-Code Review (in the context of CI/CD) is the systematic examination of source code changes by one or more individuals—other than the original author—before those changes are merged or deployed.
-
-- Code review also provides the capability for other developers to find bugs and become more familiar with repository changes. This helps understand how integrations will fit together.
-
-- Code review is a critical part of CI/CD because it acts as a gatekeeper to prevent buggy code from reaching production, providing opportunities for feedback on usability, security, and design.
-
-- During code review, the reviewer(s) will look at the changes and verify correctness, making inline comments on specific lines of a pull request.
-
-- Code review themes:
-
-  - Knowledge transfer
-  - Finding bugs
-  - Design discussions
-  - Verifying scope
-  - Security feedback
-
-- This process helps increase code quality and prevents bugs from reaching production. Sometimes a large volume of comments (nitpicks) can appear in the PR, which may be better handled with direct discussion or tooling (e.g., automated linters).
-
-- Code review has additional softer advantages, such as building professional relationships and trust between teammates.
-
-#### Why is code review important?
-
-Key points from various resources:
-
-- A simple bug can lead to significant losses in time and customers.
-- Peer code review can catch issues early, reducing costs.
-- It fosters collaboration during the coding phase.
-- No feature addition is worth introducing severe bugs.
-- Effective code review can be a competitive advantage.
-- Concerns about time and negative social impacts can be mitigated with proper techniques and tools.
-
-Time spent during review is crucial; it should be limited to ensure focus, and slowing down the review increases the number of defects detected. Traditional in-person reviews aren't always necessary; many defects can be found asynchronously via pre-meeting reading or electronic tools. Omission defects are among the most challenging to catch, so checklists can be helpful.
-
-Omissions often refer to missing tests, missing error-handling, insufficient documentation, or incorrectly "skipped" logic paths. Checklists can help guide reviewers to consider these potential gaps.
-
 #### How big should my PRs be?
 
 - PRs should be concise and focused, encapsulating a single, coherent change or improvement that can be reviewed in context. Extremely small PRs are not helpful for providing context, and very large PRs can be overwhelming and difficult to revert.

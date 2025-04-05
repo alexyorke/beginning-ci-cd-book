@@ -19,6 +19,8 @@
 - [Testing](chapters/Testing.md)
 - [Dependency Management](chapters/Dependency_management.md)
 - [Branching Strategies](chapters/Branching_Strategies.md)
+- [Caching and Optimization](chapters/Caching_and_optimization.md)
+- [File Transforms](chapters/File_Transforms.md)
 
 # Debugging and Troubleshooting
 
@@ -34,10 +36,28 @@
 - [Git Commands for CI/CD](chapters/Practical_Git_Commands_for_CICD.md)
 - [Common Linux Commands](chapters/Practical_Examples_of_Common_Linux_Commands.md)
 - [Additional Linux Commands](chapters/Practical_Examples_for_Additional_Linux_Commands.md)
+- [Docker Commands](chapters/Practical_Docker_Commands_in_CICD.md)
+- [echo in GitHub Actions](aside/Concrete_Examples_of_echo_in_GitHub_Actions.md)
+- [Conditional Statements](<aside/Practical_Examples_of_Conditional_Statements_in_Bash_(GitHub_Actions).md>)
+- [mkdir and curl Examples](chapters/Practical_Examples_for_mkdir_and_curl.md)
+- [rm, ls, wget, cat, mv Examples](chapters/Practical_Examples_of_rm,_ls,_wget,_cat,_and_mv.md)
+- [sed Examples](chapters/Practical_Examples_of_sed.md)
+- [cp Command Examples](chapters/cp_Command_Examples.md)
+- [chmod Command Examples](chapters/chmod_Command_Examples.md)
+- [Adding Paths to $PATH](chapters/Adding_Paths_to_$PATH.md)
+
+# Miscellaneous Topics
+
+- [Aside 1](aside/aside.md)
+- [Aside 2](aside/aside2.md)
+- [Aside 3](aside/aside3.md)
+- [Aside 4](aside/Chapter_52.md)
 
 # Appendix
 
 - [Considerations for Businesses](chapters/Considerations_for_businesses.md)
+- [The Open-Core Model](aside/The_open-core_model.md)
+- [Additional Readings](aside/Additional_readings.md)
 
 ---
 

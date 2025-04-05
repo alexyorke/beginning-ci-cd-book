@@ -46,13 +46,6 @@
 - [chmod Command Examples](chapters/chmod_Command_Examples.md)
 - [Adding Paths to $PATH](chapters/Adding_Paths_to_$PATH.md)
 
-# Miscellaneous Topics
-
-- [Aside 1](aside/aside.md)
-- [Aside 2](aside/aside2.md)
-- [Aside 3](aside/aside3.md)
-- [Aside 4](aside/Chapter_52.md)
-
 # Appendix
 
 - [Considerations for Businesses](chapters/Considerations_for_businesses.md)

@@ -1238,6 +1238,83 @@ for (int i = 0; i < 10; i++)
 
   - For metrics, you want to quickly go through your entire program and turn it into stages. From there, you can verify if each stage has been fixed or doesn't appear to have any reproducibility problems. Some of the stages can be interlinked, so might be difficult to estimate work.
 
+### Dockerfile reproducibility issues
+
+**Commands from your list causing non-reproducibility:**
+
+Based on the analysis, these commands from the provided list inherently break reproducibility because they fetch the latest versions of software/scripts, clone default branches, or use volatile base image tags:
+
+**1. OS Package Management (Fetching Latest):**
+
+- `RUN apt-get update && apt-get install -y ...` (and variants like `apt update`, `apt install -y`, `apt-get install -y -f curl`, `apt-get install -y nginx`)
+- `RUN apt-get upgrade -y` (and variants like `dist-upgrade`)
+- `RUN yum -y install httpd` (and variants like `yum install -y ...`, `yum groupinstall`, `yum update -y`)
+- `RUN apk add --no-cache python3 \` (and variants like `apk add ...`, `apk -U add ...`, `apk update`, `apk upgrade`)
+- `RUN dnf -y upgrade` (and variants like `dnf install -y ...`)
+- `RUN apt-add-repository ... && apt-get update` (Adds external repos, often implies fetching latest)
+- `RUN zypper ... install ...` / `RUN zypper ... update ...` (SUSE package manager)
+
+**2. Fetching External Resources Without Pinning/Checksums:**
+
+- `RUN curl -O https://bootstrap.pypa.io/get-pip.py \`
+- `RUN wget -O - https://deb.nodesource.com/setup_6.x | bash` (and other NodeSource setup scripts)
+- `RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b /go/bin`
+- `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash`
+- `ADD https://github.com/simple-evcorr/sec/releases/download/2.9.0/sec-2.9.0.tar.gz /app/sec.tar.gz` (`ADD` with URL)
+- `RUN curl -sS http://getcomposer.org/installer | php`
+- `RUN wget https://cmake.org/files/v3.18/cmake-3.18.2.tar.gz` (Relies on external host stability, though versioned)
+- `RUN wget https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl` (Fetches `stable.txt` which changes)
+
+**3. Language Package Management Without Lock Files/Pinning:**
+
+- `RUN pip install --upgrade pip && pip install --no-cache-dir -r /requirements/prod.txt` (Upgrades pip, and relies on `requirements.txt` pinning)
+- `run pip install django && pip install mysqlclient` (Installs latest)
+- `RUN pip install -r /my_application/requirements.txt` (Depends on pinning in the file)
+- `RUN npm install --production --silent` (Depends on `package-lock.json` / `yarn.lock` usage)
+- `RUN npm i || :` (Same as above)
+- `RUN composer install --prefer-dist --optimize-autoloader` (Depends on `composer.lock` usage)
+- `RUN composer global require "hirak/prestissimo"` (Installs latest compatible)
+- `RUN go get github.com/mitchellh/gox \` (Classic `go get` fetches latest)
+- `RUN conda-env create environment.yml` (Depends on pinning in the file)
+
+**4. Cloning Version Control Without Pinning:**
+
+- `RUN git clone https://github.com/CJowo/pcr-guild-django.git` (Clones default branch)
+- `RUN git clone https://github.com/algargon99/PROYECTO_IAW_GARCIA_GONZALEZ.git`
+- `RUN git clone https://github.com/CORE-UPM/quiz_2019.git`
+- `RUN     git clone https://github.com/graphite-project/whisper.git /src/whisper`
+
+**5. Using Volatile Base Image Tags:**
+
+- `FROM ubuntu` (Implies `ubuntu:latest`)
+- `FROM alpine` (Implies `alpine:latest`)
+- `FROM node:latest` (and variants like `node:alpine`, `node:current-slim` if they receive updates)
+- `FROM rabbitmq:latest`
+- `FROM golang:latest`
+- `FROM python:latest`
+- `FROM image` (Implies `image:latest`)
+- `FROM centos:latest`
+
+**Are there any more?**
+
+Yes, beyond those explicitly in your list, other patterns can cause non-reproducible builds:
+
+1.  **Time-Based Commands:** Any `RUN` command whose output depends on the _time_ of the build (e.g., `RUN date > /build_timestamp.txt`, `RUN echo "Built on $(date)" > /etc/motd`).
+2.  **Randomness:** Commands that generate random data during the build process (e.g., generating cryptographic keys directly in a `RUN` step without a fixed seed).
+3.  **Build Arguments (`ARG`):** If an `ARG` has a default value that relies on external factors, or if different `--build-arg` values are provided for different builds.
+4.  **Multi-Stage Builds:** If an earlier stage (`FROM base AS builder`) is non-reproducible, any subsequent stage using `COPY --from=builder` will also be non-reproducible.
+5.  **Network/DNS Fluctuation:** Very rarely, if a command depends on resolving a hostname and that hostname's IP address changes _and_ the command's behavior differs based on the specific IP contacted.
+6.  **Build Cache Issues (Advanced):** While BuildKit aims for correctness, complex caching scenarios or bugs could potentially lead to unexpected results, though this is less common than the other factors.
+7.  **Implicit Dependencies:** Commands that implicitly rely on the state of the host system's kernel or configuration _if_ that affects the build process within the container (less common with modern Docker).
+
+To achieve reproducible builds, you should always aim to:
+
+- Pin base image versions using specific tags or digests (`sha256:...`).
+- Pin package versions explicitly in `apt-get install`, `yum install`, etc.
+- Use lock files (`package-lock.json`, `composer.lock`, `Pipfile.lock`, `go.mod`/`go.sum`) for language dependencies.
+- Verify checksums (`sha256sum`, etc.) after downloading files with `curl`/`wget`.
+- Checkout specific commit hashes or tags when using `git clone`.
+
 ### Sources
 
 - [[On business adoption and use of reproducible builds for open and closed source software (springer.com)]{.underline}](https://link.springer.com/content/pdf/10.1007/s11219-022-09607-z.pdf) sources in introduction are very good

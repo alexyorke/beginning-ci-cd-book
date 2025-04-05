@@ -13,8 +13,6 @@
 
 - [Comparison of Versioning Solutions](chapters/Comparison_of_Versioning_Solutions.md)
 - [Static Analysis in GitHub Actions](chapters/Setting_up_Static_Analysis_in_GitHub_Actions_for_a_React_App.md)
-- [Cost-Effective CI/CD Workflow Management](chapters/Cost-Effective_CICD_Workflow_Management_Quick_Tips.md)
-- [Prioritizing in Your Repository](chapters/How_to_prioritize_things_in_your_repo.md)
 - [Security Tools](chapters/Security_tools.md)
 - [Security and Reproducibility](chapters/Security_and_reproducibility.md)
 - [Continuous Deployment Pipeline](chapters/Streamlined_Guide_to_Setting_Up_a_Continuous_Deployment_Pipeline.md)

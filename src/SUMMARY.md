@@ -55,6 +55,7 @@
 - [Additional Readings](aside/Additional_readings.md)
 - [Common Questions](chapters/common_questions.md)
 - [Common GitHub Actions Questions](chapters/common_github_actions_questions.md)
+- [Common Docker Questions](chapters/common_docker_questions.md)
 - [Extra Content (Draft)](chapters/Extra_Content_Draft.md)
 
 ---

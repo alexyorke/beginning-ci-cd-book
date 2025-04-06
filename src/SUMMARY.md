@@ -53,6 +53,7 @@
 - [Considerations for Businesses](chapters/Considerations_for_businesses.md)
 - [The Open-Core Model](aside/The_open-core_model.md)
 - [Additional Readings](aside/Additional_readings.md)
+- [Common Questions](chapters/common_questions.md)
 - [Extra Content (Draft)](chapters/Extra_Content_Draft.md)
 
 ---

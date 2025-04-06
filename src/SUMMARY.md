@@ -32,6 +32,7 @@
 - [Workflow Design Patterns](chapters/Workflow_design_patterns.md)
 - [CI/CD Anti-patterns](chapters/General_CICD_Anti-patterns.md)
 - [Code Reviews](chapters/Code_Reviews.md)
+- [Common Code Review Questions](chapters/common_code_review_questions.md)
 
 # Practical Command Examples
 

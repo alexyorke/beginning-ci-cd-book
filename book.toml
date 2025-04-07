@@ -3,7 +3,7 @@ authors = []
 language = "en"
 multilingual = false
 src = "src"
-title = "Beginning CI/CD"
+title = "Beginning CI/CD: A Practical Introduction using GitHub Actions"
 
 [output.html]
 site-url = "/"

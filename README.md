@@ -1,4 +1,4 @@
-# Beginning CI/CD Book
+# Beginning CI/CD: A Practical Introduction using GitHub Actions Book
 
 A comprehensive guide to Continuous Integration and Continuous Deployment practices, workflows, and tools for software developers, DevOps professionals, and teams.
 

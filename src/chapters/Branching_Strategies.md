@@ -2,21 +2,21 @@
 
 #### Introduction {#introduction-6 .unnumbered}
 
-For code to be continuously integrated, it must be incorporated into the main application. This means that while developers\' code becomes part of the unified application, it doesn\'t necessarily imply it\'s operational or visible to end-users. Integration ensures the code resides in a collective state, allowing other developers to build upon or amend it. You have to deploy it for people to see it.
+For code to be continuously integrated, it must be incorporated into the main application. This means that while developers' code becomes part of the unified application, it doesn\'t necessarily imply it\'s operational or visible to end-users. Integration ensures the code resides in a collective state, allowing other developers to build upon or amend it. You have to deploy it for people to be able to use it.
 
-Part of being able to integrate code is through the use of PRs (pull requests.) This occurs when a developer is working on their copy of the code locally (i.e., a copy of the master, where all of the shared developers contributions are.) This allows the developer to have a stable workspace for just long enough to be able to work on their part. The expectation, however, is that it should be merged back into the master, where other developers have access to it and can work off of it. Features are normally complex, and multiple developers might have to work off of their code to build their feature.
+Part of being able to integrate code is through the use of PRs (pull requests.) This occurs when a developer is working on their copy of the code locally (i.e., a copy of the master, where all of the shared developers contributions are.) This allows the developer to have a stable workspace for just long enough to be able to work on their part. The expectation, however, is that it should be merged back into the master branch, where other developers have access to it and can work off of it. Features are normally complex, and multiple developers might have to work off of their code to build their feature.
 
-#### Understanding Branching {#understanding-branching .unnumbered}
+#### Understanding Branching
 
-- Branches are a way to separate different lines of development work. For example, when you are working on your PR, you don't want to interfere with other people working on their PRs. It would be considered a different line of development work. Therefore, it is a branch and thus is not integrated with everyone else's work, yet. The act of integration with the main application (or trunk) is done via a merge.
+Branching is a powerful mechanism to separate distinct lines of development work. When working on a pull request, for example, you isolate your changes on a separate branch to avoid interfering with others’ work. The integration of that work into the main codebase is accomplished later through a merge.
 
-- The reason why branching strategies are important is because it is a reflection of how the business works, or how the project is run. Having isolated branches that are worked on in siloes makes it difficult for other people to collaborate, because the changes are not part of a cohesive whole. While it is comforting to have your own branch, and stable workspace, there must come a point as to when the changes must be integrated. Remember that customers can't use any of your work if it is not in the trunk. The way that branching is done is core to CI and CD.
+Your branching strategy should mirror your internal business processes. For instance, if you need to support multiple versions of an application, adopting long‐lived branches is sensible; each version becomes its own entity that is developed, tested, and maintained separately. Work is intentionally integration-deferred, and may never be integrated, e.g., v2 will never be merged into v1, albeit a few backports. Similarly, if your organization requires a thorough quality assurance process—perhaps due to regulatory concerns—a strategy like Git Flow, or the creation of dedicated release branches, can help manage the deferred integration of changes while allowing bug fixes to be backported as needed.
 
-- However, there is nothing forcing someone to make a PR right after they are done working on their branch. They can write the entire feature on their branch. Why would this be considered an un-optimal approach?
+Continuous integration (CI) and continuous delivery (CD) practices further highlight the importance of how you manage branches. Regularly integrating work into a shared trunk ensures that your code remains cohesive and that issues arising from integration are caught early. Even if you maintain multiple long-lived branches, each branch can still benefit from CI/CD pipelines that validate and test changes continuously.
 
-- Note: master-based development is targeted towards having a single, evergreen version of your application, such as a web application. If I am supporting multiple versions of an application, such as for a desktop application (e.g., version 1 and 2 can both independently receive version updates and customers don't have to upgrade to the latest version to use the application, version 1 can receive bug fixes for example), then therefore they would be considered different lines of development work. Each version of the application is a different entity. In this case, branches are a useful way to separate those lines of development work. They would be long-lived branches, but not in the spirit of "long-lived" branches where work is delayed. The different branches will never be merged together, thus, there isn't a single shared state because multiple versions of the application exist. In this case, having a single "master" for two versions of an application doesn't work well because there isn't a single shared state because they are technically two different applications. In this case, having a branch for each application version might be useful, depending on how the application is supported and your business requirements.
+It is also important to recognize that branching itself is not problematic. A repository can comfortably house many branches—the challenge arises when integration is unnecessarily delayed. In environments where rapid delivery to customers is essential, long-lived feature branches can isolate changes for too long, reducing collaboration and hindering the overall responsiveness of the development process.
 
-- Note: Branches aren't a bad thing. If I create 100 branches, nothing bad happens--now you have 100 branches in Git. That's it. It's the intent behind how branches are used that might make it difficult for changes to get out quickly to customers. When someone says "avoid long-lived branches", what they are saying is to avoid unnecessarily delaying integration of feature work in the context of feature branches. Given the complexity of software, it is not possible to have a perfect understanding of how your code will be integrated or how it will function in production with all of the other modules/code, or with other team member's features. OSes have millions of lines of code, and infrastructure platforms have many millions of lines of code on top of that. The only way to know for sure is to run it in production. Since development tooling has matured, we now have the capability of simulating a close-to-production environment locally, or, through automation in the cloud. We are now able to get a better understanding of how our work integrates, end to end. We have a clearer representation of how our work will be presented to, or will work with our customers\' environments because we are able to simulate them locally. We can also gradually deploy features through the use of feature flags, which allows us to validate whether our changes work, without causing a significant adverse customer experience, by validating our new changes against a few customers. We can use monitoring to make sure that the customer experience is not adversely affected, and if it is, then we can quickly roll back a select feature within the order of seconds or minutes.
+Finally, the evolution of development tooling has provided robust mechanisms to simulate production environments locally or via cloud automation. This enables early detection of integration issues, reduces reliance on extended QA cycles, and allows practices like feature flagging to gradually roll out new functionality. By aligning your branching strategy with both business objectives and modern CI/CD practices, you can ensure that changes are integrated efficiently and reliably into the production environment.
 
 #### The Shift with Modern Development Tools {#the-shift-with-modern-development-tools .unnumbered}
 
@@ -24,33 +24,31 @@ Historically, things were a bit different. Automated testing, linting, building,
 
 #### Trunk-Based Development Explained {#trunk-based-development-explained .unnumbered}
 
-One is trunk-based development, which encourages developers to merge everything into a single shared state, much like a puzzle. This branching strategy is normally preferred for new projects. **Working from a single, shared state (i.e.,** trunk**-based development) will require a very different way of working, and trunk-based development is the primary method of development which can enable CI/CD.** In this strategy, everyone has a view of what the puzzle currently looks like.
+One is trunk-based development, which encourages developers to merge everything into a single shared state, much like a puzzle. This branching strategy is normally preferred for new projects. **Working from a single, shared state (i.e., trunk-based development) will require a very different way of working, and trunk-based development is the primary method of development which can enable CI/CD.**
 
-"Trunk-based" development (abbreviated as TBD) means to use the master branch as the main application. The branch is called "master", but the strategy is called "trunk-based". If something is merged into the "trunk", it is merged into the "master" or "main" branch.
+"Trunk-based" development (abbreviated as TBD) means to use the master branch as the main application. The branch is typically called "master" or "main", but the strategy is called "trunk-based". If something is merged into the "trunk", it is merged into the "master" or "main" branch.
 
 Typical Developer\'s Workflow in Trunk-Based Development:
 
-Sync Up: The developer starts by pulling the latest changes from the trunk.
+- Sync Up: The developer starts by pulling the latest changes from the trunk.
 
-Short-Lived Branch Creation (optional): If they choose to work in a branch, they create a short-lived branch off the trunk.
+- Short-Lived Branch Creation (optional): If they choose to work in a branch, they create a short-lived branch off the trunk.
 
-Development: Make code changes, refactorings, or add new features.
+- Development: Make code changes, refactorings, or add new features.
 
-Commit Frequently: As they work, developers commit their changes frequently, even if the feature isn\'t complete.
+- Commit Frequently: As they work, developers commit their changes frequently, even if the feature isn\'t complete.
 
-Use Feature Flags: If they\'re working on a new feature that\'s not ready to be made public, they use feature flags to hide this functionality.
+- Use Feature Flags: If they\'re working on a new feature that\'s not ready to be made public, they use feature flags to hide this functionality.
 
-Merge to Trunk: Once they\'re ready, they merge their changes back to the trunk. Given the short-lived nature of their branches, this happens frequently, sometimes multiple times a day.
+- Merge to Trunk: Once they\'re ready, they merge their changes back to the trunk. Given the short-lived nature of their branches, this happens frequently, sometimes multiple times a day.
 
-Continuous Integration: Upon merging, automated build and test processes kick in to ensure the new changes integrate well with the existing codebase and that the trunk remains in a releasable state.
+- Continuous Integration: Upon merging, automated build and test processes kick in to ensure the new changes integrate well with the existing codebase and that the trunk remains in a releasable state.
 
-Feedback Loop: If any issues arise from the integration, testing, or build processes, developers address them immediately to ensure the trunk remains stable.
+- Feedback Loop: If any issues arise from the integration, testing, or build processes, developers address them immediately to ensure the trunk remains stable.
 
 ![](./images/image13.png)
 
 [[Beginners Guide to Trunk-Based Development (TBD) - StatusNeo]{.underline}](https://statusneo.com/trunk-based-development/)
-
-- The "master" represents the latest state of your application. This is a straightforward strategy, and is unambiguous: your application is always on the master. There is only one copy of your application: the latest version.
 
 - The branching strategy has become prevalent with the rise of web applications. For example, if a web app works in one browser, it\'s likely to work in others due to consistent environments. Most modern apps, like Amazon or Facebook, automatically show the latest version, without version selection. This method is especially effective when developers control the user\'s environment, such as with mobile apps. With master-based development, the development process is streamlined, continually integrating work into a shared state. The application should always be ready for release, easily verified through automated testing. Note that releasing does not mean that features are available to customers, only that they exist in the application (but are hidden.) Ready for release does not mean done.
 

@@ -6,6 +6,8 @@ Many developers and organizations embark on their journey with Continuous Integr
 
 This book is an endeavor to peel back the layers of CI/CD, moving beyond mere automation and frequent code merging. We aim to guide you through the intricacies of what CI/CD truly entails and how to implement it effectively using GitHub Actions as a practical example. While the theory of CI/CD promises streamlined operations and faster deployments, the reality involves navigating through a myriad of challenges that can stymie even the most determined teams.
 
+Readers familiar with foundational concepts like those outlined in works such as _Minimum Viable Continuous Delivery_ will recognize shared principles here, focusing on the essential practices for achieving CI/CD benefits. This book complements such technology-agnostic frameworks by diving deep into the practical 'how-to' using a specific, widely-used tool. Given this strong focus, consider this book a detailed guide to implementing CI/CD specifically with **GitHub Actions**, bridging the gap between general principles and concrete execution.
+
 ### What is CI/CD?
 
 #### Continuous Integration (CI) {#continuous-integration-ci .unnumbered}

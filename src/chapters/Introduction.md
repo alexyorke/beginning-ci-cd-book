@@ -110,9 +110,9 @@ CI/CD Development:
 
 #### The build server or build pipeline {#the-build-server-or-build-pipeline .unnumbered}
 
-A build server is a dedicated computer or virtual machine that automates tasks such as building, testing, linting, and conducting security scans, preparing code for deployment or integration. It acts as a quality gatekeeper, running CI/CD workflows before code is deployed or merged into the main branch. The build server doesn\'t inherently perform tasks but executes the instructions specified in the workflow file by developers. Anything can be run on a build server, since it\'s just a virtual machine.
+A build server or, more accurately, a **build runner** or **agent**, is the environment where automated CI/CD tasks like building, testing, and scanning are executed. While the underlying host machine might be a virtual machine (especially for cloud-provided runners like GitHub's `ubuntu-latest`), the actual build often runs inside a **container**. This containerized approach provides a consistent, isolated environment with all necessary tools and dependencies, ensuring reproducibility and acting as a quality gatekeeper for the CI/CD workflow. The runner executes instructions defined in the workflow configuration file.
 
-Build servers are used instead of developer workstations because:
+Build runners/agents are used instead of developer workstations because:
 
 - Security: These servers handle sensitive resources like company source code and secrets. It is crucial to secure them to prevent unauthorized access and protect against lateral attacks. Simply storing them on a developer's machine means that other software could use the secrets, the secrets are transmitted over other mediums, etc.
 
@@ -287,7 +287,7 @@ Providers fall into two overlapping categories: CI/CD tooling and application ho
 - **Jenkins:** A flexible, open-source automation server with a vast plugin ecosystem.
 - **CircleCI:** A cloud-based service known for ease of integration, Docker support, and parallel builds.
 - **Azure DevOps:** A comprehensive suite covering planning, coding, building, and deploying.
-- **Bamboo (Atlassian):** Integrates with Jira and Bitbucket, ideal for enterprises using Atlassian tools.
+- **Bitbucket Pipelines (Atlassian):** Integrated CI/CD service within Bitbucket Cloud, offering a cloud-native alternative.
 - **Travis CI:** A hosted service that integrates well with GitHub and Bitbucket.
 
 **Infrastructure Providers:**

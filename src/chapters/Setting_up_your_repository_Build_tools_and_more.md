@@ -303,6 +303,7 @@ Check "Require approval of the most recent reviewable push." This ties into the 
 Require conversation resolution before merging for auditing and to ensure all feedback is addressed.
 
 Require status checks to pass to confirm continuous integration tests succeed.
+**This is a critical setting for CI/CD: Configure your CI workflow to run automatically when a pull request is opened or updated (using triggers like `on: pull_request`). Then, select the specific CI job(s) here to ensure they must pass successfully before the PR can be merged, acting as an automated quality gate.**
 
 Check "Require branches to be up-to-date before merging" to prevent issues when merging. However, this can create a bottleneck in large teams, as merging each pull request may take longer.
 

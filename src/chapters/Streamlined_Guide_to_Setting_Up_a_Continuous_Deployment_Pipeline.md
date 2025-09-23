@@ -906,433 +906,312 @@ The aim is to reduce or eliminate ambiguity when diagnosing incorrect functional
 
 - [[10+ Deploys Per Day: Dev and Ops Cooperation at Flickr \| PPT (slideshare.net)]{.underline}](https://www.slideshare.net/jallspaw/10-deploys-per-day-dev-and-ops-cooperation-at-flickr) 2009
 
-#### What are feature flags? {#what-are-feature-flags .unnumbered}
+# Feature Flags {#feature-flags-1 .unnumbered}
 
-**Feature flags allow for experimentation and integration, and they are essentially remotely controlled "if" statements**. These are both vital to CI/CD because this provides the capacity to release changes quickly and effectively--feature flags can be turned off and on remotely, and also allow for multiple partially developed features to co-exist (i.e., have deferred integration) and testable in a local environment while the rest of the application is available to customers. Feature flags allow for features and other work to be gradually rolled out to customers because they can be controlled server-side, giving you control over which users have the feature flag turned on. For example, you can enable it for certain beta users, user type, geography, ip address, account lifetime, etc.
+## Precedent {#precedent .unnumbered}
 
-Feature flags work by fetching a key-value pair (typically a feature name and a boolean) from an HTTP API. For instance, a keypair like \"EnableSpecialFeature\" set to \"true\" alters application behavior accordingly. Here's a quick practical breakdown of a very simple feature flag implementation:
+* The programming term **“flag”** likely draws inspiration from **international maritime signal flags**, where visual flags convey state and intent. See: [International maritime signal flags — Wikipedia](https://en.wikipedia.org/wiki/International_maritime_signal_flags).
+* Feature flags (a.k.a. *feature toggles*) have been used for years. Notable early public discussions include:
 
-Typically, the term "feature flag" and "feature toggle" are used interchangeably, but if your team uses one convention over the other or differentiates them then you will have to check with them. In this text, they will be used interchangeably.
+  * **“10+ Deploys Per Day: Dev and Ops Cooperation at Flickr” (2009)** — highlighted deployment practices that paved the way for frequent releases and controlled exposure. [Slides](https://www.slideshare.net/jallspaw/10-deploys-per-day-dev-and-ops-cooperation-at-flickr).
+  * **Facebook’s “Move Fast and Ship Things” (2013)** — popularized modern rollout and operational controls at scale. [Talk](https://www.youtube.com/watch?v=dDf2t-E_Ea8&t=680s).
 
-#### Why would I want to use feature flags? {#why-would-i-want-to-use-feature-flags .unnumbered}
+## What are feature flags? {#what-are-feature-flags .unnumbered}
 
-#### Advantages of Feature Flags {#advantages-of-feature-flags .unnumbered}
+**Feature flags are remotely controlled `if` statements.** They allow you to alter code paths at runtime without redeploying. In CI/CD, they enable rapid, low-risk releases by:
 
+* Decoupling **deploy** (ship the code) from **release** (expose functionality).
+* Letting **in-progress features** coexist safely.
+* Enabling **targeted rollout** (e.g., beta users, specific geographies, user types, IP ranges, or account age).
+
+Flags are often resolved by fetching key–value pairs (e.g., `"EnableSpecialFeature": true`) from a server. Throughout this chapter, **feature flag** and **feature toggle** are used interchangeably.
+
+## Why use feature flags? {#why-would-i-want-to-use-feature-flags .unnumbered}
+
+### Advantages {#advantages-of-feature-flags .unnumbered}
+
+* **Release independence:** Turn features on/off at runtime, independent of your deployment pipeline. Multiple features can be released (or hidden) in parallel.
+* **Fine-grained targeting:** Expose a feature to cohorts (beta testers, premium users), regions/languages, or by request attributes.
+* **Safer integration:** Merge work early and often; keep risky paths guarded until they’re ready.
+* **Progressive delivery:** Roll out gradually, monitor, and roll back instantly if needed.
+* **Graceful degradation:** Disable heavy or unstable features during incidents without impacting core functionality.
+* **Resource management:** Throttle access to expensive capabilities (e.g., AI inference) based on load, plan, or time of day.
+* **Strangler pattern support:** Route a portion of traffic from a legacy path to a new one while maintaining session/state.
+
+> **A/B testing vs. Canary releases**
+>
+> * **A/B testing (split testing):** Show two or more variants (A, B, …) to different users at the same time to compare behavior (e.g., conversion or retention).
+> * **Canary release:** Gradually roll out a new version to a small percentage of users or servers to detect issues before a full rollout.
+
+### Versus blue–green deployments
+
+* **Feature flags** excel at **runtime control of behavior** and targeted exposure. They’re ideal for iterative product work and experimentation.
+* **Blue–green** is better for **big-bang changes** (infrastructure shifts, database migrations, framework swaps). Automate blue–green to reduce risk. Use both approaches together when appropriate: e.g., deploy via blue–green, then *release* via flags.
+
+## Implementation basics
+
+Feature flags can start simple (e.g., a JSON file downloaded at runtime) and evolve. Complexity grows when you need, for example, “10% of users” — at that point, **server-side assignment** is preferable: pass user or request context to a flag service and return a resolved set of flags. Avoid doing percentage splits purely on the client; it complicates debugging and often requires redeploys for changes.
+
+Always **version and track flags alongside code** (e.g., in the repository) so behavior changes are auditable and reproducible.
+
+### Frontend vs. backend flags
+
+* **Frontend:** UI variations, layout changes, client-only behavior.
+* **Backend:** API paths, provider selection, infra toggles, gating of costly operations.
+
+Example: selecting a new weather API provider is backend; switching between Celsius/Fahrenheit display is frontend.
+
+## DIY example: remote JSON via Azure Storage + GitHub Actions
+
+This simple approach fetches flags from a blob at runtime. It’s quick to start with, though specialized SaaS or a self-hosted service will scale better for complex needs.
+
+> **Security note:** If you host a public blob, treat it as non-secret. Prefer time-limited SAS URLs or private access behind an API. Never rely on flags to hide sensitive code—ship only what clients should see.
+
+### 1) Create a GitHub repository
+
+```bash
+# Create/clone a repo
+git clone https://github.com/your-username/feature-flags-azure-storage.git
+cd feature-flags-azure-storage
+```
+
+### 2) Add a `flags.json`
+
+```json
+{
+  "EnableSpecialFeature": true,
+  "ShowNewHomepage": false,
+  "BetaTestingMode": {
+    "enabled": true,
+    "users": ["user1@example.com", "user2@example.com"]
+  }
+}
+```
+
+Optionally maintain **per-environment** files (e.g., `flags.dev.json`, `flags.staging.json`, `flags.prod.json`). Validate with a JSON schema in CI.
+
+### 3) Optional: GitHub Actions workflow (deploy blob)
+
+Create `.github/workflows/deploy-flags.yml`:
+
+```yaml
+name: Deploy Feature Flags
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Upload to Azure Blob Storage
+        uses: azure/storage-blob-upload@v1
+        with:
+          source_dir: '.'
+          container_name: 'feature-flags'
+          storage_account: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
+          sas_token: ${{ secrets.AZURE_STORAGE_SAS_TOKEN }}
+```
+
+> Replace the upload step with your preferred method if needed; this is illustrative.
+
+### 4) Azure Storage setup (summary)
+
+* Create a **storage account** and **container** (e.g., `feature-flags`).
+* Generate a **SAS token** with read permission and sensible expiry.
+
+### 5) Add GitHub Secrets
+
+* `AZURE_CREDENTIALS` — Service principal JSON (see Azure docs).
+* `AZURE_STORAGE_ACCOUNT` — Storage account name.
+* `AZURE_STORAGE_SAS_TOKEN` — Read-only SAS token for uploads/reads.
+
+### 6) Commit & push
+
+```bash
+git add .
+git commit -m "Initial setup with feature flags"
+git push origin main
+```
+
+### 7) Client code (JavaScript example)
+
+```js
+async function fetchFeatureFlags(url) {
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`Flag fetch failed: ${res.status}`);
+  const flags = await res.json();
+  return flags;
+}
+
+// Example usage
+(async () => {
+  const url = 'https://your-storage-account.blob.core.windows.net/feature-flags/flags.json?your-sas-token';
+  const flags = await fetchFeatureFlags(url);
+
+  if (flags.EnableSpecialFeature) {
+    // Enable the new path
+  }
+
+  if (flags.BetaTestingMode?.enabled) {
+    // Check current user against BetaTestingMode.users
+  }
+})();
+```
+
+**Operational flow:** To change behavior, update `flags.json` (or use a flag service UI). Your app refetches on an interval or per request; behavior flips without redeploying. **Log the set of resolved flags** with errors/crashes to aid reproducibility.
+
+## Practical considerations
+
+### Data implications
+
+Different cohorts may generate different data shapes. Plan migrations and compatibility carefully. Use flags to gate access to new schemas and write dual-format when transitioning.
+
+### Complexity management
+
+* The number of combinations grows as **2^N** for **N** independent boolean flags (e.g., 10 flags → 1,024 combos). Testing and bug reports must include **flag states**.
+* Consider automated analysis (e.g., PCA or other ML) to correlate problematic outcomes with flag combinations in telemetry.
+* Regularly **sunset** obsolete flags and keep implementations simple.
+
+### Project & UX coordination
+
+* Communicate rollout plans across teams to avoid incoherent, mixed experiences.
+* Bundle related flags into coherent “releases” when it helps UX consistency.
+
+### Server-side evaluation (SSR/API mediation)
+
+* Resolve flags on the server so clients only receive relevant code/paths. This improves security (no hidden UI to unhide) and simplifies debugging.
+
+### Monitoring & observability
+
+* Track exposure, conversions, and errors by **flag and variant**. Telemetry is directional, not perfect—treat it as a signal.
+
+### Security notes
+
+* Flags **do not** provide true concealment. Anything shipped to clients can be discovered and toggled.
+* If secrecy matters, **don’t ship** related resources until the feature is truly live.
+* If you must ship client flags, consider obfuscation and name hygiene; rely on this only as a minor deterrent.
+
+## Limitations & risks {#limitations-of-feature-flags .unnumbered}
+
+* **Combinatorial explosion:** Many flags → many interactions → harder QA. Always capture flag states in logs and error reports.
+* **Inadequate concealment:** Client-delivered code can be probed (including enterprise-only features). Avoid leaking names that reveal roadmap details.
+* **Default dependencies:** If the flag server fails, **fail safe**. Choose secure defaults and timeouts to prevent accidental exposure or outages.
+* **Overuse:** Excess flags increase cyclomatic complexity and test cost. Some changes (OS upgrades, huge refactors) simply aren’t “toggleable.”
+
+**Mitigations**
+
+* **SSR / server-side checks** so clients only see what they can use.
+* **Usage monitoring** with telemetry and anomaly detection.
+* **Semi-long-lived branches** for high-risk or sensitive work; produce isolated builds for test environments.
+* **Code obfuscation** only as a deterrent; pair with not shipping disabled resources.
+* **Lifecycle automation** (see below) to prevent stale flags.
+
+## Feature flags vs. branching {#feature-flags-vs.-branching .unnumbered}
+
+* **Both** separate lines of work, but at different layers:
+
+  * **Branches** isolate **source code**. Non-trunk work isn’t deployed; it lives in the repo until merged.
+  * **Flags** control **runtime execution** of already-deployed code in production and other environments.
+* Flags enable early integration and experimentation without redeploys. Branches defer integration and are ideal for larger or unstable work.
+* Use **both**: develop on branches, merge often, protect risky paths with flags, and release progressively.
+
+*(Metaphor: a tree’s branches diverge from the trunk; flags decide which “path” to walk at runtime.)*
+
+## Environments {#what-is-a-feature-flag-environment .unnumbered}
+
+An **environment** is a curated set of flag states. Common environments are `dev`, `staging`, and `prod`, but you can create cohorts such as `beta`, `experimental`, or region/language-specific sets.
+
+* Assign environments automatically (e.g., by deployment target) or dynamically (e.g., new users get `experimental`).
+* Allow **manual opt-in** for beta programs.
+* Keep environment definitions in code or your flag service for traceability.
+
+## Lifecycle {#feature-flag-lifecycle .unnumbered}
+
+* **Short-lived by default:** Most flags should live days/weeks, not months. Once a feature is at **100%**, remove the flag and dead code.
+* **Time bombs / expiries:** Add an **expiration date** and alerts; auto-disable or page owners when stale.
+* **Ownership:** Record an **owner**, **purpose**, and **cleanup plan** for each flag.
+* **Cleanup tooling:** Use static analyzers or tools (e.g., Uber’s **Piranha**) to remove unused flags automatically.
+* **Testing discipline:** If you plan to disable a widely enabled feature, periodically test the **off** path with other active flags.
+
+## Naming patterns {#feature-flag-naming-patterns .unnumbered}
+
+Good names prevent technical debt and make cleanup/search reliable.
+
+* **Clear and concise:** Prefer full words over abbreviations.
+* **Consistent casing:** e.g., `PascalCase` or `snake_case` — pick one.
+* **Action verbs:** Start with `Enable`, `Disable`, or `Toggle` to clarify intent.
+* **Positive names:** Prefer `EnableNewUI` over `DisableOldUI`.
+* **Categorize with prefixes:** `payment_`, `ui_`, `search_` to group logically.
+* **Indicate type:** Append `_rollout`, `_killswitch`, `_abtest`.
+* **Indicate status:** `_beta`, `_experimental`, `_temporary`.
+* **Tie to work items:** Include IDs (e.g., `EP01_EnableDarkMode`) to improve traceability.
+* **Team scoping:** `frontend_`, `backend_`, etc., if that helps ownership.
+* **Versioning:** Include a version when relevant (e.g., `_v2`).
+* **Dates (optional):** Suffix with `YYYYMMDD` for planned removal (e.g., `_rm20250401`).
+* **Avoid special characters** that complicate regex or tooling.
+
+**Example:** `ui_EnableDarkMode_rollout_beta_v2_rm20250401`
+
+## Popular feature flag providers/managers {#popular-feature-flag-providersmanagers .unnumbered}
+
+1. **LaunchDarkly** — mature feature management with targeting and experiments.
+2. **Split.io** — flags + experimentation + monitoring.
+3. **Optimizely** — experimentation and feature management (formerly Episerver).
+4. **ConfigCat** — flags and remote config across environments with targeting.
+5. **Flagsmith** — open-source feature flags and experimentation.
+
+---
+
+### Quick checklist
+
+* [ ] Add a flag behind every non-trivial user-facing change.
+* [ ] Decide targeting and metrics **before** rollout.
+* [ ] Log resolved flag states with errors and key events.
+* [ ] Prefer server-side evaluation and avoid shipping unused code.
+* [ ] Set an **expiry** and **owner** for each flag; clean up after 100% rollout.
+* [ ] Keep naming and documentation consistent across the org.
+
+You want to perform A/B testing or canary releases to gather user feedback or performance data before fully deploying a new feature. Undertaking A/B experiments to optimize user experience. For instance, enabling features only for specific user segments like beta testers.
+
+You need to provide different feature sets to different users or user groups, such as premium or trial users.
+
+You want to develop and release features independently and maintain a single codebase that serves multiple deployment environments.
+
+Use an effective branching strategy when:
+
+You want to manage and organize parallel lines of development, such as features, bug fixes, or release branches.
+
+You need to isolate experimental or unstable code changes from the stable main branch to prevent disruptions in production.
+
+You want to ensure that different development teams can work on features simultaneously without interfering with each other's work.
+
+You need a systematic approach to merge code changes from different branches into the main branch, ensuring the codebase remains stable and up-to-date.
+
+You want to maintain a clear version history and facilitate traceability of code changes.
+
+Needing high agility, where if an issue arises with a new feature, it can be quickly turned off without redeploying the entire application.
+
+Incrementally transitioning from an older system to a newer one using the strangler pattern. For example, redirecting requests from an old application to a new one in real-time while maintaining user session states.
+
+Advantages of Feature Flags
 You've already discussed blue-green deployment strategies. Why wouldn't I just use those instead of feature flags?
 
-- They serve different purposes. With feature flags, you can release new features independent of the deployment pipeline, and multiple features can be released at once. You also have more control over who you release it to, such as specific groups of users or via geographical location, and normally you can turn feature flags on and off much faster than going to another deployment through a deployment pipeline. They also allow hiding in-progress development. They also allow exposing features to certain people, or environments, for example QA to test.
+They serve different purposes. With feature flags, you can release new features independent of the deployment pipeline, and multiple features can be released at once. You also have more control over who you release it to, such as specific groups of users or via geographical location, and normally you can turn feature flags on and off much faster than going to another deployment through a deployment pipeline. They also allow hiding in-progress development. They also allow exposing features to certain people, or environments, for example QA to test.
 
-- Blue-green deployments are typically reserved for significant changes such as large-scale infrastructure updates, database migrations, or complete framework shifts, like migrating from React to Angular. This method is especially useful for scenarios where feature flags are not feasible, such as with incompatible frameworks or extensive application refactors. It\'s standard practice to automate the blue-green process to handle these major changes efficiently, ensuring stability and minimal disruption. This approach is also suitable for smaller updates like package upgrades, ensuring all changes, whether minor or major, undergo the same rigorous deployment process.
+Blue-green deployments are typically reserved for significant changes such as large-scale infrastructure updates, database migrations, or complete framework shifts, like migrating from React to Angular. This method is especially useful for scenarios where feature flags are not feasible, such as with incompatible frameworks or extensive application refactors. It's standard practice to automate the blue-green process to handle these major changes efficiently, ensuring stability and minimal disruption. This approach is also suitable for smaller updates like package upgrades, ensuring all changes, whether minor or major, undergo the same rigorous deployment process.
 
 You want to use feature flags to incrementally expose (or hide) features that are currently being developed. This will be part of your regular CI workflow. When you're working on a feature, put it behind a feature flag. There is an annotated example below with a code implementation.
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| A/B testing, also known as split testing, is a method of comparing two versions of a webpage, app, email, or other digital assets to determine which one performs better in terms of user engagement or other predefined metrics. In an A/B test, two or more variants, typically referred to as the \"A\" and \"B\" versions, are presented to different groups of users simultaneously. The goal is to assess which variant produces more favorable outcomes, such as higher conversion rates, click-through rates, or user interactions. |
-| |
-| A canary release, in the context of software deployment and release management, is a deployment strategy that involves rolling out a new version of software or a service incrementally to a subset of users or servers before making it available to the entire user base. This approach is named after the practice of using canaries in coal mines to detect toxic gases; in a canary release, a small, controlled group of users or systems serves as the \"canaries\" that help detect potential issues or problems with the new release. |
-+================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-Feature flags can be straightforward to implement initially, often managed with just a JSON file downloaded at runtime. However, complexity increases when you need more nuanced control, such as rolling out a feature to only 10% of users. This typically requires passing user IDs or request parameters through a server, which handles the feature list applicable to each request. Relying solely on the client-side for this can complicate debugging and requires deployments for changes, somewhat negating the benefits of feature flags. To maintain clarity and trace issues effectively, it\'s crucial to version feature flags in correlation with the code, potentially through repository management. This ensures that changes in feature flags are trackable and correlated with the codebase for easier troubleshooting.
-
-- You want to perform A/B testing or canary releases to gather user feedback or performance data before fully deploying a new feature. Undertaking A/B experiments to optimize user experience. For instance, enabling features only for specific user segments like beta testers.
-
-- You need to provide different feature sets to different users or user groups, such as premium or trial users.
-
-- You want to develop and release features independently and maintain a single codebase that serves multiple deployment environments.
-
-- Use an effective branching strategy when:
-
-  - You want to manage and organize parallel lines of development, such as features, bug fixes, or release branches.
-
-  - You need to isolate experimental or unstable code changes from the stable main branch to prevent disruptions in production.
-
-  - You want to ensure that different development teams can work on features simultaneously without interfering with each other\'s work.
-
-  - You need a systematic approach to merge code changes from different branches into the main branch, ensuring the codebase remains stable and up-to-date.
-
-  - You want to maintain a clear version history and facilitate traceability of code changes.
-
-  - Needing high agility, where if an issue arises with a new feature, it can be quickly turned off without redeploying the entire application.
-
-  - Incrementally transitioning from an older system to a newer one using the strangler pattern. For example, redirecting requests from an old application to a new one in real-time while maintaining user session states.
-
-**Purpose and Benefits:**
-
-- **Enable integration:** Allow multiple developers to work on different features simultaneously and integrate them seamlessly.
-
-  - **Example:** Two developers can work on the same weather app, one adding a Fahrenheit conversion feature and the other implementing multiple location search. Feature flags allow them to integrate their work without conflicts.
-
-  - **Important Considerations:** Features should be relatively modular to avoid excessive conflicts. Early testing with both feature flags enabled helps identify and address integration issues early on.
-
--
-
-- **Controlled rollout:** Gradually release features to users, enabling A/B testing and mitigating risks.
-
-  - **Benefits:** Gather user feedback, monitor performance, and minimize the impact of potential bugs.
-
-  - **Example:** Gradually roll out the Fahrenheit feature to a small percentage of users before enabling it for everyone.
-
--
-
-- **Graceful degradation:** Disable problematic features without impacting core functionality, ensuring a better user experience.
-
-  - **Example:** If the AI-powered weather prediction feature becomes overloaded, it can be temporarily disabled via a feature flag without affecting the basic weather display functionality.
-
-  - **Benefits:** Prevents a complete application outage and provides a better user experience even during issues.
-
--
-
-- **Resource management:** Control access to resource-intensive features to prevent overload and optimize performance.
-
-  - **Example:** Limit access to a computationally expensive AI feature or a limited-capacity service to prevent performance degradation for all users.
-
-  - **Benefits:** Ensure resource availability for critical features and optimize cost by scaling resources according to actual usage.
-
-- **Implementation Details:**
-
-- **Modular features:** Features should be modular and independent to avoid conflicts and simplify feature flagging.
-
-  - **Challenge:** Highly intertwined features can create complex dependencies, making feature flagging less effective and harder to manage.
-
--
-
-- **Feature flag management:** Use a feature flag service to manage flags, determine availability, and provide default values.
-
-  - **How it works:** The application queries the feature flag service with relevant parameters (user ID, location, etc.) to determine which flags should be enabled.
-
-  - **Benefits:** Centralized control, easy updates, and the ability to dynamically adjust feature availability based on various factors.
-
--
-
-- **Frontend and backend implementation:** Feature flags can be implemented on both the frontend and backend, depending on the specific use case.
-
-  - **Frontend:** Suitable for UI changes, feature toggles, and client-side behavior modifications.
-
-  - **Backend:** Ideal for API changes, infrastructure adjustments, and managing access to backend resources.
-
-  - **Example:** Switching between different weather API providers would be a backend implementation, while changing the temperature display would be a frontend implementation.
-
--
-
-- **Consider data implications:** Be mindful of data inconsistencies when different user groups have access to different features.
-
-  - **Challenge:** Storing and managing data generated by different feature variations.
-
-  - **Solution:** Implement data migration strategies or use feature flags to control data access and ensure consistency.
-
-- **Practical Considerations:**
-
-- **Complexity management:** Avoid excessive feature flags and dependencies to prevent code complexity.
-
-  - **Risk:** Too many feature flags and intricate dependencies can lead to code that\'s hard to understand, maintain, and debug.
-
-  - **Recommendation:** Regularly review and remove obsolete feature flags and strive for simplicity in their implementation.
-
--
-
-- **Project management:** Coordinate feature flag usage with development streams and release plans.
-
-  - **Challenge:** Independent feature development with feature flags can lead to misaligned user experiences when features are released.
-
-  - **Solution:** Communicate release plans, consider bundling related features, and ensure consistent user experience across feature variations.
-
--
-
-- **User experience:** Ensure a consistent user experience, even when feature flags are enabled or disabled.
-
-  - **Challenge:** Randomly enabled/disabled features can confuse users.
-
-  - **Solution:** Design features with feature flag toggling in mind, communicate changes clearly, and avoid abrupt transitions.
-
-- **Examples:**
-
-- **Frontend:** Switching between Celsius and Fahrenheit display in a weather app. This could involve duplicating components, changing rendering logic, and updating the UI based on the feature flag\'s state.
-
-- **Backend:** Testing a new weather API provider without impacting user experience. This might involve shadow requests to the new API, comparing responses, and gradually shifting traffic once the new API proves stable.
-
-- **Resource management:** Limiting access to a computationally expensive AI feature. Feature flags can control access based on user subscription level, time of day, or overall system load.
-
-#### Limitations of Feature Flags {#limitations-of-feature-flags .unnumbered}
-
-- Increased Complexity: Feature flags can lead to exponential complexity. For instance, with 10 feature flags, there are 2\^10 (1024) potential combinations, complicating bug reporting. It might not be clear from the QA's side what to test and such. It\'s essential to consider all flags when logging issues for reproducibility. It also makes testing more complex. You should log all feature flags and their status on application crash so that it can help you to debug. PCA can be helpful as well for training an ML model to find which flags are likely causing issues (i.e., correlate it with bad output and the list of flags.)
-
-- Inadequate Concealment: Feature flags can\'t truly hide functionalities. Features shielded behind flags, like those for an enterprise version, could be accessed and enabled client-side. This is also a security issue, if, for example, the code is insecure or contains secret product names that have not yet been released. You can consider transmogrifying your code (e.g., for websites) as this discourages people from snooping into it, but cannot stop it completely.
-
-- Dependency on Default Values: If the feature flag server fails, default values must be set, potentially revealing or hiding features inadvertently. Make sure to set defaults correctly. For example, the feature flag server is down or is not responding, or the client's device is slow.
-
-- Potential for Overuse: Excessive reliance can lead to \"death by a thousand cuts,\" resulting in high cyclomatic complexity and increased testing overhead. Some changes, like OS upgrades, or large refactorings can\'t be toggled with feature flags.
-
-- Mitigation Strategies:
-
-- Server-Side Rendering (SSR): Evaluate feature flags server-side so clients only receive relevant code. This will hide the code on the server-side so that it is only delivered to clients should they have that feature enabled.
-
-- Monitoring Usage: Track feature flag usage through telemetry, although it\'s not entirely reliable.
-
-- Semi-Long Lived Branching: Merge main branch changes into semi-permanent branches, creating multiple build artifacts. Deploy certain branches, like testing ones, to designated environments, especially for sensitive features.
-
-- Code Obfuscation: Embed feature flags in the code and then obfuscate it. This approach, relying on security by obscurity, should be used based on risk tolerance. You can obfuscate code to prevent feature flags from being revealed, but ultimately it is in the source code. You can also not add the feature flights to the clients if they should be disabled, and then the client will assume that they are disabled (based on internal programming.) This can help prevent the release of feature flight names which might make people aware of some of the features.
-
-Here\'s a straightforward example of using feature flags, emphasizing the importance of version control to track when flags are enabled. Initially, create a repository named \'feature flags\' and add a `flags.json` file. Edit this JSON file to deploy changes, ensuring it is well-formed, possibly using a schema for validation. You can manage feature flags for different environments by maintaining separate files.
-
-The deployment pipeline copies the JSON file to an Azure Storage account, which your application accesses at runtime to check the flag status. This method is simple but may not scale efficiently. An alternative is embedding feature flags directly in your code, which requires a separate deployment pipeline for those flags, typically in a continuous deployment style.
-
-However, integrating feature flags with code has its drawbacks, particularly in security. For example, if the storage account is publicly accessible, there\'s a risk of exposing sensitive code files. It\'s advisable to use external services to manage feature flags securely and to further research best practices for their implementation.
-
-1\. Create a GitHub Repository:
-
-- Go to [[https://github.com/]{.underline}](https://github.com/) and create a new repository (e.g., \"feature-flags-azure-storage\").
-
-- Initialize the repository with a README file (optional).
-
-2\. Local Project Setup:
-
-Clone the repository to your local machine:\
-git clone https://github.com/your-username/feature-flags-azure-storage.git
-
-cd feature-flags-azure-storage
-
-- content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487).Bash
-
-Create a file named flags.json in the root of the repository with the following content:\
-{
-
-\"EnableSpecialFeature\": true,
-
-\"ShowNewHomepage\": false,
-
-\"BetaTestingMode\": {
-
-\"enabled\": true,
-
-\"users\": \[ \"user1@example.com\", \"user2@example.com\" \]
-
-}
-
-}
-
-- content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487).Json
-
-- (Optional) GitHub Actions Workflow (for automatic deployment):
-
-  - Create a .github/workflows directory in your repository.
-
-  - Create a file named deploy-flags.yml (or similar) inside the .github/workflows directory.
-
-Add the following workflow code:\
-name: Deploy Feature Flags
-
-on:
-
-push:
-
-branches:
-
-- main \# Trigger deployment on push to main branch
-
-jobs:
-
-deploy:
-
-runs-on: ubuntu-latest
-
-steps:
-
-- name: Checkout code
-
-uses: actions/checkout@v3
-
-- name: Azure Login
-
-uses: azure/login@v1
-
-with:
-
-creds: \${{ secrets.AZURE_CREDENTIALS }}
-
-- name: Upload to Azure Blob Storage
-
-uses: azure/storage-blob-upload@v1
-
-with:
-
-source_dir: \'.\' \# Upload everything from the root
-
-container_name: \'feature-flags\'
-
-storage_account: \${{ secrets.AZURE_STORAGE_ACCOUNT }}
-
-sas_token: \${{ secrets.AZURE_STORAGE_SAS_TOKEN }}
-
-3\. Azure Storage Configuration:
-
-- Create Storage Account & Container: Follow step 2 from the previous response.
-
-- Generate SAS Token (Recommended):
-
-  - Navigate to your storage account in the Azure portal.
-
-  - Go to \"Containers\" -\> Select your container (\"feature-flags\").
-
-  - Go to \"Shared access tokens\" and generate a SAS token with read permissions and an appropriate expiry time.
-
--
-
-4\. GitHub Secrets (for secure deployment):
-
-- In your GitHub repository settings, go to \"Secrets\" -\> \"Actions\".
-
-- Add the following secrets:
-
-  - AZURE_CREDENTIALS: Create a \"service principal\" in Azure and paste its JSON output here (refer to Azure documentation for details).
-
-  - AZURE_STORAGE_ACCOUNT: Your Azure storage account name.
-
-  - AZURE_STORAGE_SAS_TOKEN: The generated SAS token with read permissions (if using SAS for secure access).
-
-5\. Commit and Push:
-
-Commit your changes and push to the main branch:\
-git add .
-
-git commit -m \"Initial setup with feature flags\"
-
-git push origin main
-
-- content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487).Bash\
-  > If you set up the GitHub Actions workflow, this push will trigger the deployment to Azure Storage.
-
-6\. Application Code Integration:
-
-- Endpoint URL:
-
-If using public access (not recommended):\
-https://your-storage-account.blob.core.windows.net/feature-flags/flags.json
-
-- content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487).
-
-If using a SAS token (recommended):\
-https://your-storage-account.blob.core.windows.net/feature-flags/flags.json?your-sas-token
-
-- content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487).
-
-```{=html}
-<!-- -->
-```
-
--
-
-Code Example (JavaScript):\
-async function fetchFeatureFlags() {
-
-// \... (code from previous response, step 3 - replace with your actual endpoint URL)
-
-}
-
-// Example usage:
-
-fetchFeatureFlags().then(flags =\> {
-
-// \... (access feature flags as needed)
-
-});
-
-- content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487).JavaScript
-
-Then for example, say if you want to turn the feature on or off or modify something for example.What you can do is just make a change to that feature flag. So just make a commit.Big part requests sends them when it gets deployed through application. Once you had refreshed whatever. Well read that.New.Feature flag.And well.Subsequently changed the output of the application or modifies behavior.And it\'s also pretty good to log those feature flags that you\'re using, because it can be especially difficult when you\'re trying to triage.Different bugs and it becomes very complicated very quickly.
-
-#### Popular feature flag providers/managers {#popular-feature-flag-providersmanagers .unnumbered}
-
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 1\. **LaunchDarkly:** LaunchDarkly is a widely recognized feature flagging platform that allows teams to manage feature flags and feature toggles with ease. It provides feature management, experimentation, and targeting capabilities to control and optimize feature releases. |
-| |
-| 2\. **Split.io:** Split.io is another popular feature flagging and experimentation platform. It offers feature flagging, experimentation, and monitoring tools that enable teams to control feature releases and measure their impact on user behavior. |
-| |
-| 3\. **Optimizely:** Optimizely (now part of Episerver) is known for its experimentation and feature management platform. It enables teams to create, manage, and optimize feature flags and experiments to improve user experiences and business outcomes. |
-| |
-| 4\. **ConfigCat:** ConfigCat is a feature flag and configuration management platform that helps development teams roll out features gradually and manage configurations across various environments. It supports feature flags, remote configuration, and user targeting. |
-| |
-| 5\. **Flagsmith:** Flagsmith is an open-source feature flagging and experimentation platform. It allows teams to create, manage, and control feature flags and experiments to deliver features with confidence. |
-+========================================================================================================================================================================================================================================================================================+
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-
-#### Feature flags vs. branching {#feature-flags-vs.-branching .unnumbered}
-
-- In many cases, it\'s best to use a combination of both feature flags and effective branching strategies. Feature flags provide the flexibility to toggle features on and off during runtime and manage their rollout, while an effective branching strategy helps manage parallel lines of development and maintain a stable, organized codebase.
-
-- Let's go into more detail about the differences and when to use one over the other.
-
-- Both feature flags and branches can separate parallel lines of development work.
-
-- Feature flags allow for functionality that has already been deployed and is behind a feature flag to be changed at runtime, such as, for example, in production, while customers are using your application. Given a feature flag is just an "if" statement, then this changes the execution flow of the running program. Say for example, I have a feature flag in production, called "enableLogin". If it is off, then the login page won't be accessible to any of the customers. If it is on, then it will be shown. I don't have to do any deployments, releases, or PRs, I just have to change the value of the feature flag in the feature flag manager for this to change. The application then reads the new feature flag and changes its behavior. Changing the feature flag is normally very easy to do, and updates usually occur in the order of seconds.
-
-- Branches allow for parallel lines of development work to be separated at the source-code level, on the business's side inside of the repository, not accessible to customers. For example, say I am working on my feature. I would create a branch, which would allow me to deviate from the other branch (e.g., the trunk.) Or, I'm working on an experiment. Anything I commit (code-wise) to the branch stays on the branch, until I merge it with another branch, which is, effectively transferring the content to the other branch. Branches that are not the trunk are not deployed, thus, my development work stays inside of the repository and does not exist in production. After I merge my branch, the content is then destined for deployment or release, whenever it normally occurs.
-
-- So the big thing is that feature flags allow for integration to occur, as well as experimentation branches.Are.Cause integration to be deferred or never done. They\'re just independent lines of development work. They technically also allow experimentation. So they allow experimentation because you could theoretically deploy a branch, like say if you had a pull request branch to a local test environment that you could experiment.With your changes.Um, over there as well.
-
-- Think of the metaphor like a physical tree. The branches on the tree aren't part of the main trunk.
-
-- ![](./images/image56.png)
-
-- [[Tree Free Stock Photo - Public Domain Pictures]{.underline}](https://www.publicdomainpictures.net/en/view-image.php?image=20740&picture=tree&large=1)
-
-#### What is a feature flag environment? {#what-is-a-feature-flag-environment .unnumbered}
-
-- An environment is a set of feature flags that are on at a certain time.For example, say if you have a feature and.Um.You.Have some other features as well that are all part of this preview program. For example, you may want to turn them on on the integration environment so you put them in some sort of like environment.
-
-- This environment can be served to different users, or, you might be able to manually choose it.Say for example you want to get the new users of the application access to this feature flight. So for example you want to.Say, Oh yeah, everyone who\'s the new user is gonna have the capability to track this new fighter, have access to this new UI or something like that.The reason why you might want to use New Years in this case is because the.The older users who have used the application, for example the users that are been around for a longer by not be as familiar with some of the new UI updates. So if you.Give it to new users who don\'t know much about the current UI, then you kind of.Squeeze in the bed.You can also do it based on different things like region, and you can do it based on language. Depending on what type of your feature is, you can do it based on user preferences. You can get people to opt in manually as well, see if they want to be like a beta tester for example. So there\'s lots of different ways that you can do this.
-
-- For example, if you want all of the experimental features, you can toggle on the "experimental" environment, and then that environment has many feature flags enabled.
-
-#### Feature flag lifecycle? {#feature-flag-lifecycle .unnumbered}
-
-- How long should I leave it in prod for?It depends on your capacity for risk and how long the feature is considered in preview for stability andHow much complexity that you want overtime So like say if you were to keep it in production first forever, you know it is possible. Now there\'s a possibility that.You know, it does make things more complicated. You could turn it on. Turn it off so it\'s exists in the database somewhere and you have to.You know, if it\'s on for 100% of the people, then you know you might might not really be a feature flag anymore. It\'s more just like a permanent feature.The other thing is now if the feature flight server goes down for whatever reason.Or you know, you have the capacity to disable it, then it means that you have to kind of make sure that if you plan to disable the feature, you do test with the other features that you currently have active. So it does kind of increase the complexity and make a lot more difficult to debug so.Yeah, try to keep that in mind.
-
-- How can I easily clean up the feature flags, and know which one(s) are still in use? Having a good naming patterns are good because then you can do a Ctrl+F on your code and it won't accidentally match other parts of your code. You can also search across emails/messages, etc.There\'s some AI tools as well. I\'m not sure if I can share some of the internal Microsoft tools with regard to some of the feature flag.There\'s one by Uber called Piranha which doesn\'t feature flight cleanup as well. You can do something called the time bomb which will automatically deactivate a feature flag after a certain date. Although it\'s a little bit have a **\*\*\*\*** approach, you may want to have some sort of like feature flag lifecycle process that alerts you on a certain.Matrix you want to.To that. So it kind of depends.
-
-#### Feature flag naming patterns {#feature-flag-naming-patterns .unnumbered}
-
-- Feature flags can quickly cause technical debt if they are not cleaned up. Therefore, it is important to make sure that they are easily identifiable.
-
-- Clear, concise names: Short, descriptive flag names.
-
-- Consistent naming convention: Use standard format (e.g., PascalCase, snake_case).SO1 format could be it starts with the letters F and then has the hyphen or an under score or something like that and then it\'s.And starts or whatever has next like what the features about and then dash and then I don\'t know the data something like that when it\'s needs to be disabled or something like that. So as long as there\'s like some way where.You can easily just search for it. Basically don\'t have like a bajillion all over the place.And makes things quite a bit more clear.
-
-- Avoid ambiguous names: Use distinguishable, clear names. Do a Ctrl+F everywhere and make sure that that term for your new feature flag is not being used anywhere, otherwise, it'll be hard to find it later.
-
-- Use action verbs/tense: Start names with \'enable\', \'disable\', or \'toggle\'; consistent tense.
-
-- Full words, not abbreviations: Spell out words for readability.
-
-- Positive flag names: Use positive names (e.g., \'enable_feature\').
-
-- Use prefixes for categories: Start flag names with a prefix that indicates the category, e.g., \'payment_feature_newGateway\' or \'ui_feature_darkMode\'. This allows for regex patterns like payment_feature\_.\* or ui_feature\_.\*.
-
-- Use suffixes for status: Add a suffix to flag names that indicates their status, such as \'\_beta\', \'\_experimental\', or \'\_temporary\', e.g., \'feature_newUI_beta\'. This allows for regex patterns like .\*\_beta or .\*\_experimental.
-
-- Indicate flag types: Specify whether a flag is a kill switch, rollout, or A/B test in the name, e.g., \'feature_newUI_rollout\' or \'feature_darkMode_abTest\'. This allows for regex patterns like .\*\_rollout or .\*\_abTest.
-
-- Use feature or epic identifiers: If your flags are tied to specific features or epics in your project management tool, include the corresponding identifiers in the flag names, e.g., \'F123_feature_newUI\' or \'EP01_feature_darkMode\'. This allows for regex patterns like F123\_.\* or EP01\_.\* to match flags related to a specific feature or epic.
-
-- Separate flags by team or department: Organize flags related to specific teams or departments under a common prefix, e.g., \'frontend_feature_newUI\' or \'backend_feature_optimization\'. This allows for regex patterns like frontend\_.\* or backend\_.\*.
-
-- Incorporate version numbers: Include a version number in the flag name, e.g., \'feature_newUI_v2\'. This allows for regex patterns like .\*\_v2 to match flags related to a specific version.
-
-- Utilize hierarchical naming: Adopt a hierarchical naming structure with categories and subcategories separated by delimiters, e.g., \'category.subcategory.feature_status\'. This allows for regex patterns like category\\..\* or .\*\\.subcategory\\..\*.
-
-- Include environment information: If applicable, include the environment (e.g., \'dev\', \'staging\', or \'prod\') in the flag name. This allows for regex patterns like dev\_.\* or .\*\_prod to match flags specific to a certain environment.
-
-- Use a date format: If applicable, include the creation or activation date in the flag name using a standardized format, such as YYYYMMDD, e.g., \'feature_newUI_20230401\'. This allows for regex patterns like .\*\_2023.\* to match flags created or activated in a specific year.
-
-- Avoid using special characters because they will make matching with regex more difficult, and they may not be able to be used in the code, or, some systems may not be able to accept special characters.
-
-### {#section-5 .unnumbered}
-
-### {#section-6 .unnumbered}
-
-### {#section-7 .unnumbered}
-
-Here’s a cleaned, de-duplicated version that keeps (and organizes) the core ideas.
 
 ---
 

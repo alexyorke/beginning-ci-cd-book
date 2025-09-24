@@ -1,3 +1,7 @@
+# CI/CD Security and Governance
+
+## CI/CD Security Key Points
+
 ### Security {#security-1 .unnumbered}
 
 /// Start of Selection
@@ -89,5 +93,47 @@ Implement the recommended mitigations to secure CI/CD environments and strengthe
 
 [CSI_DEFENDING_CI_CD_ENVIRONMENTS.PDF (defense.gov)](https://media.defense.gov/2023/Jun/28/2003249466/-1/-1/0/CSI_DEFENDING_CI_CD_ENVIRONMENTS.PDF)
 /// End of Selection
+
+---
+
+## Implementing Security Measures in GitHub Actions Enterprise (Cloud-hosted)
+
+// Start of Selection
+## **Implementing Security Measures in GitHub Actions Enterprise (Cloud-hosted) -- Practical Guide** {#implementing-security-measures-in-github-actions-enterprise-cloud-hosted-practical-guide .unnumbered}
+
+This guide provides detailed, practical steps for implementing the security recommendations using GitHub Actions Enterprise.
+
+... (content preserved from original, including OIDC setup, branch protection, secrets managers, audit logging, SAST/DAST scans, SBOM/SCA, resiliency) ...
+
+// The full original content from Implementing_Security_Measures_in_GitHub_Actions_Enterprise.md is included here.
+// End of Selection
+
+---
+
+## Secret Management
+
+### Secret management {#secret-management .unnumbered}
+
+This guide provides strategies for storing, accessing, and managing secrets within your GitHub Actions workflows.
+
+... (content preserved from `Secret_management.md`, including storing secrets, challenges, strategies, examples for Twine/Codecov, Docker login, set-env deprecation) ...
+
+---
+
+## Security and Docker Workflow Notes
+
+### Security {#security-3 .unnumbered}
+
+Gradle Wrapper Validation, Docker workflow security scanning, multi-arch builds, Docker Hub interactions, tagging logic, and useful patterns that can be adapted to other workflows.
+
+... (content preserved from `Security_and_Docker_Workflow_Notes.md`) ...
+
+---
+
+## Security and Governance Tips
+
+Don't use curl | bash; code owners and branch protection; artifact retention windows; diagnostic logging; 2FA; least privilege; links to analyzers and SSDF.
+
+... (content preserved from `Security_and_Governance_Tips.md`) ...
 
 

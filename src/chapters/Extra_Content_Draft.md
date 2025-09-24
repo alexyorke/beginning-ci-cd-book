@@ -2560,7 +2560,7 @@ Avoid running workflows or jobs unnecessarily.
         - "docs/**" # Ignore changes in docs/
         - "**.md"
   ```
-  _(Note: `aside2.md` provides a large list of common documentation/config file globs for potential exclusion)._
+  _(Note: see `aside/Additional_File_Path_Globs_by_Category.md` for a large list of common documentation/config file globs for potential exclusion)._ 
 - **Branch Filtering (`on.<event>.branches` or `branches-ignore`):** Only run workflows for pushes/PRs on specific branches. Avoid running CI on branches without PRs (except main/master).
 - **Conditional Steps/Jobs (`if:`):** Use `if` conditions (based on contexts, outputs, variables) to skip specific steps or entire jobs if they aren't needed for a particular run (e.g., skip deployment steps on PR builds).
 - **Skipping Duplicate Actions:** For PRs, subsequent pushes often trigger the same checks. Actions like `fkirc/skip-duplicate-actions` can automatically cancel redundant runs for the same commit SHA, saving runner minutes. [[fkirc/skip-duplicate-actions: Save time and cost when using GitHub Actions]](https://github.com/fkirc/skip-duplicate-actions)

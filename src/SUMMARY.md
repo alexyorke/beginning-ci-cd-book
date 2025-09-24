@@ -33,6 +33,7 @@
 - [CI/CD Anti-patterns](chapters/General_CICD_Anti-patterns.md)
 - [Code Reviews](chapters/Code_Reviews.md)
 - [Common Code Review Questions](chapters/common_code_review_questions.md)
+ - [How to Prioritize Things in Your Repo](chapters/How_to_prioritize_things_in_your_repo.md)
 
 # Practical Command Examples
 
@@ -77,6 +78,9 @@
 - [Adapting Local Commands for CI](aside/Adapting_Local_Commands_for_CI.md)
 - [Managing Artifacts, Registries and Environments](aside/Managing_Artifacts_Registries_and_Environments.md)
 - [Publishing NPM to GitHub Packages](aside/Publishing_NPM_to_GitHub_Packages.md)
+- [Secret Management](aside/Secret_management.md)
+- [Webhooks](aside/Webhooks.md)
+- [Reporting, Code Coverage and SonarCloud](aside/Reporting_Code_Coverage_and_SonarCloud.md)
 - [Common Questions](chapters/common_questions.md)
 - [Common GitHub Actions Questions](chapters/common_github_actions_questions.md)
 - [Common Docker Questions](chapters/common_docker_questions.md)

@@ -95,7 +95,15 @@
 - [Common GitHub Actions Questions](chapters/common_github_actions_questions.md)
 - [Common Docker Questions](chapters/common_docker_questions.md)
 - [Common Deployment Questions](chapters/common_deployment_questions.md)
-- [Extra Content (Draft)](chapters/Extra_Content_Draft.md)
+- [Frequent Logging Data Types](aside/Frequent_Logging_Data_Types.md)
+- [Intro to CI/CD](aside/Introduction_to_CI_CD.md)
+- [Preparing the Development Environment](aside/Preparing_the_Development_Environment.md)
+- [Designing Workflows with GitHub Actions](aside/Designing_Workflows_with_GitHub_Actions.md)
+- [Controlling Workflow Execution](aside/Controlling_Workflow_Execution.md)
+- [Enhancing Workflows: Testing, Analysis, and Artifacts](aside/Enhancing_Workflows_Testing_Analysis_Artifacts.md)
+- [Dependency Management and Supply Chain Security](aside/Dependency_Management_and_Supply_Chain_Security.md)
+- [Deployment, Release, and Monitoring](aside/Deployment_Release_and_Monitoring.md)
+- [Optimizing, Maintaining, and Debugging Workflows](aside/Optimizing_Maintaining_and_Debugging_Workflows.md)
 
 ---
 

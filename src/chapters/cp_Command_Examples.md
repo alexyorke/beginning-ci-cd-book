@@ -38,7 +38,7 @@ Here are concrete examples for the cp command, demonstrating various options and
 **Showing copied files:\
 ** cp -v source_file.txt destination_file.txt
 
--   This copies source_file.txt to destination_file.txt and displays each copied file on the terminal.[Very useful if you\'re trying to debug some copied files.]{.mark}
+-   This copies source_file.txt to destination_file.txt and displays each copied file on the terminal.[Very useful if you're trying to debug some copied files.]{.mark}
 
 **Key Points:**
 
@@ -56,7 +56,7 @@ Here are concrete examples for the cp command, demonstrating various options and
 
 -   Always use cp carefully, as overwriting files without confirmation can lead to data loss.
 
--   Be mindful of where you\'re copying files to avoid accidentally overwriting important files or directories.
+-   Be mindful of where you're copying files to avoid accidentally overwriting important files or directories.
 
 -   Use the appropriate options based on your needs to ensure successful and safe file copying.
 

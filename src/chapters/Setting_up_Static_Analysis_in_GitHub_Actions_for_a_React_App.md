@@ -4,7 +4,6 @@ Here’s a guide to setting up static analysis actions in your React app’s Git
 
 **1. Define Your Workflow:**
 
-```yaml
 name: Static Analysis
 
 on:
@@ -33,42 +32,34 @@ jobs:
           npm install
 
       # Static analysis steps below
-```
 
 **2. Choose Your Tools:**
 
 **ESLint** (Catches code style and potential errors):
 
-```yaml
 - name: Run ESLint
   uses: actions/eslint-action@v3
   with:
     files: "src/**/*.js"
     eslint-path: "./node_modules/eslint" # Adapt if ESLint is installed globally
-```
 
 **Prettier** (Enforces consistent code formatting):
 
-```yaml
 - name: Run Prettier
   uses: actions/prettier@v3
   with:
     files: "src/**/*.js"
-```
 
 **Stylelint** (Analyzes CSS and SCSS for style errors and inconsistencies):
 
-```yaml
 - name: Run Stylelint
   uses: stylelint/actions/lint@v2
   with:
     configFile: ".stylelintrc.json" # Adjust config file path if necessary
     files: "src/**/*.{css,scss}"
-```
 
 **SonarQube** (Detects bugs, code smells, and security vulnerabilities):
 
-```yaml
 - name: SonarQube Scan
   uses: sonarsource/sonarqube-scan-action@master
   env:
@@ -76,7 +67,6 @@ jobs:
   with:
     projectBaseDir: "."
     # Configure SonarQube project settings as needed
-```
 
 **3. Customize Configuration:**
 
@@ -87,11 +77,9 @@ jobs:
 
 Configure actions to fail the workflow if issues are found. This enforces code quality. For example:
 
-```yaml
 - name: Run ESLint
   uses: actions/eslint-action@v3
   with:
     files: "src/**/*.js"
     eslint-path: "./node_modules/eslint"
     failOnError: true
-```

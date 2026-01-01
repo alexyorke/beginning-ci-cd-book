@@ -6,7 +6,7 @@ This guide provides a concise overview of setting up a continuous deployment (CD
 
 - Use your CI/CD tool and connect it to your artifact repository.
 
-- Choose a clear and descriptive pipeline name (e.g., \"Production - \[Software Name\]\").
+- Choose a clear and descriptive pipeline name (e.g., "Production - \[Software Name\]").
 
 **2. Deployment Infrastructure:**
 
@@ -82,9 +82,9 @@ By following these guidelines, you can establish a robust and efficient continuo
 
 - So, you have your application sitting as build artifacts. That's not super useful to the customer. How do you get it to the customer? Well, it has to be deployed to an environment accessible to the customer, usually via the internet.
 
-- Continuous Deployment (CD) uses the build artifacts from Continuous Integration (CI) and deploys them to production using Infrastructure as Code (IaC). This isn\'t just about running scripts; CD involves comprehensive processes like testing and monitoring. By leveraging CI artifacts, trust is maintained, ensuring that what was tested is what gets deployed. Essentially, Continuous Deployment spans the journey from a developer\'s initial feature development to its live presence in production.
+- Continuous Deployment (CD) uses the build artifacts from Continuous Integration (CI) and deploys them to production using Infrastructure as Code (IaC). This isn't just about running scripts; CD involves comprehensive processes like testing and monitoring. By leveraging CI artifacts, trust is maintained, ensuring that what was tested is what gets deployed. Essentially, Continuous Deployment spans the journey from a developer's initial feature development to its live presence in production.
 
-- Continuous Delivery, on the other hand, offers the flexibility to release updates whenever desired, without it being compulsory. Regular releases, as advocated by CD, foster resiliency and facilitate rapid adaptation to user feedback. Smaller, frequent changes are easier to manage and rectify if issues arise. Plus, with the unpredictable ways customers might use features, it\'s advantageous to remain agile and receptive to evolving requirements.
+- Continuous Delivery, on the other hand, offers the flexibility to release updates whenever desired, without it being compulsory. Regular releases, as advocated by CD, foster resiliency and facilitate rapid adaptation to user feedback. Smaller, frequent changes are easier to manage and rectify if issues arise. Plus, with the unpredictable ways customers might use features, it's advantageous to remain agile and receptive to evolving requirements.
 
 - **Note:** Reusing CI artifacts in CD instills trust; otherwise, the integrity of the entire CI process would be questioned because the artifacts that were tested are different from what is being deployed.
 
@@ -132,105 +132,101 @@ By following these guidelines, you can establish a robust and efficient continuo
 
   - Chef and Puppet: Configuration management tools that allow you to define the state of your systems and then automatically enforce that state.
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Certainly! **Infrastructure as Code (IaC)** is a practice in which infrastructure (networks, virtual machines, load balancers, and connection topology) is provisioned and managed using code and software development techniques. The \"advanced beginner\" in software or IT might be familiar with setting up environments manually through user interfaces or direct commands. IaC takes this to the next level, leveraging code to automate these tasks. Here\'s a more detailed breakdown tailored for an advanced beginner: |
-| |
-| 1\. **Code, Not Manual Configuration:** Instead of manually setting up databases, servers, or networks, in IaC, these resources are defined in code files. This is similar to how a software developer writes programs to execute tasks instead of doing them manually. |
-| |
-| 2\. **Version Control:** Just like software code, infrastructure code can be versioned. This means you can maintain a history of changes, track alterations, and revert to previous configurations if needed. This is typically managed using version control systems like Git. |
-| |
-| 3\. **Consistency and Reproducibility:** By defining infrastructure as code, you ensure consistency across different environments. If you\'ve ever heard the phrase \"It works on my machine\", IaC helps to solve that problem. Everyone uses the same configuration files to set up their environments, which can significantly reduce discrepancies between development, staging, and production setups. |
-| |
-| 4\. **Automation and Speed:** With IaC, tools can read the code files and set up the environment automatically. This can drastically reduce the time to provision or scale infrastructure. No more manual setups or lengthy procedures. |
-| |
-| 5\. **Documentation:** The code itself acts as documentation. Instead of keeping separate documentation that details how infrastructure is set up (which can become outdated quickly), the IaC configuration provides an up-to-date representation of the infrastructure setup. |
-| |
-| 6\. **Tools and Platforms:** Various tools enable IaC. Some of the popular ones include: |
-| |
-| \- **Terraform:** An open-source tool that allows you to define infrastructure in a descriptive manner across various cloud providers. |
-| |
-| \- **AWS CloudFormation:** A service from Amazon Web Services that lets you describe AWS resources in JSON or YAML format. |
-| |
-| \- **Ansible, Puppet, Chef:** Configuration management tools that can be used to set up and manage the state of servers. |
-| |
-| 7\. **Drift Management:** One of the challenges in infrastructure management is \"drift\", where the actual state of the infrastructure deviates from its expected state. IaC tools can often detect and correct drift, ensuring that the infrastructure remains consistent with the code definition. |
-| |
-| 8\. **Safety and Testing:** With IaC, you can apply software testing principles to your infrastructure. Tools allow for validation and testing of infrastructure code before it\'s applied, reducing potential issues in real-world deployments. |
-| |
-| In essence, IaC is the practice of treating infrastructure setup and configuration with the same rigor, precision, and automation as application code. This approach results in more efficient, consistent, and reliable operations, bridging the gap between software development and operations. |
-+========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Certainly! **Infrastructure as Code (IaC)** is a practice in which infrastructure (networks, virtual machines, load balancers, and connection topology) is provisioned and managed using code and software development techniques. The "advanced beginner" in software or IT might be familiar with setting up environments manually through user interfaces or direct commands. IaC takes this to the next level, leveraging code to automate these tasks. Here's a more detailed breakdown tailored for an advanced beginner:
+
+1. **Code, Not Manual Configuration:** Instead of manually setting up databases, servers, or networks, in IaC, these resources are defined in code files. This is similar to how a software developer writes programs to execute tasks instead of doing them manually.
+
+2. **Version Control:** Just like software code, infrastructure code can be versioned. This means you can maintain a history of changes, track alterations, and revert to previous configurations if needed. This is typically managed using version control systems like Git.
+
+3. **Consistency and Reproducibility:** By defining infrastructure as code, you ensure consistency across different environments. If you've ever heard the phrase "It works on my machine", IaC helps to solve that problem. Everyone uses the same configuration files to set up their environments, which can significantly reduce discrepancies between development, staging, and production setups.
+
+4. **Automation and Speed:** With IaC, tools can read the code files and set up the environment automatically. This can drastically reduce the time to provision or scale infrastructure. No more manual setups or lengthy procedures.
+
+5. **Documentation:** The code itself acts as documentation. Instead of keeping separate documentation that details how infrastructure is set up (which can become outdated quickly), the IaC configuration provides an up-to-date representation of the infrastructure setup.
+
+6. **Tools and Platforms:** Various tools enable IaC. Some of the popular ones include:
+
+\- **Terraform:** An open-source tool that allows you to define infrastructure in a descriptive manner across various cloud providers.
+
+\- **AWS CloudFormation:** A service from Amazon Web Services that lets you describe AWS resources in JSON or YAML format.
+
+\- **Ansible, Puppet, Chef:** Configuration management tools that can be used to set up and manage the state of servers.
+
+7. **Drift Management:** One of the challenges in infrastructure management is "drift", where the actual state of the infrastructure deviates from its expected state. IaC tools can often detect and correct drift, ensuring that the infrastructure remains consistent with the code definition.
+
+8. **Safety and Testing:** With IaC, you can apply software testing principles to your infrastructure. Tools allow for validation and testing of infrastructure code before it's applied, reducing potential issues in real-world deployments.
+
+In essence, IaC is the practice of treating infrastructure setup and configuration with the same rigor, precision, and automation as application code. This approach results in more efficient, consistent, and reliable operations, bridging the gap between software development and operations.
 
 Instead, we can define what we want our infrastructure to be, in a template, usually called an IaC template. They can be written in multiple programming languages--this one is written in a language called "Bicep".
 
-+-----------------------------------------------------------------------+
-| param location string = resourceGroup().location |
-| |
-| resource myVM \'Microsoft.Compute/virtualMachines@2019-07-01\' = { |
-| |
-| name: \'myVM\' |
-| |
-| location: location |
-| |
-| properties: { |
-| |
-| hardwareProfile: { |
-| |
-| vmSize: \'Standard_DS1_v2\' |
-| |
-| } |
-| |
-| osProfile: { |
-| |
-| computerName: \'myVM\' |
-| |
-| adminUsername: \'adminuser\' |
-| |
-| adminPassword: \'YourStrongPasswordHere\' |
-| |
-| } |
-| |
-| storageProfile: { |
-| |
-| imageReference: { |
-| |
-| publisher: \'MicrosoftWindowsServer\' |
-| |
-| offer: \'WindowsServer\' |
-| |
-| sku: \'2016-Datacenter\' |
-| |
-| version: \'latest\' |
-| |
-| } |
-| |
-| osDisk: { |
-| |
-| createOption: \'FromImage\' |
-| |
-| } |
-| |
-| } |
-| |
-| networkProfile: { |
-| |
-| networkInterfaces: \[ |
-| |
-| { |
-| |
-| id: resourceId(\'Microsoft.Network/networkInterfaces\', \'myVMNic\') |
-| |
-| } |
-| |
-| \] |
-| |
-| } |
-| |
-| } |
-| |
-| } |
-+=======================================================================+
-+-----------------------------------------------------------------------+
+```bicep
+param location string = resourceGroup().location
+
+resource myVM 'Microsoft.Compute/virtualMachines@2019-07-01' = {
+
+name: 'myVM'
+
+location: location
+
+properties: {
+
+hardwareProfile: {
+
+vmSize: 'Standard_DS1_v2'
+
+}
+
+osProfile: {
+
+computerName: 'myVM'
+
+adminUsername: 'adminuser'
+
+adminPassword: 'YourStrongPasswordHere'
+
+}
+
+storageProfile: {
+
+imageReference: {
+
+publisher: 'MicrosoftWindowsServer'
+
+offer: 'WindowsServer'
+
+sku: '2016-Datacenter'
+
+version: 'latest'
+
+}
+
+osDisk: {
+
+createOption: 'FromImage'
+
+}
+
+}
+
+networkProfile: {
+
+networkInterfaces: [
+
+{
+
+id: resourceId('Microsoft.Network/networkInterfaces', 'myVMNic')
+
+}
+
+]
+
+}
+
+}
+
+}
+```
 
 - What you can immediately see here is that there is now a single source of truth: the infrastructure does not live in people's heads, fragmented, it exists, documented, and very clear instructions that computers can understand. If you need a new environment, well, just redeploy. It's squeaky-clean, and brand-new, just like the last one.
 
@@ -260,23 +256,23 @@ Instead, we can define what we want our infrastructure to be, in a template, usu
 
 Look at Grafana "exemplars" and "correlations". and application topology map.
 
-- In the world of software development, the role of continuous monitoring can\'t be overstated. It\'s the heartbeat that tells us how our applications are performing, where they\'re faltering, and how users are interacting with them.
+- In the world of software development, the role of continuous monitoring can't be overstated. It's the heartbeat that tells us how our applications are performing, where they're faltering, and how users are interacting with them.
 
-- Imagine this: You\'ve just released a new feature. Is it working as expected? Is it meeting user needs? These questions underscore the necessity of a robust monitoring system. But, while having a myriad of dashboards might seem helpful, it\'s not just about accumulating data. It\'s about distilling this data into actionable insights, helping teams swiftly locate and address issues.
+- Imagine this: You've just released a new feature. Is it working as expected? Is it meeting user needs? These questions underscore the necessity of a robust monitoring system. But, while having a myriad of dashboards might seem helpful, it's not just about accumulating data. It's about distilling this data into actionable insights, helping teams swiftly locate and address issues.
 
 #### Why Monitor?
 
-- The purpose of monitoring extends beyond troubleshooting. It offers insights into user behavior, providing key business metrics like daily or monthly user engagement. Such data isn\'t just numbers; it\'s a reflection of user satisfaction and product viability.
+- The purpose of monitoring extends beyond troubleshooting. It offers insights into user behavior, providing key business metrics like daily or monthly user engagement. Such data isn't just numbers; it's a reflection of user satisfaction and product viability.
 
 #### Characteristics of Effective Monitoring
 
 - Coverage: Traceability through the system is crucial. This means tracking a user request from initiation to conclusion. Correlation IDs or trace IDs can be invaluable in this regard.
 
-- Relevant Data: Log entries should provide meaningful information. Whether it\'s an error message, user ID, application version, or the server it\'s running on, every bit of data aids in piecing together the bigger picture.
+- Relevant Data: Log entries should provide meaningful information. Whether it's an error message, user ID, application version, or the server it's running on, every bit of data aids in piecing together the bigger picture.
 
 - Strategic Logging Points: Position logs where they can offer the most diagnostic value.
 
-- Priority Management: Assign importance to your logs, ensuring critical logs don\'t get buried under the noise.
+- Priority Management: Assign importance to your logs, ensuring critical logs don't get buried under the noise.
 
 - Freshness: Updated, real-time data often carries more value than stale information.
 
@@ -286,7 +282,7 @@ Look at Grafana "exemplars" and "correlations". and application topology map.
 
 #### The Importance of Feedback
 
-- Consider a jigsaw puzzle shipped to a customer. How do we know if it reached in perfect condition? Did the colors appeal to the user? Did they find the image appealing? It\'s this feedback, collected via monitoring, that guides further iterations of the product. Continuous monitoring, embedded within the CI/CD pipeline, offers constant feedback on performance, errors, and user engagement.
+- Consider a jigsaw puzzle shipped to a customer. How do we know if it reached in perfect condition? Did the colors appeal to the user? Did they find the image appealing? It's this feedback, collected via monitoring, that guides further iterations of the product. Continuous monitoring, embedded within the CI/CD pipeline, offers constant feedback on performance, errors, and user engagement.
 
 #### Telemetry: A Close Look
 
@@ -296,110 +292,109 @@ Look at Grafana "exemplars" and "correlations". and application topology map.
 
 - By definition, continuous monitoring is unceasing. Data, much like a river, keeps flowing into the central hub, offering a live pulse of the application.
 
-- So the reason why you don\'t monitor absolutely everything is because there\'s a cost of monitoring. Otherwise it\'s just more every single instruction in every single line of code. And the reason is because of that is monitoring is designed to.Be a little bit pragmatic. So you have to kind of know like, OK, what am I trying to actually solve for this?But it was my goal. Am I trying to reason about the program\'s execution?To find a bug. So for example, am I trying to reduce entropy?With the program execution, when someone runs something, then these logs generated and I can retrace the program steps, which case you don\'t need to log every single line of code likely.You see the log you know inside of the if statements and potentially some.Variables are useful.Information.Like that and.Yeah, there definitely is a way to avoid logging, which is, you know, just debugging. But.Debugging is kind of more of a.To all that\'s.Used to kind of fix something as a means to an end and it is kind of difficult to use a sustainably because.Logs provide more context.And there\'s sometimes that you can\'t use it to debugger, like you know, if some customer reproduced at some point or something like that layer code or that\'s never be totally different in the logs can capture that. But you can\'t go back in time with the debugger and try to figure out what exactly happened. It\'s very difficult to take dumps and such.Um.So.And another thing is if you matter too much, um, you have to do something with this data. And if you just have way too many logs while Southern application performance, if it\'s got too much, if you\'re using like mobile applications, for example, well, you know, it\'s, you know, you\'re pumping out like hundreds of megabytes of logs.Over the user cellular connection or the ASB battering ram and such.The other part is actually like how to process it. And if you\'re logging like way too much stuff, you\'re spending a lot of these CPU cycles and.Storage and self storing all this stuff.And it\'s even more difficult to audit as well.Have you said that like you, too little is also?Definitely probably a larger problem so.Log 2 matches. Probably better to do that instead of logging too little I\'d say.
+- So the reason why you don't monitor absolutely everything is because there's a cost of monitoring. Otherwise it's just more every single instruction in every single line of code. And the reason is because of that is monitoring is designed to.Be a little bit pragmatic. So you have to kind of know like, OK, what am I trying to actually solve for this?But it was my goal. Am I trying to reason about the program's execution?To find a bug. So for example, am I trying to reduce entropy?With the program execution, when someone runs something, then these logs generated and I can retrace the program steps, which case you don't need to log every single line of code likely.You see the log you know inside of the if statements and potentially some.Variables are useful.Information.Like that and.Yeah, there definitely is a way to avoid logging, which is, you know, just debugging. But.Debugging is kind of more of a.To all that's.Used to kind of fix something as a means to an end and it is kind of difficult to use a sustainably because.Logs provide more context.And there's sometimes that you can't use it to debugger, like you know, if some customer reproduced at some point or something like that layer code or that's never be totally different in the logs can capture that. But you can't go back in time with the debugger and try to figure out what exactly happened. It's very difficult to take dumps and such.Um.So.And another thing is if you matter too much, um, you have to do something with this data. And if you just have way too many logs while Southern application performance, if it's got too much, if you're using like mobile applications, for example, well, you know, it's, you know, you're pumping out like hundreds of megabytes of logs.Over the user cellular connection or the ASB battering ram and such.The other part is actually like how to process it. And if you're logging like way too much stuff, you're spending a lot of these CPU cycles and.Storage and self storing all this stuff.And it's even more difficult to audit as well.Have you said that like you, too little is also?Definitely probably a larger problem so.Log 2 matches. Probably better to do that instead of logging too little I'd say.
 
-- And another thing, sometimes people differentiate it.It\'s metrics and locking and analytics so.Logging is just kind of the act of just like saying ohh you know, the program breached.This point or something like that, uh, metrics are kind of more about.Ah.Logging things that can be graphed, so for example like CPU usage would be considered a metric. You could have a graph that shows like over time.How much memory using, how much CPU you\'re using inside, etc. Technically these are logs, but there could be a bit differently to kind of process differently as well. They\'re not really associated to a code path per se, it\'s just like.Diagnostics for the for the whole machine.
+- And another thing, sometimes people differentiate it.It's metrics and locking and analytics so.Logging is just kind of the act of just like saying ohh you know, the program breached.This point or something like that, uh, metrics are kind of more about.Ah.Logging things that can be graphed, so for example like CPU usage would be considered a metric. You could have a graph that shows like over time.How much memory using, how much CPU you're using inside, etc. Technically these are logs, but there could be a bit differently to kind of process differently as well. They're not really associated to a code path per se, it's just like.Diagnostics for the for the whole machine.
 
-- And let\'s try to do this for another application. The first step is with logging. It\'s normally to help to reduce the entropy of your program state.So in this case.We have the application initializers and displays some stuff to the user. Let\'s just kind of go over like a very basic logging exercise. Let\'s also go into correlation IDs to show how you can trace the request back from users web browser all the way throughout the application. What request the application?Makes, et cetera, and we\'ll see why later, why this is really helpful and important.And this usually requires doing some manual setup with the conference doctor. No per se.Like.That this is associated to this request or something like that.So yeah, I think it\'s going to be really useful.
+- And let's try to do this for another application. The first step is with logging. It's normally to help to reduce the entropy of your program state.So in this case.We have the application initializers and displays some stuff to the user. Let's just kind of go over like a very basic logging exercise. Let's also go into correlation IDs to show how you can trace the request back from users web browser all the way throughout the application. What request the application?Makes, et cetera, and we'll see why later, why this is really helpful and important.And this usually requires doing some manual setup with the conference doctor. No per se.Like.That this is associated to this request or something like that.So yeah, I think it's going to be really useful.
 
-- So the first thing I probably do is bring up our code that we have and then figure out where it probably be good spots to do.Some logging and then as we make our application more complicated, we\'ll see kind of how this scales.Umm.As well and a lot of don\'t necessarily have committed through every single application this call like you can admit it only like 10% of the time or 5% of the time. Just get like a good understanding of what\'s happening, especially there\'s a lot of users hitting that same point. You don\'t necessarily need like 100% of the time, it\'s always.Logging that because it could be bad for performance. But again, it kind of depends on your use case. You\'re probably going through this a little bit more as well.
+- So the first thing I probably do is bring up our code that we have and then figure out where it probably be good spots to do.Some logging and then as we make our application more complicated, we'll see kind of how this scales.Umm.As well and a lot of don't necessarily have committed through every single application this call like you can admit it only like 10% of the time or 5% of the time. Just get like a good understanding of what's happening, especially there's a lot of users hitting that same point. You don't necessarily need like 100% of the time, it's always.Logging that because it could be bad for performance. But again, it kind of depends on your use case. You're probably going through this a little bit more as well.
 
-+-----------------------------------------------------------------------------------------------------------------+
-| import React, { useState, useEffect } from \'react\'; |
-| |
-| import axios from \'axios\'; |
-| |
-| // Data fetching logic extracted to a custom hook |
-| |
-| function useWeather(apiKey) { |
-| |
-| const \[weather, setWeather\] = useState(null); |
-| |
-| const \[loading, setLoading\] = useState(true); |
-| |
-| const \[error, setError\] = useState(null); |
-| |
-| useEffect(() =\> { |
-| |
-| async function fetchWeather() { |
-| |
-| try { |
-| |
-| const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=London&appid=\${apiKey}`); |
-| |
-| setWeather(response.data); |
-| |
-| setLoading(false); |
-| |
-| } catch (error) { |
-| |
-| setError(error); |
-| |
-| setLoading(false); |
-| |
-| } |
-| |
-| } |
-| |
-| fetchWeather(); |
-| |
-| }, \[apiKey\]); |
-| |
-| return { weather, loading, error }; |
-| |
-| } |
-| |
-| function Weather() { |
-| |
-| const apiKey = process.env.REACT_APP_WEATHER_API_KEY; |
-| |
-| const { weather, loading, error } = useWeather(apiKey); |
-| |
-| if (loading) return \<p\>Loading weather\...\</p\>; |
-| |
-| if (error) return \<p\>Error fetching weather\</p\>; |
-| |
-| return ( |
-| |
-| \<div\> |
-| |
-| \<h1\>{weather.name}\</h1\> |
-| |
-| \<p\>Temperature: {weather.main.temp}°C\</p\> |
-| |
-| \<p\>Condition: {weather.weather\[0\].description}\</p\> |
-| |
-| \</div\> |
-| |
-| ); |
-| |
-| } |
-| |
-| export default Weather; |
-+=================================================================================================================+
-+-----------------------------------------------------------------------------------------------------------------+
+```
+import React, { useState, useEffect } from 'react';
 
-Let\'s explore where it might be beneficial to implement logging in an application. Proactive logging is crucial as it allows for quicker bug resolution without needing additional log deployments. For example, in an application that handles weather data, important log points could include:
+import axios from 'axios';
 
-1\. **Initial API Key Check**: Verify if the API key is set but avoid logging sensitive information.
+// Data fetching logic extracted to a custom hook
 
-2\. **Conditional Statements**: Log within conditions handling loading errors or operational states to trace the application flow and identify issues.
+function useWeather(apiKey) {
 
-3\. **Performance Metrics**: Log the duration it takes to load the weather data, potentially using Web Vitals to capture timing from the initial request to the display on the user's screen.
+const [weather, setWeather] = useState(null);
 
-4\. **Error Handling**: Implement an error boundary to log errors without crashing the application, providing a fallback UI with support links for a better user experience.
+const [loading, setLoading] = useState(true);
 
-5\. **Telemetry and Metrics**: Beyond basic logging, collect telemetry on user interactions, such as location queries, to inform higher-level management reports and monitor system performance.
+const [error, setError] = useState(null);
+
+useEffect(() => {
+
+async function fetchWeather() {
+
+try {
+
+const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=London&appid=${apiKey}`);
+
+setWeather(response.data);
+
+setLoading(false);
+
+} catch (error) {
+
+setError(error);
+
+setLoading(false);
+
+}
+
+}
+
+fetchWeather();
+
+}, [apiKey]);
+
+return { weather, loading, error };
+
+}
+
+function Weather() {
+
+const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+
+const { weather, loading, error } = useWeather(apiKey);
+
+if (loading) return <p>Loading weather\...</p>;
+
+if (error) return <p>Error fetching weather</p>;
+
+return (
+
+<div>
+
+<h1>{weather.name}</h1>
+
+<p>Temperature: {weather.main.temp}°C</p>
+
+<p>Condition: {weather.weather[0].description}</p>
+
+</div>
+
+);
+
+}
+
+export default Weather;
+```
+
+Let's explore where it might be beneficial to implement logging in an application. Proactive logging is crucial as it allows for quicker bug resolution without needing additional log deployments. For example, in an application that handles weather data, important log points could include:
+
+1. **Initial API Key Check**: Verify if the API key is set but avoid logging sensitive information.
+
+2. **Conditional Statements**: Log within conditions handling loading errors or operational states to trace the application flow and identify issues.
+
+3. **Performance Metrics**: Log the duration it takes to load the weather data, potentially using Web Vitals to capture timing from the initial request to the display on the user's screen.
+
+4. **Error Handling**: Implement an error boundary to log errors without crashing the application, providing a fallback UI with support links for a better user experience.
+
+5. **Telemetry and Metrics**: Beyond basic logging, collect telemetry on user interactions, such as location queries, to inform higher-level management reports and monitor system performance.
 
 Additionally, consider logging retry attempts in server communications to correlate them with session IDs, enhancing error analysis and improving the overall reliability of data capture in your application. This approach to logging not only aids in immediate troubleshooting but also enhances long-term application stability and user satisfaction.
 
 Web Vitals primarily focuses on assessing the performance of applications, particularly useful for single-page applications, though adaptable for others. It measures high-level performance metrics like initial load time and various user interaction metrics to detect performance regressions. Installation and usage are straightforward: simply install the Web Vitals package and integrate it into your application.
 
-It\'s designed to capture events such as input delays during usage, continuously updating to reflect the maximum input delay observed. This requires careful database query structuring to ensure only the latest event per session is considered, avoiding duplicates. This is because Web Vitals may send multiple events as it updates the maximum observed values while the application is in use. If the user exits prematurely, some data may not be transmitted, although web beacons could mitigate this issue, albeit with limited library support.
+It's designed to capture events such as input delays during usage, continuously updating to reflect the maximum input delay observed. This requires careful database query structuring to ensure only the latest event per session is considered, avoiding duplicates. This is because Web Vitals may send multiple events as it updates the maximum observed values while the application is in use. If the user exits prematurely, some data may not be transmitted, although web beacons could mitigate this issue, albeit with limited library support.
 
 #### Reliability and Performance Metrics
 
-- It\'s impractical to keep a human eye on the influx of data at all times. This is where automated alerts come in, signaling when intervention is necessary. Using reliability metrics like ICE (Ideal Customer Experience) and ACE (Adjusted Customer Experience), teams can gauge application performance against established benchmarks.
+- It's impractical to keep a human eye on the influx of data at all times. This is where automated alerts come in, signaling when intervention is necessary. Using reliability metrics like ICE (Ideal Customer Experience) and ACE (Adjusted Customer Experience), teams can gauge application performance against established benchmarks.
 
 #### Introduction
 
@@ -411,7 +406,7 @@ It\'s designed to capture events such as input delays during usage, continuously
 
 - Things that a good monitoring system has:
 
-  - Coverage. The ability to trace a request through the entire system. This doesn't mean that you will necessarily know precisely what happens at each step, only that it goes through a system, but it got messed up for example. There has to be a complete path from the user\'s web browser all the way to the request being serviced, and back again. Teams should provide a correlation id with requests, or provide the capability for you to add your own trace id to the request so that you can track it and helps the other team know if you need help. This might mean that you need to add monitoring to many other intermediary services.
+  - Coverage. The ability to trace a request through the entire system. This doesn't mean that you will necessarily know precisely what happens at each step, only that it goes through a system, but it got messed up for example. There has to be a complete path from the user's web browser all the way to the request being serviced, and back again. Teams should provide a correlation id with requests, or provide the capability for you to add your own trace id to the request so that you can track it and helps the other team know if you need help. This might mean that you need to add monitoring to many other intermediary services.
 
   - Useful data. The events/metrics/logs have to be useful and contain relevant information which can be used to debug. For example, if a user is trying to sign up, but fails, then it might be useful to log their user id or the associated error message. One of the goals should be to reduce execution entropy. Think about it from the person using the logs to ascertain previous system behavior. Are they able to find out where the request failed within your application? How much are they able to narrow it down? It might also include the application's version, along with other versioning information, such as what server it is running on.
 
@@ -443,24 +438,21 @@ It\'s designed to capture events such as input delays during usage, continuously
 
 #### Terms
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 5\. **KPIs**: Key Performance Indicators. Metrics that demonstrate how effectively a company is achieving its business objectives. |
-| |
-| 7\. **Correlation id**: A unique identifier value that is attached to requests and messages that allow tracing of the whole chain of events of a transaction. |
-| |
-| 8\. **Telemetry**: An automated process where measurements and data are collected at remote points and transmitted to receiving equipment for monitoring. |
-| |
-| 10\. **MAU**: Monthly Active Users. The number of users who interact with a product within a 30-day window. |
-| |
-| 11\. **SLA**: Service Level Agreement. A contract between a service provider and the end-user that specifies what level of service is expected during the agreement\'s duration. |
-| |
-| 12\. **ICE (Ideal Customer Experience)**: A metric that measures user satisfaction, calculated as the number of successes divided by starts. |
-| |
-| 13\. **ACE (Adjusted Customer Experience)**: A metric that considers both successes and expected failures, divided by starts. |
-| |
-| 14\. **Error Budget**: An engineering concept based on the premise that 100% uptime or reliability is neither realistic nor the goal; instead, a certain \"budget\" of allowable errors or downtime is set. |
-+=================================================================================================================================================================================================================+
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+5\. **KPIs**: Key Performance Indicators. Metrics that demonstrate how effectively a company is achieving its business objectives.
+
+7\. **Correlation id**: A unique identifier value that is attached to requests and messages that allow tracing of the whole chain of events of a transaction.
+
+8\. **Telemetry**: An automated process where measurements and data are collected at remote points and transmitted to receiving equipment for monitoring.
+
+10\. **MAU**: Monthly Active Users. The number of users who interact with a product within a 30-day window.
+
+11\. **SLA**: Service Level Agreement. A contract between a service provider and the end-user that specifies what level of service is expected during the agreement's duration.
+
+12\. **ICE (Ideal Customer Experience)**: A metric that measures user satisfaction, calculated as the number of successes divided by starts.
+
+13\. **ACE (Adjusted Customer Experience)**: A metric that considers both successes and expected failures, divided by starts.
+
+14\. **Error Budget**: An engineering concept based on the premise that 100% uptime or reliability is neither realistic nor the goal; instead, a certain "budget" of allowable errors or downtime is set.
 
 #### What is telemetry?
 
@@ -498,7 +490,7 @@ It\'s designed to capture events such as input delays during usage, continuously
 
 #### Getting started with monitoring
 
-- It's likely that your application is complicated. Where do we start to collect data? When we think about what we need to collect, we need to start with a user-focused mindset. This normally involves collecting telemetry on the user's side, such as performance, errors, and frequency metrics (e.g., how often a button was pressed.) It's important to think about the big picture about what you're trying to achieve first, and then do the concrete implementation of the telemetry later. For example, say I want to know if the "Create project" feature that is being rolled out meets customers expectations. We know for sure that it can't meet customers\' expectations if it doesn't work. Therefore, we can add an error handler to send error data back to our analytics hub should there be issues. We can then set up alerting, or rules on the data, that will tell us immediately if customers' expectations are not being met. This helps with experimentation as you get a very fast feedback loop: as soon as there is an issue, you will be notified usually in the order of a few minutes or less, and can correlate it with what you're doing.
+- It's likely that your application is complicated. Where do we start to collect data? When we think about what we need to collect, we need to start with a user-focused mindset. This normally involves collecting telemetry on the user's side, such as performance, errors, and frequency metrics (e.g., how often a button was pressed.) It's important to think about the big picture about what you're trying to achieve first, and then do the concrete implementation of the telemetry later. For example, say I want to know if the "Create project" feature that is being rolled out meets customers expectations. We know for sure that it can't meet customers' expectations if it doesn't work. Therefore, we can add an error handler to send error data back to our analytics hub should there be issues. We can then set up alerting, or rules on the data, that will tell us immediately if customers' expectations are not being met. This helps with experimentation as you get a very fast feedback loop: as soon as there is an issue, you will be notified usually in the order of a few minutes or less, and can correlate it with what you're doing.
 
 #### Ok, where do I start?
 
@@ -506,96 +498,93 @@ It\'s designed to capture events such as input delays during usage, continuously
 
 - Another situation which overlaps is determine if there are issues or problems in your application, for example errors or performance issues. What are the core user scenarios, for example, when they click on your app, how long does it take to load for the first impression? What about some other processes, like creating a project? Does that take 10 minutes when it should take 10 seconds? What is the entire flow from when a user enters the app to that point? This might require logging at many different points, but there should be a well-reasoned strategy, such as logging in places that reduce execution entropy. For example, logging twice in a row is, in general, probably not as useful to determine what happened next than if it was logged after an if statement. Here's an example.
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Certainly! Let\'s consider an example involving a simple function to process user registration in a hypothetical application. |
-| |
-| ### Poor Logging Strategy |
-| |
-| `python |
-| |
-| def register_user(username, password, email): |
-| |
-| try: |
-| |
-| \# \... some code to add user to database \... |
-| |
-| db.add_user(username, password, email) |
-| |
-| \# Vague and non-descriptive log |
-| |
-| print(\"Operation completed.\") |
-| |
-| except Exception as e: |
-| |
-| \# Logging the whole exception without context |
-| |
-| print(e) |
-| |
-| \# Usage |
-| |
-| register_user(\"alice\", \"password123\", \"alice@example.com\") |
-| |
-| ` |
-| |
-| Issues with the above code: |
-| |
-| 1\. Using `print` instead of a proper logging library. |
-| |
-| 2\. The success message \"Operation completed.\" is vague. We don\'t know what operation was completed. |
-| |
-| 3\. Catching all exceptions and just printing them out without context can make it hard to understand the root cause. |
-| |
-| 4\. Sensitive information, like a password, might get logged inadvertently in the exception message. |
-| |
-| ### Good Logging Strategy |
-| |
-| Using Python\'s `logging` module: |
-| |
-| `python |
-| |
-| import logging |
-| |
-| logging.basicConfig(level=logging.INFO) |
-| |
-| logger = logging.getLogger(\_\_name\_\_) |
-| |
-| def register_user(username, password, email): |
-| |
-| try: |
-| |
-| \# \... some code to add user to database \... |
-| |
-| db.add_user(username, password, email) |
-| |
-| \# Descriptive log message with relevant context |
-| |
-| logger.info(f\"User registration successful for username: {username}, email: {email}\") |
-| |
-| except Exception as e: |
-| |
-| \# Logging error with context and without exposing sensitive information |
-| |
-| logger.error(f\"Failed to register user with username: {username}, email: {email}. Error: {type(e).\_\_name\_\_}\") |
-| |
-| \# Usage |
-| |
-| register_user(\"alice\", \"password123\", \"alice@example.com\") |
-| |
-| ` |
-| |
-| Improvements in the above code: |
-| |
-| 1\. Using the `logging` module which provides more functionality and flexibility compared to simple print statements. |
-| |
-| 2\. The success log is descriptive, providing context about which operation was successful. |
-| |
-| 3\. The error log provides enough information to understand what went wrong without dumping the whole exception, and without exposing any sensitive information like passwords. |
-| |
-| 4\. It\'s easy to change the logging level, format, and destination (e.g., file, console, external system) with the `logging` module. |
-| |
-| In practice, a good logging strategy would also involve considerations like log rotation, centralized logging for distributed systems, monitoring of logs for anomalies, etc. |
-+=================================================================================================================================================================================+
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Certainly! Let's consider an example involving a simple function to process user registration in a hypothetical application.
+
+### Poor Logging Strategy
+
+`python
+
+def register_user(username, password, email):
+
+try:
+
+\# ... some code to add user to database ...
+
+db.add_user(username, password, email)
+
+\# Vague and non-descriptive log
+
+print("Operation completed.")
+
+except Exception as e:
+
+\# Logging the whole exception without context
+
+print(e)
+
+\# Usage
+
+register_user("alice", "password123", "alice@example.com")
+
+`
+
+Issues with the above code:
+
+1. Using `print` instead of a proper logging library.
+
+2. The success message "Operation completed." is vague. We don't know what operation was completed.
+
+3. Catching all exceptions and just printing them out without context can make it hard to understand the root cause.
+
+4. Sensitive information, like a password, might get logged inadvertently in the exception message.
+
+### Good Logging Strategy
+
+Using Python's `logging` module:
+
+`python
+
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
+logger = logging.getLogger(\_\_name\_\_)
+
+def register_user(username, password, email):
+
+try:
+
+\# ... some code to add user to database ...
+
+db.add_user(username, password, email)
+
+\# Descriptive log message with relevant context
+
+logger.info(f"User registration successful for username: {username}, email: {email}")
+
+except Exception as e:
+
+\# Logging error with context and without exposing sensitive information
+
+logger.error(f"Failed to register user with username: {username}, email: {email}. Error: {type(e).\_\_name\_\_}")
+
+\# Usage
+
+register_user("alice", "password123", "alice@example.com")
+
+`
+
+Improvements in the above code:
+
+1. Using the `logging` module which provides more functionality and flexibility compared to simple print statements.
+
+2. The success log is descriptive, providing context about which operation was successful.
+
+3. The error log provides enough information to understand what went wrong without dumping the whole exception, and without exposing any sensitive information like passwords.
+
+4. It's easy to change the logging level, format, and destination (e.g., file, console, external system) with the `logging` module.
+
+In practice, a good logging strategy would also involve considerations like log rotation, centralized logging for distributed systems, monitoring of logs for anomalies, etc.
 
 - The reason why you want to include other information in the logs (e.g., successful, and not necessarily just a logging guid) is because you want to be able to quickly glance at the logs in your logging viewer (whatever that is) and be able to quickly discern if there are issues. Otherwise, you'd have to look up the logging ids every time.
 
@@ -607,28 +596,27 @@ It\'s designed to capture events such as input delays during usage, continuously
 
 - Here's a sample code impl in a TypeScript application.
 
-+--------------------------------------------------------------------------------------+
-| const telemetry = new TelemetrySender(\'https://telemetry.endpoint.com/sendEvent\'); |
-| |
-| const event: TelemetryEvent = { |
-| |
-| eventId: \'userClickedButton\', |
-| |
-| timestamp: Date.now(), |
-| |
-| data: { |
-| |
-| buttonId: \'saveBtn\', |
-| |
-| userId: \'12345\' |
-| |
-| } |
-| |
-| }; |
-| |
-| telemetry.send(event); |
-+======================================================================================+
-+--------------------------------------------------------------------------------------+
+```ts
+const telemetry = new TelemetrySender('https://telemetry.endpoint.com/sendEvent');
+
+const event: TelemetryEvent = {
+
+eventId: 'userClickedButton',
+
+timestamp: Date.now(),
+
+data: {
+
+buttonId: 'saveBtn',
+
+userId: '12345'
+
+}
+
+};
+
+telemetry.send(event);
+```
 
 - In this case, an event is sent to the analytics server once the user clicks on the button. This event is usually associated with the currently logged in user, particular feature flags enabled in the application, or might be part of the payload itself. This would depend on your specific telemetry's implementation, but should contain enough data to trace the request back throughout the application (e.g., via a correlation id) so that you can debug it.
 
@@ -678,7 +666,7 @@ It\'s designed to capture events such as input delays during usage, continuously
 
 #### What do I do with the data?
 
-- Graphing and plotting data, and making sense of what you're seeing is called sensemaking. It is a very important process because different perspectives on how you see and visualize data can alter business outcomes and what you need to do to change the application in response to different events. Try to avoid using templates for high-level business objectives because this might fail to cater to individual apps\' specific needs and features, and might be a sign that your company is developing the same application.
+- Graphing and plotting data, and making sense of what you're seeing is called sensemaking. It is a very important process because different perspectives on how you see and visualize data can alter business outcomes and what you need to do to change the application in response to different events. Try to avoid using templates for high-level business objectives because this might fail to cater to individual apps' specific needs and features, and might be a sign that your company is developing the same application.
 
 - There's different things, like median, mean, mode, percentiles, etc. please do not average percentiles that does not make sense. Averages are so-so, depends on what you are trying to measure. Percentiles might be misleading so be careful on what you are actually measuring and how it is actually impacting customer experience, cite video about 99.99% percentile video about the issues with that and the 20 HTTP request scenario.
 
@@ -688,7 +676,7 @@ It\'s designed to capture events such as input delays during usage, continuously
 
 - Performance regressions, web-vitals for front-end, etc.
 
-- **Monitoring the actual CI/CD pipeline itself could be useful**, for example, if the runner is using more and more RAM, or more and more disk space and might be getting full soon, or it is taking longer and longer to complete (thus compromising the fast feedback loop.) The pipeline is just a server so I\'m wondering if regular monitoring tools would apply. If it's slow then it might be using just a single CPU, or too much network, etc.
+- **Monitoring the actual CI/CD pipeline itself could be useful**, for example, if the runner is using more and more RAM, or more and more disk space and might be getting full soon, or it is taking longer and longer to complete (thus compromising the fast feedback loop.) The pipeline is just a server so I'm wondering if regular monitoring tools would apply. If it's slow then it might be using just a single CPU, or too much network, etc.
 
 - Sample size is important, and provides confidence in estimates (use effect size.) Using heuristics are unlikely to be reliable and are difficult to compare over time.
 
@@ -698,103 +686,97 @@ It\'s designed to capture events such as input delays during usage, continuously
 
 #### Conclusion
 
-- As we embark on the journey of continuous integration and delivery, monitoring remains our guiding star. It\'s not about collecting vast amounts of data but making sense of it. With a strategic approach to monitoring, teams can ensure software products that are not just functional but also resonate with the users\' needs and preferences.
+- As we embark on the journey of continuous integration and delivery, monitoring remains our guiding star. It's not about collecting vast amounts of data but making sense of it. With a strategic approach to monitoring, teams can ensure software products that are not just functional but also resonate with the users' needs and preferences.
 
 **How do I get the information from my monitors and how do I set up monitoring and logging? How do I associate the logs with a specific application version?**
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| The section on \"Monitoring and Feedback in Continuous Deployment\" is comprehensive and well-structured. It offers readers insights into various tools, best practices, and methodologies related to monitoring in CI/CD. Here are some suggestions and observations: |
-| |
-| 1\. **Introductory Transition:** You could introduce the topic with a sentence or two, setting the context for the reader. For instance: |
-| |
-| \- \"Continuous Deployment relies heavily on effective monitoring and feedback mechanisms to ensure software performance and stability. Let\'s delve into the specifics of setting up and managing these mechanisms.\" |
-| |
-| 2\. **Goal of Monitoring:** |
-| |
-| \- Consider highlighting the dual aims: \"The primary aims of monitoring are to ensure application performance and reduce or eliminate ambiguity during troubleshooting.\" |
-| |
-| 3\. **Dashboard Types:** |
-| |
-| \- It might be worthwhile to mention that dashboards are visual representations of data, making them indispensable for rapid diagnostics and decision-making. |
-| |
-| 4\. **Design Considerations:** |
-| |
-| \- Add a point on responsiveness. With the increase in mobile use, ensuring that dashboards are mobile-friendly and adapt to different screen sizes can be crucial. |
-| |
-| 5\. **Performance Monitoring:** |
-| |
-| \- Mention other performance metrics like Disk I/O, Network bandwidth, etc., to give a more rounded view. |
-| |
-| 6\. **Logging Considerations:** |
-| |
-| \- You could also highlight the need for secure logging. Certain data should never be logged (like passwords, personal user details, etc.) due to security and privacy concerns. |
-| |
-| 7\. **5 W's of Logging:** |
-| |
-| \- Great touch here. This will be incredibly useful for developers and sysadmins alike. |
-| |
-| 8\. **Blue-green database deployment strategies:** |
-| |
-| \- It feels a bit out of place since you provided a detailed section before and after it. Consider expanding on it or positioning it in a more appropriate section or context. |
-| |
-| 9\. **On trust and automation:** |
-| |
-| \- The content here is dense and rich. To enhance readability, consider breaking down the longer sentences. |
-| |
-| \- Highlight the importance of human oversight. Even with automation, human involvement remains critical for edge cases and unforeseen circumstances. Emphasize that automation is a tool, not a replacement for human judgment. |
-| |
-| 10\. **Citations:** |
-| |
-| \- Ensure that any referenced content is appropriately credited, as you\'ve done. It adds credibility and depth to the material. However, depending on the medium of this content (e.g., a book, an online course, etc.), you may need to follow specific citation styles or consider hyperlinking directly to the source if it\'s a digital medium. |
-| |
-| 11\. **General:** |
-| |
-| \- A few headings seem to end with URLs (e.g., Logging and Log Management (ipfs.localhost)). Ensure that these URLs are meant to be there or if they were placeholders that should be updated. |
-| |
-| \- Consider providing some practical examples or case studies. Real-world scenarios or illustrations can help ground the theoretical information. |
-| |
-| Overall, you\'ve done an excellent job at consolidating a vast amount of information into a coherent and informative piece. The content covers the essentials of monitoring and feedback in CI/CD thoroughly, making it a valuable resource. |
-+======================================================================================================================================================================================================================================================================================================================================================+
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+The section on "Monitoring and Feedback in Continuous Deployment" is comprehensive and well-structured. It offers readers insights into various tools, best practices, and methodologies related to monitoring in CI/CD. Here are some suggestions and observations:
+
+1. **Introductory Transition:** You could introduce the topic with a sentence or two, setting the context for the reader. For instance:
+
+\- "Continuous Deployment relies heavily on effective monitoring and feedback mechanisms to ensure software performance and stability. Let's delve into the specifics of setting up and managing these mechanisms."
+
+2. **Goal of Monitoring:**
+
+\- Consider highlighting the dual aims: "The primary aims of monitoring are to ensure application performance and reduce or eliminate ambiguity during troubleshooting."
+
+3. **Dashboard Types:**
+
+\- It might be worthwhile to mention that dashboards are visual representations of data, making them indispensable for rapid diagnostics and decision-making.
+
+4. **Design Considerations:**
+
+\- Add a point on responsiveness. With the increase in mobile use, ensuring that dashboards are mobile-friendly and adapt to different screen sizes can be crucial.
+
+5. **Performance Monitoring:**
+
+\- Mention other performance metrics like Disk I/O, Network bandwidth, etc., to give a more rounded view.
+
+6. **Logging Considerations:**
+
+\- You could also highlight the need for secure logging. Certain data should never be logged (like passwords, personal user details, etc.) due to security and privacy concerns.
+
+7. **5 W's of Logging:**
+
+\- Great touch here. This will be incredibly useful for developers and sysadmins alike.
+
+8. **Blue-green database deployment strategies:**
+
+\- It feels a bit out of place since you provided a detailed section before and after it. Consider expanding on it or positioning it in a more appropriate section or context.
+
+9. **On trust and automation:**
+
+\- The content here is dense and rich. To enhance readability, consider breaking down the longer sentences.
+
+\- Highlight the importance of human oversight. Even with automation, human involvement remains critical for edge cases and unforeseen circumstances. Emphasize that automation is a tool, not a replacement for human judgment.
+
+10. **Citations:**
+
+\- Ensure that any referenced content is appropriately credited, as you've done. It adds credibility and depth to the material. However, depending on the medium of this content (e.g., a book, an online course, etc.), you may need to follow specific citation styles or consider hyperlinking directly to the source if it's a digital medium.
+
+11. **General:**
+
+\- A few headings seem to end with URLs (e.g., Logging and Log Management (ipfs.localhost)). Ensure that these URLs are meant to be there or if they were placeholders that should be updated.
+
+\- Consider providing some practical examples or case studies. Real-world scenarios or illustrations can help ground the theoretical information.
+
+Overall, you've done an excellent job at consolidating a vast amount of information into a coherent and informative piece. The content covers the essentials of monitoring and feedback in CI/CD thoroughly, making it a valuable resource.
 
 #### 1. **Goal of Monitoring:** {#goal-of-monitoring .unnumbered}
 
-The aim is to reduce or eliminate ambiguity when diagnosing incorrect functionality. It\'s important to log strategically, showing a clear execution path but ensuring it doesn\'t excessively slow down the application due to data storage concerns.
+The aim is to reduce or eliminate ambiguity when diagnosing incorrect functionality. It's important to log strategically, showing a clear execution path but ensuring it doesn't excessively slow down the application due to data storage concerns.
 
 #### What should I add to the code to do monitoring? Where do I monitor? {#what-should-i-add-to-the-code-to-do-monitoring-where-do-i-monitor .unnumbered}
 
 #### Monitoring software/tools {#monitoring-softwaretools .unnumbered}
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Certainly! Monitoring and observability are critical components of the CI/CD pipeline, especially in production environments. Here\'s a list of some popular CI/CD software monitoring products: |
-| |
-| 1\. **Datadog**: A cloud-based monitoring and analytics platform that allows for full-stack observability by integrating with numerous platforms and services. It offers real-time performance dashboards, end-to-end tracing, synthetic monitoring, and log management. |
-| |
-| 2\. **Prometheus**: An open-source system monitoring and alerting toolkit originally built at SoundCloud. It\'s now a standalone open-source project and maintained independently of any company. It integrates well with the container orchestration system Kubernetes. |
-| |
-| 3\. **New Relic**: Provides insights into application performance, infrastructure monitoring, and customer experience. The platform offers a suite of products that track various aspects of applications and infrastructure health. |
-| |
-| 4\. **Splunk**: Known for its powerful log aggregation and search capabilities, Splunk has expanded its capabilities to offer infrastructure and application monitoring with its Splunk IT Service Intelligence (ITSI) and SignalFx products. |
-| |
-| 5\. **Elastic Stack (ELK Stack)**: Comprises Elasticsearch, Logstash, and Kibana. It\'s widely used for searching, analyzing, and visualizing logs in real-time. |
-| |
-| 6\. **Grafana**: An open-source platform for monitoring and observability. Grafana allows users to create, explore, and share dashboards from multiple data sources, including Prometheus, Graphite, and InfluxDB. |
-| |
-| 7\. **Dynatrace**: A software intelligence platform that offers application performance monitoring (APM), artificial intelligence for operations (AIOps), cloud infrastructure monitoring, and digital experience management. |
-| |
-| 8\. **AppDynamics**: Acquired by Cisco, AppDynamics is an application performance management (APM) and IT operations analytics (ITOA) company. It provides real-time monitoring of applications and infrastructure. |
-| |
-| 9\. **Sentry**: An open-source error tracking tool that helps developers monitor and fix crashes in real-time. It\'s especially useful for identifying issues in code post-deployment. |
-| |
-| 10\. **Raygun**: Provides error and performance monitoring for software applications. It helps developers diagnose issues in their applications by providing detailed error diagnostics and performance timing information. |
-| |
-| 11\. **Honeycomb**: An observability platform that allows for high-cardinality data exploration, helping developers understand and debug production issues. |
-| |
-| 12\. **LightStep**: Focuses on tracing and is particularly optimized for microservices and serverless architectures. |
-| |
-| It\'s worth noting that the best monitoring solution often depends on the specific requirements of the organization, the existing tech stack, and the nature of the applications being monitored. Many companies use a combination of several tools to achieve full-stack observability. |
-+==========================================================================================================================================================================================================================================================================================+
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Certainly! Monitoring and observability are critical components of the CI/CD pipeline, especially in production environments. Here's a list of some popular CI/CD software monitoring products:
+
+1\. **Datadog**: A cloud-based monitoring and analytics platform that allows for full-stack observability by integrating with numerous platforms and services. It offers real-time performance dashboards, end-to-end tracing, synthetic monitoring, and log management.
+
+2\. **Prometheus**: An open-source system monitoring and alerting toolkit originally built at SoundCloud. It's now a standalone open-source project and maintained independently of any company. It integrates well with the container orchestration system Kubernetes.
+
+3\. **New Relic**: Provides insights into application performance, infrastructure monitoring, and customer experience. The platform offers a suite of products that track various aspects of applications and infrastructure health.
+
+4\. **Splunk**: Known for its powerful log aggregation and search capabilities, Splunk has expanded its capabilities to offer infrastructure and application monitoring with its Splunk IT Service Intelligence (ITSI) and SignalFx products.
+
+5\. **Elastic Stack (ELK Stack)**: Comprises Elasticsearch, Logstash, and Kibana. It's widely used for searching, analyzing, and visualizing logs in real-time.
+
+6\. **Grafana**: An open-source platform for monitoring and observability. Grafana allows users to create, explore, and share dashboards from multiple data sources, including Prometheus, Graphite, and InfluxDB.
+
+7\. **Dynatrace**: A software intelligence platform that offers application performance monitoring (APM), artificial intelligence for operations (AIOps), cloud infrastructure monitoring, and digital experience management.
+
+8\. **AppDynamics**: Acquired by Cisco, AppDynamics is an application performance management (APM) and IT operations analytics (ITOA) company. It provides real-time monitoring of applications and infrastructure.
+
+9\. **Sentry**: An open-source error tracking tool that helps developers monitor and fix crashes in real-time. It's especially useful for identifying issues in code post-deployment.
+
+10\. **Raygun**: Provides error and performance monitoring for software applications. It helps developers diagnose issues in their applications by providing detailed error diagnostics and performance timing information.
+
+11\. **Honeycomb**: An observability platform that allows for high-cardinality data exploration, helping developers understand and debug production issues.
+
+12\. **LightStep**: Focuses on tracing and is particularly optimized for microservices and serverless architectures.
+
+It's worth noting that the best monitoring solution often depends on the specific requirements of the organization, the existing tech stack, and the nature of the applications being monitored. Many companies use a combination of several tools to achieve full-stack observability.
 
 #### 2. **Dashboard Types:** {#dashboard-types .unnumbered}
 
@@ -828,19 +810,19 @@ The aim is to reduce or eliminate ambiguity when diagnosing incorrect functional
 
 #### 6. **Performance Monitoring:** {#performance-monitoring .unnumbered}
 
-> CPU usage can be an indicator, but it\'s essential to pair it with end-user experience metrics to get a holistic view.
+> CPU usage can be an indicator, but it's essential to pair it with end-user experience metrics to get a holistic view.
 >
-> Consider utilizing cloud providers for scalability and fault tolerance. Robust monitoring tools should alert immediately if there\'s a performance issue, possibly via third-party software to ensure redundancy.
+> Consider utilizing cloud providers for scalability and fault tolerance. Robust monitoring tools should alert immediately if there's a performance issue, possibly via third-party software to ensure redundancy.
 
 #### 7. **Logging Considerations:** {#logging-considerations .unnumbered}
 
-> Log managers manage, tabulate, and graph logs but don\'t instruct on what or where to log.
+> Log managers manage, tabulate, and graph logs but don't instruct on what or where to log.
 >
 > Developers should create clear, concise log messages that provide essential debugging information.
 >
 > Also important to know what and when to log, and what to include in the log messages.
 >
-> Assigning priority levels to different logs is crucial. Telemetry is typically what\'s logged, with different types categorized by importance.
+> Assigning priority levels to different logs is crucial. Telemetry is typically what's logged, with different types categorized by importance.
 
 [[Logging and Log Management (ipfs.localhost)]{.underline}](http://bafykbzaceaj2pndeya33yj3lkzcvbkbrdetebwouligktjwdr3vtzhzvjxhyw.ipfs.localhost:8080/?filename=Anton%20A.%20Chuvakin%2C%20Kevin%20J.%20Schmidt%20-%20Logging%20and%20log%20management_%20The%20authoritative%20guide%20to%20understanding%20the%20concepts%20surrounding%20logging%20and%20log%20management-Syngress%20%282012%29.pdf)
 
@@ -848,7 +830,7 @@ The aim is to reduce or eliminate ambiguity when diagnosing incorrect functional
 >
 > \- **What Happened?**
 >
-> Provide appropriate details. Merely stating \"Something happened\" is not particularly useful.
+> Provide appropriate details. Merely stating "Something happened" is not particularly useful.
 >
 > \- **When Did It Happen?**
 >
@@ -866,9 +848,9 @@ The aim is to reduce or eliminate ambiguity when diagnosing incorrect functional
 >
 > Where did the entity come from?
 >
-> These key points represent the **\"5 W's of Logging\"**. They have been borrowed from disciplines like journalism and criminal investigation, among others.
+> These key points represent the **"5 W's of Logging"**. They have been borrowed from disciplines like journalism and criminal investigation, among others.
 >
-> For a more comprehensive understanding, it\'s beneficial to know:
+> For a more comprehensive understanding, it's beneficial to know:
 >
 > \- **Additional Information:**
 >
@@ -902,7 +884,7 @@ The aim is to reduce or eliminate ambiguity when diagnosing incorrect functional
 
 - Likely originated (the word "flag" as used in programming to indicate a state) from [[International maritime signal flags - Wikipedia]{.underline}](https://en.wikipedia.org/wiki/International_maritime_signal_flags)
 
-- [[Best of Velocity: Move Fast and Ship Things - Facebook\'s Operational and Release Processes - YouTube]{.underline}](https://www.youtube.com/watch?v=dDf2t-E_Ea8&t=680s) facebook popularized it? 2013 so nope
+- [[Best of Velocity: Move Fast and Ship Things - Facebook's Operational and Release Processes - YouTube]{.underline}](https://www.youtube.com/watch?v=dDf2t-E_Ea8&t=680s) facebook popularized it? 2013 so nope
 
 - [[10+ Deploys Per Day: Dev and Ops Cooperation at Flickr \| PPT (slideshare.net)]{.underline}](https://www.slideshare.net/jallspaw/10-deploys-per-day-dev-and-ops-cooperation-at-flickr) 2009
 
@@ -969,11 +951,11 @@ This simple approach fetches flags from a blob at runtime. It’s quick to start
 
 ### 1) Create a GitHub repository
 
-```bash
 # Create/clone a repo
+```bash
 git clone https://github.com/your-username/feature-flags-azure-storage.git
-cd feature-flags-azure-storage
 ```
+cd feature-flags-azure-storage
 
 ### 2) Add a `flags.json`
 
@@ -1036,8 +1018,8 @@ jobs:
 
 ### 6) Commit & push
 
-```bash
 git add .
+```bash
 git commit -m "Initial setup with feature flags"
 git push origin main
 ```
@@ -1230,7 +1212,6 @@ A **Dockerfile** is a text file with instructions to build a Docker **image**—
 
 **Example: simple Python web app Dockerfile**
 
-```dockerfile
 # 1) Base image
 FROM python:3.8-slim
 
@@ -1248,7 +1229,6 @@ EXPOSE 80
 
 # 6) Default command
 CMD ["python", "app.py"]
-```
 
 **Notes**
 
@@ -1260,7 +1240,9 @@ CMD ["python", "app.py"]
 * If you build without `-t`, you’ll get an image with `<none>:<none>` and an image ID (e.g., `d49c4d85c3ea`), which is hard to track. Retag if needed:
 
   ```bash
+```bash
   docker tag d49c4d85c3ea myuser/myapp:v1.0
+```
   ```
 
 #### Tagging images & pushing to registries
@@ -1281,37 +1263,49 @@ CMD ["python", "app.py"]
 
 **Build, tag, push (general)**
 
-```bash
 # Build
 docker build -t myuser/myapp:v1.0 .
 
 # (Optional) Retag with registry hostname
+```bash
 docker tag myuser/myapp:v1.0 myregistry.example.com/myuser/myapp:v1.0
+```
 
 # Login + push
+```bash
 docker login myregistry.example.com
 docker push myregistry.example.com/myuser/myapp:v1.0
+```
 
 # Pull elsewhere
+```bash
 docker pull myregistry.example.com/myuser/myapp:v1.0
 ```
 
 **Azure Container Registry (ACR) example (condensed)**
 
-```bash
 # Login to Azure
+```bash
 az login
+```
 
 # Create registry (once)
+```bash
 az acr create --resource-group myresourcegroup --name myregistry --sku Basic
+```
 
 # Docker/ACR auth
+```bash
 az acr login --name myregistry
+```
 
 # Tag with login server
+```bash
 docker tag myuser/myapp:v1 myregistry.azurecr.io/myapp:v1
+```
 
 # Push + verify
+```bash
 docker push myregistry.azurecr.io/myapp:v1
 az acr repository list --name myregistry --output table
 az acr repository show-tags --name myregistry --repository myapp --output table

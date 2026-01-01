@@ -4,17 +4,19 @@
 
 ## **Comparison of Versioning Solutions** {#comparison-of-versioning-solutions .unnumbered}
 
-| Tool                       | What it does                                                                                             |   Versioning | Automation stage      | Ecosystem  | Pros                                                 | Cons                                                                      |
-| -------------------------- | -------------------------------------------------------------------------------------------------------- | -----------: | --------------------- | ---------- | ---------------------------------------------------- | ------------------------------------------------------------------------- |
-| **GitVersion**             | Derives semantic versions from Git history, branches, and tags.                                          |       SemVer | Build‑time            | .NET, CLI  | Very flexible; handles complex branching strategies. | Can be complex to configure; requires understanding your branching model. |
-| **standard-version**       | Bumps versions, writes changelog, creates Git tags from Conventional Commits.                            |       SemVer | Commit/Release        | JavaScript | Simple; enforces consistent commit messages.         | Less flexible; requires strict Conventional Commits.                      |
-| **semantic-release**       | Fully automates versioning, changelog, GitHub/GitLab releases, and publishing from Conventional Commits. |       SemVer | Continuous Deployment | JavaScript | End‑to‑end automation; consistent releases.          | Initial setup can be tricky; assumes strong CD discipline.                |
-| **Nerdbank.GitVersioning** | Embeds version metadata via MSBuild; versions from Git.                                                  |       SemVer | Build‑time            | .NET       | Lightweight and easy for simple projects.            | Fewer knobs than GitVersion.                                              |
-| **minver**                 | Infers SemVer from Git tags; supports pre‑releases.                                                      |       SemVer | Build‑time            | .NET       | Minimal config; quick start.                         | Limited control over versioning logic.                                    |
-| **conventional-changelog** | Generates changelogs from Conventional Commit messages.                                                  |          n/a | n/a                   | JavaScript | Decouples changelog generation from versioning.      | Requires Conventional Commits.                                            |
-| **release-please**         | Opens release PRs and automates versioning from Conventional Commits and labels.                         |       SemVer | GitHub Actions        | JavaScript | Smooth GitHub integration; PR‑driven flow.           | Tied to GitHub; Conventional Commits assumed.                             |
-| **changesets**             | Manages version bumps/changelogs in (mono)repos via small “changeset” files.                             |       SemVer | Release               | JavaScript | Great for monorepos; granular control per package.   | Extra steps; can feel heavy for small projects.                           |
-| **release-it**             | General‑purpose release automation with rich plugin ecosystem.                                           | Customizable | Release               | JavaScript | Highly customizable; fits many workflows.            | Requires more configuration than opinionated tools.                       |
+```
+Tool                       | What it does                                                                                             |   Versioning | Automation stage      | Ecosystem  | Pros                                                 | Cons
+-------------------------- | -------------------------------------------------------------------------------------------------------- | -----------: | --------------------- | ---------- | ---------------------------------------------------- | -------------------------------------------------------------------------
+**GitVersion**             | Derives semantic versions from Git history, branches, and tags.                                          |       SemVer | Build‑time            | .NET, CLI  | Very flexible; handles complex branching strategies. | Can be complex to configure; requires understanding your branching model.
+**standard-version**       | Bumps versions, writes changelog, creates Git tags from Conventional Commits.                            |       SemVer | Commit/Release        | JavaScript | Simple; enforces consistent commit messages.         | Less flexible; requires strict Conventional Commits.
+**semantic-release**       | Fully automates versioning, changelog, GitHub/GitLab releases, and publishing from Conventional Commits. |       SemVer | Continuous Deployment | JavaScript | End‑to‑end automation; consistent releases.          | Initial setup can be tricky; assumes strong CD discipline.
+**Nerdbank.GitVersioning** | Embeds version metadata via MSBuild; versions from Git.                                                  |       SemVer | Build‑time            | .NET       | Lightweight and easy for simple projects.            | Fewer knobs than GitVersion.
+**minver**                 | Infers SemVer from Git tags; supports pre‑releases.                                                      |       SemVer | Build‑time            | .NET       | Minimal config; quick start.                         | Limited control over versioning logic.
+**conventional-changelog** | Generates changelogs from Conventional Commit messages.                                                  |          n/a | n/a                   | JavaScript | Decouples changelog generation from versioning.      | Requires Conventional Commits.
+**release-please**         | Opens release PRs and automates versioning from Conventional Commits and labels.                         |       SemVer | GitHub Actions        | JavaScript | Smooth GitHub integration; PR‑driven flow.           | Tied to GitHub; Conventional Commits assumed.
+**changesets**             | Manages version bumps/changelogs in (mono)repos via small “changeset” files.                             |       SemVer | Release               | JavaScript | Great for monorepos; granular control per package.   | Extra steps; can feel heavy for small projects.
+**release-it**             | General‑purpose release automation with rich plugin ecosystem.                                           | Customizable | Release               | JavaScript | Highly customizable; fits many workflows.            | Requires more configuration than opinionated tools.
+```
 
 ### Choosing the right tool
 
@@ -30,7 +32,6 @@
 
 > This demonstrates wiring a human‑triggered release with a staging step and an optional production promotion. It also fixes the `release_id` output so later jobs can use it.
 
-```yaml
 name: Deployment
 
 on:
@@ -102,7 +103,6 @@ jobs:
         run: |
           echo "Deploying to production with release ID: ${{ needs.create_release.outputs.release_id }}"
           sleep 5
-```
 
 ---
 
@@ -164,12 +164,14 @@ jobs:
 
 A good scheme is **comparable**, **communicative**, and **automatable**.
 
-| Strategy                         | Pros                                                                                 | Cons                                                                  |
-| -------------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
-| **Semantic Versioning (SemVer)** | Widely understood; communicates breaking vs minor vs patch; integrates with tooling. | Requires discipline; can “inflate” numbers for unstable software.     |
-| **Date‑based (YYYY.MM.DD)**      | Instantly shows recency; neutral about change size; pairs well with evergreen apps.  | Doesn’t signal impact; multiple same‑day releases need suffixes.      |
-| **Sequential (1, 2, 3…)**        | Simple; always increases; easy to compare.                                           | Conveys little about change impact; can imply “big changes” when not. |
-| **Release trains**               | Predictable cadence; good for large orgs with many dependencies.                     | May force scope/time trade‑offs; doesn’t describe content.            |
+```
+Strategy                         | Pros                                                                                 | Cons
+-------------------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------
+**Semantic Versioning (SemVer)** | Widely understood; communicates breaking vs minor vs patch; integrates with tooling. | Requires discipline; can “inflate” numbers for unstable software.
+**Date‑based (YYYY.MM.DD)**      | Instantly shows recency; neutral about change size; pairs well with evergreen apps.  | Doesn’t signal impact; multiple same‑day releases need suffixes.
+**Sequential (1, 2, 3…)**        | Simple; always increases; easy to compare.                                           | Conveys little about change impact; can imply “big changes” when not.
+**Release trains**               | Predictable cadence; good for large orgs with many dependencies.                     | May force scope/time trade‑offs; doesn’t describe content.
+```
 
 **Anti‑patterns (avoid):**
 

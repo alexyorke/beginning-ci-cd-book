@@ -16,7 +16,7 @@ Here are practical examples of how to use the chmod command to change file permi
 
 **2. Setting Specific Permissions:**
 
-**[SSH public keys and private keys each have a certain permissions. Otherwise it won\'t be possible to use these keys when you use SSH within your runner.]{.mark}**
+**[SSH public keys and private keys each have a certain permissions. Otherwise it won't be possible to use these keys when you use SSH within your runner.]{.mark}**
 
 **Setting read and write permissions for the owner:\
 ** chmod 600 \~/.ssh/id_rsa
@@ -48,11 +48,11 @@ Here are practical examples of how to use the chmod command to change file permi
 
 -   **Octal Notation:** chmod uses octal notation to represent permissions:
 
-    -   The first digit (hundreds place) represents the owner\'s permissions.
+    -   The first digit (hundreds place) represents the owner's permissions.
 
-    -   The second digit (tens place) represents the group\'s permissions.
+    -   The second digit (tens place) represents the group's permissions.
 
-    -   The third digit (ones place) represents the others\' permissions.
+    -   The third digit (ones place) represents the others' permissions.
 
 -   
 
@@ -79,7 +79,7 @@ Here are practical examples of how to use the chmod command to change file permi
 
 -   **Safety:** Be cautious when using chmod. Incorrectly setting permissions can make files inaccessible or grant unintended access to others.
 
--   **Best Practices:** It\'s often good practice to restrict permissions on sensitive files like SSH keys (\~/.ssh/id_rsa) to the owner only (using chmod 600).
+-   **Best Practices:** It's often good practice to restrict permissions on sensitive files like SSH keys (\~/.ssh/id_rsa) to the owner only (using chmod 600).
 
 -   **Reference:** You can use ls -l to view the current permissions of a file. The first character in the output represents the file type (e.g., - for a regular file, d for a directory), and the next nine characters represent the permissions (three sets of three characters for owner, group, and others).
 

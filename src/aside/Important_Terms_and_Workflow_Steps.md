@@ -43,156 +43,156 @@ Build Status: Build status is an indicator of whether a build or integration pro
 ### What steps should my workflow have? {#what-steps-should-my-workflow-have .unnumbered}
 
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| The steps can be grouped by major themes such as Release Management, Build Process, Docker and Container Management, Version Control, Testing, Caching, Environment and Setup, and Miscellaneous Tools. Each sub-theme under these major themes is based on the actions that the steps are implied to perform. |
-| |
-| Each major theme will be annotated with its summed frequency and ordered according to the sum. Sub-themes will be described along with speculative actions they might be performing. |
-| |
-| ### Release Management (Total: 5308) |
-| |
-| Total frequency calculated by summing all frequencies in this theme. |
-| |
-| - Release Creation and Publication (Total: 3417) |
-| |
-| - Creating GitHub releases, identifying upload URLs, and handling release drafts. |
-| |
-| - Tag Management (Total: 936) |
-| |
-| - Handling version tags, extracting tag information, and managing release versions. |
-| |
-| - Version Bumping and Semantic Versioning (Total: 572) |
-| |
-| - Managing version increments and providing semantic versioning guidance. |
-| |
-| - Changelog and Release Notes (Total: 383) |
-| |
-| - Generating and organizing changelog entries, and managing release notes. |
-| |
-| ### Build Process (Total: 1462) |
-| |
-| Total frequency calculated by summing all frequencies in this theme. |
-| |
-| - Compilation and Assembly (Total: 455) |
-| |
-| - Compiling code and managing compilation status. |
-| |
-| - Build Utilities (Total: 373) |
-| |
-| - Handling various build utilities and helpers. |
-| |
-| - Continuous Integration (Total: 634) |
-| |
-| - Managing CI processes, organizing build artifacts, and preparing environments. |
-| |
-| ### Docker and Container Management (Total: 1321) |
-| |
-| Total frequency calculated by summing all frequencies in this theme. |
-| |
-| - Docker Image Handling (Total: 879) |
-| |
-| - Building, tagging, naming, and pushing docker images. |
-| |
-| - Container and Platform Configuration (Total: 292) |
-| |
-| - Setting up container and platform specifics such as platforms and labels. |
-| |
-| - Miscellaneous Docker Related (Total: 150) |
-| |
-| - Other Docker-related tasks and cache management. |
-| |
-| ### Version Control (Total: 2048) |
-| |
-| Total frequency calculated by summing all frequencies in this theme. |
-| |
-| - Version and Release Information (Total: 1064) |
-| |
-| - Retrieving and setting version data, including semantic versioning. |
-| |
-| - Branch Management (Total: 577) |
-| |
-| - Extracting and managing branch information. |
-| |
-| - Commit and Repository Info (Total: 407) |
-| |
-| - Checking repository states, managing commit data. |
-| |
-| ### Testing (Total: 267) |
-| |
-| Total frequency calculated by summing all frequencies in this theme. |
-| |
-| - Test Execution and Reporting (Total: 267) |
-| |
-| - Executing tests and outputting results or statuses. |
-| |
-| ### Caching (Total: 953) |
-| |
-| Total frequency calculated by summing all frequencies in this theme. |
-| |
-| - General Caching (Total: 520) |
-| |
-| - Managing cache entries and directory paths. |
-| |
-| - Specialized Caching (Total: 433) |
-| |
-| - Caching specific tools or environments such as Node modules or Composer. |
-| |
-| ### Environment and Setup (Total: 1323) |
-| |
-| Total frequency calculated by summing all frequencies in this theme. |
-| |
-| - Environment Configuration (Total: 851) |
-| |
-| - Populating environment variables, managing configurations. |
-| |
-| - Project and System Setup (Total: 472) |
-| |
-| - Preparing the build environment, checking system states. |
-| |
-| ### Miscellaneous Tools (Total: 405) |
-| |
-| Total frequency calculated by summing all frequencies in this theme. |
-| |
-| - Utility Tools (Total: 405) |
-| |
-| - Varied utilities such as timestamp retrieval, setup of tools like GPG, or workflow operation utilities. |
-| |
-| Please note that this is an approximation based on the step names. Actual actions performed by these steps would depend on the specific configurations and logic within the GitHub Actions definitions. |
-| |
-| ===================================================================================================== |
-| |
-| For the **Version and Release Information** sub-theme, we can further break it down into: |
-| |
-| - **Version Extraction and Parsing (Total: 839)** |
-| |
-| - Operations that focus on extracting version strings, parsing, or converting version notation. |
-| |
-| - **Version Management (Total: 237)** |
-| |
-| - Actions associated with incrementing a version, checking version alignment, or managing version-related metadata. |
-| |
-| - **Release Versioning (Total: 65)** |
-| |
-| - Handling the versioning related to the releases specifically. |
-| |
-| For the **Build Process** sub-theme, we can further categorize into: |
-| |
-| - **Code Compilation (Total: 455)** |
-| |
-| - The process that involves taking source code and converting it into an executable binary, library, or another output type. |
-| |
-| - **Artifact Assembly (Total: 50)** |
-| |
-| - Steps involved in assembling, packaging, or preparing build artifacts for deployment or distribution. |
-| |
-| - **Build Assistance (Total: 227)** |
-| |
-| - This includes setting arguments for the build, handling build numbers, or other secondary operations that support the main build process. |
-| |
-| - **Build Environment Preparation (Total: 730)** |
-| |
-| - These steps encompass preparing the build environment, setting up necessary dependencies or tools, configuring platforms, etc. |
-| |
-| These categorizations are estimated based on the names of the steps and the frequencies at which they occur. They indicate the granularity of actions taken within Version and Release Information management and the Build Process, which would typically be configured within a GitHub Actions workflow for CI/CD pipelines. |
-|================================================================================================================================================================================================================================================================================================================================+
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+The steps can be grouped by major themes such as Release Management, Build Process, Docker and Container Management, Version Control, Testing, Caching, Environment and Setup, and Miscellaneous Tools. Each sub-theme under these major themes is based on the actions that the steps are implied to perform.
+
+Each major theme will be annotated with its summed frequency and ordered according to the sum. Sub-themes will be described along with speculative actions they might be performing.
+
+### Release Management (Total: 5308)
+
+Total frequency calculated by summing all frequencies in this theme.
+
+- Release Creation and Publication (Total: 3417)
+
+- Creating GitHub releases, identifying upload URLs, and handling release drafts.
+
+- Tag Management (Total: 936)
+
+- Handling version tags, extracting tag information, and managing release versions.
+
+- Version Bumping and Semantic Versioning (Total: 572)
+
+- Managing version increments and providing semantic versioning guidance.
+
+- Changelog and Release Notes (Total: 383)
+
+- Generating and organizing changelog entries, and managing release notes.
+
+### Build Process (Total: 1462)
+
+Total frequency calculated by summing all frequencies in this theme.
+
+- Compilation and Assembly (Total: 455)
+
+- Compiling code and managing compilation status.
+
+- Build Utilities (Total: 373)
+
+- Handling various build utilities and helpers.
+
+- Continuous Integration (Total: 634)
+
+- Managing CI processes, organizing build artifacts, and preparing environments.
+
+### Docker and Container Management (Total: 1321)
+
+Total frequency calculated by summing all frequencies in this theme.
+
+- Docker Image Handling (Total: 879)
+
+- Building, tagging, naming, and pushing docker images.
+
+- Container and Platform Configuration (Total: 292)
+
+- Setting up container and platform specifics such as platforms and labels.
+
+- Miscellaneous Docker Related (Total: 150)
+
+- Other Docker-related tasks and cache management.
+
+### Version Control (Total: 2048)
+
+Total frequency calculated by summing all frequencies in this theme.
+
+- Version and Release Information (Total: 1064)
+
+- Retrieving and setting version data, including semantic versioning.
+
+- Branch Management (Total: 577)
+
+- Extracting and managing branch information.
+
+- Commit and Repository Info (Total: 407)
+
+- Checking repository states, managing commit data.
+
+### Testing (Total: 267)
+
+Total frequency calculated by summing all frequencies in this theme.
+
+- Test Execution and Reporting (Total: 267)
+
+- Executing tests and outputting results or statuses.
+
+### Caching (Total: 953)
+
+Total frequency calculated by summing all frequencies in this theme.
+
+- General Caching (Total: 520)
+
+- Managing cache entries and directory paths.
+
+- Specialized Caching (Total: 433)
+
+- Caching specific tools or environments such as Node modules or Composer.
+
+### Environment and Setup (Total: 1323)
+
+Total frequency calculated by summing all frequencies in this theme.
+
+- Environment Configuration (Total: 851)
+
+- Populating environment variables, managing configurations.
+
+- Project and System Setup (Total: 472)
+
+- Preparing the build environment, checking system states.
+
+### Miscellaneous Tools (Total: 405)
+
+Total frequency calculated by summing all frequencies in this theme.
+
+- Utility Tools (Total: 405)
+
+- Varied utilities such as timestamp retrieval, setup of tools like GPG, or workflow operation utilities.
+
+Please note that this is an approximation based on the step names. Actual actions performed by these steps would depend on the specific configurations and logic within the GitHub Actions definitions.
+
+=====================================================================================================
+
+For the **Version and Release Information** sub-theme, we can further break it down into:
+
+- **Version Extraction and Parsing (Total: 839)**
+
+- Operations that focus on extracting version strings, parsing, or converting version notation.
+
+- **Version Management (Total: 237)**
+
+- Actions associated with incrementing a version, checking version alignment, or managing version-related metadata.
+
+- **Release Versioning (Total: 65)**
+
+- Handling the versioning related to the releases specifically.
+
+For the **Build Process** sub-theme, we can further categorize into:
+
+- **Code Compilation (Total: 455)**
+
+- The process that involves taking source code and converting it into an executable binary, library, or another output type.
+
+- **Artifact Assembly (Total: 50)**
+
+- Steps involved in assembling, packaging, or preparing build artifacts for deployment or distribution.
+
+- **Build Assistance (Total: 227)**
+
+- This includes setting arguments for the build, handling build numbers, or other secondary operations that support the main build process.
+
+- **Build Environment Preparation (Total: 730)**
+
+- These steps encompass preparing the build environment, setting up necessary dependencies or tools, configuring platforms, etc.
+
+These categorizations are estimated based on the names of the steps and the frequencies at which they occur. They indicate the granularity of actions taken within Version and Release Information management and the Build Process, which would typically be configured within a GitHub Actions workflow for CI/CD pipelines.
+================================================================================================================================================================================================================================================================================================================================+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 

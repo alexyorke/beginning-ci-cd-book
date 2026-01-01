@@ -30,11 +30,11 @@
 
   - [[Open source business models - your choices and how PostHog makes money - YouTube]{.underline}](https://www.youtube.com/watch?v=L1Ovbzs7vyo)
 
-  - [[Commercial Open Source Business Models: GitLab's Bet on Buyer-based Open Core - Brendan O\'Leary - YouTube]{.underline}](https://www.youtube.com/watch?v=Xt1kY7EEXb8)
+  - [[Commercial Open Source Business Models: GitLab's Bet on Buyer-based Open Core - Brendan O'Leary - YouTube]{.underline}](https://www.youtube.com/watch?v=Xt1kY7EEXb8)
 
   - [[What does Open Core mean? - YouTube]{.underline}](https://www.youtube.com/watch?v=DnjmsaAYZfc)
 
-  - [[Open Core vs Proprietary SaaS (which to bet your startup\'s life on?) - YouTube]{.underline}](https://www.youtube.com/watch?v=9Vj51JqQgzA)
+  - [[Open Core vs Proprietary SaaS (which to bet your startup's life on?) - YouTube]{.underline}](https://www.youtube.com/watch?v=9Vj51JqQgzA)
 
   - [[Releases (readme.io)]{.underline}](https://diffgram.readme.io/docs/releases)
 
@@ -62,39 +62,39 @@
 
   - Lots of considerations for dual-licensing, marketing, social-aspects as well, etc.
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Yes, several of the startups listed are known for following the \"Open Core\" model. In the Open Core model, the core functionality of the product is open source, but additional features, often enterprise-focused, are offered under a proprietary license. Here are some of the startups from the list that are known for using the Open Core model: |
-| |
-| 1\. **GitLab**: |
-| |
-| \- GitLab offers an open-source version known as GitLab Community Edition (CE), while providing additional features in its proprietary Enterprise Edition (EE). |
-| |
-| 2\. **HashiCorp**: |
-| |
-| \- Known for products like Terraform, Vagrant, and Consul, HashiCorp offers core tools as open source, with additional enterprise features available in paid versions. |
-| |
-| 3\. **Docker**: |
-| |
-| \- Docker, particularly known for Docker Engine and Docker Compose, follows a similar model where the core Docker software is open source, but Docker also offers Docker Enterprise for business customers with additional features. |
-| |
-| 4\. **Elastic**: |
-| |
-| \- Elastic, the company behind Elasticsearch and Kibana, provides open-source versions of its products, as well as proprietary features and managed services under Elastic Cloud. |
-| |
-| 5\. **MongoDB**: |
-| |
-| \- MongoDB, the NoSQL database, is available as open source, but the company also offers MongoDB Atlas, a fully managed database service with additional features. |
-| |
-| 6\. **Cockroach Labs**: |
-| |
-| \- CockroachDB, their primary product, is available in an open-source version, with additional enterprise features available in their commercial offerings. |
-| |
-| 7\. **Grafana Labs**: |
-| |
-| \- Grafana is an open-source monitoring solution, and Grafana Labs offers additional enterprise features and hosted Grafana as part of their commercial products. |
-| |
-| These companies leverage the Open Core model to combine the benefits of open-source development (such as community contributions and transparency) with a sustainable revenue model through the sale of premium features and services. |
-+==========================================================================================================================================================================================================================================================================================================================================================+
+```
+Yes, several of the startups listed are known for following the "Open Core" model. In the Open Core model, the core functionality of the product is open source, but additional features, often enterprise-focused, are offered under a proprietary license. Here are some of the startups from the list that are known for using the Open Core model:
+
+1\. **GitLab**:
+
+- GitLab offers an open-source version known as GitLab Community Edition (CE), while providing additional features in its proprietary Enterprise Edition (EE).
+
+2\. **HashiCorp**:
+
+- Known for products like Terraform, Vagrant, and Consul, HashiCorp offers core tools as open source, with additional enterprise features available in paid versions.
+
+3\. **Docker**:
+
+- Docker, particularly known for Docker Engine and Docker Compose, follows a similar model where the core Docker software is open source, but Docker also offers Docker Enterprise for business customers with additional features.
+
+4\. **Elastic**:
+
+- Elastic, the company behind Elasticsearch and Kibana, provides open-source versions of its products, as well as proprietary features and managed services under Elastic Cloud.
+
+5\. **MongoDB**:
+
+- MongoDB, the NoSQL database, is available as open source, but the company also offers MongoDB Atlas, a fully managed database service with additional features.
+
+6\. **Cockroach Labs**:
+
+- CockroachDB, their primary product, is available in an open-source version, with additional enterprise features available in their commercial offerings.
+
+7\. **Grafana Labs**:
+
+- Grafana is an open-source monitoring solution, and Grafana Labs offers additional enterprise features and hosted Grafana as part of their commercial products.
+
+These companies leverage the Open Core model to combine the benefits of open-source development (such as community contributions and transparency) with a sustainable revenue model through the sale of premium features and services.
+```
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 -

@@ -50,13 +50,11 @@ Deploying your application successfully doesn't always guarantee it's functionin
 
 - [[Observability Guide - Elastic Stack 8.7]{.underline}](https://www.elastic.co/guide/en/observability/current/ci-cd-observability.html)
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [[ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3445-strategic-sampling-architectural-approaches-to-efficient-telemetry.mp4]{.underline}](https://ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3445-strategic-sampling-architectural-approaches-to-efficient-telemetry.mp4) |
-| |
-| ![](./images/image49.png) |
-| |
-| ![](./images/image53.png) |
-+========================================================================================================================================================================================================================================================================================+
+[[ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3445-strategic-sampling-architectural-approaches-to-efficient-telemetry.mp4]{.underline}](https://ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3445-strategic-sampling-architectural-approaches-to-efficient-telemetry.mp4)
+
+![](./images/image49.png)
+
+![](./images/image53.png)
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 [[ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3262-what-is-ci-cd-observability-and-how-to-bring-observability-to-ci-cd-pipelines-.mp4]{.underline}](https://ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3262-what-is-ci-cd-observability-and-how-to-bring-observability-to-ci-cd-pipelines-.mp4)
@@ -247,7 +245,6 @@ jobs:
 
 ### b) Monorepo Workflow (Multiple Projects)
 
-```yaml
 name: SonarCloud Monorepo Analysis
 
 on:
@@ -279,7 +276,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # ... (Similar to sonarcloudScan1, but with projectBaseDir: project2/)
-```
 
 ### c) C/C++ Project Workflow
 

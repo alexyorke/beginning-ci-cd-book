@@ -56,7 +56,6 @@ Replace `TOKEN` with your personal access token (PAT) from GitHub (make sure it 
 
 Add a `publishConfig` section to your `package.json` to specify the GitHub Packages registry:
 
-```json
 
 "publishConfig": {
 
@@ -68,7 +67,6 @@ Add a `publishConfig` section to your `package.json` to specify the GitHub Packa
 
 "version": "1.0.0"
 
-```
 
 Replace `YOUR-USERNAME` with your GitHub username.
 
@@ -96,11 +94,9 @@ To publish new versions of your package, you will make changes, update the versi
 
 Make some changes to your code. Then update the version in `package.json`:
 
-```json
 
 "version": "1.1.0"
 
-```
 
 Publish the updated version:
 
@@ -114,11 +110,9 @@ npm publish
 
 Make minor changes or fixes. Update the version:
 
-```json
 
 "version": "1.1.1"
 
-```
 
 Publish the patch:
 
@@ -132,11 +126,9 @@ npm publish
 
 Make significant changes that might break backward compatibility. Update the version:
 
-```json
 
 "version": "2.0.0"
 
-```
 
 Publish the new major version:
 

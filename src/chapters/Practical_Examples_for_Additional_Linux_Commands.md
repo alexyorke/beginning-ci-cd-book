@@ -16,9 +16,11 @@ env \| grep HOME
 
 #!/bin/bash
 
-if \[ ! -d \"/path/to/directory\" \]; then
+if \[ ! -d "/path/to/directory" \]; then
 
-echo \"Directory not found!\"
+```bash
+echo "Directory not found!"
+```
 
 exit 1
 
@@ -36,7 +38,7 @@ exit 0
 
 **3. choco**
 
-- **Install the \"7-zip\" package:**
+- **Install the "7-zip" package:**
 
 choco install 7zip
 
@@ -54,15 +56,19 @@ choco update -y all
 
 #!/bin/bash
 
-while \[ ! -f \"my_file.txt\" \]; do
+while \[ ! -f "my_file.txt" \]; do
 
-echo \"Waiting for my_file.txt\...\"
+```bash
+echo "Waiting for my_file.txt\..."
+```
 
 sleep 1
 
 done
 
-echo \"File found!\"
+```bash
+echo "File found!"
+```
 
 - **Loop until a specific condition is met:**
 
@@ -72,7 +78,9 @@ counter=0
 
 while \[ \$counter -lt 10 \]; do
 
-echo \"Counter: \$counter\"
+```bash
+echo "Counter: $counter"
+```
 
 counter=\$((counter + 1))
 
@@ -128,17 +136,17 @@ apt remove vim
 
 I would be tempted to use Python if you are doing advanced string manipulation/JSON.
 
-Common commands. Lots are for managing GitHub releases/tags/GitHub API and extracting release ids and such. jq -r very popular (raw output, that is, no quotes.) jq -c also popular (print on one line.) jq --arg should be used more frequently; variable injection manually is very weird as to what people are doing. Using -c with -r is redundant. You can also avoid piping jq to jq via jq \'.icons \| keys \| .\[\]\' manifest.json. Lots of unnecessary uses of cat and echo; jq can pass in a filename as its second argument.
+Common commands. Lots are for managing GitHub releases/tags/GitHub API and extracting release ids and such. jq -r very popular (raw output, that is, no quotes.) jq -c also popular (print on one line.) jq --arg should be used more frequently; variable injection manually is very weird as to what people are doing. Using -c with -r is redundant. You can also avoid piping jq to jq via jq '.icons \| keys \| .\[\]' manifest.json. Lots of unnecessary uses of cat and echo; jq can pass in a filename as its second argument.
 
 Creating a cookbook about using `jq` in CI/CD GitHub Actions based on the provided commands can be a valuable resource for developers. Here are key topics and tips you should consider including in your cookbook:
 
-1\. **Introduction to `jq` and Its Relevance in CI/CD Pipelines**: Explain what `jq` is and why it\'s particularly useful in CI/CD contexts, especially with GitHub Actions. Highlight its ability to parse, filter, and transform JSON data.
+1\. **Introduction to `jq` and Its Relevance in CI/CD Pipelines**: Explain what `jq` is and why it's particularly useful in CI/CD contexts, especially with GitHub Actions. Highlight its ability to parse, filter, and transform JSON data.
 
-2\. **Basic `jq` Syntax and Operations**: Start with basic `jq` syntax and operations, as many users may be new to `jq`. Examples from your commands include extracting values (`jq \'.NumberOfPass\'`), raw string output (`jq -r`), and array operations (`jq \'.\[\]\'`).
+2\. **Basic `jq` Syntax and Operations**: Start with basic `jq` syntax and operations, as many users may be new to `jq`. Examples from your commands include extracting values (`jq '.NumberOfPass'`), raw string output (`jq -r`), and array operations (`jq '.\[\]'`).
 
-3\. **Parsing GitHub API Responses**: Many of your commands involve parsing GitHub API responses. Include examples on how to extract specific data like repository names, pull request numbers, and tag names (e.g., `jq \--raw-output \'.repository.name\' \$GITHUB_EVENT_PATH`).
+3\. **Parsing GitHub API Responses**: Many of your commands involve parsing GitHub API responses. Include examples on how to extract specific data like repository names, pull request numbers, and tag names (e.g., `jq \--raw-output '.repository.name' \$GITHUB_EVENT_PATH`).
 
-4\. **Manipulating and Writing JSON Data**: Show how `jq` can be used to modify JSON files, which is crucial in dynamic CI/CD environments. This includes setting new values, deleting keys, and merging JSON objects (e.g., `jq \'.version = \$version\' package.json \> \"\$tmp\"`).
+4\. **Manipulating and Writing JSON Data**: Show how `jq` can be used to modify JSON files, which is crucial in dynamic CI/CD environments. This includes setting new values, deleting keys, and merging JSON objects (e.g., `jq '.version = \$version' package.json \> "\$tmp"`).
 
 5\. **Complex Filters and Queries**: Cover more complex `jq` queries for advanced use cases, such as filtering, mapping, and reducing JSON data. For example, extracting data based on certain conditions or iterating over arrays.
 
@@ -162,15 +170,17 @@ Knowing about the pitfalls and workarounds allow you to use jq more robustly and
 
 Say you have a value in a JSON string that has quotes but you want to remove the quotes. You could do:
 
-echo \"{\\\"x\\\":\\\"3\\\"}\" \| jq .x \| tr -d \'\"\' which returns 3.
+echo "{\"x\":\"3\"}" \| jq .x \| tr -d '"' which returns 3.
 
 The issue is that you're assuming that the JSON will have no quoted values. For example, this returns the wrong value:
 
-echo \"{\\\"x\\\": \\\"\\\\\\\"Three\\\\\\\"\\\" }\" \| jq .x \| tr -d \'\"\' returns \\Three\\ instead of just the word "Three" (with quotes.) This was probably not intended.
+echo "{\"x\": \"\\\\\"Three\\\\\"\" }" \| jq .x \| tr -d '"' returns \\Three\\ instead of just the word "Three" (with quotes.) This was probably not intended.
 
 If you use -r:
 
-echo \"{\\\"x\\\": \\\"\\\\\\\"Three\\\\\\\"\\\" }\" \| jq -r .x
+```bash
+echo "{"x": ""Three"" }" \| jq -r .x
+```
 
 The output is "Three" (with quotes) which probably was intended.
 
@@ -188,25 +198,25 @@ I run jq .\[\].friends test and get:
 
 {
 
-\"id\": 0,
+"id": 0,
 
-\"name\": \"Rosario Melendez\"
-
-},
-
-{
-
-\"id\": 1,
-
-\"name\": \"Melendez Brennan\"
+"name": "Rosario Melendez"
 
 },
 
 {
 
-\"id\": 2,
+"id": 1,
 
-\"name\": \"Vincent Spence\"
+"name": "Melendez Brennan"
+
+},
+
+{
+
+"id": 2,
+
+"name": "Vincent Spence"
 
 }
 
@@ -228,7 +238,9 @@ set -e
 
 true \| jq invalid \| echo test
 
-echo \"I am still running\"
+```bash
+echo "I am still running"
+```
 
 The output is "test" followed by "I am still running" (although some errors), even though the command jq invalid failed (because the file doesn't exist.) The script still continued to run even though one of the lines returned a failure code. Also, the exit code from the script is 0, indicating success even though it was unsuccessful.
 
@@ -240,19 +252,21 @@ Use jq's empty filter to validate the file before parsing, or check the error co
 
 Let's go back to an example file. You run cat test \| jq -c .\[\].friends and get the following output:
 
-\[{\"id\":0,\"name\":\"Cherie\\nFrederick\"},{\"id\":1,\"name\":\"Mcclure Howell\"},{\"id\":2,\"name\":\"Skinner Leon\"}\]
+\[{"id":0,"name":"Cherie\\nFrederick"},{"id":1,"name":"Mcclure Howell"},{"id":2,"name":"Skinner Leon"}\]
 
-\[{\"id\":0,\"name\":\"Dana Stout\"},{\"id\":1,\"name\":\"Stacy Irwin\"},{\"id\":2,\"name\":\"Everett Paul\"}\]
+\[{"id":0,"name":"Dana Stout"},{"id":1,"name":"Stacy Irwin"},{"id":2,"name":"Everett Paul"}\]
 
-\[{\"id\":0,\"name\":\"Billie Douglas\"},{\"id\":1,\"name\":\"Ebony Acosta\"},{\"id\":2,\"name\":\"Hunt Strickland\"}\]
+\[{"id":0,"name":"Billie Douglas"},{"id":1,"name":"Ebony Acosta"},{"id":2,"name":"Hunt Strickland"}\]
 
-\[{\"id\":0,\"name\":\"Mcclain Roberts\"},{\"id\":1,\"name\":\"Frankie Wynn\"},{\"id\":2,\"name\":\"Mckay Sanders\"}\]
+\[{"id":0,"name":"Mcclain Roberts"},{"id":1,"name":"Frankie Wynn"},{"id":2,"name":"Mckay Sanders"}\]
 
-\[{\"id\":0,\"name\":\"Rosario Melendez\"},{\"id\":1,\"name\":\"Melendez Brennan\"},{\"id\":2,\"name\":\"Vincent Spence\"}\]
+\[{"id":0,"name":"Rosario Melendez"},{"id":1,"name":"Melendez Brennan"},{"id":2,"name":"Vincent Spence"}\]
 
 Each friend is on a line by themselves. This means I can loop over the lines and parse each JSON line individually, right? Well, in this example yes. If the names contain newlines, though, then you'll have broken JSON:
 
-cat test \| jq -c .\[\].friends \| jq -r .\[\].name
+```bash
+cat test \| jq -c .[].friends \| jq -r .[].name
+```
 
 **Cherie**
 
@@ -284,11 +298,15 @@ If you are logging to a file and the logger doesn't expect UTF-8 output (and par
 
 For example,
 
-echo \"Á\" \| jq -R yields \"Á" (with quotes.)
+```bash
+echo "Á" \| jq -R yields "Á" (with quotes.)
+```
 
 The -a switch changes this behavior and replaces them with escape sequences:
 
-echo \"Á\" \| jq -a -R yields \"\\u00c1\" (with quotes.)
+```bash
+echo "Á" \| jq -a -R yields "\u00c1" (with quotes.)
+```
 
 #### Considerations {#considerations-2 .unnumbered}
 
@@ -298,15 +316,15 @@ Use -a when you need unicode safety.
 
 Running this command produces the right output,
 
-echo \"{\\\"page\\\": 3}\" \| echo \"https://example.com/search?id=\$(jq .page)\" (outputs [[https://example.com/search?id=3]{.underline}](https://example.com/search?id=3)).
+echo "{\"page\": 3}" \| echo "https://example.com/search?id=\$(jq .page)" (outputs [[https://example.com/search?id=3]{.underline}](https://example.com/search?id=3)).
 
 But it gets dangerous if the number turns into text that contains non-URI safe characters:
 
-echo \"{\\\"page\\\": \\\"\[3-2\]\\\"}\" \| echo \"https://example.com/search?id=\$(jq .page)\" which returns [[https://example.com/search?id=\"\[3]{.underline}](https://example.com/search?id=%22%5B3)-2\]\" . If you were to pipe this URL into curl, curl interprets the square brackets as a URL range. Curl fails to download that URL with the error, "curl: (3) \[globbing\] bad range in column 26".
+echo "{\"page\": \"\[3-2\]\"}" \| echo "https://example.com/search?id=\$(jq .page)" which returns [[https://example.com/search?id="\[3]{.underline}](https://example.com/search?id=%22%5B3)-2\]" . If you were to pipe this URL into curl, curl interprets the square brackets as a URL range. Curl fails to download that URL with the error, "curl: (3) \[globbing\] bad range in column 26".
 
 However, running:
 
-echo \"{\\\"page\\\": \\\"\[3-2\]\\\"}\" \| jq \'@uri \"[[https://www.google.com/search?q=\\(.page)]{.underline}](<https://www.google.com/search?q=%5C(.page)>)\"\' which returns \"[[https://www.google.com/search?q=%5B3-2%5D]{.underline}](https://www.google.com/search?q=%5B3-2%5D)\". This is URL safe.
+echo "{\"page\": \"\[3-2\]\"}" \| jq '@uri "[[https://www.google.com/search?q=\\(.page)]{.underline}](<https://www.google.com/search?q=%5C(.page)>)"' which returns "[[https://www.google.com/search?q=%5B3-2%5D]{.underline}](https://www.google.com/search?q=%5B3-2%5D)". This is URL safe.
 
 #### Considerations {#considerations-3 .unnumbered}
 
@@ -318,7 +336,7 @@ These commands are using the GitHub API to perform a variety of tasks related to
 
 2\. **Fetching Release Information**: Several commands retrieve information about the latest releases of different repositories, such as the latest release tag, release ID, asset IDs, etc. This is useful for automation scripts that deploy or update software based on the latest release.
 
-3\. **Obtaining Commit Details**: Some commands fetch details about specific commits, like the commit date, the commit message, and the commit\'s SHA. This can be used for tracking changes or automating workflows based on commit history.
+3\. **Obtaining Commit Details**: Some commands fetch details about specific commits, like the commit date, the commit message, and the commit's SHA. This can be used for tracking changes or automating workflows based on commit history.
 
 4\. **Pull Request and Issue Management**: A few commands involve extracting information about pull requests and issues (like PR numbers or issue labels). This is essential for automating workflows around issue tracking and PR management.
 

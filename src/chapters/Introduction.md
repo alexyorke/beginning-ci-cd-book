@@ -24,7 +24,7 @@ Deployments are technical events managed by engineering, releasing (making those
 
 #### CI/CD {#cicd .unnumbered}
 
-CI/CD aims to avoid \"integration hell\" by ensuring continuous integration and either continuous delivery or deployment. Work is constantly merged into the main/master branch after it has been verified via code review and the continuous integration pipeline. This involves practices like trunk-based development, where all developers work on a shared branch, promoting constant integration and minimizing merge conflicts.
+CI/CD aims to avoid "integration hell" by ensuring continuous integration and either continuous delivery or deployment. Work is constantly merged into the main/master branch after it has been verified via code review and the continuous integration pipeline. This involves practices like trunk-based development, where all developers work on a shared branch, promoting constant integration and minimizing merge conflicts.
 
 > **Aside:** Some companies deploy 100 times a day, but more deploys aren't inherently better—they simply indicate a robust, automated process. Continuous deployment automatically releases every quality-approved change, reducing the gap between versions. This means smaller changesets, easier bug identification, and faster rollbacks, all of which help minimize profit loss. Ultimately, frequent deploys reflect strong operational practices and many quality measures, not a superior app.
 
@@ -70,23 +70,23 @@ Despite these benefits, several challenges can hinder successful CI/CD implement
 
 - Database Schema Impacts: Even small code changes can disrupt database schemas, necessitating schema migration tools and a disciplined approach to database management.
 
-- Central Point of Failure: CI/CD creates a central point of failure that demands constant vigilance. Maintaining a \"green\" pipeline requires rigorous testing, code review, and ongoing maintenance to ensure stability and compliance. Do not rubber stamp PRs.
+- Central Point of Failure: CI/CD creates a central point of failure that demands constant vigilance. Maintaining a "green" pipeline requires rigorous testing, code review, and ongoing maintenance to ensure stability and compliance. Do not rubber stamp PRs.
 
 - Culture Shift: CI/CD requires a shift in mindset, emphasizing collaboration, shared responsibility, and open communication across teams. This will exaggerate any communication issues, if they exist.
 
 - Continuous Learning: Teams must invest in ongoing training, keeping their skills up-to-date with evolving CI/CD technologies and security best practices.
 
-- Clear Objectives: A lack of clarity regarding CI/CD goals can lead to resistance and misaligned expectations. It\'s crucial to define objectives, communicate the value proposition, and secure stakeholder buy-in.
+- Clear Objectives: A lack of clarity regarding CI/CD goals can lead to resistance and misaligned expectations. It's crucial to define objectives, communicate the value proposition, and secure stakeholder buy-in.
 
 CI/CD is not a magic bullet. It demands discipline, commitment to quality, and a proactive approach to addressing technical and organizational challenges. However, when implemented effectively, it can significantly accelerate development, enhance software quality, and empower teams to deliver value more efficiently.
 
 ### Traditional software development {#traditional-software-development .unnumbered}
 
-Traditional software development is a methodology that is difficult to define because there\'s multiple definitions of what traditional means. This usually means before continuous integration and development was widely popularized, for example prior to 2010.
+Traditional software development is a methodology that is difficult to define because there's multiple definitions of what traditional means. This usually means before continuous integration and development was widely popularized, for example prior to 2010.
 
 Traditional Development:
 
-- Teams often work in silos with limited visibility into each other\'s work. This does not mean that team members do not communicate with each other, rather, the act of _integration_ is delayed.
+- Teams often work in silos with limited visibility into each other's work. This does not mean that team members do not communicate with each other, rather, the act of _integration_ is delayed.
 
 - Slow feedback loops and long development cycles are common.
 
@@ -138,9 +138,9 @@ Testing and quality assurance are crucial for CI/CD, ensuring software quality a
 
 - Manual Testing: Leverages human judgment for evaluating usability, aesthetics, and user experience, crucial for aspects difficult to automate.Humans should not be doing the checking aspect.Rather, automated testing should be responsible for that.
 
-- CI/CD emphasizes automation but doesn\'t eliminate the need for manual testing. Instead, it allows testers to focus on higher-level tasks requiring human expertise. Maintaining a balance between automated and manual testing is key for efficient, high-quality software development.
+- CI/CD emphasizes automation but doesn't eliminate the need for manual testing. Instead, it allows testers to focus on higher-level tasks requiring human expertise. Maintaining a balance between automated and manual testing is key for efficient, high-quality software development.
 
-- Skipping quality assurance in CI/CD can be tempting due to the fast-paced nature, but it\'s essential for ensuring customer satisfaction and protecting the business\'s reputation.It is additionally very tempting because the lack of automation will not show up for quite some time.
+- Skipping quality assurance in CI/CD can be tempting due to the fast-paced nature, but it's essential for ensuring customer satisfaction and protecting the business's reputation.It is additionally very tempting because the lack of automation will not show up for quite some time.
 
 > **Aside:** fire QA, right?! Well, no. QA shifts left, and instead prioritizes testing PRs (which have a smaller scope and smaller changeset.) Since checking (testing an outcome that is known) is done mostly via unit tests, QA can use their human-ness to evaluate the product for quality, usability, functionality, and exploration testing. When a feature is developed under a feature flag, QA can test it in the pre-production environment (feature flag enabled for them), allowing developers to get early feedback.
 
@@ -152,7 +152,7 @@ Rapid feedback loops are a multi-pronged approach:
 
 - Streamlined Local Testing: Developers need easily accessible local testing environments mirroring production. Tools like hot reloading and ephemeral test environments with simple provisioning are crucial.
 
-- Efficient Build Pipeline: Aim for a build time under 15-20 minutes with automated processes, notifications for failures, and minimal manual intervention.This period of time is arbitrary. However, if the build time is too long, then there\'s a possibility of frustrating developers as well as not being able to quickly react to feedback from your customers.You will also make it more difficult to quickly push changes should there be a production outage.
+- Efficient Build Pipeline: Aim for a build time under 15-20 minutes with automated processes, notifications for failures, and minimal manual intervention.This period of time is arbitrary. However, if the build time is too long, then there's a possibility of frustrating developers as well as not being able to quickly react to feedback from your customers.You will also make it more difficult to quickly push changes should there be a production outage.
 
 - Timely Code Reviews: Prioritize prompt and thorough PR reviews (ideally within a day) with constructive feedback and a focus on code readability.
 
@@ -162,13 +162,13 @@ Rapid feedback loops are a multi-pronged approach:
 
 #### Infrastructure as Code and modularity {#infrastructure-as-code-and-modularity .unnumbered}
 
-To achieve continuous integration and efficient deployments, it\'s essential to structure applications so that small changes are manageable. This involves both the application itself and its underlying infrastructure. If making small changes is cumbersome, integration becomes challenging, as larger updates can span multiple components, increasing both the testing burden and the associated risks.
+To achieve continuous integration and efficient deployments, it's essential to structure applications so that small changes are manageable. This involves both the application itself and its underlying infrastructure. If making small changes is cumbersome, integration becomes challenging, as larger updates can span multiple components, increasing both the testing burden and the associated risks.
 
-- Independent Modules: Structure applications with clear boundaries between components. This facilitates isolated changes and reduces testing complexity. This isn't the fact that you must adopt microservices, rather it\'s just structuring your code to be a modular approach. Modularity leads to smaller, more manageable changes, simplifying testing and increasing development speed.
+- Independent Modules: Structure applications with clear boundaries between components. This facilitates isolated changes and reduces testing complexity. This isn't the fact that you must adopt microservices, rather it's just structuring your code to be a modular approach. Modularity leads to smaller, more manageable changes, simplifying testing and increasing development speed.
 
 - Version-Controlled Infrastructure: Treat infrastructure configurations like code, storing them in version control systems for tracking, reverting, and collaboration.Your application. This could be terraform templates or ARM templates.
 
-- Eliminate configuration inconsistencies between development, testing, and production, preventing \"snowflake servers\" and ensuring reliable deployments.
+- Eliminate configuration inconsistencies between development, testing, and production, preventing "snowflake servers" and ensuring reliable deployments.
 
 #### Feature Flags {#feature-flags .unnumbered}
 
@@ -202,12 +202,12 @@ Proper feature flag management is crucial. Unused flags should be removed to avo
 
 Summary table,
 
-| Aspect                  | Branching                                                                                                                                                           | Feature Flags                                                                                                                                                                                |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| What It Is              | Managing and isolating code changes in separate lines of development.                                                                                               | Tools for remotely controlling the visibility of new features in the production environment.                                                                                                 |
-| Main Actions            | Changes stay within the branch. To make changes visible, merge, copy, squash, or rebase onto a production-bound branch (like trunk/master).                         | Allowing code changes to exist in production without being visible to everyone. Can be enabled for specific users or scenarios.                                                              |
-| Visibility to Customers | Changes are not visible to customers unless the branch is deployed to production. Testing in environments like test, dev, experimental is possible.                 | Feature flags are crucial in managing what customers see in production. They hide or reveal new features based on their status.                                                              |
-| Specific Considerations | Recommended to deploy the main or trunk branch to production, especially in TBD (trunk-based development). Branches are ideal for testing and isolated development. | Feature flags should be used judiciously, as overuse can complicate application maintenance. They are intended to be temporary and should not replace good branching and merging strategies. |
+Aspect                  | Branching                                                                                                                                                           | Feature Flags
+----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+What It Is              | Managing and isolating code changes in separate lines of development.                                                                                               | Tools for remotely controlling the visibility of new features in the production environment.
+Main Actions            | Changes stay within the branch. To make changes visible, merge, copy, squash, or rebase onto a production-bound branch (like trunk/master).                         | Allowing code changes to exist in production without being visible to everyone. Can be enabled for specific users or scenarios.
+Visibility to Customers | Changes are not visible to customers unless the branch is deployed to production. Testing in environments like test, dev, experimental is possible.                 | Feature flags are crucial in managing what customers see in production. They hide or reveal new features based on their status.
+Specific Considerations | Recommended to deploy the main or trunk branch to production, especially in TBD (trunk-based development). Branches are ideal for testing and isolated development. | Feature flags should be used judiciously, as overuse can complicate application maintenance. They are intended to be temporary and should not replace good branching and merging strategies.
 
 #### Version Control System (VCS) {#version-control-system-vcs .unnumbered}
 
@@ -245,9 +245,9 @@ Infrastructure as Code (IaC) represents a transformative approach in managing an
 
 The benefits of adopting IaC are extensive, including consistent infrastructure deployments across environments, enhanced reproducibility, and robust version control which acts as a single source of truth. Such structured deployments reduce configuration drifts between different environments such as QA/dev and production, speeding up the feedback loop for developers and boosting security measures. Tools such as Terraform offer cloud-agnostic deployment options, whereas AWS CloudFormation, Azure Resource Manager, and Google Cloud Deployment Manager cater to specific cloud environments. Additionally, open-source tools like Ansible and traditional configuration management tools like Chef and Puppet provide further automation capabilities, ensuring thorough enforcement of system states.
 
-Historically, server management was a manual process involving system administrators physically logging into servers to apply changes, a method prone to errors and inconsistencies, especially in complex server environments. This labor-intensive process made replicating servers difficult, often requiring extensive documentation and manual reconfiguration. Before the adoption of IaC, administrators relied on shell scripts to manage and synchronize server configurations, though these scripts were limited in handling complex scenarios effectively. The rise of configuration management tools in the mid-to-late 2000s, such as CFEngine, Puppet, and Chef, began to address the issue of \"snowflake servers\"---highly customized servers difficult to replicate from scratch. Despite the advancements, many continued using shell scripts and command-line tools for their simplicity and familiarity. Today, IaC practices, exemplified by Terraform and other cloud-specific tools, have largely superseded these older methods, providing scalable, reliable, and repeatable server environment setups.
+Historically, server management was a manual process involving system administrators physically logging into servers to apply changes, a method prone to errors and inconsistencies, especially in complex server environments. This labor-intensive process made replicating servers difficult, often requiring extensive documentation and manual reconfiguration. Before the adoption of IaC, administrators relied on shell scripts to manage and synchronize server configurations, though these scripts were limited in handling complex scenarios effectively. The rise of configuration management tools in the mid-to-late 2000s, such as CFEngine, Puppet, and Chef, began to address the issue of "snowflake servers"---highly customized servers difficult to replicate from scratch. Despite the advancements, many continued using shell scripts and command-line tools for their simplicity and familiarity. Today, IaC practices, exemplified by Terraform and other cloud-specific tools, have largely superseded these older methods, providing scalable, reliable, and repeatable server environment setups.
 
-Here\'s a snippet of a simple Terraform configuration that demonstrates how to create an AWS infrastructure:
+Here's a snippet of a simple Terraform configuration that demonstrates how to create an AWS infrastructure:
 
 ```
 provider "aws" {
@@ -304,19 +304,19 @@ Providers fall into two overlapping categories: CI/CD tooling and application ho
 
 This book is somewhat focused on GitHub Actions, but tries to provide a provider-agnostic view. Some of the terms might be a bit different depending on your CI/CD provider. Here is a table that helps clarify.
 
-| Definition                                                                  | Generic Term  | Jenkins            | GitHub Actions       | GitLab CI/CD    | CircleCI              |
-| --------------------------------------------------------------------------- | ------------- | ------------------ | -------------------- | --------------- | --------------------- |
-| **Build Step**: A single CI/CD task (e.g. compile, test, deploy).           | Build Step    | Build Step         | Job                  | Job             | Job                   |
-| **Environment**: The runtime setup (OS, tools, variables, network).         | Environment   | Node               | Runner               | Runner          | Executor              |
-| **Workflow**: A series of tasks defining the build process.                 | Workflow      | Pipeline           | Workflow             | Pipeline        | Workflow              |
-| **Trigger**: An event (commit, PR, schedule) that starts the pipeline.      | Trigger       | Build Trigger      | Event                | Trigger         | Trigger               |
-| **Secrets**: Sensitive data (passwords, tokens, keys) used securely.        | Secrets       | Credentials        | Secrets              | Variables       | Environment Variables |
-| **Container**: An isolated package with code, runtime, and tools.           | Container     | Agent/Docker Agent | Container            | Docker Executor | Docker                |
-| **Configuration**: Files specifying build settings (e.g. YAML).             | Configuration | Jenkinsfile        | .github/workflows/\* | .gitlab-ci.yml  | .circleci/config.yml  |
-| **Artifacts**: Files produced by the build (binaries, docs, containers).    | Artifacts     | Build Artifacts    | Artifacts            | Artifacts       | Artifacts             |
-| **Cache**: Stored build data (dependencies, compiled code) for faster runs. | Cache         | Workspace          | Cache                | Cache           | Cache                 |
-| **Parallelism**: Running multiple tasks concurrently to speed builds.       | Parallelism   | Parallel Builds    | Matrix Builds        | Parallel Matrix | Parallel Jobs         |
-| **Build Status**: Indicator of build success or failure.                    | Build Status  | Build Status       | Build Status         | Build Status    | Build Status          |
+Definition                                                                  | Generic Term  | Jenkins            | GitHub Actions       | GitLab CI/CD    | CircleCI
+--------------------------------------------------------------------------- | ------------- | ------------------ | -------------------- | --------------- | ---------------------
+**Build Step**: A single CI/CD task (e.g. compile, test, deploy).           | Build Step    | Build Step         | Job                  | Job             | Job
+**Environment**: The runtime setup (OS, tools, variables, network).         | Environment   | Node               | Runner               | Runner          | Executor
+**Workflow**: A series of tasks defining the build process.                 | Workflow      | Pipeline           | Workflow             | Pipeline        | Workflow
+**Trigger**: An event (commit, PR, schedule) that starts the pipeline.      | Trigger       | Build Trigger      | Event                | Trigger         | Trigger
+**Secrets**: Sensitive data (passwords, tokens, keys) used securely.        | Secrets       | Credentials        | Secrets              | Variables       | Environment Variables
+**Container**: An isolated package with code, runtime, and tools.           | Container     | Agent/Docker Agent | Container            | Docker Executor | Docker
+**Configuration**: Files specifying build settings (e.g. YAML).             | Configuration | Jenkinsfile        | .github/workflows/\* | .gitlab-ci.yml  | .circleci/config.yml
+**Artifacts**: Files produced by the build (binaries, docs, containers).    | Artifacts     | Build Artifacts    | Artifacts            | Artifacts       | Artifacts
+**Cache**: Stored build data (dependencies, compiled code) for faster runs. | Cache         | Workspace          | Cache                | Cache           | Cache
+**Parallelism**: Running multiple tasks concurrently to speed builds.       | Parallelism   | Parallel Builds    | Matrix Builds        | Parallel Matrix | Parallel Jobs
+**Build Status**: Indicator of build success or failure.                    | Build Status  | Build Status       | Build Status         | Build Status    | Build Status
 
 ### Further readings {#further-readings .unnumbered}
 

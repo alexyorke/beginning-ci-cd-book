@@ -2,7 +2,7 @@
 
 ### Introduction {#introduction-1 .unnumbered}
 
-Clicking \"Run\" or \"Start\" in an IDE initiates a sequence of command-line tools that compile and manage dependencies to create build artifacts, simplifying the complex process with a single button. This abstraction can obscure the specific tools used, complicating tool selection for CI/CD pipelines.
+Clicking "Run" or "Start" in an IDE initiates a sequence of command-line tools that compile and manage dependencies to create build artifacts, simplifying the complex process with a single button. This abstraction can obscure the specific tools used, complicating tool selection for CI/CD pipelines.
 
 What do I deliver to the customer, i.e., what are build artifacts?
 A typical software release often includes several components, tailored to the nature of the software and the target audience. Here are some of the common elements you might find:
@@ -391,7 +391,7 @@ The instructions that github provides is for a stateful runner, much different f
 
 A good dev setup guide (i.,e readme) should be clear and comprehensive. It should:
 
-1\. Describe the repository\'s purpose and fit within the organization.
+1\. Describe the repository's purpose and fit within the organization.
 
 2\. Provide instructions on building, navigating, and using the repository.
 
@@ -399,7 +399,7 @@ A good dev setup guide (i.,e readme) should be clear and comprehensive. It shoul
 
 4\. Ensure the repository is self-contained, with all necessary dependencies easily accessible.
 
-5\. Specify contact information for the repository\'s owner or relevant team.
+5\. Specify contact information for the repository's owner or relevant team.
 
 6\. Include thorough documentation and possibly revise how wikis are managed on GitHub.
 

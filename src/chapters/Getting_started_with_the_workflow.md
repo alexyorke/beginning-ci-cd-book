@@ -2,36 +2,36 @@
 
 In order to have a good understanding of how CI/CD works, it's important to have a good idea of how everything fits in together. Here's the overall process, at a very high level view, from working on a feature to getting it out into production.
 
-| **Development Stage**    | **Sub-Stage**                | **Description**                                                                                       |
-| ------------------------ | ---------------------------- | ----------------------------------------------------------------------------------------------------- |
-| Planning & Design        | Define Work Item             | Identify and document features, tasks, or bugs to be addressed. Example                               |
-|                          | Prioritization & Scheduling  | Decide on the priority of the work item and when it will be addressed. Example                        |
-| Development              | Code Implementation          | Writing the actual code and implementing features or bug fixes. Example                               |
-|                          | Local Testing & Verification | Run unit tests and perform manual testing to verify code behavior on a local dev environment. Example |
-| Code Submission          | Create Pull Request (PR)     | Submit the code for review. Example                                                                   |
-|                          | PR Awaiting Review           | Time period the code waits to be reviewed. Example                                                    |
-| Code Review              | Peer Code Review             | Team members review the code for quality, functionality, and style. Example                           |
-|                          | Feedback Incorporation       | Apply changes based on code review feedback. Example                                                  |
-| Build & Integration (CI) | Build Initialization         | Setup for build environment and dependencies. Example                                                 |
-|                          | Core Build Process           | Compilation, linking, and creation of executable files. Example                                       |
-|                          | Security & Compliance Scan   | Scan for security vulnerabilities and compliance issues. Example                                      |
-| Automated Testing (CI)   | Test Initialization          | Setup for testing in an isolated environment. Example                                                 |
-|                          | Execute Automated Tests      | Run automated test suites. Example                                                                    |
-| Deployment (CD)          | Canary Deployment            | Deploy to a subset for monitoring and testing. Example                                                |
-| (Coming up next)         | Monitor & Validate           | Monitor and validate new features. Example                                                            |
-|                          | Full Production Deployment   | Roll out to the entire production environment. Example                                                |
+**Development Stage**    | **Sub-Stage**                | **Description**
+------------------------ | ---------------------------- | -----------------------------------------------------------------------------------------------------
+Planning & Design        | Define Work Item             | Identify and document features, tasks, or bugs to be addressed. Example
+                         | Prioritization & Scheduling  | Decide on the priority of the work item and when it will be addressed. Example
+Development              | Code Implementation          | Writing the actual code and implementing features or bug fixes. Example
+                         | Local Testing & Verification | Run unit tests and perform manual testing to verify code behavior on a local dev environment. Example
+Code Submission          | Create Pull Request (PR)     | Submit the code for review. Example
+                         | PR Awaiting Review           | Time period the code waits to be reviewed. Example
+Code Review              | Peer Code Review             | Team members review the code for quality, functionality, and style. Example
+                         | Feedback Incorporation       | Apply changes based on code review feedback. Example
+Build & Integration (CI) | Build Initialization         | Setup for build environment and dependencies. Example
+                         | Core Build Process           | Compilation, linking, and creation of executable files. Example
+                         | Security & Compliance Scan   | Scan for security vulnerabilities and compliance issues. Example
+Automated Testing (CI)   | Test Initialization          | Setup for testing in an isolated environment. Example
+                         | Execute Automated Tests      | Run automated test suites. Example
+Deployment (CD)          | Canary Deployment            | Deploy to a subset for monitoring and testing. Example
+(Coming up next)         | Monitor & Validate           | Monitor and validate new features. Example
+                         | Full Production Deployment   | Roll out to the entire production environment. Example
 
 ![image](./images/image51.png)
 
 Developers create short-lived branches for their work:
 
-- This isolates their changes from the main codebase (\"trunk\") and allows collaboration with other developers.Short lived in this context refers to just the minimal amount of time needed to work on that particular task and no more.This means that the tasks have to be broken down sufficiently as well as broken down in such a way where the tasks are easy to complete and don\'t interfere necessarily with other commits. They\'re also testable as well, capable of showing that they can have the capacity to be integrated. You can look at the appendix For more information on how to break down tasks into such a way that makes them.To show that they\'ve been integrated successfully.
+- This isolates their changes from the main codebase ("trunk") and allows collaboration with other developers.Short lived in this context refers to just the minimal amount of time needed to work on that particular task and no more.This means that the tasks have to be broken down sufficiently as well as broken down in such a way where the tasks are easy to complete and don't interfere necessarily with other commits. They're also testable as well, capable of showing that they can have the capacity to be integrated. You can look at the appendix For more information on how to break down tasks into such a way that makes them.To show that they've been integrated successfully.
 
-- Branches can be created locally or through GitHub\'s UI.
+- Branches can be created locally or through GitHub's UI.
 
 Pull requests (PRs) are used to merge code into the trunk:
 
-- Developers create PRs when they\'re ready to integrate their changes.They create the PR from their branch.
+- Developers create PRs when they're ready to integrate their changes.They create the PR from their branch.
 
 - This triggers a pipeline that builds, tests, and runs the code to ensure quality.The pipeline and its trigger must be set up by developers beforehand. By default it does not do this.
 
@@ -41,7 +41,7 @@ Merging PRs updates the trunk:
 
 - This makes the changes available to all developers.
 
-- Developers need to pull the latest changes into their branches to stay up-to-date.This is not a requirement as when you create the PR it will automatically merge their branch into the trunk when building.However, it\'s recommended that developers pull their latest changes to keep up to date because the merge might be different than what they tested locally, potentially introducing the possibility of bugs.
+- Developers need to pull the latest changes into their branches to stay up-to-date.This is not a requirement as when you create the PR it will automatically merge their branch into the trunk when building.However, it's recommended that developers pull their latest changes to keep up to date because the merge might be different than what they tested locally, potentially introducing the possibility of bugs.
 
 Branch Management:
 
@@ -49,13 +49,13 @@ Branch Management:
 
 - Long-lived branches are useful for experiments and large refactorings, such as migrating frameworks (e.g., Spring to Hibernate). However, these situations are infrequent. Most development (90-95%) utilizes short-lived branches to ensure continuous integration, cohesion, and comprehensive testing.
 
-- Descriptive branch names, including developer IDs (e.g., \"username/feature-name\"), improve organization and maintenance. This convention aids in automatic categorization within popular CI/CD platforms like Azure DevOps, grouping branches into logical directories.
+- Descriptive branch names, including developer IDs (e.g., "username/feature-name"), improve organization and maintenance. This convention aids in automatic categorization within popular CI/CD platforms like Azure DevOps, grouping branches into logical directories.
 
 Build Server:
 
-- The build server clones the developer\'s branch associated with the PR and builds the code.In this case the build server is provided to you by GitHub Actions, but you can also use a self hosted runner yourself.
+- The build server clones the developer's branch associated with the PR and builds the code.In this case the build server is provided to you by GitHub Actions, but you can also use a self hosted runner yourself.
 
-- This ensures that the changes are compatible with the existing codebase.It\'s important to write good tests as well as making sure that the bell script is up to date to make sure that the pipeline sufficiently instills confidence in your changes. The build pipeline is only as useful as the effort and criteria that you put into it. It is not magical.
+- This ensures that the changes are compatible with the existing codebase.It's important to write good tests as well as making sure that the bell script is up to date to make sure that the pipeline sufficiently instills confidence in your changes. The build pipeline is only as useful as the effort and criteria that you put into it. It is not magical.
 
 #### What is a repository? {#what-is-a-repository .unnumbered}
 
@@ -83,7 +83,7 @@ While the developer is coding, they normally run **unit tests or integration tes
 
 [[Rust Test Explorer - Visual Studio Marketplace]{.underline}](https://marketplace.visualstudio.com/items?itemName=swellaby.vscode-rust-test-adapter)
 
-For instance, consider a repository opened in GitHub Desktop. It\'s a tool to visualize and interact with a Git repository, showing individual changes and their details. While this isn\'t a tutorial on Git, it\'s worth noting that any VCS with the capability to track and manage changes suffices; it doesn\'t have to be Git. The choice depends on your team\'s preferences and needs. Here is a screenshot of GitHub Desktop:
+For instance, consider a repository opened in GitHub Desktop. It's a tool to visualize and interact with a Git repository, showing individual changes and their details. While this isn't a tutorial on Git, it's worth noting that any VCS with the capability to track and manage changes suffices; it doesn't have to be Git. The choice depends on your team's preferences and needs. Here is a screenshot of GitHub Desktop:
 
 > ![](./images/image33.png)
 
@@ -150,7 +150,7 @@ Here are some key characteristics of a good pull request:
 
 - **Includes Tests: If the project has a testing framework, the PR should include tests that cover the new functionality or bug fixes. This ensures that the changes work as expected and prevents regressions.**
 
-- Follows Code Style and Conventions: The PR should adhere to the project\'s coding standards and conventions to maintain consistency.
+- Follows Code Style and Conventions: The PR should adhere to the project's coding standards and conventions to maintain consistency.
 
 - Updated Documentation: If the changes introduce new features or modify existing ones, the PR should also update related documentation.
 
@@ -162,7 +162,7 @@ Here are some key characteristics of a good pull request:
 
 - Passes Continuous Integration: If the project uses CI tools, the PR should pass all checks (like building without errors, passing tests, lint checks, etc.)
 
-- Addresses Feedback: After receiving feedback, the PR author should make the necessary changes and might need to clarify if something isn\'t clear. A good PR evolves through collaboration.
+- Addresses Feedback: After receiving feedback, the PR author should make the necessary changes and might need to clarify if something isn't clear. A good PR evolves through collaboration.
 
 - Links to Issue: If the PR addresses an open issue, it should link to or mention that issue. This provides context and allows for tracking the resolution of bugs or features.
 
@@ -172,11 +172,11 @@ Here are some key characteristics of a good pull request:
 
 #### Testing and automated testing in the pipeline {#testing-and-automated-testing-in-the-pipeline .unnumbered}
 
-Software testing is crucial for ensuring that applications meet quality standards, function correctly, and deliver a positive user experience. It\'s a vital part of CI/CD because it helps developers catch bugs early and build confidence in their code changes. When the build pipeline runs, it runs your automated tests. If the automated tests fail, then therefore the build pipeline will fail as well. This is important, because this tells the developer that their changes cannot be merged (i.e., integrated and available to other developers) because something is wrong.
+Software testing is crucial for ensuring that applications meet quality standards, function correctly, and deliver a positive user experience. It's a vital part of CI/CD because it helps developers catch bugs early and build confidence in their code changes. When the build pipeline runs, it runs your automated tests. If the automated tests fail, then therefore the build pipeline will fail as well. This is important, because this tells the developer that their changes cannot be merged (i.e., integrated and available to other developers) because something is wrong.
 
 There are two main categories of testing:
 
-- Automated Testing (\"Checking\"): These tests are predefined (automated tests), can be run by computers, and are coded by developers. They are essential for verifying functionality and performance but very tedious, time-consuming, expensive and boring for a human to do manually.
+- Automated Testing ("Checking"): These tests are predefined (automated tests), can be run by computers, and are coded by developers. They are essential for verifying functionality and performance but very tedious, time-consuming, expensive and boring for a human to do manually.
 
 - Manual Testing: This involves human judgment and focuses on aspects like usability, aesthetics, and user experience that are difficult to automate.
 
@@ -206,7 +206,7 @@ There are many types of automated tests, including:
 
 - Usability Testing: Evaluates user-friendliness, which may or may not include a human reviewer.
 
-- Regression Testing: Ensures new changes don\'t break existing functionality.
+- Regression Testing: Ensures new changes don't break existing functionality.
 
 - Smoke Testing: Identifies major failures early on.
 

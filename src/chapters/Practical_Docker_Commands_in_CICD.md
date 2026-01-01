@@ -4,21 +4,20 @@ Here are practical examples of the Docker commands, incorporating best practices
 
 **1. Docker Build and Push (73 instances):**
 
+```yaml
 - name: Build and Push Image
+  run: |
+    docker build -t registry.example.com/my-project/my-app:${{ github.sha }} .
+    docker push registry.example.com/my-project/my-app:${{ github.sha }}
+```
 
-run: \|
-
-docker build -t registry.example.com/my-project/my-app:\${{ github.sha }} .
-
-docker push registry.example.com/my-project/my-app:\${{ github.sha }}
-
-This builds an image tagged with the GitHub commit SHA for traceability and pushes it to a registry.Reason why you would watch this command is because when you push something to a registry and it\'s a new version for example, you have to tag the image and when you tag it and you push it then it pushes that tag and that and subsequently that docker image to the registry. So for example if you building some docker images inside of your continuous integration pipeline, you would tag the image and then push it.This also be useful for deployment for example. Echo command in this case is used to pass the password that\'s associated with your registry to the standard input of the docker command, and this way it makes it so that it\'s not it doesn\'t get displayed on the output, and also you\'re not creating these temporary files that have passwords in them, so it\'s only done in memory.
+This builds an image tagged with the GitHub commit SHA for traceability and pushes it to a registry.Reason why you would watch this command is because when you push something to a registry and it's a new version for example, you have to tag the image and when you tag it and you push it then it pushes that tag and that and subsequently that docker image to the registry. So for example if you building some docker images inside of your continuous integration pipeline, you would tag the image and then push it.This also be useful for deployment for example. Echo command in this case is used to pass the password that's associated with your registry to the standard input of the docker command, and this way it makes it so that it's not it doesn't get displayed on the output, and also you're not creating these temporary files that have passwords in them, so it's only done in memory.
 
 **2. Docker Login and Logout (13 instances):**
 
 - name: Docker Login
 
-run: echo \"\${{ secrets.DOCKER_PASSWORD }}\" \| docker login -u \${{ secrets.DOCKER_USERNAME }} \--password-stdin registry.example.com
+run: echo "\${{ secrets.DOCKER_PASSWORD }}" \| docker login -u \${{ secrets.DOCKER_USERNAME }} \--password-stdin registry.example.com
 
 - name: Docker Logout
 
@@ -50,7 +49,7 @@ This pulls a specific Node.js image for use in later steps.
 
 if: always()
 
-run: docker rmi \$(docker images -f \"dangling=true\" -q)
+run: docker rmi \$(docker images -f "dangling=true" -q)
 
 This cleans up dangling images after builds, freeing up space.
 
@@ -62,7 +61,7 @@ run: docker start my-postgres
 
 - name: Execute Command in Container
 
-run: docker exec my-postgres psql -U postgres -c \"SELECT version();\"
+run: docker exec my-postgres psql -U postgres -c "SELECT version();"
 
 - name: Create Network
 
@@ -94,13 +93,12 @@ This cleans up unused Docker resources and displays system-wide information.
 
 **9. Docker-compose (1 instance):**
 
+```yaml
 - name: Build and Push with Compose
-
-run: \|
-
-docker-compose -f docker-compose.prod.yml build
-
-docker-compose -f docker-compose.prod.yml push
+  run: |
+    docker-compose -f docker-compose.prod.yml build
+    docker-compose -f docker-compose.prod.yml push
+```
 
 This builds and pushes a multi-container application using docker-compose.
 
@@ -142,8 +140,12 @@ This executes tests inside a container dedicated to testing.
 
 run: \|
 
+```bash
 docker pull registry.example.com/my-project/migration-tool:latest
+```
 
-docker run registry.example.com/my-project/migration-tool:latest \--database my-database
+```bash
+docker run registry.example.com/my-project/migration-tool:latest --database my-database
+```
 
 This pulls a dedicated image and then runs a migration script with it.

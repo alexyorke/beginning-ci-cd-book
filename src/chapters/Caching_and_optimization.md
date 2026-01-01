@@ -54,7 +54,7 @@
 
 - If cache string is too long, just hash it
 
-- The cache key determines which cache should be used, so if the key is incorrect or missing, the cache won\'t be used or the wrong cache will be used. This can lead to slower build times or incorrect build results.
+- The cache key determines which cache should be used, so if the key is incorrect or missing, the cache won't be used or the wrong cache will be used. This can lead to slower build times or incorrect build results.
 
 #### Caching too many or too few files
 

@@ -199,7 +199,6 @@ Let's illustrate these concepts with common scenarios, drawing on patterns obser
 
 Yes, absolutely. This is done by sequencing the transformation commands in your pipeline script. Each command operates on the output of the previous one.
 
-```yaml
 steps:
   - name: Copy template
     run: cp config.template.xml config.xml
@@ -209,7 +208,6 @@ steps:
     run: sed -i 's|__DB_CONN__|${{ secrets.PROD_DB }}|' config.xml
   - name: Set API URL variable
     run: sed -i 's|__API_URL__|${{ env.PROD_API_URL }}|' config.xml
-```
 
 #### How do I handle environment-specific settings during file transformation?
 
@@ -303,7 +301,7 @@ This navigates to the parent directory of the current working directory.
 
 run: cd optional-directory && true
 
-This attempts to change to optional-directory. The && true ensures the step succeeds even if the directory doesn\'t exist, preventing workflow failures.
+This attempts to change to optional-directory. The && true ensures the step succeeds even if the directory doesn't exist, preventing workflow failures.
 
 **3. Going Back Two Directories:**
 
@@ -325,7 +323,7 @@ cd \~/
 
 This moves to the workspace directory, represented by \~, which is the default directory for your workflow.
 
-**5. \"Working-directory\" for Specificity:**
+**5. "Working-directory" for Specificity:**
 
 - name: Build Project
 
@@ -337,7 +335,7 @@ npm install
 
 npm run build
 
-This uses the working-directory option to specify a different starting directory for this step, enhancing clarity and control.It\'s important because CD only applies to this step and it gets reset.For all the subsequent steps. Also, this is important when you are using scripts in different languages. So using the working directory means that you can use an action for example. And thought well, just change that you\'re not able to run a script plus an action at the same time. So in this way working directory is a little bit more agnostic.
+This uses the working-directory option to specify a different starting directory for this step, enhancing clarity and control.It's important because CD only applies to this step and it gets reset.For all the subsequent steps. Also, this is important when you are using scripts in different languages. So using the working directory means that you can use an action for example. And thought well, just change that you're not able to run a script plus an action at the same time. So in this way working directory is a little bit more agnostic.
 
 **Complete Example:**
 
@@ -367,11 +365,11 @@ working-directory: ./my-project
 
 run: \|
 
-echo \"Current directory: \$(pwd)\"
+echo "Current directory: \$(pwd)"
 
 cd src
 
-echo \"Building in directory: \$(pwd)\"
+echo "Building in directory: \$(pwd)"
 
 \# \... build commands \...
 

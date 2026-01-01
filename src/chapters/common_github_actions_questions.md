@@ -208,7 +208,7 @@ _ How to fix `Permission 'iam.serviceAccounts.getAccessToken' denied on resource
 _ What causes `gcloud.secrets.versions.access` errors related to refreshing tokens with WIF?
 _ How to resolve `MSBUILD : error MSB1003: Specify a project or solution file` during .NET builds?
 _ Why might a .NET 8 deployment fail with `Package deployment using ZIP Deploy failed`?
-_ What causes `denied: Permission \"artifactregistry.repositories.uploadArtifacts\" denied...` when pushing to GCP Artifact Registry?
+_ What causes `denied: Permission "artifactregistry.repositories.uploadArtifacts" denied...` when pushing to GCP Artifact Registry?
 _ Why might a workflow run successfully but the deployed application (e.g., on GKE pod) not reflect the latest code changes?
 _ What causes `refusing to allow an OAuth App to create or update workflow... without \`workflow\` scope`error on push?
     *   How to fix`Error: The version '3.x' with architecture 'x64' was not found...` when running a composite action? \* Why might an Actions deployment succeed but the application be unreachable at its public IP?

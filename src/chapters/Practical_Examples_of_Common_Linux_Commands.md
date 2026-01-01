@@ -6,59 +6,81 @@ Here are some practical examples demonstrating the usage of common Linux command
 
 **Finding files with specific criteria:**
 
-- Find all files in the current directory and its subdirectories named \"config.txt\":
+- Find all files in the current directory and its subdirectories named "config.txt":
 
-find . -name \"config.txt\"
+```bash
+find . -name "config.txt"
+```
 
 - Find all files in the current directory and its subdirectories modified in the last 24 hours:
 
+```bash
 find . -mtime -1
+```
 
-- Find all files in the current directory and its subdirectories with the \"txt\" extension:
+- Find all files in the current directory and its subdirectories with the "txt" extension:
 
-find . -name \"\*.txt\"
+```bash
+find . -name "\*.txt"
+```
 
 **Using find with -exec to execute commands:**
 
 - Delete all files in the current directory and its subdirectories older than 30 days:
 
-find . -mtime +30 -exec rm {} \\;
+```bash
+find . -mtime +30 -exec rm {} \;
+```
 
-- Rename all files in the current directory and its subdirectories ending with \".bak\" to \".txt\":
+- Rename all files in the current directory and its subdirectories ending with ".bak" to ".txt":
 
-find . -name \"\*.bak\" -exec mv {} `echo {} \| sed \'s/\\.bak\$/.txt/\'` \\;
+```bash
+find . -name "\*.bak" -exec mv {} `echo {} \| sed 's/\.bak$/.txt/'` \;
+```
 
 **Using find with -0 for piping:**
 
 - Find all .txt files in the current directory and its subdirectories, then print their file sizes:
 
-find . -name \"\*.txt\" -print0 \| xargs -0 du -h
+```bash
+find . -name "\*.txt" -print0 \| xargs -0 du -h
+```
 
 **2. tar**
 
 **Creating an archive:**
 
-- Archive all files in the current directory into a file named \"my_archive.tar\":
+- Archive all files in the current directory into a file named "my_archive.tar":
 
+```bash
 tar -cf my_archive.tar \*
+```
 
-- Archive all files in the \"documents\" directory into a file named \"documents.tar\", showing progress:
+- Archive all files in the "documents" directory into a file named "documents.tar", showing progress:
 
+```bash
 tar -cvf documents.tar documents/\*
+```
 
-- Create a compressed archive of all files in the \"pictures\" directory:
+- Create a compressed archive of all files in the "pictures" directory:
 
+```bash
 tar -czvf pictures.tar.gz pictures/
+```
 
 **Extracting an archive:**
 
-- Extract the contents of \"my_archive.tar\" to the current directory:
+- Extract the contents of "my_archive.tar" to the current directory:
 
+```bash
 tar -xf my_archive.tar
+```
 
-- Extract the contents of \"documents.tar.gz\" to the \"extracted\" directory:
+- Extract the contents of "documents.tar.gz" to the "extracted" directory:
 
+```bash
 tar -xzvf documents.tar.gz -C extracted
+```
 
 **Directory Structure of tar Archives:**
 
@@ -90,23 +112,31 @@ content_copyUse code [[with caution]{.underline}](https://support.google.com/leg
 
 **Creating an archive:**
 
-- Zip all files in the current directory into \"my_archive.zip\":
+- Zip all files in the current directory into "my_archive.zip":
 
+```bash
 zip -r my_archive.zip \*
+```
 
-- Zip the contents of the \"documents\" directory into \"documents.zip\":
+- Zip the contents of the "documents" directory into "documents.zip":
 
+```bash
 zip -r documents.zip documents/
+```
 
 **Extracting an archive:**
 
-- Extract the contents of \"my_archive.zip\" to the current directory:
+- Extract the contents of "my_archive.zip" to the current directory:
 
+```bash
 unzip my_archive.zip
+```
 
-- Extract the contents of \"documents.zip\" to the \"extracted\" directory:
+- Extract the contents of "documents.zip" to the "extracted" directory:
 
+```bash
 unzip -d extracted documents.zip
+```
 
 **4. for**
 
@@ -116,7 +146,9 @@ unzip -d extracted documents.zip
 
 for file in \*; do
 
-echo \"\$file\"
+```bash
+echo "$file"
+```
 
 done
 
@@ -124,7 +156,9 @@ done
 
 for file in \*.txt; do
 
-cp \"\$file\" \"\$file.bak\"
+```bash
+cp "$file" "$file.bak"
+```
 
 done
 
@@ -134,7 +168,9 @@ done
 
 for i in {1..10}; do
 
-echo \"\$i\"
+```bash
+echo "$i"
+```
 
 done
 
@@ -142,7 +178,9 @@ done
 
 for i in {1..5}; do
 
-echo \"Executing command\...\"
+```bash
+echo "Executing command\..."
+```
 
 sleep 2
 
@@ -150,15 +188,19 @@ done
 
 **5. touch**
 
-- Create a new empty file named \"new_file.txt\":
+- Create a new empty file named "new_file.txt":
 
+```bash
 touch new_file.txt
+```
 
 `
 
-- Update the modification time of \"important_file.txt\" to the current time:
+- Update the modification time of "important_file.txt" to the current time:
 
+```bash
 touch important_file.txt
+```
 
 **6. EOF**
 
@@ -166,13 +208,17 @@ touch important_file.txt
 
 #!/bin/bash
 
-message=\"This is a multiline
+message="This is a multiline
 
-string with variables: \$HOME\"
+string with variables: \$HOME"
 
-echo \"\$message\"
+```bash
+echo "$message"
+```
 
-cat \<\< EOF
+```bash
+cat << EOF
+```
 
 This is another multiline
 
@@ -182,7 +228,7 @@ EOF
 
 **7. pwd**
 
-- Print the current working directory:This is useful when you want to debug where you\'re currently at. If you\'re writing some commands and they look like they\'re not working, for example.
+- Print the current working directory:This is useful when you want to debug where you're currently at. If you're writing some commands and they look like they're not working, for example.
 
 pwd
 
@@ -206,7 +252,7 @@ sleep 2.5h
 
 apt-get update
 
-- Install the \"vim\" package without prompting:
+- Install the "vim" package without prompting:
 
 apt-get -y install vim
 
@@ -216,40 +262,56 @@ apt-get -y install vim curl git
 
 **10. ln**
 
-- Create a symbolic link named \"my_link\" pointing to the file \"important_file.txt\":
+- Create a symbolic link named "my_link" pointing to the file "important_file.txt":
 
+```bash
 ln -s important_file.txt my_link
+```
 
 **11. df**
 
-- Show free disk space for all mounted filesystems:It\'s useful if your runner is running out of space and you want to do some debugging, for example.
+- Show free disk space for all mounted filesystems:It's useful if your runner is running out of space and you want to do some debugging, for example.
 
+```bash
 df -h
+```
 
-- Show free disk space for the \"/home\" filesystem:
+- Show free disk space for the "/home" filesystem:
 
+```bash
 df -h /home
+```
 
 **12. unzip**
 
-- Unzip the contents of \"my_archive.zip\" to the current directory:
+- Unzip the contents of "my_archive.zip" to the current directory:
 
+```bash
 unzip my_archive.zip
+```
 
-- Unzip the contents of \"documents.zip\" to the \"extracted\" directory:
+- Unzip the contents of "documents.zip" to the "extracted" directory:
 
+```bash
 unzip -d extracted documents.zip
+```
 
 **13. grep**
 
-- Find lines containing the word \"error\" in the file \"log.txt\":
+- Find lines containing the word "error" in the file "log.txt":
 
-grep \"error\" log.txt
+```bash
+grep "error" log.txt
+```
 
-- Find lines containing the pattern \"error\[0-9\]+\" (error followed by one or more digits) in the file \"log.txt\":
+- Find lines containing the pattern "error\[0-9\]+" (error followed by one or more digits) in the file "log.txt":
 
-grep \"error\[0-9\]+\" log.txt
+```bash
+grep "error[0-9]+" log.txt
+```
 
-- Find lines in all files in the current directory that contain the word \"warning\":
+- Find lines in all files in the current directory that contain the word "warning":
 
-grep \"warning\" \*
+```bash
+grep "warning" \*
+```

@@ -162,7 +162,11 @@ Given the importance of security in today's software landscape, those interested
 
 - Sandboxed does not mean intellectual property is safe
 
-  - Anything can be uploaded to a server in the post-install scripts, how to check which packages have these scripts (or scripts in general) npm view js-common \--json \| jq .scripts
+  - Anything can be uploaded to a server in the post-install scripts. To check which packages have these scripts (or scripts in general):
+
+    ```bash
+    npm view js-common --json | jq .scripts
+    ```
 
   - Use example of ransomware npm package as an example
 
@@ -408,7 +412,9 @@ Signing commits using a YubiKey and Git involves several steps, but it provides 
    a. Tell Git about GPG:
 
    ```bash
+```bash
    git config --global gpg.program $(which gpg)
+```
    ```
 
    b. Get your GPG key ID (usually the last 8 characters):
@@ -428,28 +434,36 @@ Signing commits using a YubiKey and Git involves several steps, but it provides 
    c. Tell Git to use this GPG key for signing:
 
    ```bash
+```bash
    git config --global user.signingkey 1234ABCD1234ABCD
+```
    ```
 
 4. **Automatically Sign All Commits**:
    If you want to sign all commits by default in every Git repository on your computer, run:
 
    ```bash
+```bash
    git config --global commit.gpgsign true
+```
    ```
 
 5. **Signing a Commit**:
    If you haven’t enabled automatic signing, you can sign individual commits using the `-S` flag:
 
    ```bash
+```bash
    git commit -S -m "Your commit message"
+```
    ```
 
 6. **Verify Signed Commits**:
    To verify the signed commit:
 
    ```bash
+```bash
    git log --show-signature
+```
    ```
 
    This will show if the commit was signed and if the signature was valid.
@@ -527,13 +541,13 @@ git config --global user.signingkey [your-key-id-here]
 
 You can configure Git to sign all commits by default for a repository or globally. To enable it for all repos, use:
 
-```
+```bash
 git config --global commit.gpgsign true
 ```
 
 For a single repo, navigate to the repository directory and run:
 
-```
+```bash
 git config commit.gpgsign true
 ```
 
@@ -666,7 +680,7 @@ That’s it! You’ve now set up GPG signing for your Git commits. This adds a l
 
 - Why reproducible builds are important, one bit flip can change app behavior for example
 
-- The goal is reproducibility is to ensure the binaries/build artifacts are identical between different builds, as even one bit could cause a completely different program behavior. This behavior could be malicious. It's possible that a single bit might not do anything, or it could. Another goal is to prevent bugs due to the build software. For example, if it's creating a different binary each time, is there an internal threading issue/bug in the compiler/build script that might be unintentionally changing the program's behavior, thus, it is not possible to instill confidence in it due to the fact that the application is different each time? It is also important when you are building source code from the source, because it shows that the package has not been modified in transit from the developer's machine and you can trust the source code to some extent. If building using multiple different computers and different compilers, it prevents a malicious compiler from inserting code into the compiled program. This is because all compilers would have to be infected with the code, thus, making the attack much more complex. Theseus\'s ship analogy here on what is considered the same program.
+- The goal is reproducibility is to ensure the binaries/build artifacts are identical between different builds, as even one bit could cause a completely different program behavior. This behavior could be malicious. It's possible that a single bit might not do anything, or it could. Another goal is to prevent bugs due to the build software. For example, if it's creating a different binary each time, is there an internal threading issue/bug in the compiler/build script that might be unintentionally changing the program's behavior, thus, it is not possible to instill confidence in it due to the fact that the application is different each time? It is also important when you are building source code from the source, because it shows that the package has not been modified in transit from the developer's machine and you can trust the source code to some extent. If building using multiple different computers and different compilers, it prevents a malicious compiler from inserting code into the compiled program. This is because all compilers would have to be infected with the code, thus, making the attack much more complex. Theseus's ship analogy here on what is considered the same program.
 
 - Why reproducible builds? What problems does it solve?
 
@@ -678,7 +692,7 @@ That’s it! You’ve now set up GPG signing for your Git commits. This adds a l
 
   - To show that the source code can match the binaries. This is important because binaries do not have to correspond to their sources (i.e., if you publish a binary and claim to bundle its sources but it contains malicious software, there is no way of knowing.) The other consumers of your package can't verify it for security flaws as easily.
 
-  - Theseus\'s ship analogy, to what extent is software the same if the output is different? Two pieces of software can run identically if their binaries are not the same, but adopting Kantian philosophy can be helpful because it allows no room for deviation. This means it is difficult for an attacker to sneak in malicious code.
+  - Theseus's ship analogy, to what extent is software the same if the output is different? Two pieces of software can run identically if their binaries are not the same, but adopting Kantian philosophy can be helpful because it allows no room for deviation. This means it is difficult for an attacker to sneak in malicious code.
 
 - increased debuggability
 
@@ -786,7 +800,7 @@ for (int i = 0; i < 10; i++)
 
   - First, check if your builds are already deterministic. Run your build process on a few different computers running the same build tools and compare the hashes of the outputs. You can use diffoscope for this.
 
-  - Managing build environments: It\'s important to ensure that the environment in which builds are run is as consistent as possible across different machines. This can involve using virtual environments, containers, or other tools to isolate builds from the host system.
+  - Managing build environments: It's important to ensure that the environment in which builds are run is as consistent as possible across different machines. This can involve using virtual environments, containers, or other tools to isolate builds from the host system.
 
     - If everything is different, which build is considered the standard?
 
@@ -882,7 +896,7 @@ for (int i = 0; i < 10; i++)
 
   - Version everything and use package managers when possible (or hashes of packages/installers/versions)
 
-  - tar -W (verify after archiving) important because corruption could cause irreproducibility
+  - Use `tar -W` (verify after archiving). This is important because corruption could cause irreproducibility.
 
     - disable tar remote files and maybe globs in files because I can rsh into my server by default which is weird
 
@@ -892,23 +906,23 @@ for (int i = 0; i < 10; i++)
 
 #### Troubleshooting reproducibility issues
 
-- When aiming for reproducible builds, it\'s essential to check for consistency at various stages of the build process, not just the end. This approach aids in pinpointing issues if any arise.
+- When aiming for reproducible builds, it's essential to check for consistency at various stages of the build process, not just the end. This approach aids in pinpointing issues if any arise.
 
-- Take, for instance, the compilation of a program. Once compiled, you can cross-check the build artifacts to see if they\'re consistent across multiple builds. However, other steps like encryption or digital signing might introduce inconsistencies. To handle such scenarios:
+- Take, for instance, the compilation of a program. Once compiled, you can cross-check the build artifacts to see if they're consistent across multiple builds. However, other steps like encryption or digital signing might introduce inconsistencies. To handle such scenarios:
 
-  - 1\. **For Encryption:** After encrypting, decrypt the application and compare it with the original. If they match, it\'s likely reproducible unless there\'s an issue with the decryption tool.
+  - 1\. **For Encryption:** After encrypting, decrypt the application and compare it with the original. If they match, it's likely reproducible unless there's an issue with the decryption tool.
 
-  - 2\. **For Signing:** Remove the digital signature and then verify the application\'s consistency.
+  - 2\. **For Signing:** Remove the digital signature and then verify the application's consistency.
 
-  - 3\. **For Obfuscation:** Use a consistent seed, preferably derived from the application\'s state before obfuscation. However, this depends on your security strategy and the capabilities of the library you\'re using.
+  - 3\. **For Obfuscation:** Use a consistent seed, preferably derived from the application's state before obfuscation. However, this depends on your security strategy and the capabilities of the library you're using.
 
 - If you receive inconsistent artifacts from a third-party:
 
   - \- Determine the reason. Are they providing updated versions, has their server been compromised, or are they delivering different versions for tracking reasons?
 
-  - \- Engage in discussions with the software provider. If they\'re not cooperative, consider switching to a different supplier.
+  - \- Engage in discussions with the software provider. If they're not cooperative, consider switching to a different supplier.
 
-  - As a workaround, store the build artifacts you obtain and use those for subsequent builds. This ensures that unexpected changes don\'t occur in between builds.
+  - As a workaround, store the build artifacts you obtain and use those for subsequent builds. This ensures that unexpected changes don't occur in between builds.
 
 - Step 0: teams
 
@@ -964,16 +978,14 @@ for (int i = 0; i < 10; i++)
 
   -
 
-+----------------------------------------------------------------------------------------------------------------------------------+
-| .\\fq \'.. \| select(scalars and in_bytes_range(0x123))\' test.tar |
-| |
-| \|00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15\|0123456789abcdef012345\| |
-| |
-| 0x108\| 61 6c 65 78 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\| alex\...\...\...\...\.....\|.files\[0\].uname: \"alex\" |
-| |
-| 0x11e\|00 00 00 00 00 00 00 00 00 00 00 |
-+==================================================================================================================================+
-+----------------------------------------------------------------------------------------------------------------------------------+
+.\\fq '.. \| select(scalars and in_bytes_range(0x123))' test.tar
+
+\|00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15\|0123456789abcdef012345\|
+
+0x108\| 61 6c 65 78 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\| alex\...\...\...\...\.....\|.files\[0\].uname: "alex"
+
+0x11e\|00 00 00 00 00 00 00 00 00 00 00
+```
 
 1.  fq does have a way to diff binary files, however it says that the tar file I'm using is broken (although it is ok.) I may have to use binwalk to find the offset, then use fq to figure out what is at that offset. [[fq/usage.md at master · wader/fq · GitHub]{.underline}](https://github.com/wader/fq/blob/master/doc/usage.md)
 
@@ -1037,7 +1049,7 @@ for (int i = 0; i < 10; i++)
 
   14. [[https://stackoverflow.com/a/64606251/220935]{.underline}](https://stackoverflow.com/a/64606251/220935) for deterministic Jest tests
 
-  15. strace -f -t -e trace=file ./node_modules/.pnpm/node_modules/.bin/jest \--maxConcurrency=1 -w 1 2\>&1 \| grep -F \'/dev/urandom\' -B 5 run it on chunks of tests individually and see where randomness is introduced
+  15. strace -f -t -e trace=file ./node_modules/.pnpm/node_modules/.bin/jest --maxConcurrency=1 -w 1 2>&1 \| grep -F '/dev/urandom' -B 5 run it on chunks of tests individually and see where randomness is introduced
 
   16. strace while the debugger is active and then pause program execution when /dev/urandom is hit? hmmmm
 
@@ -1049,9 +1061,9 @@ for (int i = 0; i < 10; i++)
 
   1.  Use strace to determine which files are being used
 
-  2.  strace -xx -yy -e read,openat -o output.log bash -c \'cd .. && ls\'
+  2.  strace -xx -yy -e read,openat -o output.log bash -c 'cd .. && ls'
 
-  3.  grep -oP \'openat\\(\[A-Z\_\]+, \\\"\\K(\[\\\\x0-9a-f\]+)\' strace_output.log
+  3.  grep -oP 'openat\([A-Z\_]+, "\K([\x0-9a-f]+)' strace_output.log
 
   4.  Also need command to programmatically parse read calls (output is in hex) so need to decode it
 
@@ -1087,56 +1099,52 @@ for (int i = 0; i < 10; i++)
 
   18. xdelta3 shows copied binary segments (e.g., files were concatenated non-deterministically)
 
-```md
-+--------------------------------------------------------------------------------------------------------+
-| alex@DESKTOP-7M8V9ET:/mnt/c/users/Alex Yorke/Desktop$ xdelta3 printdelta test1-3-2-4_to_3-4-1-2.delta |
-| |
-| VCDIFF version: 0 |
-| |
-| VCDIFF header size: 41 |
-| |
-| VCDIFF header indicator: VCD_APPHEADER |
-| |
-| VCDIFF secondary compressor: lzma |
-| |
-| VCDIFF application header: test3-4-1-2.data//test1-3-2-4.data/ |
-| |
-| XDELTA filename (output): test3-4-1-2.data |
-| |
-| XDELTA filename (source): test1-3-2-4.data |
-| |
-| VCDIFF window number: 0 |
-| |
-| VCDIFF window indicator: VCD_SOURCE VCD_ADLER32 |
-| |
-| VCDIFF adler32 checksum: 18C50DDD |
-| |
-| VCDIFF copy window length: 40000 |
-| |
-| VCDIFF copy window offset: 0 |
-| |
-| VCDIFF delta encoding length: 31 |
-| |
-| VCDIFF target window length: 40000 |
-| |
-| VCDIFF data section length: 0 |
-| |
-| VCDIFF inst section length: 12 |
-| |
-| VCDIFF addr section length: 8 |
-| |
-| Offset Code Type1 Size1 @Addr1 + Type2 Size2 @Addr2 |
-| |
-| 000000 019 CPY_0 10000 S@10000 |
-| |
-| 010000 035 CPY_1 10000 S@30000 |
-| |
-| 020000 019 CPY_0 10000 S@0 |
-| |
-| 030000 051 CPY_2 10000 S@20000 |
-+========================================================================================================+
-+--------------------------------------------------------------------------------------------------------+
 ```
+alex@DESKTOP-7M8V9ET:/mnt/c/users/Alex Yorke/Desktop$ xdelta3 printdelta test1-3-2-4_to_3-4-1-2.delta
+
+VCDIFF version: 0
+
+VCDIFF header size: 41
+
+VCDIFF header indicator: VCD_APPHEADER
+
+VCDIFF secondary compressor: lzma
+
+VCDIFF application header: test3-4-1-2.data//test1-3-2-4.data/
+
+XDELTA filename (output): test3-4-1-2.data
+
+XDELTA filename (source): test1-3-2-4.data
+
+VCDIFF window number: 0
+
+VCDIFF window indicator: VCD_SOURCE VCD_ADLER32
+
+VCDIFF adler32 checksum: 18C50DDD
+
+VCDIFF copy window length: 40000
+
+VCDIFF copy window offset: 0
+
+VCDIFF delta encoding length: 31
+
+VCDIFF target window length: 40000
+
+VCDIFF data section length: 0
+
+VCDIFF inst section length: 12
+
+VCDIFF addr section length: 8
+
+Offset Code Type1 Size1 @Addr1 + Type2 Size2 @Addr2
+
+000000 019 CPY_0 10000 S@10000
+
+010000 035 CPY_1 10000 S@30000
+
+020000 019 CPY_0 10000 S@0
+
+030000 051 CPY_2 10000 S@20000
 
 19. Windows-specific tips
 

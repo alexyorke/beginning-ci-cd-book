@@ -1,1 +1,12 @@
-book
+## mdBook build output
+/book/
+
+## Local HTML verification output (tools/compile_md_to_html.js)
+/dist/
+
+## Local tool binaries (downloaded mdBook)
+/tools/bin/
+
+## Safety: ignore any accidental backup files
+*.bak
+*.bak-*

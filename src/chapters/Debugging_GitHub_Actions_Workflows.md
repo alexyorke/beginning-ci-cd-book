@@ -89,7 +89,9 @@ Catch errors _before_ running the workflow:
   ```
 - **Check Shell Script Syntax:** For any non-trivial shell scripts (`.sh`) used in `run` steps, use `bash -n` to perform a syntax check without executing the script. This catches basic errors like typos or missing brackets.
   ```bash
+```bash
   bash -n path/to/your_script.sh
+```
   ```
   _Note:_ `bash -n` only checks syntax. A script can have perfect syntax but still fail due to logic errors or incorrect commands.
 - **Lint Shell Scripts:** Use `shellcheck` for deeper analysis of your shell scripts. It finds a much wider range of potential problems than `bash -n`.
@@ -119,10 +121,14 @@ When you encounter this:
   ```yaml
   - name: Deploy Application
     run: |
+```bash
       echo "Deploying to server: ${{ secrets.DEPLOY_SERVER }}"
       echo "Using source directory: ${{ env.SOURCE_DIR }}"
+```
       # The potentially failing command
+```bash
       scp -r ${{ env.SOURCE_DIR }}/* user@${{ secrets.DEPLOY_SERVER }}:/var/www/html
+```
       # Add more echo statements as needed
   ```
 - **Use `set -e` in Scripts:** When writing multi-line shell scripts in a `run` step, include `set -e` at the beginning. This option causes the script to exit immediately if any command fails (returns a non-zero exit code). Without it, the script might continue running after an error, potentially masking the original problem or causing cascading failures. It helps pinpoint the _first_ command that failed.
@@ -130,11 +136,13 @@ When you encounter this:
   - name: Build and Test
     run: |
       set -e # Exit immediately if a command fails
+```bash
       echo "Running build..."
       npm run build
       echo "Running tests..."
       npm test
       echo "Build and Test successful!"
+```
   ```
   _(See the section on "Advanced Bash Script Debugging" for more `set` options like `-o pipefail`)_.
 - **Local Replication:** If the error is specific to a complex command or script interaction, try to replicate the environment and run the command locally (covered next).
@@ -149,11 +157,17 @@ Many workflows rely on shell scripts (`bash`, `sh`) within `run` steps. Debuggin
     run: |
       set -x # Print each command before execution
       export TARGET_DIR="/data/${{ github.run_id }}"
+```bash
       mkdir -p $TARGET_DIR
+```
       if [ -f "source/config.txt" ]; then
+```bash
         cp source/config.txt $TARGET_DIR/
+```
       fi
+```bash
       echo "Setup complete in $TARGET_DIR"
+```
   ```
 - **Strict Error Handling (`set -eou pipefail`):** This is a highly recommended combination for safer scripts:
   - `set -e`: Exit immediately if a command exits with a non-zero status.
@@ -175,14 +189,20 @@ Many workflows rely on shell scripts (`bash`, `sh`) within `run` steps. Debuggin
       TEMP_FILE=$(mktemp)
       trap 'echo "Cleaning up $TEMP_FILE"; rm -f "$TEMP_FILE"' EXIT # Register cleanup
 
+```bash
       echo "Writing data to temp file..."
       echo "Hello World" > "$TEMP_FILE"
+```
 
       # Simulate a failure
+```bash
       echo "Intentionally failing..."
       ls /non/existent/path
+```
 
+```bash
       echo "This line will not be reached"
+```
   ```
 
 - **Redirect Long Logs:** If a script generates a lot of output, making it hard to read in the workflow logs, redirect its output to a file. You can then use the `actions/upload-artifact` action to save this log file for later inspection.
@@ -202,7 +222,9 @@ Many workflows rely on shell scripts (`bash`, `sh`) within `run` steps. Debuggin
   # Example within a script
   read -p "Enter commit message: " message
   if [[ -z "$message" ]]; then
+```bash
     echo "Error: Commit message cannot be empty." >&2 # Print to stderr
+```
     exit 1
   fi
   ```
@@ -415,7 +437,9 @@ Let's look at some common scenarios where workflows might fail, along with how t
           run: |
             # Problem 2: Image tag might be missing org name or use wrong variable
             docker build -t my-app:${{ github.sha }} .
+```bash
             docker push my-app:${{ github.sha }}
+```
   ```
 
 - **Identifying the Bugs:**
@@ -595,8 +619,10 @@ You can automate common tasks locally to catch issues even before pushing. For i
 
       # Check if package.json or package-lock.json changed between HEAD and the previous state (ORIG_HEAD for merge/checkout)
       if git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD | grep -qE '^(package\.json|package-lock\.json)$'; then
+```bash
         echo "Detected changes in package.json/package-lock.json. Running npm install..."
         npm install
+```
       fi
 
       # Add similar checks for other dependency files if needed (e.g., requirements.txt -> pip install)
@@ -624,7 +650,7 @@ NEW
 
 ## **CI/CD script with complex quoting for Kubernetes deployment** {#cicd-script-with-complex-quoting-for-kubernetes-deployment .unnumbered}
 
-Imagine you\'re deploying a web application to Kubernetes using GitHub Actions. You need to pass a complex command as an argument to kubectl to configure a ConfigMap for your application. This command includes single quotes that need to be escaped within a single-quoted string.
+Imagine you're deploying a web application to Kubernetes using GitHub Actions. You need to pass a complex command as an argument to kubectl to configure a ConfigMap for your application. This command includes single quotes that need to be escaped within a single-quoted string.
 
 **Complex bash script in GitHub Actions:**
 
@@ -654,18 +680,22 @@ uses: actions/checkout@v3
 
 run: \|
 
-kubectl create configmap my-app-config \--from-literal=MY_COMMAND=\'\'\"\'\"\'ps -ef \| grep nginx\'\"\'\"\'
+```bash
+kubectl create configmap my-app-config --from-literal=MY_COMMAND=''"'"'ps -ef \| grep nginx'"'"'
+```
 
+```bash
 kubectl apply -f deployment.yaml
+```
 
 The challenge lies in the kubectl create configmap command:
 
-- We\'re using \--from-literal to set the MY_COMMAND key in the ConfigMap.
+- We're using \--from-literal to set the MY_COMMAND key in the ConfigMap.
 
 - The value of this key needs to be a shell command: ps -ef \| grep nginx
 
 - This command needs to be enclosed in single quotes for the ConfigMap to interpret it correctly.
 
-This leads to the same convoluted escaping we saw in the previous example: \'\"\'\"\'ps -ef \| grep nginx\'\"\'\"\'
+This leads to the same convoluted escaping we saw in the previous example: '"'"'ps -ef \| grep nginx'"'"'
 
 This script is hard to read and prone to errors. Anyone trying to understand or modify this workflow would have a difficult time deciphering the quoting.

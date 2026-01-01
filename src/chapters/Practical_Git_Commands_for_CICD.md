@@ -22,9 +22,9 @@ This step uses the official actions/checkout action to clone the specified repos
 
 run: \|
 
-git config user.name \"GitHub Actions Bot\"
+git config user.name "GitHub Actions Bot"
 
-git config user.email \"actions@github.com\"
+git config user.email "actions@github.com"
 
 These commands set the user name and email for git commits made during the workflow.
 
@@ -40,7 +40,7 @@ This adds the specified file to the staging area, preparing it for the commit.Yo
 
 - name: Commit Changes
 
-run: git commit -m \"Automated update: \[Description of changes\]\"
+run: git commit -m "Automated update: \[Description of changes\]"
 
 This commits the staged changes with a descriptive commit message.
 
@@ -56,7 +56,7 @@ This pushes the committed changes back to the specified branch on the origin rem
 
 - name: Create Tag
 
-run: git tag -a v1.2.3 -m \"Release v1.2.3\"
+run: git tag -a v1.2.3 -m "Release v1.2.3"
 
 - name: Push Tag
 
@@ -92,9 +92,9 @@ uses: actions/checkout@v3
 
 run: \|
 
-git config user.name \"GitHub Actions Bot\"
+git config user.name "GitHub Actions Bot"
 
-git config user.email \"actions@github.com\"
+git config user.email "actions@github.com"
 
 \# \... Your CI/CD steps to modify files \...
 
@@ -104,7 +104,7 @@ run: git add path/to/your/file.txt
 
 - name: Commit Changes
 
-run: git commit -m \"Automated update: \[Description of changes\]\"
+run: git commit -m "Automated update: \[Description of changes\]"
 
 - name: Push Changes
 
@@ -112,7 +112,7 @@ run: git push origin main
 
 - name: Create Tag
 
-run: git tag -a v1.2.3 -m \"Release v1.2.3\"
+run: git tag -a v1.2.3 -m "Release v1.2.3"
 
 - name: Push Tag
 

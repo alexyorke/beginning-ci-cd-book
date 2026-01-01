@@ -1,8 +1,8 @@
 ﻿## Programming a somewhat complicated weather application {#programming-a-somewhat-complicated-weather-application .unnumbered}
 
-This section explores CI/CD through the practical lens of building a sophisticated weather application. We\'ll dissect key features and demonstrate structuring a CI/CD pipeline using GitHub Actions.
+This section explores CI/CD through the practical lens of building a sophisticated weather application. We'll dissect key features and demonstrate structuring a CI/CD pipeline using GitHub Actions.
 
-Imagine wearing a project manager\'s hat and envisioning potential features for our weather application:
+Imagine wearing a project manager's hat and envisioning potential features for our weather application:
 
 - Displaying precipitation data for user-specified locations
 
@@ -24,7 +24,7 @@ Imagine wearing a project manager\'s hat and envisioning potential features for 
 
 1\. **Interactive World Map:** Our primary interface is a world map, designed to be interactive, allowing users to zoom into specific areas without reloading the entire map. We will be using the public open street map server for now but will show how you can self host it, including load balancing strategies.
 
-2\. **Weather Forecast Integration:** We will integrate real-time weather forecasting, beginning with current temperature displays at specific locations. This involves creating map overlays to show temperature variations across regions simultaneously.First, however, we\'re just going to get the temperature of our location.
+2\. **Weather Forecast Integration:** We will integrate real-time weather forecasting, beginning with current temperature displays at specific locations. This involves creating map overlays to show temperature variations across regions simultaneously.First, however, we're just going to get the temperature of our location.
 
 3\. **Enhanced Map Visualization:** The map will also display various weather parameters, such as wind speeds and temperature gradients. Given the potential for high user traffic, especially in densely populated areas like India, implementing load balancing and data compression strategies, such as vector tile maps, will be crucial.
 
@@ -38,11 +38,11 @@ Imagine wearing a project manager\'s hat and envisioning potential features for 
 
 [[Interactive weather maps - OpenWeatherMap]{.underline}](https://openweathermap.org/weathermap?basemap=map&cities=false&layer=temperature&lat=30&lon=-20&zoom=3)
 
-Here\'s an overview of our application architecture.
+Here's an overview of our application architecture.
 
 ![](./images/image24.png)
 
-Creating a new weather application using React involves several steps, from setting up your development environment to deploying the application. This book is not, of course, about how to learn React, so I won\'t be going into very much detail about how this React code actually works.
+Creating a new weather application using React involves several steps, from setting up your development environment to deploying the application. This book is not, of course, about how to learn React, so I won't be going into very much detail about how this React code actually works.
 
 The first step is to provision a local development environment, enabling a quick feedback loop. This ensures immediate testing of changes, such as adding text to a weather application and seeing updates appear almost instantly in the React application.
 
@@ -82,9 +82,9 @@ This provides a nice name we can use later and helps us inventory and group our 
 
 1\. **Install Node.js and npm:**
 
-- Visit \[Node.js\'s website\](https://nodejs.org/) and download the installer for your operating system. This will also install npm (Node Package Manager) which is essential for managing JavaScript packages.
+- Visit \[Node.js's website\](https://nodejs.org/) and download the installer for your operating system. This will also install npm (Node Package Manager) which is essential for managing JavaScript packages.
 
-- To verify the installation, run `node -v` and `npm -v` in your terminal or command prompt. **This should display the current versions of Node.js and npm installed. Keep a note of this as you\'ll need it for later.**
+- To verify the installation, run `node -v` and `npm -v` in your terminal or command prompt. **This should display the current versions of Node.js and npm installed. Keep a note of this as you'll need it for later.**
 
 2\. **Install a Code Editor:**
 
@@ -98,7 +98,7 @@ This provides a nice name we can use later and helps us inventory and group our 
 
 - Visit the official Git website: \[Git Downloads\](https://git-scm.com/downloads).
 
-- Click on \"Windows\" to download the latest version of Git for Windows.
+- Click on "Windows" to download the latest version of Git for Windows.
 
 2\. **Run the Installer:**
 
@@ -116,11 +116,9 @@ This provides a nice name we can use later and helps us inventory and group our 
 
 - First, install Homebrew by opening Terminal and running:
 
-```
 
-/bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-```
 
 - Once Homebrew is installed, install Git by typing:
 
@@ -194,15 +192,15 @@ sudo dnf install git
 
 - After logging in, you can configure GitHub Desktop to connect with your GitHub repositories. You can clone existing repositories, create new ones, or add local repositories.
 
-When you install Git, it typically comes with a tool called Git Credential Manager, which helps with authentication. If you\'re working in an interactive shell, you might see a pop-up from this tool when you try to access a repository. In a more basic command prompt environment, without a graphical interface, you\'ll need to follow specific instructions for accessing GitHub repositories. These instructions could involve pasting a link into a web browser or registering a device, using OAuth for authorization.
+When you install Git, it typically comes with a tool called Git Credential Manager, which helps with authentication. If you're working in an interactive shell, you might see a pop-up from this tool when you try to access a repository. In a more basic command prompt environment, without a graphical interface, you'll need to follow specific instructions for accessing GitHub repositories. These instructions could involve pasting a link into a web browser or registering a device, using OAuth for authorization.
 
-While you have the option to use a personal access token (PAT) for authentication, it\'s generally not recommended due to security risks, such as potential leaks and the extended lifespan of tokens. If you must use a PAT, consider setting its expiration to one week or less and arranging for it to be renewed periodically to enhance security.
+While you have the option to use a personal access token (PAT) for authentication, it's generally not recommended due to security risks, such as potential leaks and the extended lifespan of tokens. If you must use a PAT, consider setting its expiration to one week or less and arranging for it to be renewed periodically to enhance security.
 
 ![](./images/image78.png)
 
-First, ensure that you have cloned your GitHub repository to your local machine. Haven\'t made a repository yet? Then create one by creating a GitHub account and then creating a new repository, then cloning it locally.
+First, ensure that you have cloned your GitHub repository to your local machine. Haven't made a repository yet? Then create one by creating a GitHub account and then creating a new repository, then cloning it locally.
 
-Once you have the repository locally, create and switch to a new branch. You could name this branch something indicative of its purpose, such as \"initial-commit\" or \"first-commit.\" Here's how you can do this using Git commands:
+Once you have the repository locally, create and switch to a new branch. You could name this branch something indicative of its purpose, such as "initial-commit" or "first-commit." Here's how you can do this using Git commands:
 
 ```bash
 
@@ -210,7 +208,7 @@ git checkout -b initial-commit
 
 ```
 
-This command creates a new branch named \"initial-commit\" and checks it out, so you can start adding your changes to this branch. Do all of the following commands within the repository.
+This command creates a new branch named "initial-commit" and checks it out, so you can start adding your changes to this branch. Do all of the following commands within the repository.
 
 Run the following commands in that repository.
 
@@ -264,7 +262,7 @@ npm install axios
 
 ```
 
-We need to access a weather API, but we\'re faced with a challenge regarding how to securely handle the API key. Storing the key directly in our code is not an option as it poses a security risk. If the key were to be leaked, it would be difficult to track and audit its usage.
+We need to access a weather API, but we're faced with a challenge regarding how to securely handle the API key. Storing the key directly in our code is not an option as it poses a security risk. If the key were to be leaked, it would be difficult to track and audit its usage.
 
 To manage this securely for now, we will store the API key locally in a file named .env.local, which contains environment-specific data. Our React application will be configured to read from this .env file, allowing it to make calls to the API endpoint locally during development.
 
@@ -274,7 +272,7 @@ Later, we will explore solutions for safely using the API key in a production en
 
 ### Understanding the Build Process:
 
-- **Compiled Files**: The files in the `dist` folder are the result of the compilation process. For example, if you\'re using a framework like React, the `npm run build` command transforms React code into plain JavaScript. This is necessary because browsers cannot interpret React code directly; they only understand JavaScript.
+- **Compiled Files**: The files in the `dist` folder are the result of the compilation process. For example, if you're using a framework like React, the `npm run build` command transforms React code into plain JavaScript. This is necessary because browsers cannot interpret React code directly; they only understand JavaScript.
 
 - **Deployment Preparation**: The `dist` folder contains the compiled version of your application, which is what you will deploy. This folder holds all the static files required to run your application on any standard web server.
 
@@ -300,29 +298,29 @@ Then make sure to add the .env.local file to your .gitignore file. Do not commit
 
 ```jsx
 
-import React, { useState, useEffect } from \'react\';
+import React, { useState, useEffect } from 'react';
 
-import axios from \'axios\';
+import axios from 'axios';
 
 function Weather() {
 
-const \[weather, setWeather\] = useState(null);
+const [weather, setWeather] = useState(null);
 
-useEffect(() =\> {
+useEffect(() => {
 
-const fetchWeather = async () =\> {
+const fetchWeather = async () => {
 
 try {
 
 const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
 
-const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=London&appid=\${apiKey}`);
+const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=London&appid=${apiKey}`);
 
 setWeather(response.data);
 
 } catch (error) {
 
-console.error(\"Error fetching weather\", error);
+console.error("Error fetching weather", error);
 
 }
 
@@ -330,34 +328,78 @@ console.error(\"Error fetching weather\", error);
 
 fetchWeather();
 
-}, \[\]);
+}, []);
 
 return (
 
-\<div\>
+<div>
 
 {weather ? (
 
-\<div\>
+<div>
 
-\<h1\>{weather.name}\</h1\>
+<h1>{weather.name}</h1>
 
-\<p\>Temperature: {weather.main.temp}°C\</p\>
+<p>Temperature: {weather.main.temp}°C</p>
 
-\<p\>Condition: {weather.weather\[0\].description}\</p\>
+<p>Condition: {weather.weather[0].description}</p>
 
-\</div\>
+</div>
 
 ) : (
 
-\<p\>Loading weather\...\</p\>
+<p>Loading weather\...</p>
 
 )}
 
-\</div\>
+</div>
 
 );
 
+}
+
+export default Weather;
+
+```
+
+**Corrected example (rendering-safe):**
+
+```jsx
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+function Weather() {
+  const [weather, setWeather] = useState(null);
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+        const response = await axios.get(
+          `http://api.openweathermap.org/data/2.5/weather?q=London&appid=${apiKey}`
+        );
+        setWeather(response.data);
+      } catch (error) {
+        console.error('Error fetching weather', error);
+      }
+    };
+
+    fetchWeather();
+  }, []);
+
+  return (
+    <div>
+      {weather ? (
+        <div>
+          <h1>{weather.name}</h1>
+          <p>Temperature: {weather.main.temp}°C</p>
+          <p>Condition: {weather.weather[0].description}</p>
+        </div>
+      ) : (
+        <p>Loading weather...</p>
+      )}
+    </div>
+  );
 }
 
 export default Weather;
@@ -372,25 +414,25 @@ export default Weather;
 
 ```jsx
 
-import React from \'react\';
+import React from 'react';
 
-import Weather from \'./Weather\';
+import Weather from './Weather';
 
 function App() {
 
 return (
 
-\<div className=\"App\"\>
+<div className="App">
 
-\<header className=\"App-header\"\>
+<header className="App-header">
 
-\<h1\>Weather App\</h1\>
+<h1>Weather App</h1>
 
-\<Weather /\>
+<Weather />
 
-\</header\>
+</header>
 
-\</div\>
+</div>
 
 );
 
@@ -412,7 +454,7 @@ npm run build
 
 ```
 
-This command compiles your application and outputs the build files to the `dist` folder. Inside, you\'ll find several new files, including an `index.html` file, potentially some CSS files, and JavaScript files.
+This command compiles your application and outputs the build files to the `dist` folder. Inside, you'll find several new files, including an `index.html` file, potentially some CSS files, and JavaScript files.
 
 2\. **Start the Application**:
 
@@ -426,13 +468,13 @@ When you run the application, you should see that the API key has been successfu
 
 ![](./images/image70.png)
 
-Using the API key in production as we currently do is not ideal because it is exposed to the public. This exposure will lead to unauthorized use, resulting in significant charges or DDoS attack, meaning that our API quota will be exceeded. Fortunately, we\'re currently using a free version of the API, which limits the financial risk but not the operational risk; excessive fake requests could still deny legitimate users access.
+Using the API key in production as we currently do is not ideal because it is exposed to the public. This exposure will lead to unauthorized use, resulting in significant charges or DDoS attack, meaning that our API quota will be exceeded. Fortunately, we're currently using a free version of the API, which limits the financial risk but not the operational risk; excessive fake requests could still deny legitimate users access.
 
 **Aside**
 
 **Important Security Note Regarding GitHub:**
 
-When you commit an API key to a public GitHub repository, GitHub's secret scanning tool detects and invalidates exposed API keys for about 30 to 40 different providers within minutes. However, this window is sufficient for attackers to compromise your key before it's invalidated, leading to potential security breaches and loss of provider trust. It\'s crucial to never commit API keys to public repositories to avoid these risks. For more details on GitHub\'s secret scanning and best practices, you can refer to GitHub\'s documentation on secret scanning [[About secret scanning - GitHub Docs]{.underline}](https://docs.github.com/en/code-security/secret-scanning/about-secret-scanning#about-secret-scanning-alerts-for-users)
+When you commit an API key to a public GitHub repository, GitHub's secret scanning tool detects and invalidates exposed API keys for about 30 to 40 different providers within minutes. However, this window is sufficient for attackers to compromise your key before it's invalidated, leading to potential security breaches and loss of provider trust. It's crucial to never commit API keys to public repositories to avoid these risks. For more details on GitHub's secret scanning and best practices, you can refer to GitHub's documentation on secret scanning [[About secret scanning - GitHub Docs]{.underline}](https://docs.github.com/en/code-security/secret-scanning/about-secret-scanning#about-secret-scanning-alerts-for-users)
 
 **End aside**
 
@@ -440,17 +482,17 @@ To securely store and manage these API keys, you can utilize Azure Key Vault. By
 
 If you have an existing API consider using the Azure API Management Service. This service acts as a wrapper for existing APIs, adding valuable features such as authentication, rate limiting, quota management, and URL rewriting. In particular, we will leverage the URL rewriting capability to automatically append the API key and secret from the Key Vault to requests on our backend. This will hide the API key from the public URL and prevent it from being mis-used. Note that an attacker could still call our API multiple times to initiate a DDoS on our API Key, but we will get into rate limiting later.
 
-Here\'s how to set this up using Azure API Management Service:
+Here's how to set this up using Azure API Management Service:
 
-1\. **Create a New API Management Service**: Begin by creating a new resource group, for instance, named \'CI-CD-Book-int\' in the East US region. Name the resource as desired, such as \'My API Management Service\', and fill in the organization name and administrative email according to your requirements. Choose the \'Developer\' pricing tier.
+1\. **Create a New API Management Service**: Begin by creating a new resource group, for instance, named 'CI-CD-Book-int' in the East US region. Name the resource as desired, such as 'My API Management Service', and fill in the organization name and administrative email according to your requirements. Choose the 'Developer' pricing tier.
 
-2\. **Manage Identity**: In the \'Manage Identity\' tab, enable the system-assigned managed identity to allow your API Management Service access to the Azure Key Vault. This setup requires configuring Azure Role-Based Access Control (RBAC) rules to establish the necessary permissions.
+2\. **Manage Identity**: In the 'Manage Identity' tab, enable the system-assigned managed identity to allow your API Management Service access to the Azure Key Vault. This setup requires configuring Azure Role-Based Access Control (RBAC) rules to establish the necessary permissions.
 
-3\. **Installation**: Once all settings are configured, proceed to the \'Review + Install\' tab and initiate the creation of your API Management Service.
+3\. **Installation**: Once all settings are configured, proceed to the 'Review + Install' tab and initiate the creation of your API Management Service.
 
 5\. **Configure API and Testing**: In the API Management Service:
 
-- Go to \'APIs\' and create a new HTTP API, such as a \'Get Weather\'.
+- Go to 'APIs' and create a new HTTP API, such as a 'Get Weather'.
 
 - The endpoint is just "/".
 
@@ -467,124 +509,122 @@ In the below example, use the pretend API key listed below. This is because we a
 Add the following policy to the inbound request:
 
 ```
-\<!\--
+<!--
 
 - Policies are applied in the order they appear.
 
-- Position \<base/\> inside a section to inherit policies from the outer scope.
+- Position <base/> inside a section to inherit policies from the outer scope.
 
 - Comments within policies are not preserved.
 
---\>
+-->
 
-\<!\-- Add policies as children to the \<inbound\>, \<outbound\>, \<backend\>, and \<on-error\> elements \--\>
+<!-- Add policies as children to the <inbound>, <outbound>, <backend>, and <on-error> elements -->
 
-\<policies\>
+<policies>
 
-\<!\-- Throttle, authorize, validate, cache, or transform the requests \--\>
+<!-- Throttle, authorize, validate, cache, or transform the requests -->
 
-\<inbound\>
+<inbound>
 
-\<base /\>
+<base />
 
-\<set-backend-service base-url=\"https://httpbin.org/anything\" /\>
+<set-backend-service base-url="https://httpbin.org/anything" />
 
-\<set-query-parameter name=\"api-key\" exists-action=\"override\"\>
+<set-query-parameter name="api-key" exists-action="override">
 
-\<value\>12345678901\</value\>
+<value>12345678901</value>
 
-\</set-query-parameter\>
+</set-query-parameter>
 
-\</inbound\>
+</inbound>
 
-\<!\-- Control if and how the requests are forwarded to services \--\>
+<!-- Control if and how the requests are forwarded to services -->
 
-\<backend\>
+<backend>
 
-\<base /\>
+<base />
 
-\</backend\>
+</backend>
 
-\<!\-- Customize the responses \--\>
+<!-- Customize the responses -->
 
-\<outbound\>
+<outbound>
 
-\<base /\>
+<base />
 
-\</outbound\>
+</outbound>
 
-\<!\-- Handle exceptions and customize error responses \--\>
+<!-- Handle exceptions and customize error responses -->
 
-\<on-error\>
+<on-error>
 
-\<base /\>
+<base />
 
-\</on-error\>
+</on-error>
 
-\</policies\>
+</policies>
 ```
 
 At select save, then go back to the Test tab and then we run the request. You should get the following response or something very similar to it.
 
 This is the expected response:
 
-```
 {
 
-\"args\": {
+"args": {
 
-\"api-key\": \"12345678901\"
-
-},
-
-\"data\": \"\",
-
-\"files\": {},
-
-\"form\": {},
-
-\"headers\": {
-
-\"Accept\": \"\*/\*\",
-
-\"Accept-Encoding\": \"gzip,deflate,br,zstd\",
-
-\"Accept-Language\": \"en-US,en;q=0.9,en-CA;q=0.8\",
-
-\"Cache-Control\": \"no-cache, no-store\",
-
-\"Host\": \"httpbin.org\",
-
-\"Ocp-Apim-Subscription-Key\": \"986369bd5e1943aaac81cd4e87bde4f0\",
-
-\"Referer\": \"https://apimanagement.hosting.portal.azure.net/\",
-
-\"Sec-Ch-Ua\": \"\\\"Microsoft Edge\\\";v=\\\"125\\\",\\\"Chromium\\\";v=\\\"125\\\",\\\"Not.A/Brand\\\";v=\\\"24\\\"\",
-
-\"Sec-Ch-Ua-Mobile\": \"?0\",
-
-\"Sec-Ch-Ua-Platform\": \"\\\"Windows\\\"\",
-
-\"Sec-Fetch-Dest\": \"empty\",
-
-\"Sec-Fetch-Mode\": \"cors\",
-
-\"Sec-Fetch-Site\": \"cross-site\",
-
-\"X-Amzn-Trace-Id\": \"Root=1-66497521-4a028b2a52bd9d212f00e4db\"
+"api-key": "12345678901"
 
 },
 
-\"json\": null,
+"data": "",
 
-\"method\": \"GET\",
+"files": {},
 
-\"origin\": \"154.5.165.200,13.91.254.72, 51.8.19.165\",
+"form": {},
 
-\"url\": \"https://httpbin.org/anything?api-key=12345678901\"
+"headers": {
+
+"Accept": "\*/\*",
+
+"Accept-Encoding": "gzip,deflate,br,zstd",
+
+"Accept-Language": "en-US,en;q=0.9,en-CA;q=0.8",
+
+"Cache-Control": "no-cache, no-store",
+
+"Host": "httpbin.org",
+
+"Ocp-Apim-Subscription-Key": "986369bd5e1943aaac81cd4e87bde4f0",
+
+"Referer": "https://apimanagement.hosting.portal.azure.net/",
+
+"Sec-Ch-Ua": ""Microsoft Edge";v="125","Chromium";v="125","Not.A/Brand";v="24"",
+
+"Sec-Ch-Ua-Mobile": "?0",
+
+"Sec-Ch-Ua-Platform": ""Windows"",
+
+"Sec-Fetch-Dest": "empty",
+
+"Sec-Fetch-Mode": "cors",
+
+"Sec-Fetch-Site": "cross-site",
+
+"X-Amzn-Trace-Id": "Root=1-66497521-4a028b2a52bd9d212f00e4db"
+
+},
+
+"json": null,
+
+"method": "GET",
+
+"origin": "154.5.165.200,13.91.254.72, 51.8.19.165",
+
+"url": "https://httpbin.org/anything?api-key=12345678901"
 
 }
-```
 
 To ensure proper setup, start by creating a new Azure Key Vault and add a fake API key initially. This approach helps verify system functionality without exposing your real API key, especially since HttpBin is not secure for testing on a public website. Once you confirm that the system works as expected with the fake key, replace it with the actual API key. Additionally, update the endpoint to point to the actual weather API. Finally, conduct an end-to-end test by sending a sample request to see if everything is functioning correctly.
 
@@ -596,35 +636,35 @@ Here's how to do that.
 
 - Navigate back to your resource group, specifically the CI-CD-Book-int one.
 
-- Click on \"Create New Azure Resource\", search for \"Key Vault\", and select it.
+- Click on "Create New Azure Resource", search for "Key Vault", and select it.
 
-- Name your Key Vault as \"CI_CD_Book_KV\" and leave the default settings intact.
+- Name your Key Vault as "CI_CD_Book_KV" and leave the default settings intact.
 
-- Proceed to create the vault by clicking on \"View and Create\", then \"Create\".
+- Proceed to create the vault by clicking on "View and Create", then "Create".
 
 2\. **Configure Access Permissions**:
 
-- After creation, go to \"Access Control (IAM)\" on the left-hand side of the Key Vault.
+- After creation, go to "Access Control (IAM)" on the left-hand side of the Key Vault.
 
-- Click \"Add Role Assignment\", search for \"Key Vault Administrator\", and add yourself by selecting your user profile.
+- Click "Add Role Assignment", search for "Key Vault Administrator", and add yourself by selecting your user profile.
 
 - Review and confirm the role assignment.
 
 3\. **Manage Secrets**:
 
-- Once access is granted, navigate to the \"Secrets\" tab within the Key Vault.
+- Once access is granted, navigate to the "Secrets" tab within the Key Vault.
 
-- Click on \"Generate or Import\" to create a new secret. For instance, name it \"weather-API-key\" and set its value to \"5934672295\", then create the secret.
+- Click on "Generate or Import" to create a new secret. For instance, name it "weather-API-key" and set its value to "5934672295", then create the secret.
 
 **Integrating Key Vault with API Management Service**
 
 1\. **Link the Key Vault to API Management**:
 
-- In your API Management Service, locate the \"Named Values\" option under the subscriptions section.
+- In your API Management Service, locate the "Named Values" option under the subscriptions section.
 
-- Add a new named value titled \"weather-api-key\" with the type set to \"Key Vault\".
+- Add a new named value titled "weather-api-key" with the type set to "Key Vault".
 
-- Select the \"CICD Key Vault\" and link the \"weather-API-key\" as the secret.
+- Select the "CICD Key Vault" and link the "weather-API-key" as the secret.
 
 - Set the identity as the system assigned managed identity and save your changes.
 
@@ -632,70 +672,70 @@ Here's how to do that.
 
 2\. **Update API Policy**:
 
-- Navigate to \"APIs\", select the \"Weather API\", and go to \"Get Weather\".
+- Navigate to "APIs", select the "Weather API", and go to "Get Weather".
 
-- Edit the policy using the policy editor. Insert the named value by typing \"{{weather-api-key}}\" into the appropriate field to dynamically insert the API key into API requests.
+- Edit the policy using the policy editor. Insert the named value by typing "{{weather-api-key}}" into the appropriate field to dynamically insert the API key into API requests.
 
 - Save your changes.
 
 Now, update the policy to the following:
 
 ```
-\<!\--
+<!--
 
 - Policies are applied in the order they appear.
 
-- Position \<base/\> inside a section to inherit policies from the outer scope.
+- Position <base/> inside a section to inherit policies from the outer scope.
 
 - Comments within policies are not preserved.
 
---\>
+-->
 
-\<!\-- Add policies as children to the \<inbound\>, \<outbound\>, \<backend\>, and \<on-error\> elements \--\>
+<!-- Add policies as children to the <inbound>, <outbound>, <backend>, and <on-error> elements -->
 
-\<policies\>
+<policies>
 
-\<!\-- Throttle, authorize, validate, cache, or transform the requests \--\>
+<!-- Throttle, authorize, validate, cache, or transform the requests -->
 
-\<inbound\>
+<inbound>
 
-\<base /\>
+<base />
 
-\<set-backend-service base-url=\"https://httpbin.org/anything\" /\>
+<set-backend-service base-url="https://httpbin.org/anything" />
 
-\<set-query-parameter name=\"api-key\" exists-action=\"override\"\>
+<set-query-parameter name="api-key" exists-action="override">
 
-\<value\>{{weather-api-key}}\</value\>
+<value>{{weather-api-key}}</value>
 
-\</set-query-parameter\>
+</set-query-parameter>
 
-\</inbound\>
+</inbound>
 
-\<!\-- Control if and how the requests are forwarded to services \--\>
+<!-- Control if and how the requests are forwarded to services -->
 
-\<backend\>
+<backend>
 
-\<base /\>
+<base />
 
-\</backend\>
+</backend>
 
-\<!\-- Customize the responses \--\>
+<!-- Customize the responses -->
 
-\<outbound\>
+<outbound>
 
-\<base /\>
+<base />
 
-\</outbound\>
+</outbound>
 
-\<!\-- Handle exceptions and customize error responses \--\>
+<!-- Handle exceptions and customize error responses -->
 
-\<on-error\>
+<on-error>
 
-\<base /\>
+<base />
 
-\</on-error\>
+</on-error>
 
-\</policies\>
+</policies>
 ```
 
 Now, you can use your base URI instead of calling the API directly. In my case, this is mine: [[https://my-api-management-service.azure-api.net]{.underline}](https://my-api-management-service.azure-api.net). In the React code, replace the call to the weather API endpoint with this URL.
@@ -704,7 +744,7 @@ You should be able to send a sample request to our API in the API Management ser
 
 After you've verified that everything is working, commit all changes and push to your branch.
 
-If you\'re using a different cloud provider and don\'t have an API management service you can develop a custom application using C# or any other programming language of your choice. This application would consume the Key Vault at runtime through a managed identity. This method grants you greater control over the response processing and other aspects of API interaction because you are directly manipulating the code.
+If you're using a different cloud provider and don't have an API management service you can develop a custom application using C# or any other programming language of your choice. This application would consume the Key Vault at runtime through a managed identity. This method grants you greater control over the response processing and other aspects of API interaction because you are directly manipulating the code.
 
 #### Tests {#tests .unnumbered}
 
@@ -836,7 +876,6 @@ Now that we verified our changes locally, we can now set up the pipeline to see 
 
 The current pipeline merely prints "hello world" and does not inspire confidence in the build artifacts. Let’s update it to perform meaningful tasks like installing dependencies, building, and testing the project. Edit your main YAML file with the following content:
 
-```yaml
 name: Build client app
 
 on:
@@ -873,7 +912,6 @@ jobs:
         with:
           name: my-artifact
           path: path/to/artifact
-```
 
 **Workflow Steps Explanation:**
 
@@ -968,7 +1006,7 @@ Follow the on-screen instructions to log in to your Azure account.
 
 ### Step 3: Create a Storage Account
 
-- **Navigate to Storage Accounts**: In the Azure portal, click on \"Create a resource\" and search for \"Storage Account\".
+- **Navigate to Storage Accounts**: In the Azure portal, click on "Create a resource" and search for "Storage Account".
 
 - **Set Up Basic Details**:
 
@@ -978,9 +1016,9 @@ Follow the on-screen instructions to log in to your Azure account.
 
 - Select a region close to your target audience to minimize latency.
 
-- Choose \"Standard\" performance, which is adequate for static content.
+- Choose "Standard" performance, which is adequate for static content.
 
-- Select \"StorageV2 (general purpose v2)\" for the account type, as it supports static website hosting.
+- Select "StorageV2 (general purpose v2)" for the account type, as it supports static website hosting.
 
 - **Review and Create**: Review your settings and create the storage account.
 
@@ -990,13 +1028,13 @@ Follow the on-screen instructions to log in to your Azure account.
 
 - After your storage account is created, go to its overview page.
 
-- Navigate to the \"Static website\" settings under the \"Data management\" section.
+- Navigate to the "Static website" settings under the "Data management" section.
 
-- Enable static website hosting by selecting \"Enabled\".
+- Enable static website hosting by selecting "Enabled".
 
-- Specify \"index.html\" as the index document name and \"404.html\" as the error document path.
+- Specify "index.html" as the index document name and "404.html" as the error document path.
 
-Make sure to disable storage account key access.This is important because Georgia county keys can be used to access your BLOB container from almost anywhere with.A weak form of authentication. This is just essentially a password. We\'re gonna be using something instead called a managed identity or a Federated credential.
+Make sure to disable storage account key access.This is important because Georgia county keys can be used to access your BLOB container from almost anywhere with.A weak form of authentication. This is just essentially a password. We're gonna be using something instead called a managed identity or a Federated credential.
 
 ![](./images/image8.png)
 
@@ -1008,13 +1046,13 @@ Sample HTML file with just some trivial contents, for example the text Hello wor
 
 #### Example:
 
-To upload an HTML file named `index.html` from your local machine to the \'\$web` container in your storage account, use:
+To upload an HTML file named `index.html` from your local machine to the '\$web` container in your storage account, use:
+
 
 ```bash
-
-az storage blob upload \--account-name cicdbookweb \--container-name '\$web' \--name index.html \--file /local/path/to/index.html
-
+az storage blob upload --account-name cicdbookweb --container-name '$web' --name index.html --file /local/path/to/index.html
 ```
+
 
 ### Step 7: Verify Upload
 
@@ -1022,7 +1060,7 @@ Confirm that your file has been successfully uploaded to the blob container:
 
 ```bash
 
-az storage blob list \--container-name cicdbookweb \--output table
+az storage blob list --container-name cicdbookweb --output table
 
 ```
 
@@ -1058,7 +1096,6 @@ Create a new workflow at .github/workflows/deploy.yml and insert the following c
 
 - Add a GitHub Actions workflow file to handle deployment:
 
-```yaml
 
 name: Deploy to Azure Storage
 
@@ -1100,15 +1137,18 @@ with:
 
 inlineScript: \|
 
-az storage blob upload-batch -s path/to/artifacts -d \$web \--connection-string \${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+```bash
+az storage blob upload-batch -s path/to/artifacts -d $web --connection-string ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+```
 
-az storage blob sync -s path/to/artifacts -d \$web \--connection-string \${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+```bash
+az storage blob sync -s path/to/artifacts -d $web --connection-string ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+```
 
 env:
 
-AZURE_STORAGE_CONNECTION_STRING: \${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
 
-```
 
 - **Secure Your Workflow**:
 
@@ -1116,13 +1156,13 @@ AZURE_STORAGE_CONNECTION_STRING: \${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
 
 Now if you go to the URL corresponding to the Azure CDN, potentially after 5 or 6 minutes for the CDN refresh, you should see your React application along with the weather app.
 
-This approach works fairly well for simple projects, but it can become complex when managing multiple workflows. Currently, we have two distinct workflows: one that automatically deploys when changes are pushed to the main branch, and another that runs on pull requests to ensure confidence in the artifacts. The challenge arises in tracking which version or application is in production due to these separate workflows. It becomes unclear, for instance, after a pull request is merged into the main branch, which environment the application is currently in or if it\'s ready for QA.
+This approach works fairly well for simple projects, but it can become complex when managing multiple workflows. Currently, we have two distinct workflows: one that automatically deploys when changes are pushed to the main branch, and another that runs on pull requests to ensure confidence in the artifacts. The challenge arises in tracking which version or application is in production due to these separate workflows. It becomes unclear, for instance, after a pull request is merged into the main branch, which environment the application is currently in or if it's ready for QA.
 
-To address this, GitHub offers features like jobs and environments that help structure workflows more clearly. These tools enable you to track your application\'s progression through its entire lifecycle in a visible and organized manner. This is crucial when multiple team members are committing to pull requests, potentially creating chaos without a clear order. Implementing structured workflows ensures you can easily identify which version is being tested and what is moving to the next stage.
+To address this, GitHub offers features like jobs and environments that help structure workflows more clearly. These tools enable you to track your application's progression through its entire lifecycle in a visible and organized manner. This is crucial when multiple team members are committing to pull requests, potentially creating chaos without a clear order. Implementing structured workflows ensures you can easily identify which version is being tested and what is moving to the next stage.
 
 ### Jobs and environments {#jobs-and-environments .unnumbered}
 
-Before we explore GitHub workflows, it\'s essential to understand the basics like jobs and environments. These elements are critical for structuring effective workflows, especially as we deploy our weather application. A clear grasp of these elements ensures that the workflow accurately reflects the application\'s current stage---whether it\'s integration, pre-production, or production. This clarity is vital for tracking feature releases and maintaining transparency about the status of ongoing changes.
+Before we explore GitHub workflows, it's essential to understand the basics like jobs and environments. These elements are critical for structuring effective workflows, especially as we deploy our weather application. A clear grasp of these elements ensures that the workflow accurately reflects the application's current stage---whether it's integration, pre-production, or production. This clarity is vital for tracking feature releases and maintaining transparency about the status of ongoing changes.
 
 Let's start with jobs.
 
@@ -1144,15 +1184,15 @@ Workflow Structure and Naming:
 
 Example Workflow:
 
-- Our workflow employs two jobs: \"build\" and \"deploy\". \"Build\" handles tasks like software compilation, while \"deploy\" manages security scans and deployment. Artifacts from \"build\" are passed to \"deploy,\" ensuring isolated environments.
+- Our workflow employs two jobs: "build" and "deploy". "Build" handles tasks like software compilation, while "deploy" manages security scans and deployment. Artifacts from "build" are passed to "deploy," ensuring isolated environments.
 
 Efficient Deployment Strategies:
 
 - Splitting workflows: Deploy to staging in one workflow, then trigger a separate workflow for production deployment after review.
 
-- Creating separate jobs for each task can introduce overhead and complicate environment variable management by requiring broader scoping, potentially increasing security risks. It also involves repeatedly uploading and downloading artifacts, adding complexity. Additionally, while jobs can be parallelized, this may not always align with your script\'s structure. Organizing a script into multiple jobs can obscure the workflow\'s overall structure, making it difficult to understand dependencies and parallelization opportunities.
+- Creating separate jobs for each task can introduce overhead and complicate environment variable management by requiring broader scoping, potentially increasing security risks. It also involves repeatedly uploading and downloading artifacts, adding complexity. Additionally, while jobs can be parallelized, this may not always align with your script's structure. Organizing a script into multiple jobs can obscure the workflow's overall structure, making it difficult to understand dependencies and parallelization opportunities.
 
-- Jobs allow for precise scoping of environments to specific tasks. For instance, if you have a production environment variable like a GitHub PAT, you can restrict its access to only the necessary steps. By assigning this variable to a particular job, such as deployment, you prevent unrelated jobs, like a \"prepare cache\" step that doesn\'t require production credentials, from accessing it. This ensures that production credentials are confined to the relevant job, enhancing security.
+- Jobs allow for precise scoping of environments to specific tasks. For instance, if you have a production environment variable like a GitHub PAT, you can restrict its access to only the necessary steps. By assigning this variable to a particular job, such as deployment, you prevent unrelated jobs, like a "prepare cache" step that doesn't require production credentials, from accessing it. This ensures that production credentials are confined to the relevant job, enhancing security.
 
 **Aside end**
 
@@ -1194,7 +1234,7 @@ If we make a bunch of jobs, and a bunch of dependencies (e.g., needs), then it w
 
 - ![](./images/image34.png)
 
-- [[Revert \"Only evaluate own String/Number/Math methods\" · babel/babel@9ec1cb5 (github.com)]{.underline}](https://github.com/babel/babel/actions/runs/6761970399)
+- [[Revert "Only evaluate own String/Number/Math methods" · babel/babel@9ec1cb5 (github.com)]{.underline}](https://github.com/babel/babel/actions/runs/6761970399)
 
 This workflow setup allows you to specify inputs and set the release type. For instance, if you wish to deploy commits from your main branch to the staging environment, you can manually input this, ensuring deployment stops at staging. Alternatively, you can deploy directly to production, though it will pass through each environment requiring manual approvals. You must configure these approvals and designate who has the authority to advance to the next step, such as requiring manager approval to move from staging to production.
 
@@ -1212,7 +1252,7 @@ You might want something like this,
 
 - name: Display Release Version
 
-run: echo \"Deploying Release Version \$RELEASE_VERSION\"
+run: echo "Deploying Release Version \$RELEASE_VERSION"
 
 Which can indicate which release is currently being deployed and where they are at.
 
@@ -1226,25 +1266,25 @@ First, you need to set up environments in your GitHub repository where you can s
 
 1\. **Navigate to Your Repository Settings**:
 
-- Open your GitHub repository, go to \"Settings\" \> \"Environments\" (found in the sidebar under \"Security\").
+- Open your GitHub repository, go to "Settings" \> "Environments" (found in the sidebar under "Security").
 
 2\. **Create a New Environment**:
 
-- Click on \"New environment\".
+- Click on "New environment".
 
 - Name your environment (e.g., `staging`, `production`).
 
-- Click \"Configure environment\".
+- Click "Configure environment".
 
 3\. **Set Up Protection Rules**:
 
-- Under \"Environment protection rules\", you can add required reviewers who must approve deployments to this environment.
+- Under "Environment protection rules", you can add required reviewers who must approve deployments to this environment.
 
 - Add the GitHub usernames of the individuals or teams who should approve deployments. For example, you can add a "QA team" that consists of a few people, and tey either all hae to approve or a single person has to approve.
 
 - You can also specify other settings, such as wait timers or IP address restrictions if needed.
 
-- Click \"Save protection rules\".
+- Click "Save protection rules".
 
 ### Step 2: Update Your GitHub Actions Workflow
 
@@ -1252,7 +1292,7 @@ After setting up your environments with required approvals, you need to modify y
 
 1\. **Edit Your Workflow File**:
 
-- Go to your repository\'s `.github/workflows` directory.
+- Go to your repository's `.github/workflows` directory.
 
 - Open the YAML file for the workflow you want to add manual approvals to.
 
@@ -1274,7 +1314,7 @@ environment:
 
 name: production
 
-url: \${{ steps.deploy.outputs.url }} \# Optional: This can show a URL in the GitHub deployment
+url: ${{ steps.deploy.outputs.url }} \# Optional: This can show a URL in the GitHub deployment
 
 steps:
 
@@ -1288,7 +1328,7 @@ uses: actions/setup-node@v2
 
 with:
 
-node-version: \'14\'
+node-version: '14'
 
 - name: Install dependencies
 
@@ -1302,7 +1342,7 @@ run: \|
 
 npm run build
 
-echo \"::set-output name=url::http://example.com\" \# Simulated deployment output
+echo "::set-output name=url::http://example.com" \# Simulated deployment output
 
 ```
 
@@ -1320,11 +1360,11 @@ Push or merge a commit that triggers the modified workflow. If the workflow acce
 
 - The job will pause, and GitHub will require the specified approvers to review and approve the run.
 
-- Go to the \"Actions\" tab of your repository to see the pending approval.
+- Go to the "Actions" tab of your repository to see the pending approval.
 
 ### Step 5: Approve the Workflow
 
-- Authorized reviewers can go to the \"Actions\" tab, click on the workflow run, and then click \"Review deployments\".
+- Authorized reviewers can go to the "Actions" tab, click on the workflow run, and then click "Review deployments".
 
 - They can then approve or reject the deployment.
 
@@ -1334,7 +1374,7 @@ After approval, watch the workflow continue its execution. If you provided an ou
 
 ### Creating releases and "checkpoints" {#creating-releases-and-checkpoints .unnumbered}
 
-In application development, a \"release\" marks the deployment stage where features become accessible to customers. This concept is crucial for tracking project progress, customer engagement, feature usage, and security updates. Releases also allow reverting to previous versions, though upgrading is generally preferred.
+In application development, a "release" marks the deployment stage where features become accessible to customers. This concept is crucial for tracking project progress, customer engagement, feature usage, and security updates. Releases also allow reverting to previous versions, though upgrading is generally preferred.
 
 Managing releases can be complex. Determining version numbers, categorizing changes (major/minor), and meticulously documenting updates across files, documentation, what might break external libraries and customers, what changed and how to interpret those changes, and dependencies can be challenging. Manual processes are prone to errors, like forgetting version updates. This might also involve publishing your package to various repositories, all of which have their own requirements and the metadata must be correct to ensure compatibility with the developers.
 

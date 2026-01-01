@@ -1,6 +1,6 @@
 ﻿## **Adding Paths to \$PATH:** {#adding-paths-to-path .unnumbered}
 
-Here\'s a breakdown of how to add paths to your \$PATH variable, illustrating both the standard export method and using the inline command eval.
+Here's a breakdown of how to add paths to your \$PATH variable, illustrating both the standard export method and using the inline command eval.
 
 **1. Using export:**
 
@@ -16,9 +16,9 @@ Here\'s a breakdown of how to add paths to your \$PATH variable, illustrating bo
 
 **Important Notes:**
 
-- **Order matters:** The order of paths in \$PATH is significant. When you run a command, your shell searches for the executable in the directories listed in \$PATH from left to right. Therefore, adding a path to the beginning (like we did above) ensures that it\'s checked first.
+- **Order matters:** The order of paths in \$PATH is significant. When you run a command, your shell searches for the executable in the directories listed in \$PATH from left to right. Therefore, adding a path to the beginning (like we did above) ensures that it's checked first.
 
-- **Temporary vs. Permanent:** The export command only sets the \$PATH variable for the current shell session. To make the change permanent, you\'ll need to add it to your shell\'s configuration file:
+- **Temporary vs. Permanent:** The export command only sets the \$PATH variable for the current shell session. To make the change permanent, you'll need to add it to your shell's configuration file:
 
   - **Bash:** Add the export line to your .bashrc or .profile file.
 
@@ -31,7 +31,7 @@ Here\'s a breakdown of how to add paths to your \$PATH variable, illustrating bo
 The eval command evaluates a string as a command. This is helpful for dynamically building path modifications. The author recommends against this as this could cause arbitrary code execution.
 
 **Example:\
-** eval \'export PATH=\$PATH:\$(echo \"/path/to/your/bin\")\'
+** eval 'export PATH=\$PATH:\$(echo "/path/to/your/bin")'
 
 - - This line uses echo to generate the path string dynamically (good for variable-based paths).
 

@@ -14,7 +14,7 @@ mkdir new_directory
 mkdir -p path/to/nested/directory
 ```
 
-This creates all the parent directories if they don\'t exist.
+This creates all the parent directories if they don't exist.
 
 - **Creating multiple directories in the current directory:**
 

@@ -2,7 +2,7 @@
 
 #### Introduction {#introduction-6 .unnumbered}
 
-For code to be continuously integrated, it must be incorporated into the main application. This means that while developers' code becomes part of the unified application, it doesn\'t necessarily imply it\'s operational or visible to end-users. Integration ensures the code resides in a collective state, allowing other developers to build upon or amend it. You have to deploy it for people to be able to use it.
+For code to be continuously integrated, it must be incorporated into the main application. This means that while developers' code becomes part of the unified application, it doesn't necessarily imply it's operational or visible to end-users. Integration ensures the code resides in a collective state, allowing other developers to build upon or amend it. You have to deploy it for people to be able to use it.
 
 Part of being able to integrate code is through the use of PRs (pull requests.) This occurs when a developer is working on their copy of the code locally (i.e., a copy of the master, where all of the shared developers contributions are.) This allows the developer to have a stable workspace for just long enough to be able to work on their part. The expectation, however, is that it should be merged back into the master branch, where other developers have access to it and can work off of it. Features are normally complex, and multiple developers might have to work off of their code to build their feature.
 
@@ -28,7 +28,7 @@ One is trunk-based development, which encourages developers to merge everything 
 
 "Trunk-based" development (abbreviated as TBD) means to use the master branch as the main application. The branch is typically called "master" or "main", but the strategy is called "trunk-based". If something is merged into the "trunk", it is merged into the "master" or "main" branch.
 
-Typical Developer\'s Workflow in Trunk-Based Development:
+Typical Developer's Workflow in Trunk-Based Development:
 
 - Sync Up: The developer starts by pulling the latest changes from the trunk.
 
@@ -36,11 +36,11 @@ Typical Developer\'s Workflow in Trunk-Based Development:
 
 - Development: Make code changes, refactorings, or add new features.
 
-- Commit Frequently: As they work, developers commit their changes frequently, even if the feature isn\'t complete.
+- Commit Frequently: As they work, developers commit their changes frequently, even if the feature isn't complete.
 
-- Use Feature Flags: If they\'re working on a new feature that\'s not ready to be made public, they use feature flags to hide this functionality.
+- Use Feature Flags: If they're working on a new feature that's not ready to be made public, they use feature flags to hide this functionality.
 
-- Merge to Trunk: Once they\'re ready, they merge their changes back to the trunk. Given the short-lived nature of their branches, this happens frequently, sometimes multiple times a day.
+- Merge to Trunk: Once they're ready, they merge their changes back to the trunk. Given the short-lived nature of their branches, this happens frequently, sometimes multiple times a day.
 
 - Continuous Integration: Upon merging, automated build and test processes kick in to ensure the new changes integrate well with the existing codebase and that the trunk remains in a releasable state.
 
@@ -50,7 +50,7 @@ Typical Developer\'s Workflow in Trunk-Based Development:
 
 [[Beginners Guide to Trunk-Based Development (TBD) - StatusNeo]{.underline}](https://statusneo.com/trunk-based-development/)
 
-- The branching strategy has become prevalent with the rise of web applications. For example, if a web app works in one browser, it\'s likely to work in others due to consistent environments. Most modern apps, like Amazon or Facebook, automatically show the latest version, without version selection. This method is especially effective when developers control the user\'s environment, such as with mobile apps. With master-based development, the development process is streamlined, continually integrating work into a shared state. The application should always be ready for release, easily verified through automated testing. Note that releasing does not mean that features are available to customers, only that they exist in the application (but are hidden.) Ready for release does not mean done.
+- The branching strategy has become prevalent with the rise of web applications. For example, if a web app works in one browser, it's likely to work in others due to consistent environments. Most modern apps, like Amazon or Facebook, automatically show the latest version, without version selection. This method is especially effective when developers control the user's environment, such as with mobile apps. With master-based development, the development process is streamlined, continually integrating work into a shared state. The application should always be ready for release, easily verified through automated testing. Note that releasing does not mean that features are available to customers, only that they exist in the application (but are hidden.) Ready for release does not mean done.
 
 - This is especially useful for web applications because their environment is tightly controlled: it is sandboxed within the user's web-browser, which itself is continuously updated. This means that one has many ways to test it locally before releasing.
 
@@ -60,17 +60,19 @@ Typical Developer\'s Workflow in Trunk-Based Development:
 
 - A user's web browser is much more of a sandboxed, controlled environment than a desktop app.
 
-| Typical Developer's Workflow in Git Flow:                                                                                                                                                                                     |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Start from Develop:** Developers usually start by syncing up with the latest changes in the develop branch.                                                                                                                 |
-| **Feature Development:** When starting work on a new feature, they create a new branch prefixed with `feature/`, branching off from develop. They make commits and changes to this feature branch during development.         |
-| **Integrate Feature:** Once the feature is complete, they merge the `feature/` branch into develop. The feature branch can then be deleted.                                                                                   |
-| **Preparing for Release:** When it's time for a release (say a sprint end), a release branch is created off develop. This branch might be named something like `release/1.2.3`.                                               |
-| Any final adjustments, like bug fixes or documentation updates, are made in this branch.                                                                                                                                      |
-| **Release:** Once the release is ready, the release branch is merged into master and also back into develop to ensure that develop has all the changes. A tagged commit is created in master for the release, e.g., `v1.2.3`. |
-| **Hotfixes:** If a critical bug arises in production, a `hotfix/` branch is created off master. Once the hotfix is complete, it's merged back into both master and develop.                                                   |
-| ![](./images/image46.png)                                                                                                                                                                                                     |
-| [A successful Git branching model » nvie.com](https://nvie.com/posts/a-successful-git-branching-model/)                                                                                                                       |
+```
+Typical Developer's Workflow in Git Flow:
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Start from Develop:** Developers usually start by syncing up with the latest changes in the develop branch.
+**Feature Development:** When starting work on a new feature, they create a new branch prefixed with `feature/`, branching off from develop. They make commits and changes to this feature branch during development.
+**Integrate Feature:** Once the feature is complete, they merge the `feature/` branch into develop. The feature branch can then be deleted.
+**Preparing for Release:** When it's time for a release (say a sprint end), a release branch is created off develop. This branch might be named something like `release/1.2.3`.
+Any final adjustments, like bug fixes or documentation updates, are made in this branch.
+**Release:** Once the release is ready, the release branch is merged into master and also back into develop to ensure that develop has all the changes. A tagged commit is created in master for the release, e.g., `v1.2.3`.
+**Hotfixes:** If a critical bug arises in production, a `hotfix/` branch is created off master. Once the hotfix is complete, it's merged back into both master and develop.
+![](./images/image46.png)
+[A successful Git branching model » nvie.com](https://nvie.com/posts/a-successful-git-branching-model/)
+```
 
 - In this case, it might be impossible to replicate the environment locally because it is a special environment procured by the vendor.
 
@@ -78,7 +80,7 @@ Typical Developer\'s Workflow in Trunk-Based Development:
 
 - Some branching strategies, like Git Flow or GitHub Flow, are designed to _delay_ or slow down integration.
 
-Git Flow structures development into multiple branches: `main` for official releases, `develop` for integration, `feature` branches for new capabilities, `release` branches for preparing new releases, and `hotfix` branches for urgent fixes. It\'s designed for projects with scheduled release cycles.
+Git Flow structures development into multiple branches: `main` for official releases, `develop` for integration, `feature` branches for new capabilities, `release` branches for preparing new releases, and `hotfix` branches for urgent fixes. It's designed for projects with scheduled release cycles.
 
 - In the past, these strategies were especially popular because it wasn't clear if work was truly _integrated_ if it was merged because development environments were difficult to create, and automated testing was not as prevalent. Developers could not be confident that their changes worked. There still are a few situations where this branching strategy makes sense, such as when the environment that it is being deployed to cannot be de-complexified in advance (and you do not have control over it), but is much less common in CI/CD because of the need to rapidly integrate.
 
@@ -306,25 +308,25 @@ By comparing these two examples, it’s evident that the second approach aligns 
 
 - After looking at CI/CD, including from the perspective of the puzzle (which is a shared activity), you might wonder why CI/CD would apply to single developers, given that CI/CD looks like it should be applied to teams, as there are multiple people integrating their changes early on. This is a completely valid question, given the complexity that CI/CD appears to entail. The foundational principles of CI/CD: ensuring that changes are tested, robust, and don't break existing functionality can make a solo's development workflow much more efficient. Let's look into why and how CI/CD is a valuable tool for solo developers.
 
-| **The Power of CI/CD for Solo Developers** |
-| ------------------------------------------ |
+**The Power of CI/CD for Solo Developers**
+------------------------------------------
 
-Often, when people hear about Continuous Integration and Continuous Deployment (CI/CD), they envision large teams with multiple developers collaborating on vast codebases. The immediate association is with complex projects requiring intricate workflows to integrate code changes from diverse sources. However, it\'s essential to recognize that CI/CD is not just for these large-scale scenarios.
+Often, when people hear about Continuous Integration and Continuous Deployment (CI/CD), they envision large teams with multiple developers collaborating on vast codebases. The immediate association is with complex projects requiring intricate workflows to integrate code changes from diverse sources. However, it's essential to recognize that CI/CD is not just for these large-scale scenarios.
 
-**Yes, even if you\'re a solo developer, CI/CD can be incredibly beneficial for you!** Here\'s why:
+**Yes, even if you're a solo developer, CI/CD can be incredibly beneficial for you!** Here's why:
 
-1\. **Immediate Feedback**: As a solo developer, you might be wearing multiple hats. From coding to testing, deploying, and even handling user feedback. Having an automated CI/CD pipeline offers instant feedback on your code changes, ensuring you\'re always on the right track. This continuous feedback mechanism can significantly speed up your development process.
+1\. **Immediate Feedback**: As a solo developer, you might be wearing multiple hats. From coding to testing, deploying, and even handling user feedback. Having an automated CI/CD pipeline offers instant feedback on your code changes, ensuring you're always on the right track. This continuous feedback mechanism can significantly speed up your development process.
 
-2\. **Code Quality and Consistency**: As a solo developer, it\'s tempting to think that consistent code quality might be easier to maintain since you\'re the only one coding. However, even individual developers can inadvertently introduce inconsistencies over time. By incorporating automated testing and linting into your CI process, you can ensure that your code consistently meets set quality standards and remains free from both common errors and stylistic inconsistencies.
+2\. **Code Quality and Consistency**: As a solo developer, it's tempting to think that consistent code quality might be easier to maintain since you're the only one coding. However, even individual developers can inadvertently introduce inconsistencies over time. By incorporating automated testing and linting into your CI process, you can ensure that your code consistently meets set quality standards and remains free from both common errors and stylistic inconsistencies.
 
-3\. **Peace of Mind**: Each commit you push undergoes automatic testing and building, offering a level of assurance that manual processes can\'t provide. This validation minimizes the risk of unintentional regressions or bugs, granting you greater peace of mind with each update.
+3\. **Peace of Mind**: Each commit you push undergoes automatic testing and building, offering a level of assurance that manual processes can't provide. This validation minimizes the risk of unintentional regressions or bugs, granting you greater peace of mind with each update.
 
 4\. **Efficient Problem Solving**: Mistakes are inevitable, no matter how experienced a developer you are. With CI/CD in place, if you introduce an error, the system alerts you immediately. This prompt notification allows you to quickly pinpoint the issue, often just by going back a few commits, saving you from potential hours of debugging down the line.
 
-5\. **Preparation for Team Growth**: Today, you might be working solo, but what if you decide to expand your team in the future? Having a CI/CD setup in place makes this transition smoother. New team members can quickly get onboarded, with the assurance that the code they push meets the project\'s standards.
+5\. **Preparation for Team Growth**: Today, you might be working solo, but what if you decide to expand your team in the future? Having a CI/CD setup in place makes this transition smoother. New team members can quickly get onboarded, with the assurance that the code they push meets the project's standards.
 
-6\. **Better Version Control**: With regular integrations, it\'s easier to manage versions of your application. You can be confident that each version of your app, especially those that get deployed, have passed through rigorous automated checks. This makes rollbacks or feature flagging more straightforward and more reliable.
+6\. **Better Version Control**: With regular integrations, it's easier to manage versions of your application. You can be confident that each version of your app, especially those that get deployed, have passed through rigorous automated checks. This makes rollbacks or feature flagging more straightforward and more reliable.
 
 7\. **Time Savings**: While setting up CI/CD might seem like an upfront time investment, the long-term benefits in terms of time saved are significant. Automation reduces manual intervention, letting you focus on what you do best: writing great code.
 
-In conclusion, CI/CD is not just a large team\'s tool. It\'s a robust framework that ensures efficiency, quality, and consistency, whether you\'re a team of one or one hundred. Embrace it, and watch your solo development journey become more streamlined and efficient! |
+In conclusion, CI/CD is not just a large team's tool. It's a robust framework that ensures efficiency, quality, and consistency, whether you're a team of one or one hundred. Embrace it, and watch your solo development journey become more streamlined and efficient! |

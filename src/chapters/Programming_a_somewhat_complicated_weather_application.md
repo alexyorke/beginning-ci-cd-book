@@ -1,4 +1,4 @@
-﻿## Programming a somewhat complicated weather application {#programming-a-somewhat-complicated-weather-application .unnumbered}
+﻿## Programming a somewhat complicated weather application
 
 This section explores CI/CD through the practical lens of building a sophisticated weather application. We'll dissect key features and demonstrate structuring a CI/CD pipeline using GitHub Actions.
 
@@ -36,7 +36,7 @@ Imagine wearing a project manager's hat and envisioning potential features for o
 
 ![](./images/image62.png)
 
-[[Interactive weather maps - OpenWeatherMap]{.underline}](https://openweathermap.org/weathermap?basemap=map&cities=false&layer=temperature&lat=30&lon=-20&zoom=3)
+[Interactive weather maps - OpenWeatherMap](https://openweathermap.org/weathermap?basemap=map&cities=false&layer=temperature&lat=30&lon=-20&zoom=3)
 
 Here's an overview of our application architecture.
 
@@ -68,7 +68,7 @@ Naming conventions
 
 There are a lot of things that you will need to name, such as pipelines, and other resources. Therefore, it is helpful to use a consistent naming scheme to make it easier to identify those resources.
 
-[[Define your naming convention - Cloud Adoption Framework \| Microsoft Learn]{.underline}](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming)
+[Define your naming convention - Cloud Adoption Framework \| Microsoft Learn](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming)
 
 ![](./images/image54.png)
 
@@ -474,7 +474,7 @@ Using the API key in production as we currently do is not ideal because it is ex
 
 **Important Security Note Regarding GitHub:**
 
-When you commit an API key to a public GitHub repository, GitHub's secret scanning tool detects and invalidates exposed API keys for about 30 to 40 different providers within minutes. However, this window is sufficient for attackers to compromise your key before it's invalidated, leading to potential security breaches and loss of provider trust. It's crucial to never commit API keys to public repositories to avoid these risks. For more details on GitHub's secret scanning and best practices, you can refer to GitHub's documentation on secret scanning [[About secret scanning - GitHub Docs]{.underline}](https://docs.github.com/en/code-security/secret-scanning/about-secret-scanning#about-secret-scanning-alerts-for-users)
+When you commit an API key to a public GitHub repository, GitHub's secret scanning tool detects and invalidates exposed API keys for about 30 to 40 different providers within minutes. However, this window is sufficient for attackers to compromise your key before it's invalidated, leading to potential security breaches and loss of provider trust. It's crucial to never commit API keys to public repositories to avoid these risks. For more details on GitHub's secret scanning and best practices, you can refer to GitHub's documentation on secret scanning [About secret scanning - GitHub Docs](https://docs.github.com/en/code-security/secret-scanning/about-secret-scanning#about-secret-scanning-alerts-for-users)
 
 **End aside**
 
@@ -738,7 +738,7 @@ Now, update the policy to the following:
 </policies>
 ```
 
-Now, you can use your base URI instead of calling the API directly. In my case, this is mine: [[https://my-api-management-service.azure-api.net]{.underline}](https://my-api-management-service.azure-api.net). In the React code, replace the call to the weather API endpoint with this URL.
+Now, you can use your base URI instead of calling the API directly. In my case, this is mine: [https://my-api-management-service.azure-api.net](https://my-api-management-service.azure-api.net). In the React code, replace the call to the weather API endpoint with this URL.
 
 You should be able to send a sample request to our API in the API Management service and you should be able to get a response back from the weather application.
 
@@ -746,7 +746,7 @@ After you've verified that everything is working, commit all changes and push to
 
 If you're using a different cloud provider and don't have an API management service you can develop a custom application using C# or any other programming language of your choice. This application would consume the Key Vault at runtime through a managed identity. This method grants you greater control over the response processing and other aspects of API interaction because you are directly manipulating the code.
 
-#### Tests {#tests .unnumbered}
+#### Tests
 
 We are going to refactor the code a bit more to make it more modular. While it is possible to say that we are making it more testable, testing isn't a means to an end. Currently, the weather is loaded via useEffect. This is not very modular and couples the act of retrieving the weather with how it is rendered. If you want to change a single thing about the weather, then you have to change how it is displayed. This makes it difficult for multiple people to work on the application, as well as with feature flags because it is coupled to how it is displayed.
 
@@ -756,14 +756,14 @@ To write effective tests for the `Weather` component and to make the application
 
 ### Improving Code Structure for Testing
 
-1. **Decouple Data Fetching from Component Rendering:**  
-   Extract the logic that fetches data from the API into a separate function or custom hook. This separation makes it easier to test the fetching logic independently from the component's rendering logic.
+1. **Decouple Data Fetching from Component Rendering:** 
+ Extract the logic that fetches data from the API into a separate function or custom hook. This separation makes it easier to test the fetching logic independently from the component's rendering logic.
 
-2. **Use Environment Variables Judiciously:**  
-   Ensure environment variables are used properly and securely, especially when building and testing. For production builds, consider server-side fetching or secure client-side API key handling mechanisms.
+2. **Use Environment Variables Judiciously:** 
+ Ensure environment variables are used properly and securely, especially when building and testing. For production builds, consider server-side fetching or secure client-side API key handling mechanisms.
 
-3. **Error Handling:**  
-   Add more robust error handling and loading state management to improve user experience and make testing these states easier.
+3. **Error Handling:** 
+ Add more robust error handling and loading state management to improve user experience and make testing these states easier.
 
 ### Refactored Component Code
 
@@ -879,56 +879,56 @@ The current pipeline merely prints "hello world" and does not inspire confidence
 name: Build client app
 
 on:
-  workflow_dispatch:
-  pull_request:
-    types: [opened]
-  push:
-    branches:
-      - main # Triggers on pushes to the main branch. With workflow_dispatch, you can also run it manually.
+ workflow_dispatch:
+ pull_request:
+ types: [opened]
+ push:
+ branches:
+ - main # Triggers on pushes to the main branch. With workflow_dispatch, you can also run it manually.
 
 jobs:
-  build-and-deploy: # A single job to run everything for now.
-    runs-on: ubuntu-latest
+ build-and-deploy: # A single job to run everything for now.
+ runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2 # Clones the repository.
+ steps:
+ - uses: actions/checkout@v2 # Clones the repository.
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2 # Installs Node.js.
-        with:
-          node-version: "14" # Specify your Node.js version.
+ - name: Set up Node.js
+ uses: actions/setup-node@v2 # Installs Node.js.
+ with:
+ node-version: "14" # Specify your Node.js version.
 
-      - name: Install dependencies
-        run: npm ci
+ - name: Install dependencies
+ run: npm ci
 
-      - name: Build the project
-        run: npm run build
+ - name: Build the project
+ run: npm run build
 
-      - name: Test the project
-        run: npm run test
+ - name: Test the project
+ run: npm run test
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@master
-        with:
-          name: my-artifact
-          path: path/to/artifact
+ - name: Upload artifacts
+ uses: actions/upload-artifact@master
+ with:
+ name: my-artifact
+ path: path/to/artifact
 
 **Workflow Steps Explanation:**
 
-1. **Checkout Step:**  
-   Uses `actions/checkout@v2` to clone your repository and set the working directory.
+1. **Checkout Step:** 
+ Uses `actions/checkout@v2` to clone your repository and set the working directory.
 
-2. **Node Version Setup:**  
-   Sets up Node.js (version 14) for your build environment.
+2. **Node Version Setup:** 
+ Sets up Node.js (version 14) for your build environment.
 
-3. **Dependency Installation:**  
-   Installs project dependencies with `npm ci`.
+3. **Dependency Installation:** 
+ Installs project dependencies with `npm ci`.
 
-4. **Build and Test:**  
-   Runs the build and test commands (`npm run build` and `npm run test`).
+4. **Build and Test:** 
+ Runs the build and test commands (`npm run build` and `npm run test`).
 
-5. **Artifact Upload:**  
-   Uses `actions/upload-artifact` to preserve build artifacts (since the runner is ephemeral).
+5. **Artifact Upload:** 
+ Uses `actions/upload-artifact` to preserve build artifacts (since the runner is ephemeral).
 
 After updating, push the commit to your branch and create a pull request. The build will run, and you won’t be allowed to merge until the pipeline completes successfully.
 
@@ -936,13 +936,13 @@ After updating, push the commit to your branch and create a pull request. The bu
 
 # Additional Considerations
 
-**Artifacts:**  
+**Artifacts:** 
 In the current setup, the build server is wiped clean after each run, which means build artifacts are lost unless explicitly saved. Use the `actions/upload-artifact` action to preserve these artifacts for later deployment or verification.
 
-**Note on Non-Compiled Projects:**  
+**Note on Non-Compiled Projects:** 
 Some projects (e.g., Python applications) might not generate traditional output files. In such cases, the source code itself (minus configuration files) may be considered the artifact.
 
-**Security Note:**  
+**Security Note:** 
 When using actions from the GitHub Marketplace (e.g., `actions/checkout@v2`), be aware that version tags like "V2" are mutable. To reduce risk:
 
 - Minimize reliance on public actions.
@@ -970,19 +970,19 @@ Deployment involves transferring build artifacts from the artifact repository to
 
 **Key Points:**
 
-- **Stable Artifacts:**  
-  Once created, do not rebuild artifacts. Rebuilding undermines confidence in the CI pipeline.
+- **Stable Artifacts:** 
+ Once created, do not rebuild artifacts. Rebuilding undermines confidence in the CI pipeline.
 
-- **Infrastructure as Code (IaC):**  
-  Consider using tools like Azure Bicep templates for managing infrastructure. This approach is more manageable and scalable than manual portal setups.
+- **Infrastructure as Code (IaC):** 
+ Consider using tools like Azure Bicep templates for managing infrastructure. This approach is more manageable and scalable than manual portal setups.
 
 ### Deployment Options
 
-- **Static Websites:**  
-  For simple sites (HTML, CSS, JavaScript), using an Azure Storage Account and a Content Delivery Network (CDN) can be cost-effective and scalable.
+- **Static Websites:** 
+ For simple sites (HTML, CSS, JavaScript), using an Azure Storage Account and a Content Delivery Network (CDN) can be cost-effective and scalable.
 
-- **Server-Side Applications:**  
-  For applications that require backend processing, consider Docker containers or other server infrastructures.
+- **Server-Side Applications:** 
+ For applications that require backend processing, consider Docker containers or other server infrastructures.
 
 ---
 
@@ -1160,7 +1160,7 @@ This approach works fairly well for simple projects, but it can become complex w
 
 To address this, GitHub offers features like jobs and environments that help structure workflows more clearly. These tools enable you to track your application's progression through its entire lifecycle in a visible and organized manner. This is crucial when multiple team members are committing to pull requests, potentially creating chaos without a clear order. Implementing structured workflows ensures you can easily identify which version is being tested and what is moving to the next stage.
 
-### Jobs and environments {#jobs-and-environments .unnumbered}
+### Jobs and environments
 
 Before we explore GitHub workflows, it's essential to understand the basics like jobs and environments. These elements are critical for structuring effective workflows, especially as we deploy our weather application. A clear grasp of these elements ensures that the workflow accurately reflects the application's current stage---whether it's integration, pre-production, or production. This clarity is vital for tracking feature releases and maintaining transparency about the status of ongoing changes.
 
@@ -1234,7 +1234,7 @@ If we make a bunch of jobs, and a bunch of dependencies (e.g., needs), then it w
 
 - ![](./images/image34.png)
 
-- [[Revert "Only evaluate own String/Number/Math methods" · babel/babel@9ec1cb5 (github.com)]{.underline}](https://github.com/babel/babel/actions/runs/6761970399)
+- [Revert "Only evaluate own String/Number/Math methods" · babel/babel@9ec1cb5 (github.com)](https://github.com/babel/babel/actions/runs/6761970399)
 
 This workflow setup allows you to specify inputs and set the release type. For instance, if you wish to deploy commits from your main branch to the staging environment, you can manually input this, ensuring deployment stops at staging. Alternatively, you can deploy directly to production, though it will pass through each environment requiring manual approvals. You must configure these approvals and designate who has the authority to advance to the next step, such as requiring manager approval to move from staging to production.
 
@@ -1372,7 +1372,7 @@ Push or merge a commit that triggers the modified workflow. If the workflow acce
 
 After approval, watch the workflow continue its execution. If you provided an output URL in the environment configuration, GitHub would link the deployment to this URL for easy access.
 
-### Creating releases and "checkpoints" {#creating-releases-and-checkpoints .unnumbered}
+### Creating releases and "checkpoints"
 
 In application development, a "release" marks the deployment stage where features become accessible to customers. This concept is crucial for tracking project progress, customer engagement, feature usage, and security updates. Releases also allow reverting to previous versions, though upgrading is generally preferred.
 
@@ -1386,11 +1386,11 @@ The other way is an evergreen strategy, which involves using a continuous versio
 
 There's many different actions and libraries that you can use to create versions. It's recommended to use a pre-built solution as managing version numbers and incrementing them can become complex quickly.
 
-Interesting: [[Release Flow: How We Do Branching on the VSTS Team - Azure DevOps Blog (microsoft.com)]{.underline}](https://devblogs.microsoft.com/devops/release-flow-how-we-do-branching-on-the-vsts-team/)
+Interesting: [Release Flow: How We Do Branching on the VSTS Team - Azure DevOps Blog (microsoft.com)](https://devblogs.microsoft.com/devops/release-flow-how-we-do-branching-on-the-vsts-team/)
 
 Here are just a few.
 
-- [**[https://stackoverflow.com/a/69123272/220935]{.underline}**](https://stackoverflow.com/a/69123272/220935)
+- [**[https://stackoverflow.com/a/69123272/220935]**](https://stackoverflow.com/a/69123272/220935)
 
 - https://github.com/GitTools/GitVersion
 
@@ -1408,4 +1408,4 @@ Here are just a few.
 
 - https://github.com/changesets/changesets
 
-- [[https://github.com/release-it/release-it]{.underline}](https://github.com/release-it/release-it)
+- [https://github.com/release-it/release-it](https://github.com/release-it/release-it)

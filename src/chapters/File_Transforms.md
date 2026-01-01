@@ -18,12 +18,12 @@ A **File Transform** is the automated alteration of file properties – content,
 
 Observing real-world pipelines reveals the critical roles file transforms play:
 
-1.  **Environment Consistency:** They ensure applications behave predictably across Development, Testing, Staging, and Production by applying the correct settings for each environment automatically. This eliminates a common source of "works on my machine" issues.
-2.  **Automation & Speed:** They replace manual editing, significantly speeding up the deployment process and reducing the chance of human error in repetitive tasks.
-3.  **Security:** Transforms allow sensitive data (like production passwords, API keys, certificates) to be injected _during_ the pipeline run from secure stores (like CI/CD secrets management) rather than being committed to source control. Commands like `run: sed -i 's/#{KEYSTORE_KEY_PASS}#/${{ secrets.KEYSTORE_KEY_PASS }}/g' android/key.properties` are prime examples of this secure injection pattern.
-4.  **Maintainability:** A single template or base configuration file can be kept in source control (e.g., `config.template.json`, `deployment.template.yaml`). Transforms then specialize this template for different contexts, reducing redundancy and making configuration easier to manage.
-5.  **Traceability & Context Injection:** Dynamic information like commit SHAs, build numbers, or release tags can be embedded into files during the build process (e.g., `run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|...:'${TAG}'|' ...`). This helps in tracking deployed versions and debugging.
-6.  **Artifact Correctness:** Transforms ensure the final artifact contains only the necessary files, correctly named and configured for the target runtime (e.g., renaming `index.html` to `200.html` for SPA hosting, removing test files).
+1. **Environment Consistency:** They ensure applications behave predictably across Development, Testing, Staging, and Production by applying the correct settings for each environment automatically. This eliminates a common source of "works on my machine" issues.
+2. **Automation & Speed:** They replace manual editing, significantly speeding up the deployment process and reducing the chance of human error in repetitive tasks.
+3. **Security:** Transforms allow sensitive data (like production passwords, API keys, certificates) to be injected _during_ the pipeline run from secure stores (like CI/CD secrets management) rather than being committed to source control. Commands like `run: sed -i 's/#{KEYSTORE_KEY_PASS}#/${{ secrets.KEYSTORE_KEY_PASS }}/g' android/key.properties` are prime examples of this secure injection pattern.
+4. **Maintainability:** A single template or base configuration file can be kept in source control (e.g., `config.template.json`, `deployment.template.yaml`). Transforms then specialize this template for different contexts, reducing redundancy and making configuration easier to manage.
+5. **Traceability & Context Injection:** Dynamic information like commit SHAs, build numbers, or release tags can be embedded into files during the build process (e.g., `run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|...:'${TAG}'|' ...`). This helps in tracking deployed versions and debugging.
+6. **Artifact Correctness:** Transforms ensure the final artifact contains only the necessary files, correctly named and configured for the target runtime (e.g., renaming `index.html` to `200.html` for SPA hosting, removing test files).
 
 ### Types of File Transforms
 
@@ -34,37 +34,37 @@ Based on common operations seen in CI/CD scripts, file transforms generally fall
 This involves altering the data _inside_ a file. It's the most frequent type of transform.
 
 - **Placeholder/Token Replacement:** Substituting predefined placeholders (like `__ConnectionString__`, `#{ApiKey}#`, `<IMAGE>`) with values from CI/CD variables or secrets, often using tools like `sed`.
-  - _Example:_ `run: sed s/{PASSWORD}/$PASSWORD/ sample.txt`
+ - _Example:_ `run: sed s/{PASSWORD}/$PASSWORD/ sample.txt`
 - **Dynamic Value Injection:** Inserting build-specific data (commit SHA, tag, build ID) into configuration or deployment files.
-  - _Example:_ `run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|...:'${TAG}'|' ...deployment.yml`
+ - _Example:_ `run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|...:'${TAG}'|' ...deployment.yml`
 - **Structured Data Manipulation:** Modifying specific fields within JSON, YAML, or XML files using tools designed for those formats.
-  - _Example (JSON):_ `run: jq '.production = true' ops/config/router.default.json > router.config.json`
+ - _Example (JSON):_ `run: jq '.production = true' ops/config/router.default.json > router.config.json`
 - **Conditional Content:** Commenting/uncommenting sections, enabling/disabling features, or adjusting file content based on environment variables.
-  - _Example (Comment Toggling - Conceptual):_ `run: sed -i '/<debug enabled="true"/s/^/<!--/; s/$/ -->/' web.config` (using `sed` to comment out an XML line).
-  - _Example (Path Fixing):_ `run: sed -i "s+$PWD/++g" coverage.xml` (Removing build-specific absolute paths).
+ - _Example (Comment Toggling - Conceptual):_ `run: sed -i '/<debug enabled="true"/s/^/<!--/; s/$/ -->/' web.config` (using `sed` to comment out an XML line).
+ - _Example (Path Fixing):_ `run: sed -i "s+$PWD/++g" coverage.xml` (Removing build-specific absolute paths).
 
 #### File renaming
 
 Changing the name of a file, typically using `mv` (Linux/macOS) or `ren`/`Move-Item` (Windows/PowerShell).
 
 - **Environment/Config Selection:** Renaming a template or an environment-specific file to the standard name expected by the application.
-  - _Example:_ `run: cp config.production.json config.json` (Using `cp` to select, but `mv` is also common).
-  - _Example:_ `run: mv .github/mock-google-services.json app/src/debug/google-services.json`
+ - _Example:_ `run: cp config.production.json config.json` (Using `cp` to select, but `mv` is also common).
+ - _Example:_ `run: mv .github/mock-google-services.json app/src/debug/google-services.json`
 - **Artifact Naming:** Adding context (version, platform, timestamp) to output files or adjusting names for specific deployment targets.
-  - _Example:_ `run: mv target/${{ matrix.target }}/debug/namecheap-ddns namecheap-ddns-${{ github.sha }}-${{ matrix.target }}`
-  - _Example (SPA Fallback):_ `run: mv build/index.html build/200.html`
+ - _Example:_ `run: mv target/${{ matrix.target }}/debug/namecheap-ddns namecheap-ddns-${{ github.sha }}-${{ matrix.target }}`
+ - _Example (SPA Fallback):_ `run: mv build/index.html build/200.html`
 
 #### Inclusion and exclusion rules
 
 Controlling which files are part of the final package, often by deleting unwanted files using `rm` (Linux/macOS) or `Remove-Item` (Windows/PowerShell) before packaging.
 
 - **Cleanup:** Removing temporary files, build logs, intermediate artifacts, or source control metadata.
-  - _Example:_ `run: rm -rf node_modules package-lock.json`
-  - _Example:_ `run: rm tests/Feature/ExampleTest.php`
-  - _Example:_ `run: rm -rf .git`
+ - _Example:_ `run: rm -rf node_modules package-lock.json`
+ - _Example:_ `run: rm tests/Feature/ExampleTest.php`
+ - _Example:_ `run: rm -rf .git`
 - **Selective Packaging:** Ensuring only necessary binaries, assets, or configuration files for the target environment/platform are included.
-  - _Example (Conceptual):_ `run: rm **/*.debug.so` (Remove debug symbols).
-  - _Example (Seen):_ `run: find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}` (Removing platform-specific package directories).
+ - _Example (Conceptual):_ `run: rm **/*.debug.so` (Remove debug symbols).
+ - _Example (Seen):_ `run: find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}` (Removing platform-specific package directories).
 
 _Note: Changing file permissions using `chmod` (e.g., `chmod +x gradlew`) is extremely common in CI/CD scripts found in the wild, but it modifies file metadata rather than content or name, so it's often considered part of environment setup rather than a core file transform type._
 
@@ -86,89 +86,89 @@ Let's illustrate these concepts with common scenarios, drawing on patterns obser
 **Scenario:** Setting a database connection string and enabling production logging in `appsettings.json` for a .NET application.
 
 - **Template (`appsettings.template.json`):**
-  ```json
-  {
-    "ConnectionStrings": {
-      "DefaultConnection": "__DbConnection__"
-    },
-    "Logging": {
-      "LogLevel": {
-        "Default": "Debug"
-      }
-    },
-    "FeatureFlags": {
-      "NewUI": false
-    }
-  }
-  ```
+ ```json
+ {
+ "ConnectionStrings": {
+ "DefaultConnection": "__DbConnection__"
+ },
+ "Logging": {
+ "LogLevel": {
+ "Default": "Debug"
+ }
+ },
+ "FeatureFlags": {
+ "NewUI": false
+ }
+ }
+ ```
 - **CI/CD Variables (Production Scope):**
-  - `DB_CONN_PROD` (Secret): `Server=prod-db.example.com;...`
-  - `ENABLE_NEW_UI`: `true`
+ - `DB_CONN_PROD` (Secret): `Server=prod-db.example.com;...`
+ - `ENABLE_NEW_UI`: `true`
 - **Transform Commands (using `sed` for secrets, `jq` for structure):**
 
-  ```bash
-  # 1. Copy template to working file
-  run: cp appsettings.template.json appsettings.working.json
+ ```bash
+ # 1. Copy template to working file
+ run: cp appsettings.template.json appsettings.working.json
 
-  # 2. Inject secret connection string using sed (often simpler for direct replacement)
-  run: sed -i 's|__DbConnection__|${{ secrets.DB_CONN_PROD }}|' appsettings.working.json
+ # 2. Inject secret connection string using sed (often simpler for direct replacement)
+ run: sed -i 's|__DbConnection__|${{ secrets.DB_CONN_PROD }}|' appsettings.working.json
 
-  # 3. Use jq to modify log level and feature flag, outputting to final file
-  run: jq '.Logging.LogLevel.Default = "Warning" | .FeatureFlags.NewUI = ${{ env.ENABLE_NEW_UI }}' appsettings.working.json > appsettings.json
+ # 3. Use jq to modify log level and feature flag, outputting to final file
+ run: jq '.Logging.LogLevel.Default = "Warning" | .FeatureFlags.NewUI = ${{ env.ENABLE_NEW_UI }}' appsettings.working.json > appsettings.json
 
-  # 4. Clean up working file (optional)
-  run: rm appsettings.working.json
-  ```
+ # 4. Clean up working file (optional)
+ run: rm appsettings.working.json
+ ```
 
 #### Updating file paths and resource references
 
 **Scenario:** Setting the correct base URL in a frontend configuration based on the deployment environment.
 
 - **Template (`src/config.js`):**
-  ```javascript
-  const config = {
-    apiUrl: "__ApiBaseUrl__",
-    // ... other settings
-  };
-  export default config;
-  ```
+ ```javascript
+ const config = {
+ apiUrl: "__ApiBaseUrl__",
+ // ... other settings
+ };
+ export default config;
+ ```
 - **CI/CD Variable (Staging):** `API_URL_STAGING`: `https://staging-api.example.com`
 - **Transform Command:**
-  ```bash
-  run: sed -i 's|__ApiBaseUrl__|${{ env.API_URL_STAGING }}|' src/config.js
-  ```
+ ```bash
+ run: sed -i 's|__ApiBaseUrl__|${{ env.API_URL_STAGING }}|' src/config.js
+ ```
 
 #### Modifying template files for dynamic content
 
 **Scenario:** Setting the Docker image tag in a Kubernetes `deployment.yaml` based on the commit SHA.
 
 - **Template (`k8s/deployment.template.yaml`):**
-  ```yaml
-  apiVersion: apps/v1
-  kind: Deployment
-  # ... metadata ...
-  spec:
-    template:
-      spec:
-        containers:
-          - name: my-app
-            image: my-registry/my-app:<IMAGE_TAG> # Placeholder
-  ```
+ ```yaml
+ apiVersion: apps/v1
+ kind: Deployment
+ # ... metadata ...
+ spec:
+ template:
+ spec:
+ containers:
+ - name: my-app
+ image: my-registry/my-app:<IMAGE_TAG> # Placeholder
+ ```
 - **Transform Command:**
-  ```bash
-  # Use shell command substitution and sed
-  run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE_TAG>|'${TAG}'|' k8s/deployment.template.yaml
-  ```
-  _(Note: Using Kustomize or Helm variables is generally preferred here, see "When to Avoid Transforms")._
+ ```bash
+ # Use shell command substitution and sed
+ run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE_TAG>|'${TAG}'|' k8s/deployment.template.yaml
+ ```
+ _(Note: Using Kustomize or Helm variables is generally preferred here, see "When to Avoid Transforms")._
 
 #### How do I specify which files to transform?
 
 - **Direct Path:** Most commands (`sed`, `mv`, `cp`, `rm`, `jq`) take direct file paths. `run: rm tests/Feature/ExampleTest.php`
 - **Wildcards/Globbing:** The shell expands patterns like `*`, `?`, `**`.
-  - `run: rm -rf **/*.log`
-  - `run: chmod +x scripts/*.sh`
+ - `run: rm -rf **/*.log`
+ - `run: chmod +x scripts/*.sh`
 - **`find` command:** For complex selections based on name, type, modification time, etc., combined with `xargs` or `-exec`.
-  - `run: find ~/.m2 -name '*SNAPSHOT' | xargs rm -Rf`
+ - `run: find ~/.m2 -name '*SNAPSHOT' | xargs rm -Rf`
 
 #### How do I change specific values or text within a file?
 
@@ -182,80 +182,80 @@ Let's illustrate these concepts with common scenarios, drawing on patterns obser
 #### How do I include or exclude specific files from the transformation process?
 
 - **Exclusion by Deletion:** The most direct method seen in scripts is deleting unwanted files/directories _before_ packaging or deployment.
-  - `run: rm -rf node_modules .git coverage`
-  - `run: find . -name '*.tmp' -delete`
+ - `run: rm -rf node_modules .git coverage`
+ - `run: find . -name '*.tmp' -delete`
 - **Inclusion by Copying/Moving:** Explicitly copy or move only the desired files into a staging area or the final artifact location.
-  - `run: mkdir staging && cp target/*.jar staging/`
-  - `run: mv build/app-release.apk release-artifacts/`
+ - `run: mkdir staging && cp target/*.jar staging/`
+ - `run: mv build/app-release.apk release-artifacts/`
 - _Important Distinction:_ This pipeline-level inclusion/exclusion is different from build tool ignores (`.dockerignore`, `.gitignore`, Maven excludes) which prevent files from entering the build context or artifact in the first place (see "When to Avoid Transforms").
 
 #### How do I rename a file during the transformation process?
 
 - Use the standard OS move/rename command:
-  - Linux/macOS: `mv oldname newname` (Example: `run: mv build/index.html build/200.html`)
-  - Windows (PowerShell): `ren oldname newname` or `Move-Item oldname newname`
+ - Linux/macOS: `mv oldname newname` (Example: `run: mv build/index.html build/200.html`)
+ - Windows (PowerShell): `ren oldname newname` or `Move-Item oldname newname`
 
 #### Can I perform multiple transformations on a single file?
 
 Yes, absolutely. This is done by sequencing the transformation commands in your pipeline script. Each command operates on the output of the previous one.
 
 steps:
-  - name: Copy template
-    run: cp config.template.xml config.xml
-  - name: Remove debug attributes (using xmlstarlet or similar)
-    run: xml ed -L -d "/configuration/system.web/compilation/@debug" config.xml # Example command
-  - name: Replace connection string placeholder
-    run: sed -i 's|__DB_CONN__|${{ secrets.PROD_DB }}|' config.xml
-  - name: Set API URL variable
-    run: sed -i 's|__API_URL__|${{ env.PROD_API_URL }}|' config.xml
+ - name: Copy template
+ run: cp config.template.xml config.xml
+ - name: Remove debug attributes (using xmlstarlet or similar)
+ run: xml ed -L -d "/configuration/system.web/compilation/@debug" config.xml # Example command
+ - name: Replace connection string placeholder
+ run: sed -i 's|__DB_CONN__|${{ secrets.PROD_DB }}|' config.xml
+ - name: Set API URL variable
+ run: sed -i 's|__API_URL__|${{ env.PROD_API_URL }}|' config.xml
 
 #### How do I handle environment-specific settings during file transformation?
 
 This is the core purpose. The strategy involves:
 
-1.  **Store Settings:** Define environment-specific values (connection strings, API keys, URLs, feature flags) as variables or secrets in your CI/CD system (e.g., GitHub Secrets, GitLab CI Variables, Azure DevOps Variable Groups). Scope them appropriately (e.g., to 'Production' or 'Staging' environments).
-2.  **Use Placeholders:** Define clear placeholders in your template files (e.g., `#{DatabasePassword}#`, `__ApiUrl__`, `${SERVICE_ENDPOINT}`).
-3.  **Reference Variables in Transforms:** Use the CI/CD system's syntax to access these variables within your `run` commands.
-    - Secrets: `${{ secrets.MY_SECRET }}`
-    - Environment Variables: `${{ env.MY_ENV_VAR }}` or `$MY_ENV_VAR` (depending on shell/context).
-    - _Example:_ `run: sed -i 's/__API_KEY__/${{ secrets.PROD_API_KEY }}/g' config.js`
-4.  **Conditional Logic (Less Common in Transforms):** Sometimes, pipeline logic might choose _which_ transform to apply or _which_ file to copy/rename based on an environment variable (e.g., `if [ "$ENVIRONMENT" == "production" ]; then cp config.prod .env; fi`).
+1. **Store Settings:** Define environment-specific values (connection strings, API keys, URLs, feature flags) as variables or secrets in your CI/CD system (e.g., GitHub Secrets, GitLab CI Variables, Azure DevOps Variable Groups). Scope them appropriately (e.g., to 'Production' or 'Staging' environments).
+2. **Use Placeholders:** Define clear placeholders in your template files (e.g., `#{DatabasePassword}#`, `__ApiUrl__`, `${SERVICE_ENDPOINT}`).
+3. **Reference Variables in Transforms:** Use the CI/CD system's syntax to access these variables within your `run` commands.
+ - Secrets: `${{ secrets.MY_SECRET }}`
+ - Environment Variables: `${{ env.MY_ENV_VAR }}` or `$MY_ENV_VAR` (depending on shell/context).
+ - _Example:_ `run: sed -i 's/__API_KEY__/${{ secrets.PROD_API_KEY }}/g' config.js`
+4. **Conditional Logic (Less Common in Transforms):** Sometimes, pipeline logic might choose _which_ transform to apply or _which_ file to copy/rename based on an environment variable (e.g., `if [ "$ENVIRONMENT" == "production" ]; then cp config.prod .env; fi`).
 
 ### When to Avoid Transforms / Use Build & Deployment Tools Correctly
 
 While file transforms using pipeline scripts (`sed`, `mv`, `rm`, etc.) are common and sometimes necessary, over-reliance on them can lead to brittle, inefficient, and hard-to-maintain pipelines. Often, tasks performed via script-based transforms are better handled by build systems, runtime configuration patterns, or deployment tools. Consider these alternatives:
 
-1.  **Configuration & Secrets Management:**
+1. **Configuration & Secrets Management:**
 
-    - **Avoid:** Using `sed` or `jq` to inject dozens of settings or complex structures into base configuration files during the build.
-    - **Prefer:**
-      - **Runtime Environment Variables:** Design applications (using libraries like `dotenv`, frameworks like Spring Boot, .NET Core Configuration) to read configuration directly from environment variables set by the CI/CD deployment step or the execution environment (e.g., Kubernetes Pod definition).
-      - **Configuration Management Services:** Use AWS Parameter Store/Secrets Manager, Azure App Configuration/Key Vault, HashiCorp Vault, Google Secret Manager. Applications fetch configuration dynamically at startup or runtime. Secrets remain securely managed outside the pipeline scripts.
-      - **Framework-Specific Configuration Layers:** Leverage features like .NET's `appsettings.Environment.json` or Spring Profiles, where environment-specific files automatically override base configurations based on an environment indicator (like `ASPNETCORE_ENVIRONMENT` or `SPRING_PROFILES_ACTIVE`).
+ - **Avoid:** Using `sed` or `jq` to inject dozens of settings or complex structures into base configuration files during the build.
+ - **Prefer:**
+ - **Runtime Environment Variables:** Design applications (using libraries like `dotenv`, frameworks like Spring Boot, .NET Core Configuration) to read configuration directly from environment variables set by the CI/CD deployment step or the execution environment (e.g., Kubernetes Pod definition).
+ - **Configuration Management Services:** Use AWS Parameter Store/Secrets Manager, Azure App Configuration/Key Vault, HashiCorp Vault, Google Secret Manager. Applications fetch configuration dynamically at startup or runtime. Secrets remain securely managed outside the pipeline scripts.
+ - **Framework-Specific Configuration Layers:** Leverage features like .NET's `appsettings.Environment.json` or Spring Profiles, where environment-specific files automatically override base configurations based on an environment indicator (like `ASPNETCORE_ENVIRONMENT` or `SPRING_PROFILES_ACTIVE`).
 
-2.  **Artifact Content Management (Inclusion/Exclusion):**
+2. **Artifact Content Management (Inclusion/Exclusion):**
 
-    - **Avoid:** Copying everything into a build context (like a Docker stage) and then using `rm -rf` extensively to remove unwanted development dependencies, test files, source code, or `.git` directories just before packaging.
-    - **Prefer:**
-      - **Build/Packaging Tool Excludes:** Utilize `.dockerignore` to prevent files from entering the Docker build context _at all_. Use `.gitignore` when creating archives directly from Git. Configure build tools (Maven, Gradle, Webpack) to exclude unnecessary files/directories from the final artifact (e.g., test resources, dev dependencies).
-      - **Multi-Stage Docker Builds:** Perform the build, including dev dependencies and tests, in an initial "builder" stage. In the final, lean "runtime" stage, `COPY --from=builder` _only_ the necessary compiled code, runtime dependencies, and assets. This creates smaller, more secure final images.
+ - **Avoid:** Copying everything into a build context (like a Docker stage) and then using `rm -rf` extensively to remove unwanted development dependencies, test files, source code, or `.git` directories just before packaging.
+ - **Prefer:**
+ - **Build/Packaging Tool Excludes:** Utilize `.dockerignore` to prevent files from entering the Docker build context _at all_. Use `.gitignore` when creating archives directly from Git. Configure build tools (Maven, Gradle, Webpack) to exclude unnecessary files/directories from the final artifact (e.g., test resources, dev dependencies).
+ - **Multi-Stage Docker Builds:** Perform the build, including dev dependencies and tests, in an initial "builder" stage. In the final, lean "runtime" stage, `COPY --from=builder` _only_ the necessary compiled code, runtime dependencies, and assets. This creates smaller, more secure final images.
 
-3.  **Deployment Parameterization:**
+3. **Deployment Parameterization:**
 
-    - **Avoid:** Using `sed` or similar tools to modify Kubernetes YAML, Terraform HCL, CloudFormation templates, or other deployment manifests to insert image tags, replica counts, resource limits, or environment-specific settings during the pipeline.
-    - **Prefer:**
-      - **Deployment Tool Variables/Templating:** Use the native parameterization features of your deployment tool:
-        - Helm: `helm install/upgrade ... --set image.tag=$TAG --set replicaCount=3` or use values files.
-        - Kustomize: Use overlays and patches (`kustomize edit set image ...`).
-        - Terraform: Use input variables (`terraform apply -var image_tag=$TAG ...`).
-        - CloudFormation: Use parameters.
-        - Ansible: Use variables and templates (Jinja2).
+ - **Avoid:** Using `sed` or similar tools to modify Kubernetes YAML, Terraform HCL, CloudFormation templates, or other deployment manifests to insert image tags, replica counts, resource limits, or environment-specific settings during the pipeline.
+ - **Prefer:**
+ - **Deployment Tool Variables/Templating:** Use the native parameterization features of your deployment tool:
+ - Helm: `helm install/upgrade ... --set image.tag=$TAG --set replicaCount=3` or use values files.
+ - Kustomize: Use overlays and patches (`kustomize edit set image ...`).
+ - Terraform: Use input variables (`terraform apply -var image_tag=$TAG ...`).
+ - CloudFormation: Use parameters.
+ - Ansible: Use variables and templates (Jinja2).
 
-4.  **Dependency Management:**
-    - **Avoid:** Using `wget` or `curl` to download dependencies (libraries, tools) directly within `run` steps if a standard package manager exists.
-    - **Prefer:**
-      - **Package Managers:** Use `npm install`, `pip install -r requirements.txt`, `mvn dependency:resolve`, `go get`, `apt-get`, `choco install`, etc. These tools handle dependency resolution, versioning, and often integrate with CI caching mechanisms more effectively.
-      - **CI Platform Tool Installers:** Use actions like `actions/setup-node`, `actions/setup-java`, etc., which manage tool installation and path configuration.
+4. **Dependency Management:**
+ - **Avoid:** Using `wget` or `curl` to download dependencies (libraries, tools) directly within `run` steps if a standard package manager exists.
+ - **Prefer:**
+ - **Package Managers:** Use `npm install`, `pip install -r requirements.txt`, `mvn dependency:resolve`, `go get`, `apt-get`, `choco install`, etc. These tools handle dependency resolution, versioning, and often integrate with CI caching mechanisms more effectively.
+ - **CI Platform Tool Installers:** Use actions like `actions/setup-node`, `actions/setup-java`, etc., which manage tool installation and path configuration.
 
 **Guideline:** Use pipeline file transforms primarily for tasks specific to the _pipeline's execution context_ (like intermediate cleanup, setting permissions on downloaded tools) or for very simple, well-defined substitutions. Delegate _artifact construction_ logic (what goes in the package) to build tools and _environment-specific configuration_ loading to the application runtime or dedicated deployment tools.
 
@@ -283,7 +283,7 @@ To make file transformations more reliable and maintainable:
 - **Test Your Transforms:** For complex transformation logic (especially in separate scripts), consider writing unit or integration tests for the transformation itself. Test the end-to-end pipeline thoroughly in non-production environments.
 - **Clear Logging:** Ensure `run` steps produce meaningful output. Use `echo` commands strategically to indicate what transform is happening and on which files, especially before and after critical steps. Avoid logging secret values.
 
-## **Practical Examples of cd in CI/CD** {#practical-examples-of-cd-in-cicd .unnumbered}
+## **Practical Examples of cd in CI/CD**
 
 Here are concrete examples showcasing the various usages of cd within a GitHub Actions context:
 
@@ -331,9 +331,13 @@ working-directory: ./project-folder
 
 run: \|
 
+```bash
 npm install
+```
 
+```bash
 npm run build
+```
 
 This uses the working-directory option to specify a different starting directory for this step, enhancing clarity and control.It's important because CD only applies to this step and it gets reset.For all the subsequent steps. Also, this is important when you are using scripts in different languages. So using the working directory means that you can use an action for example. And thought well, just change that you're not able to run a script plus an action at the same time. So in this way working directory is a little bit more agnostic.
 
@@ -365,11 +369,15 @@ working-directory: ./my-project
 
 run: \|
 
+```bash
 echo "Current directory: \$(pwd)"
+```
 
 cd src
 
+```bash
 echo "Building in directory: \$(pwd)"
+```
 
 \# \... build commands \...
 

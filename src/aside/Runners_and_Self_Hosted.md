@@ -2,15 +2,14 @@
 
 ## CI/CD Software and Self-Hosted Runner
 
-## {#section-13 .unnumbered}
 
-### Continuous integration and development software {#continuous-integration-and-development-software .unnumbered}
+### Continuous integration and development software
 
 Continuous Integration/Continuous Deployment (CI/CD) software represents a suite of tools designed to enhance the software development lifecycle. These platforms provide extensive functionalities that optimize the CI/CD process. Key features include automated builds, continuous testing, artifact management, deployment automation, and environment management. Furthermore, they allow for intricate pipeline orchestration, support a myriad of integrations, offer monitoring metrics, and include security scanning tools.
 
 Constructing a CI/CD server in-house is not only challenging but also time-intensive. However, in this book we will be going over how to create a very small continuous integration and development system to show you that it really isn't that complicated and to also show you the benefits and why using an off the shelf on it's usually better most of the time.
 
-### Why Choose Off-the-Shelf CI/CD Tools? {#why-choose-off-the-shelf-cicd-tools .unnumbered}
+### Why Choose Off-the-Shelf CI/CD Tools?
 
 - Time Efficiency: Building a CI/CD server from scratch is time-consuming, and potentially error-prone. Using established tools like Jenkins, GitLab, and Azure DevOps saves significant time.
 
@@ -24,9 +23,8 @@ Constructing a CI/CD server in-house is not only challenging but also time-inten
 
 - Research available CI/CD tools. These may include build servers, which can build your code. They can also host your code as well and allow other team members to access it. For example, Jenkins, GitLab, Azure DevOps, etc. You can use your new or revised onboarding guide to identify which providers might fit your needs. If you already deploy to one of those providers, then it might be easier to migrate to that provider, since other integrations will be much easier. For example, deploying to Azure.
 
-How do I know which provided to select? Here's a breakdown of some of the concepts and.I framework to show you what to consider when choosing A continuous integration and development provider.
 
-From CI/CD providers spreadsheet [[Wayback Machine (archive.org)]{.underline}](https://web.archive.org/web/20230101095803/https://www.centurion.link/w/_media/software/ci_feature_matrix.pdf):
+From CI/CD providers spreadsheet [Wayback Machine (archive.org)](https://web.archive.org/web/20230101095803/https://www.centurion.link/w/_media/software/ci_feature_matrix.pdf):
 
 - Key aspects here include whether the tool is open source, offers a free version, and the implementation language. The number of active developers can also provide insight into the tool's support and ongoing development.
 
@@ -78,7 +76,7 @@ The reason why the runs on Ubuntu latest.Just kept their job in the queue and di
 
 Also notice that if you didn't have NPM install it would have thrown a command not found error, or if you did have MPN installed it just uses your version installed NPM. This is because it's literally just running the instructions on your computer.There's no real isolation other than having a bit of a work directory to kind of keep things organized.
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
 ```
 PS C:\actions-runner> ./config.cmd --url https://github.com/alexyorke/OptimaShot --token token_here
 
@@ -435,30 +433,30 @@ By decoupling the payment processing from the receipt generation and email sendi
 
 ## Runner Software and Installing Dependencies
 
-### A note on software... {#a-note-on-software .unnumbered}
+### A note on software...
 
-- The reason why the commands above work (e.g., npm ci) is because there is some software pre-installed on the runner (in this case, ubuntu-latest.) You can find out more about which software is pre-installed here: [[runner-images/images/ubuntu/Ubuntu2204-Readme.md at main · actions/runner-images (github.com)]{.underline}](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2204-Readme.md)
+- The reason why the commands above work (e.g., npm ci) is because there is some software pre-installed on the runner (in this case, ubuntu-latest.) You can find out more about which software is pre-installed here: [runner-images/images/ubuntu/Ubuntu2204-Readme.md at main · actions/runner-images (github.com)](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2204-Readme.md)
 
 - **This application will soon require a backend to host the map data. This means that it is very useful for a Docker container to potentially exist to host this back end application and to help encapsulate our dependencies.**
 
-#### Installing software {#installing-software .unnumbered}
+#### Installing software
 
 - When examining dependencies in our script, we need to consider npm, which is pre-installed in the "ubuntu-latest" GitHub Actions environment. However, since the ubuntu-latest image is updated periodically, the npm version may change, Addition to other pre installed packages on the runner, impacting the reproducibility of builds. If reproducibility is compromised extensively, what this means is sometimes there might be errors on the CI CD runner that may suddenly be unexpected given that there is no code changes or the results do not match what is on the developers machines, compromising its integrity and usefulness.However, on the other side, not upgrading software at all means that there is a risk that there could be security vulnerabilities.Therefore, it is important that the software is stable and consistent, but upgraded regularly.
 
 - In scenarios where additional software or specific versions are required, installation can be managed through several methods:
 
-  - 1. **Official Repositories:** Use commands like `sudo apt-get install <package>` to install software directly from Ubuntu's repositories. For specific versions, specify the version, e.g., `sudo apt-get install nodejs=16`. The advantage of this approach is that it allows for more people to review it and allows packages to remove quickly if there's malicious code, because it's part of a repository that’s controlled by a very large community. Disadvantage however is if you need a more recent version then you may have to get it through alternative manners. This is because the Ubuntu repositories usually keep packages for a long time to maintain stability.
+  1. **Official Repositories:** Use commands like `sudo apt-get install <package>` to install software directly from Ubuntu's repositories. For specific versions, specify the version, e.g., `sudo apt-get install nodejs=16`. The advantage of this approach is that it allows for more people to review it and allows packages to remove quickly if there's malicious code, because it's part of a repository that’s controlled by a very large community. Disadvantage however is if you need a more recent version then you may have to get it through alternative manners. This is because the Ubuntu repositories usually keep packages for a long time to maintain stability.
 
-  - 2. **Bash|Curl Scripts:** Software can be installed via bash scripts executed with curl. However, this method poses risks such as unverified script integrity and potential partial execution, leading to unpredictable system states.This also can potentially compromise the reproducibility of your build, because it is unclear if the package maintainer will keep the scripts the same or may make modifications to it, or the script may become unavailable.In contrast with using the official repositories, the official repositories are dependent upon by many people and so the packages usually remain in the old versions for quite some time.Even back to the Ubuntu versions from 5 or 10 years ago. Unfortunately, some of the scripts may not be written with integrity in mind.It is possible for a.Script to be partially downloaded or potentially redirect to a malicious website and the script might or the server might time out halfway through the requests. This means that the script will be sent or potentially successful.Status code, but the script will not be executed in its entirety because it will be cut off.This is frequently remedied using legitimate software repositories that normally back the script in a function to make sure that partial execution is not possible.
+  2. **Bash|Curl Scripts:** Software can be installed via bash scripts executed with curl. However, this method poses risks such as unverified script integrity and potential partial execution, leading to unpredictable system states.This also can potentially compromise the reproducibility of your build, because it is unclear if the package maintainer will keep the scripts the same or may make modifications to it, or the script may become unavailable.In contrast with using the official repositories, the official repositories are dependent upon by many people and so the packages usually remain in the old versions for quite some time.Even back to the Ubuntu versions from 5 or 10 years ago. Unfortunately, some of the scripts may not be written with integrity in mind.It is possible for a.Script to be partially downloaded or potentially redirect to a malicious website and the script might or the server might time out halfway through the requests. This means that the script will be sent or potentially successful.Status code, but the script will not be executed in its entirety because it will be cut off.This is frequently remedied using legitimate software repositories that normally back the script in a function to make sure that partial execution is not possible.
 
-  - 3. **Private Package Repositories:** These are useful when needing trust and security in your software supply chain, though they lack the broad security scanning and community oversight found in public repositories.Vantage is it's very easy to get the latest version of the software or another version by simply changing the version inside of the package string.The disadvantage is again, this is controlled by a third party, and this may not necessarily have all of the auditing requirements commonly found in large package or public package repositories. However, if you can use GPG keys, then you could have at least some semblance of security to make sure that it is published by.The intended publisher.Mr. only requires trusting the GPG keys beforehand.
+  3. **Private Package Repositories:** These are useful when needing trust and security in your software supply chain, though they lack the broad security scanning and community oversight found in public repositories.Vantage is it's very easy to get the latest version of the software or another version by simply changing the version inside of the package string.The disadvantage is again, this is controlled by a third party, and this may not necessarily have all of the auditing requirements commonly found in large package or public package repositories. However, if you can use GPG keys, then you could have at least some semblance of security to make sure that it is published by.The intended publisher.Mr. only requires trusting the GPG keys beforehand.
 
-  - 4. **Docker Images:** Using docker images, either public or private, ensures a consistent environment with pre-installed software, ideal for complex dependencies or ensuring build reproducibility.The disadvantage with this approach is it can become very complicated to mimic the dependencies that your software requires.It could also be potentially difficult to.Upgrade some of these dependencies as a docker image is essentially a operating system whose kernel is shared by the host.This means that multiple versions of packages could coexist, or this could be a combination of state from many layers or many package revisions over time.This speaks at a stage 4 environment and we have to be careful to make sure that the same image is used locally when building software.
+  4. **Docker Images:** Using docker images, either public or private, ensures a consistent environment with pre-installed software, ideal for complex dependencies or ensuring build reproducibility.The disadvantage with this approach is it can become very complicated to mimic the dependencies that your software requires.It could also be potentially difficult to.Upgrade some of these dependencies as a docker image is essentially a operating system whose kernel is shared by the host.This means that multiple versions of packages could coexist, or this could be a combination of state from many layers or many package revisions over time.This speaks at a stage 4 environment and we have to be careful to make sure that the same image is used locally when building software.
 
 - It is also possible to bring your own environment, such as a custom Docker image, to tailor the development environment to specific needs. For some bundled software like curl or apt-get, the version is less critical, provided it is not outdated. However, the primary focus should remain on ensuring that key components in the build script are up-to-date and secure.
 
-- [[Updating dependencies sucks, so let's do more of that - Depfu Blog]{.underline}](https://depfu.com/blog/updating-dependencies-sucks)
+- [Updating dependencies sucks, so let's do more of that - Depfu Blog](https://depfu.com/blog/updating-dependencies-sucks)
 
-- [[https://unix.stackexchange.com/a/544434/6737]{.underline}](https://unix.stackexchange.com/a/544434/6737) apt packages are apparently pretty stable per release so unsure if sticking to a specific version is ok (given that it will be subsequently removed.) Perhaps [[snapshot.debian.org]{.underline}](https://snapshot.debian.org/) could be useful if you were to go back in time and had to reproduce an older build for example.
+- [https://unix.stackexchange.com/a/544434/6737](https://unix.stackexchange.com/a/544434/6737) apt packages are apparently pretty stable per release so unsure if sticking to a specific version is ok (given that it will be subsequently removed.) Perhaps [snapshot.debian.org](https://snapshot.debian.org/) could be useful if you were to go back in time and had to reproduce an older build for example.
 
 

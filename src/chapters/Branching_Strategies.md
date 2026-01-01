@@ -1,6 +1,6 @@
-﻿## Branching Strategies {#branching-strategies .unnumbered}
+﻿## Branching Strategies
 
-#### Introduction {#introduction-6 .unnumbered}
+#### Introduction
 
 For code to be continuously integrated, it must be incorporated into the main application. This means that while developers' code becomes part of the unified application, it doesn't necessarily imply it's operational or visible to end-users. Integration ensures the code resides in a collective state, allowing other developers to build upon or amend it. You have to deploy it for people to be able to use it.
 
@@ -18,11 +18,11 @@ It is also important to recognize that branching itself is not problematic. A re
 
 Finally, the evolution of development tooling has provided robust mechanisms to simulate production environments locally or via cloud automation. This enables early detection of integration issues, reduces reliance on extended QA cycles, and allows practices like feature flagging to gradually roll out new functionality. By aligning your branching strategy with both business objectives and modern CI/CD practices, you can ensure that changes are integrated efficiently and reliably into the production environment.
 
-#### The Shift with Modern Development Tools {#the-shift-with-modern-development-tools .unnumbered}
+#### The Shift with Modern Development Tools
 
 Historically, things were a bit different. Automated testing, linting, building, and having access to development environments was not as common. This meant that developers couldn't easily instill confidence in their changes, thus, they had to delay integration so that things could be tested. Let's look into the rationale behind trunk-based development by looking at what an older technique, GitHub Flow, provided and why it was so popular.
 
-#### Trunk-Based Development Explained {#trunk-based-development-explained .unnumbered}
+#### Trunk-Based Development Explained
 
 One is trunk-based development, which encourages developers to merge everything into a single shared state, much like a puzzle. This branching strategy is normally preferred for new projects. **Working from a single, shared state (i.e., trunk-based development) will require a very different way of working, and trunk-based development is the primary method of development which can enable CI/CD.**
 
@@ -48,19 +48,18 @@ Typical Developer's Workflow in Trunk-Based Development:
 
 ![](./images/image13.png)
 
-[[Beginners Guide to Trunk-Based Development (TBD) - StatusNeo]{.underline}](https://statusneo.com/trunk-based-development/)
+[Beginners Guide to Trunk-Based Development (TBD) - StatusNeo](https://statusneo.com/trunk-based-development/)
 
 - The branching strategy has become prevalent with the rise of web applications. For example, if a web app works in one browser, it's likely to work in others due to consistent environments. Most modern apps, like Amazon or Facebook, automatically show the latest version, without version selection. This method is especially effective when developers control the user's environment, such as with mobile apps. With master-based development, the development process is streamlined, continually integrating work into a shared state. The application should always be ready for release, easily verified through automated testing. Note that releasing does not mean that features are available to customers, only that they exist in the application (but are hidden.) Ready for release does not mean done.
 
 - This is especially useful for web applications because their environment is tightly controlled: it is sandboxed within the user's web-browser, which itself is continuously updated. This means that one has many ways to test it locally before releasing.
 
-#### Differences with Other Branching Strategies {#differences-with-other-branching-strategies .unnumbered}
+#### Differences with Other Branching Strategies
 
 - Git Flow, a branching strategy where it structures development into multiple branches: `main` for official releases, `develop` for integration, `feature` branches for new capabilities, `release` branches for preparing new releases, and `hotfix` branches for urgent fixes, designed for projects with scheduled release cycles, and GitHub Flow, are still in use today, still have relevant business cases, but are a less popular strategy. For example, say you are **deploying to an uncontrolled environment.** In the past, your own infra was considered an uncontrolled environment because it was probably messy. Nowadays, this can refer to environments that are highly diverse, such as desktop applications, specialized hardware, or where extreme-extreme stability is required (this will significantly decrease ability to release new features, where even controlled environments may not be fully controllable.) Therefore, a heavy-weight approach, such as GitHub Flow or Git Flow might make more sense. This is because the branching pattern better reflects the business use case: the act of integration _should be delayed_ because work is not truly integrated. Developers do not have confidence that their changes actually work, therefore, if other developers integrate on top of it, it could be a mess. Another situation are tasks that can't be broken down, such as large infrastructure changes or framework upgrades. This should be an exception to the norm, however.
 
 - A user's web browser is much more of a sandboxed, controlled environment than a desktop app.
 
-```
 Typical Developer's Workflow in Git Flow:
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Start from Develop:** Developers usually start by syncing up with the latest changes in the develop branch.
@@ -72,7 +71,6 @@ Any final adjustments, like bug fixes or documentation updates, are made in this
 **Hotfixes:** If a critical bug arises in production, a `hotfix/` branch is created off master. Once the hotfix is complete, it's merged back into both master and develop.
 ![](./images/image46.png)
 [A successful Git branching model » nvie.com](https://nvie.com/posts/a-successful-git-branching-model/)
-```
 
 - In this case, it might be impossible to replicate the environment locally because it is a special environment procured by the vendor.
 
@@ -114,13 +112,13 @@ Git Flow structures development into multiple branches: `main` for official rele
 
 - It is now possible to continually verify the changes because computing power has increased significantly, allowing for builds to be done per PR, sometimes in parallel. This contrasts with the concept of a "nightly" build, which occurred after hours because it was a blocking operation and was usually very slow and complex, due to the lack of computing power and tooling.
 
-#### Conclusion {#conclusion-1 .unnumbered}
+#### Conclusion
 
 - Part of integrating continuously is acknowledging that software is messy, complicated, requires multiple dependencies and working with multiple people, all working on features that depend on each other implicitly. The act of integrating is much more than having changes from the master branch merged into your feature branch. It is about the act of integrating the ideas generated from the code, concepts, documentation, etc. with other developers. Developers have to be able to see and work with the code that others are working on in order for them to integrate this into their minds. Think back to the puzzle metaphor introduced earlier.
 
 - This sounds a bit scary--how do I know if my changes are ok? This is where CI comes in: it emphasizes automated testing, code review, building, and linting, to instill confidence in your changes. This allows a fast feedback loop: developers are able to find out if their changes are bad right away before the other developers can build upon them through the use of a build pipeline that automatically runs. Features can also be behind developer-created feature flags, much like the curtain for the puzzle in the art gallery.
 
-#### Everything is all over the place! How do I keep track of features if they're spread out over commits? {#everything-is-all-over-the-place-how-do-i-keep-track-of-features-if-theyre-spread-out-over-commits .unnumbered}
+#### Everything is all over the place! How do I keep track of features if they're spread out over commits?
 
 - Use an issue tracker/task tracker and attach tasks to each PR. Then, you can go to your user story and see a nice list of PRs. You can set up your PR software tool to force attaching a task prior to merging the PR. This would depend on your CI software.
 
@@ -128,7 +126,7 @@ Git Flow structures development into multiple branches: `main` for official rele
 
 - Consider using feature branches if it's absolutely not possible to split up a feature. Note that you will not be able to benefit from feature flags.
 
-#### When can I feature branch in trunk-based development? {#when-can-i-feature-branch-in-trunk-based-development .unnumbered}
+#### When can I feature branch in trunk-based development?
 
 - I hate working in absolutes. There are times when feature branch development makes sense when using trunk-based development. However, it's more of an exception to the rule rather than a sometime-often thing. If you make a feature branch while working in trunk-based development, the whole world will not come crashing down, _however_, do remember that the work will not be integrated with the trunk.
 
@@ -138,21 +136,21 @@ Git Flow structures development into multiple branches: `main` for official rele
 
 - In other types of applications, such as embedded, the act of testing or releasing may necessitate an expensive endeavor, such as a single testing environment. There are some strategies on how to make this more palatable (see case study in Continuous Integration chapter for more information.)
 
-#### If everything is a river, and keeps flowing, when can I interrupt the flow to do a QA test pass? {#if-everything-is-a-river-and-keeps-flowing-when-can-i-interrupt-the-flow-to-do-a-qa-test-pass .unnumbered}
+#### If everything is a river, and keeps flowing, when can I interrupt the flow to do a QA test pass?
 
 - Consider using continuous delivery instead of continuous deployment if you need a QA test pass. This allows for human intervention to occur before a release is made.
 
 - Also consider shifting QA left (i.e., QA reviews some risky PRs.) This will make less work for QA in future stages and fixes the issues at the source.
 
-#### Microservices {#microservices-1 .unnumbered}
+#### Microservices
 
 - Microservices are ways to divide a large application up into smaller ones. This is helpful for CI/CD pipelines, because larger applications normally take longer to build, thus compromising the fast feedback loop for developers. It may also take longer to deploy, because there is more stuff. It can be unclear how to deploy it, as multiple services have to be started in parallel.
 
 - The downside is that it can add complexity, so therefore only transition to microservices once you are very comfortable with the build process.
 
-#### References {#references .unnumbered}
+#### References
 
-- Source [[Git Flow Is A Bad Idea - YouTube]{.underline}](https://www.youtube.com/watch?v=_w6TwnLCFwA) (very interesting YouTube comments)
+- Source [Git Flow Is A Bad Idea - YouTube](https://www.youtube.com/watch?v=_w6TwnLCFwA) (very interesting YouTube comments)
 
 ### The way that features are written needs to change
 
@@ -294,15 +292,15 @@ By comparing these two examples, it’s evident that the second approach aligns 
 
 - Avoid scripts on the CI pipeline that mutate the branch (or make commits to it.) For example, a script that fixes linting issues and pushes the commits back to the branch. This is an issue because:
 
-  - The code is no longer tested on a developer's machine. If the code is different from what the developer tested, even if the changes are small, then it means that the developer is unsure if the changes still work.
+ - The code is no longer tested on a developer's machine. If the code is different from what the developer tested, even if the changes are small, then it means that the developer is unsure if the changes still work.
 
-  - Linting is useful for developers working on the PR as well. For example, linting makes the code more readable, and so if it is done on a developer's computer, they are able to benefit from these improvements while they work.
+ - Linting is useful for developers working on the PR as well. For example, linting makes the code more readable, and so if it is done on a developer's computer, they are able to benefit from these improvements while they work.
 
-  - If a developer does not have linting set up, do they have the rest of the environment set up? If there are linting failures on the CI, then this is a red flag: there is something misconfigured in the developer's environment. By auto fixing it, it doesn't promote the ability for a developer to know if they have an invalid environment, or a misconfiguration between what the CI is doing and what the developer's computer is doing.
+ - If a developer does not have linting set up, do they have the rest of the environment set up? If there are linting failures on the CI, then this is a red flag: there is something misconfigured in the developer's environment. By auto fixing it, it doesn't promote the ability for a developer to know if they have an invalid environment, or a misconfiguration between what the CI is doing and what the developer's computer is doing.
 
-  - This does not mean that the CI should not check, rather, it should not push code that the developer has not tested.
+ - This does not mean that the CI should not check, rather, it should not push code that the developer has not tested.
 
-  - An example of how continuous integration can be adapted depending on the use case. CASE STUDY: This book was super interesting: [[Practical Approach to Large-Scale Agile Development, A: How HP Transformed LaserJet FutureSmart Firmware (Agile Software Development Series) eBook : Gruver, Gary, Young, Mike, Fulghum, Pat: Amazon.ca: Kindle Store]{.underline}](https://www.amazon.ca/gp/product/B00A8IYB2W/ref=kinw_myk_ro_title). It is about HP and they have many levels of testing (L0 to L4.) The old system was that all of the tests had to run, and if something failed after it was merged (because the test suite is just too large to run per push), then the whole pipeline would break. The solution was to break apart the tests into layers. Each level in HP's testing is more comprehensive than the last and takes longer each time. L0 for example is fast but is required to merge the code; this catches lots of bugs. Then after it is merged, L1 tests run. If L1 tests fail, then the code is auto-reverted (after it is merged) and there are merge conflicts occasionally but not often. If everything is ok, L2 runs less often, until L4 comes which runs once a day. They have been able to get their pipeline uptime up from 80% to almost 100%. The issue is that the tests can't be sped up because they're emulated and in some cases require hardware. This is technically a nightly build, but it's hard to emulate everything with 100% accuracy. In this case, changes are incrementally integrated continuously by increasingly instilling confidence in build artifacts at every stage.
+ - An example of how continuous integration can be adapted depending on the use case. CASE STUDY: This book was super interesting: [Practical Approach to Large-Scale Agile Development, A: How HP Transformed LaserJet FutureSmart Firmware (Agile Software Development Series) eBook : Gruver, Gary, Young, Mike, Fulghum, Pat: Amazon.ca: Kindle Store](https://www.amazon.ca/gp/product/B00A8IYB2W/ref=kinw_myk_ro_title). It is about HP and they have many levels of testing (L0 to L4.) The old system was that all of the tests had to run, and if something failed after it was merged (because the test suite is just too large to run per push), then the whole pipeline would break. The solution was to break apart the tests into layers. Each level in HP's testing is more comprehensive than the last and takes longer each time. L0 for example is fast but is required to merge the code; this catches lots of bugs. Then after it is merged, L1 tests run. If L1 tests fail, then the code is auto-reverted (after it is merged) and there are merge conflicts occasionally but not often. If everything is ok, L2 runs less often, until L4 comes which runs once a day. They have been able to get their pipeline uptime up from 80% to almost 100%. The issue is that the tests can't be sped up because they're emulated and in some cases require hardware. This is technically a nightly build, but it's hard to emulate everything with 100% accuracy. In this case, changes are incrementally integrated continuously by increasingly instilling confidence in build artifacts at every stage.
 
 ### The Power of CI/CD for Solo Developers
 

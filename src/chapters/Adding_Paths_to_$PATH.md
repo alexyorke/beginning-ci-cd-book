@@ -1,6 +1,5 @@
-﻿## **Adding Paths to \$PATH:** {#adding-paths-to-path .unnumbered}
+﻿## **Adding Paths to \$PATH:**
 
-Here's a breakdown of how to add paths to your \$PATH variable, illustrating both the standard export method and using the inline command eval.
 
 **1. Using export:**
 
@@ -20,9 +19,9 @@ Here's a breakdown of how to add paths to your \$PATH variable, illustrating bot
 
 - **Temporary vs. Permanent:** The export command only sets the \$PATH variable for the current shell session. To make the change permanent, you'll need to add it to your shell's configuration file:
 
-  - **Bash:** Add the export line to your .bashrc or .profile file.
+ - **Bash:** Add the export line to your .bashrc or .profile file.
 
-  - **Zsh:** Add it to your .zshrc file.
+ - **Zsh:** Add it to your .zshrc file.
 
 
 **2. Using eval and inline commands:**
@@ -34,4 +33,4 @@ The eval command evaluates a string as a command. This is helpful for dynamicall
 
 - - This line uses echo to generate the path string dynamically (good for variable-based paths).
 
-  - It then uses eval to evaluate the entire string as a command, effectively adding the path to \$PATH.
+ - It then uses eval to evaluate the entire string as a command, effectively adding the path to \$PATH.

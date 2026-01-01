@@ -1,4 +1,4 @@
-﻿## **Practical Git Commands for CI/CD** {#practical-git-commands-for-cicd .unnumbered}
+﻿## **Practical Git Commands for CI/CD**
 
 Here are practical examples of common git commands used in CI/CD pipelines, specifically within a GitHub Actions context:
 
@@ -22,9 +22,13 @@ This step uses the official actions/checkout action to clone the specified repos
 
 run: \|
 
+```bash
 git config user.name "GitHub Actions Bot"
+```
 
+```bash
 git config user.email "actions@github.com"
+```
 
 These commands set the user name and email for git commits made during the workflow.
 
@@ -92,9 +96,13 @@ uses: actions/checkout@v3
 
 run: \|
 
+```bash
 git config user.name "GitHub Actions Bot"
+```
 
+```bash
 git config user.email "actions@github.com"
+```
 
 \# \... Your CI/CD steps to modify files \...
 

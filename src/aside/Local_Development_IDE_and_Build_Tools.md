@@ -10,9 +10,9 @@ Consolidated from `Local_Dev_Environment_and_Codespaces.md` and `Preparing_the_D
 
 - Before you automate anything, ensure the project can be built and tested from the command line on a clean machine.
 - Prefer a consistent, reproducible environment:
-  - **Dev Containers** (`.devcontainer/devcontainer.json`) for VS Code
-  - **GitHub Codespaces** for cloud-hosted dev environments
-  - **Docker Compose** for multi-service local stacks
+ - **Dev Containers** (`.devcontainer/devcontainer.json`) for VS Code
+ - **GitHub Codespaces** for cloud-hosted dev environments
+ - **Docker Compose** for multi-service local stacks
 
 #### Why containers help
 
@@ -48,10 +48,10 @@ Consolidated from `Selecting_Build_Tools.md` with tips, anti-patterns, project t
 - Avoid IDE-coupled builds and absolute paths in build logic (CI runners use different paths).
 - Pin toolchain and dependency versions where practical to support reproducibility.
 - Use quick heuristics to identify the project ecosystem:
-  - `package.json` → Node.js
-  - `pom.xml` → Maven
-  - `build.gradle` → Gradle
-  - `requirements.txt` / `pyproject.toml` → Python
+ - `package.json` → Node.js
+ - `pom.xml` → Maven
+ - `build.gradle` → Gradle
+ - `requirements.txt` / `pyproject.toml` → Python
 
 ---
 

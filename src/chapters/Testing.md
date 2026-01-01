@@ -68,11 +68,11 @@ A counter-argument suggests that the mere act of _writing_ tests is valuable, ev
 
 Ultimately, tests serve several key purposes:
 
-1.  **Preserving Intent:** Ensuring that changes have the intended effect (e.g., changing a button's color changes only that button, not the page background).
-2.  **Verifying Functionality:** Treating the application (or parts of it) as a function that must produce expected outputs or state changes given certain inputs, within acceptable tolerances.
-3.  **Confirming User Goals:** Checking if users can successfully complete their intended tasks. It doesn't matter how many low-level API tests pass if the end user cannot achieve their goal.
-4.  **Meeting Business Needs:** Ensuring requirements beyond immediate user interaction are met (e.g., auditing requirements, telemetry collection). Customers might not directly care about these, but the business does.
-5.  **Maintaining Established Quality:** If prior versions established certain levels of usability, performance, clarity, and relevance, tests serve as a proxy for maintaining these qualities by ensuring the application behaves consistently (within defined boundaries).
+1. **Preserving Intent:** Ensuring that changes have the intended effect (e.g., changing a button's color changes only that button, not the page background).
+2. **Verifying Functionality:** Treating the application (or parts of it) as a function that must produce expected outputs or state changes given certain inputs, within acceptable tolerances.
+3. **Confirming User Goals:** Checking if users can successfully complete their intended tasks. It doesn't matter how many low-level API tests pass if the end user cannot achieve their goal.
+4. **Meeting Business Needs:** Ensuring requirements beyond immediate user interaction are met (e.g., auditing requirements, telemetry collection). Customers might not directly care about these, but the business does.
+5. **Maintaining Established Quality:** If prior versions established certain levels of usability, performance, clarity, and relevance, tests serve as a proxy for maintaining these qualities by ensuring the application behaves consistently (within defined boundaries).
 
 Okay, continuing the chapter draft.
 
@@ -279,12 +279,12 @@ To write, organize, and run tests efficiently, developers rely on testing framew
 
 Key benefits of using a testing framework include:
 
-1.  **Structure:** They provide conventions for defining tests (e.g., using attributes like `[TestMethod]` or specific function naming patterns), making tests easier to write and understand.
-2.  **Execution:** They include test runners that discover and execute tests automatically.
-3.  **Assertions:** They offer built-in functions (`Assert.AreEqual`, `expect(value).toBe`, etc.) for verifying expected outcomes.
-4.  **Setup/Teardown:** They provide mechanisms (like `[TestInitialize]` / `[TestCleanup]` or `beforeEach` / `afterEach`) to set up preconditions before tests and clean up afterward, ensuring test independence.
-5.  **Reporting:** They can generate reports detailing test results (pass/fail counts, duration, errors), often in formats consumable by CI/CD systems (like JUnit XML). This allows pipelines to track test outcomes, display results, and make decisions (e.g., fail the build if tests fail).
-6.  **Integration:** Many frameworks integrate well with IDEs (for easy local running and debugging) and CI/CD platforms.
+1. **Structure:** They provide conventions for defining tests (e.g., using attributes like `[TestMethod]` or specific function naming patterns), making tests easier to write and understand.
+2. **Execution:** They include test runners that discover and execute tests automatically.
+3. **Assertions:** They offer built-in functions (`Assert.AreEqual`, `expect(value).toBe`, etc.) for verifying expected outcomes.
+4. **Setup/Teardown:** They provide mechanisms (like `[TestInitialize]` / `[TestCleanup]` or `beforeEach` / `afterEach`) to set up preconditions before tests and clean up afterward, ensuring test independence.
+5. **Reporting:** They can generate reports detailing test results (pass/fail counts, duration, errors), often in formats consumable by CI/CD systems (like JUnit XML). This allows pipelines to track test outcomes, display results, and make decisions (e.g., fail the build if tests fail).
+6. **Integration:** Many frameworks integrate well with IDEs (for easy local running and debugging) and CI/CD platforms.
 
 Tools like Selenium, Cypress, or Playwright focus specifically on automating browser interactions for E2E testing. Others like Postman or REST Assured help with API testing. Mocking libraries (Mockito, Moq, NSubstitute) assist in creating mock objects for unit testing. These tools often work in conjunction with the core testing frameworks. Using established frameworks and tools promotes consistency within a team, leverages community knowledge, and automates much of the boilerplate work involved in testing.
 
@@ -293,9 +293,9 @@ Tools like Selenium, Cypress, or Playwright focus specifically on automating bro
 As a project grows, so does its test suite. Proper organization is crucial for maintainability and efficient execution.
 
 - **Location:** Conventions vary by language and framework, but common patterns include:
-  - Placing test files alongside the source files they test (e.g., `myFunction.js` and `myFunction.test.js`).
-  - Using a dedicated test directory structure that mirrors the source directory structure (common in Java and C#).
-  - Having a top-level `tests` or `spec` directory.
+ - Placing test files alongside the source files they test (e.g., `myFunction.js` and `myFunction.test.js`).
+ - Using a dedicated test directory structure that mirrors the source directory structure (common in Java and C#).
+ - Having a top-level `tests` or `spec` directory.
 - **Naming Conventions:** Clear and consistent naming is vital. A good test name describes what scenario is being tested and what the expected outcome is (e.g., `Add_TwoNegativeNumbers_ReturnsCorrectNegativeSum`).
 - **Grouping/Suites:** Frameworks often allow grouping tests into suites (e.g., by feature, type like "unit" vs "integration", or speed like "fast" vs "slow"). This enables running specific subsets of tests. For instance, during local development or on a PR build, you might only run fast unit tests, reserving slower integration or E2E tests for a nightly build or pre-deployment stage. Some advanced test runners can even automatically determine which tests are relevant based on the code changes made.
 
@@ -352,11 +352,11 @@ Publishing test results (often via standard formats like JUnit XML) allows aggre
 
 The placement of tests within the CI/CD pipeline influences the feedback loop and risk mitigation:
 
-1.  **Locally (Developer Machine):** Running fast tests (mainly unit tests) locally before committing/pushing provides the quickest feedback, catching errors before they affect others.
-2.  **On Pull Request (PR):** Running a core set of automated tests (unit, key integration) automatically when a PR is created/updated acts as a gatekeeper. Failing tests block merging, preventing broken code from entering the main branch and "keeping the pipeline green" for deployments.
-3.  **Post-Merge (Main Branch):** After a PR is merged, a more comprehensive suite (potentially including slower integration tests) might run on the main branch to ensure integration integrity. This build often generates the artifacts used for deployment.
-4.  **Pre-Deployment (Staging/PPE):** Before deploying to production, tests (often E2E, performance) might run against a production-like environment (Staging or Pre-Production Environment - PPE) to validate the actual deployment artifact and configuration in a realistic setting.
-5.  **Post-Deployment (Production):** Some tests ("smoke tests" or health checks) run against the live production environment immediately after deployment to quickly verify core functionality is working. This is the ultimate validation but carries the risk of impacting real users if not done carefully (e.g., using read-only checks or dedicated test accounts).
+1. **Locally (Developer Machine):** Running fast tests (mainly unit tests) locally before committing/pushing provides the quickest feedback, catching errors before they affect others.
+2. **On Pull Request (PR):** Running a core set of automated tests (unit, key integration) automatically when a PR is created/updated acts as a gatekeeper. Failing tests block merging, preventing broken code from entering the main branch and "keeping the pipeline green" for deployments.
+3. **Post-Merge (Main Branch):** After a PR is merged, a more comprehensive suite (potentially including slower integration tests) might run on the main branch to ensure integration integrity. This build often generates the artifacts used for deployment.
+4. **Pre-Deployment (Staging/PPE):** Before deploying to production, tests (often E2E, performance) might run against a production-like environment (Staging or Pre-Production Environment - PPE) to validate the actual deployment artifact and configuration in a realistic setting.
+5. **Post-Deployment (Production):** Some tests ("smoke tests" or health checks) run against the live production environment immediately after deployment to quickly verify core functionality is working. This is the ultimate validation but carries the risk of impacting real users if not done carefully (e.g., using read-only checks or dedicated test accounts).
 
 #### Why Run Tests on CI _and_ Locally?
 
@@ -496,8 +496,8 @@ Testing code involving concurrency or asynchronous operations is notoriously tri
 
 - **Shared State:** Be extremely careful when tests modify shared resources (static variables, shared files, database entries). Ensure proper cleanup or use techniques to isolate test runs (e.g., unique database names per run, transactions that get rolled back).
 - **Asynchronous Waits:** If testing code that performs background work, don't rely on fixed delays (`sleep(500ms)`). This is unreliable. Use mechanisms provided by your language or framework, such as:
-  - Callbacks or Promises/Futures/Async-Await to wait for completion.
-  - Polling: Repeatedly check for an expected state change, with a reasonable timeout to prevent infinite loops if the condition is never met. Libraries often provide utilities for this ("wait for condition").
+ - Callbacks or Promises/Futures/Async-Await to wait for completion.
+ - Polling: Repeatedly check for an expected state change, with a reasonable timeout to prevent infinite loops if the condition is never met. Libraries often provide utilities for this ("wait for condition").
 - **Resource Contention:** Ensure tests don't collide over limited resources like network ports. Use mechanisms to acquire resources exclusively or use dynamically assigned resources.
 - **Temporary Files/Folders:** Use library functions designed to create unique temporary files or directories and ensure they are cleaned up afterward.
 - **Database Transactions:** Where possible, wrap test database operations in transactions that are rolled back after the test, leaving the database in its original state.
@@ -535,23 +535,23 @@ Perhaps the most frustrating anti-pattern is the **flaky test**. These are tests
 
 - **Why are they bad?** Flaky tests destroy trust. When a test fails, developers should have confidence that it indicates a genuine problem. If tests fail randomly, developers start ignoring them ("Oh, that's just the flaky login test again"), builds get manually overridden, and real regressions can slip through unnoticed. They inject noise into the feedback loop, masking the real signal. A test that fails unpredictably provides very little reliable information.
 - **Why do they occur?** Flakiness often stems from:
-  - **Race Conditions/Concurrency:** Issues with timing in asynchronous operations or contention for shared resources (databases, ports, files).
-  - **Environment Differences:** Subtle variations between test environments (local vs. CI, different CI agents).
-  - **Order Dependency:** Tests that implicitly rely on other tests running first (or not running) to set up or clean up state.
-  - **Uncontrolled External Dependencies:** Reliance on third-party services (APIs, networks) that might be slow, unavailable, or return varying data.
-  - **Infrastructure Issues:** Intermittent network glitches, insufficient resources on test runners.
-  - **Non-Deterministic Code:** Relying on factors like current time/date or unseeded random number generators within the test logic or the code under test.
-  - **Brittle Locators (UI Tests):** Relying on unstable element IDs or CSS paths that change frequently.
-  - **Incorrect Timeouts/Waits:** Insufficient waiting times for asynchronous operations to complete, especially under varying load conditions.
-  - **Resource Leaks:** Tests not properly cleaning up resources (files, database entries, ports), causing conflicts for subsequent tests.
+ - **Race Conditions/Concurrency:** Issues with timing in asynchronous operations or contention for shared resources (databases, ports, files).
+ - **Environment Differences:** Subtle variations between test environments (local vs. CI, different CI agents).
+ - **Order Dependency:** Tests that implicitly rely on other tests running first (or not running) to set up or clean up state.
+ - **Uncontrolled External Dependencies:** Reliance on third-party services (APIs, networks) that might be slow, unavailable, or return varying data.
+ - **Infrastructure Issues:** Intermittent network glitches, insufficient resources on test runners.
+ - **Non-Deterministic Code:** Relying on factors like current time/date or unseeded random number generators within the test logic or the code under test.
+ - **Brittle Locators (UI Tests):** Relying on unstable element IDs or CSS paths that change frequently.
+ - **Incorrect Timeouts/Waits:** Insufficient waiting times for asynchronous operations to complete, especially under varying load conditions.
+ - **Resource Leaks:** Tests not properly cleaning up resources (files, database entries, ports), causing conflicts for subsequent tests.
 - **Handling and Mitigating Flaky Tests:**
-  1.  **Prioritize Fixing:** Treat flaky tests as high-priority bugs. Don't let them linger.
-  2.  **Identify Them:** CI platforms or test reporting tools can often help identify flaky tests by tracking pass/fail rates over time or supporting automatic reruns on failure. Running tests multiple times locally, potentially under stress (e.g., using tools like `stress-ng` on Linux to simulate load, or running tests in parallel), can sometimes reveal flakiness.
-  3.  **Isolate and Debug:** Reproduce the flakiness consistently if possible. Debug the test and the code it covers, looking for common causes like timing issues or resource conflicts.
-  4.  **Improve Test Logic:** Make assertions more robust, use reliable waiting mechanisms instead of fixed sleeps, ensure proper isolation and cleanup.
-  5.  **Quarantine (Temporary):** If a fix isn't immediate but the flakiness is blocking others, temporarily quarantine the test. This means marking it so it still runs but its failure doesn't fail the entire build. This should be a _temporary_ measure, tracked with a high-priority bug ticket to fix it properly. Don't let the quarantine list grow indefinitely.
-  6.  **Annotate:** Some frameworks allow annotating tests as potentially flaky, perhaps triggering automatic retries within the CI pipeline. This can be a pragmatic step but doesn't fix the root cause.
-  7.  **Consider Deletion:** If a test is chronically flaky, difficult to fix, and its value is questionable or covered by other, more reliable tests, consider deleting it.
+ 1. **Prioritize Fixing:** Treat flaky tests as high-priority bugs. Don't let them linger.
+ 2. **Identify Them:** CI platforms or test reporting tools can often help identify flaky tests by tracking pass/fail rates over time or supporting automatic reruns on failure. Running tests multiple times locally, potentially under stress (e.g., using tools like `stress-ng` on Linux to simulate load, or running tests in parallel), can sometimes reveal flakiness.
+ 3. **Isolate and Debug:** Reproduce the flakiness consistently if possible. Debug the test and the code it covers, looking for common causes like timing issues or resource conflicts.
+ 4. **Improve Test Logic:** Make assertions more robust, use reliable waiting mechanisms instead of fixed sleeps, ensure proper isolation and cleanup.
+ 5. **Quarantine (Temporary):** If a fix isn't immediate but the flakiness is blocking others, temporarily quarantine the test. This means marking it so it still runs but its failure doesn't fail the entire build. This should be a _temporary_ measure, tracked with a high-priority bug ticket to fix it properly. Don't let the quarantine list grow indefinitely.
+ 6. **Annotate:** Some frameworks allow annotating tests as potentially flaky, perhaps triggering automatic retries within the CI pipeline. This can be a pragmatic step but doesn't fix the root cause.
+ 7. **Consider Deletion:** If a test is chronically flaky, difficult to fix, and its value is questionable or covered by other, more reliable tests, consider deleting it.
 
 Remember, a UI flicker causing a test to fail might sometimes indicate a genuine usability issue, not just a test problem. Address the root cause, which might be in the application code itself.
 
@@ -569,11 +569,11 @@ It's common to hear debates about "automated vs. manual" testing, often position
 
 - **Automated Checks:** What we typically call "automated testing" is more accurately described as _automated checking_. Computers excel at executing predefined steps and verifying expected outcomes against specific, unambiguous criteria. They are fast, consistent, tireless, and ideal for regression checking, verifying known invariants, and covering many scenarios quickly. They handle the repetitive verification that humans are ill-suited for.
 - **Human-Centric Testing:** "Manual testing" should not mean humans manually executing automatable scripts. Instead, it leverages unique human capabilities:
-  - **Exploration & Learning:** Exploring the application, learning how it works, identifying usability issues, questioning assumptions, and finding unexpected bugs that no script was designed to look for. This is _exploratory testing_.
-  - **Subjectivity & Experience:** Assessing qualities like usability, aesthetics, clarity, and overall user experience – things computers struggle to quantify.
-  - **Tacit Knowledge:** Applying intuition and experience built from understanding users, the domain, and past issues.
-  - **Adaptability:** Designing and modifying tests on the fly based on observations.
-  - **Critical Thinking:** Evaluating _if_ the software meets the _intent_ behind the requirements, not just the letter of the specification.
+ - **Exploration & Learning:** Exploring the application, learning how it works, identifying usability issues, questioning assumptions, and finding unexpected bugs that no script was designed to look for. This is _exploratory testing_.
+ - **Subjectivity & Experience:** Assessing qualities like usability, aesthetics, clarity, and overall user experience – things computers struggle to quantify.
+ - **Tacit Knowledge:** Applying intuition and experience built from understanding users, the domain, and past issues.
+ - **Adaptability:** Designing and modifying tests on the fly based on observations.
+ - **Critical Thinking:** Evaluating _if_ the software meets the _intent_ behind the requirements, not just the letter of the specification.
 
 Computers check conformance to specifications; humans evaluate fitness for purpose. Relying solely on automated checks leaves blind spots regarding usability, discoverability, and unexpected interactions. Relying solely on manual effort for things computers _can_ check reliably is inefficient and slow.
 
@@ -614,13 +614,13 @@ A test strategy must find the right balance based on context. A startup prioriti
 A common approach to prioritize testing efforts is **Risk-Based Testing**. This involves identifying areas of the application with the highest risk (likelihood of failure \* impact of failure) and focusing testing resources there.
 
 - **Identify Risks:** Brainstorm potential problems. Consider:
-  - Complex features
-  - Frequently changed areas
-  - Business-critical functionalities (e.g., payment processing)
-  - Integration points with external systems
-  - Security-sensitive areas
-  - Areas with a history of bugs
-  - Performance-sensitive operations
+ - Complex features
+ - Frequently changed areas
+ - Business-critical functionalities (e.g., payment processing)
+ - Integration points with external systems
+ - Security-sensitive areas
+ - Areas with a history of bugs
+ - Performance-sensitive operations
 - **Assess Likelihood and Impact:** Estimate how likely each risk is to occur and how severe the consequences would be if it did.
 - **Prioritize:** Focus testing effort on high-risk items first. Low-risk items might receive less intensive testing or rely more on basic smoke tests.
 

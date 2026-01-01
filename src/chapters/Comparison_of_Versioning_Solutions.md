@@ -2,9 +2,8 @@
 
 ---
 
-## **Comparison of Versioning Solutions** {#comparison-of-versioning-solutions .unnumbered}
+## **Comparison of Versioning Solutions**
 
-```
 Tool                       | What it does                                                                                             |   Versioning | Automation stage      | Ecosystem  | Pros                                                 | Cons
 -------------------------- | -------------------------------------------------------------------------------------------------------- | -----------: | --------------------- | ---------- | ---------------------------------------------------- | -------------------------------------------------------------------------
 **GitVersion**             | Derives semantic versions from Git history, branches, and tags.                                          |       SemVer | Build‑time            | .NET, CLI  | Very flexible; handles complex branching strategies. | Can be complex to configure; requires understanding your branching model.
@@ -16,7 +15,6 @@ Tool                       | What it does                                       
 **release-please**         | Opens release PRs and automates versioning from Conventional Commits and labels.                         |       SemVer | GitHub Actions        | JavaScript | Smooth GitHub integration; PR‑driven flow.           | Tied to GitHub; Conventional Commits assumed.
 **changesets**             | Manages version bumps/changelogs in (mono)repos via small “changeset” files.                             |       SemVer | Release               | JavaScript | Great for monorepos; granular control per package.   | Extra steps; can feel heavy for small projects.
 **release-it**             | General‑purpose release automation with rich plugin ecosystem.                                           | Customizable | Release               | JavaScript | Highly customizable; fits many workflows.            | Requires more configuration than opinionated tools.
-```
 
 ### Choosing the right tool
 
@@ -35,74 +33,78 @@ Tool                       | What it does                                       
 name: Deployment
 
 on:
-  workflow_dispatch:
-    inputs:
-      releaseType:
-        description: "Where to deploy?"
-        type: choice
-        required: true
-        options:
-          - staging
-          - production
+ workflow_dispatch:
+ inputs:
+ releaseType:
+ description: "Where to deploy?"
+ type: choice
+ required: true
+ options:
+ - staging
+ - production
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+ group: ${{ github.workflow }}-${{ github.ref }}
+ cancel-in-progress: false
 
 jobs:
-  create_release:
-    # Only create a GitHub Release when targeting production
-    if: ${{ github.event.inputs.releaseType == 'production' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    outputs:
-      release_id: ${{ steps.create_release.outputs.release_id }}
-    steps:
-      - name: Create Release
-        id: create_release
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const tag = `v${Date.now()}`; // Example tag; customize to your scheme.
-            const release = await github.rest.repos.createRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag_name: tag,
-              name: 'Production Release',
-              body: 'New production release',
-              draft: false,
-              prerelease: false
-            });
-            core.setOutput('release_id', release.data.id.toString());
+ create_release:
+ # Only create a GitHub Release when targeting production
+ if: ${{ github.event.inputs.releaseType == 'production' }}
+ runs-on: ubuntu-latest
+ permissions:
+ contents: write
+ outputs:
+ release_id: ${{ steps.create_release.outputs.release_id }}
+ steps:
+ - name: Create Release
+ id: create_release
+ uses: actions/github-script@v7
+ with:
+ script: |
+ const tag = `v${Date.now()}`; // Example tag; customize to your scheme.
+ const release = await github.rest.repos.createRelease({
+ owner: context.repo.owner,
+ repo: context.repo.repo,
+ tag_name: tag,
+ name: 'Production Release',
+ body: 'New production release',
+ draft: false,
+ prerelease: false
+ });
+ core.setOutput('release_id', release.data.id.toString());
 
-  staging:
-    runs-on: ubuntu-latest
-    environment:
-      name: staging
-      url: https://github.com
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Deploy to Staging
-        run: |
-          echo "Deploying to staging..."
-          sleep 5
+ staging:
+ runs-on: ubuntu-latest
+ environment:
+ name: staging
+ url: https://github.com
+ steps:
+ - name: Check out repository
+ uses: actions/checkout@v4
+ - name: Deploy to Staging
+ run: |
+```bash
+ echo "Deploying to staging..."
+```
+ sleep 5
 
-  production:
-    needs: [staging, create_release]
-    if: ${{ github.event.inputs.releaseType == 'production' }}
-    runs-on: ubuntu-latest
-    environment:
-      name: production
-      url: https://github.com
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Deploy to Production
-        run: |
-          echo "Deploying to production with release ID: ${{ needs.create_release.outputs.release_id }}"
-          sleep 5
+ production:
+ needs: [staging, create_release]
+ if: ${{ github.event.inputs.releaseType == 'production' }}
+ runs-on: ubuntu-latest
+ environment:
+ name: production
+ url: https://github.com
+ steps:
+ - name: Check out repository
+ uses: actions/checkout@v4
+ - name: Deploy to Production
+ run: |
+```bash
+ echo "Deploying to production with release ID: ${{ needs.create_release.outputs.release_id }}"
+```
+ sleep 5
 
 ---
 
@@ -203,7 +205,7 @@ Strategy                         | Pros                                         
 
 ---
 
-## How do I version code and Docker images? {#how-do-i-version-code-and-docker-images .unnumbered}
+## How do I version code and Docker images?
 
 * **Containers & CI are alike:** Both provide clean, stateless environments. Building in Docker ensures consistency with CI runners.
 * **Tagging strategy:** Tags are aliases for specific Git commits. Use them to map source to artifacts and Docker image tags.
@@ -212,32 +214,44 @@ Strategy                         | Pros                                         
 
 1. **Lightweight tag** (pointer only)
 
-   ```bash
-   git tag v1.0.0
-   ```
+ ```bash
+```bash
+ git tag v1.0.0
+```
+ ```
 2. **Annotated tag** (with metadata)
 
-   ```bash
-   git tag -a v1.0.0 -m "First stable release"
-   ```
+ ```bash
+```bash
+ git tag -a v1.0.0 -m "First stable release"
+```
+ ```
 3. **Tag an older commit**
 
-   ```bash
-   git tag v0.9 9fceb02
-   ```
+ ```bash
+```bash
+ git tag v0.9 9fceb02
+```
+ ```
 4. **Push tags to remote**
 
-   ```bash
-   git push origin v1.0.0
-   # or push all tags
-   git push --tags
-   ```
+ ```bash
+```bash
+ git push origin v1.0.0
+```
+ # or push all tags
+```bash
+ git push --tags
+```
+ ```
 5. **Delete a tag**
 
-   ```bash
-   git tag -d v1.0.0
-   git push origin :refs/tags/v1.0.0
-   ```
+ ```bash
+```bash
+ git tag -d v1.0.0
+ git push origin :refs/tags/v1.0.0
+```
+ ```
 
 > Some CI systems require at least one commit on the branch (PR‑only merge policies). If you need a tag without code changes, use an empty commit:
 >
@@ -255,7 +269,7 @@ Strategy                         | Pros                                         
 
 ---
 
-## Programming‑language–specific versioning quirks {#programming-language-specific-versioning-strategy-quirks .unnumbered}
+## Programming‑language–specific versioning quirks
 
 * **Maven (Java):** SNAPSHOTs, ranges, and ordering rules are unique—see Oracle’s guide: [https://docs.oracle.com/middleware/1212/core/MAVEN/maven\_version.htm#MAVEN401](https://docs.oracle.com/middleware/1212/core/MAVEN/maven_version.htm#MAVEN401).
 * **npm (JS):** SemVer ranges (`^`, `~`), `package-lock.json`, and release tooling (e.g., `semantic-release`, `release-please`).

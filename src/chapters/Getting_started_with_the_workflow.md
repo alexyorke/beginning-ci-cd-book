@@ -1,25 +1,25 @@
-﻿## Getting started with the workflow {#getting-started-with-the-workflow .unnumbered}
+﻿## Getting started with the workflow
 
 In order to have a good understanding of how CI/CD works, it's important to have a good idea of how everything fits in together. Here's the overall process, at a very high level view, from working on a feature to getting it out into production.
 
-**Development Stage**    | **Sub-Stage**                | **Description**
+**Development Stage** | **Sub-Stage** | **Description**
 ------------------------ | ---------------------------- | -----------------------------------------------------------------------------------------------------
-Planning & Design        | Define Work Item             | Identify and document features, tasks, or bugs to be addressed. Example
-                         | Prioritization & Scheduling  | Decide on the priority of the work item and when it will be addressed. Example
-Development              | Code Implementation          | Writing the actual code and implementing features or bug fixes. Example
-                         | Local Testing & Verification | Run unit tests and perform manual testing to verify code behavior on a local dev environment. Example
-Code Submission          | Create Pull Request (PR)     | Submit the code for review. Example
-                         | PR Awaiting Review           | Time period the code waits to be reviewed. Example
-Code Review              | Peer Code Review             | Team members review the code for quality, functionality, and style. Example
-                         | Feedback Incorporation       | Apply changes based on code review feedback. Example
-Build & Integration (CI) | Build Initialization         | Setup for build environment and dependencies. Example
-                         | Core Build Process           | Compilation, linking, and creation of executable files. Example
-                         | Security & Compliance Scan   | Scan for security vulnerabilities and compliance issues. Example
-Automated Testing (CI)   | Test Initialization          | Setup for testing in an isolated environment. Example
-                         | Execute Automated Tests      | Run automated test suites. Example
-Deployment (CD)          | Canary Deployment            | Deploy to a subset for monitoring and testing. Example
-(Coming up next)         | Monitor & Validate           | Monitor and validate new features. Example
-                         | Full Production Deployment   | Roll out to the entire production environment. Example
+Planning & Design | Define Work Item | Identify and document features, tasks, or bugs to be addressed. Example
+ | Prioritization & Scheduling | Decide on the priority of the work item and when it will be addressed. Example
+Development | Code Implementation | Writing the actual code and implementing features or bug fixes. Example
+ | Local Testing & Verification | Run unit tests and perform manual testing to verify code behavior on a local dev environment. Example
+Code Submission | Create Pull Request (PR) | Submit the code for review. Example
+ | PR Awaiting Review | Time period the code waits to be reviewed. Example
+Code Review | Peer Code Review | Team members review the code for quality, functionality, and style. Example
+ | Feedback Incorporation | Apply changes based on code review feedback. Example
+Build & Integration (CI) | Build Initialization | Setup for build environment and dependencies. Example
+ | Core Build Process | Compilation, linking, and creation of executable files. Example
+ | Security & Compliance Scan | Scan for security vulnerabilities and compliance issues. Example
+Automated Testing (CI) | Test Initialization | Setup for testing in an isolated environment. Example
+ | Execute Automated Tests | Run automated test suites. Example
+Deployment (CD) | Canary Deployment | Deploy to a subset for monitoring and testing. Example
+(Coming up next) | Monitor & Validate | Monitor and validate new features. Example
+ | Full Production Deployment | Roll out to the entire production environment. Example
 
 ![image](./images/image51.png)
 
@@ -57,7 +57,7 @@ Build Server:
 
 - This ensures that the changes are compatible with the existing codebase.It's important to write good tests as well as making sure that the bell script is up to date to make sure that the pipeline sufficiently instills confidence in your changes. The build pipeline is only as useful as the effort and criteria that you put into it. It is not magical.
 
-#### What is a repository? {#what-is-a-repository .unnumbered}
+#### What is a repository?
 
 - A repository is a way to store a collection of files that are used in the build process, and should include all files that allow the application to be built, including configuration files, database migrations, tests, etc. Developers work off of a branch, which is a snapshot of the repository. Each repository is usually a deployable unit, and normally should not include other projects unless they are part of the same application or must be deployed together. It is managed with a VCS (e.g., Git.)
 
@@ -67,13 +67,13 @@ Build Server:
 
 > ![](./images/image65.png)
 
-### Typical development scenario using VCS {#typical-development-scenario-using-vcs .unnumbered}
+### Typical development scenario using VCS
 
 A developer works on code using their IDE, on their development branch, from their repository as shown in this screenshot. **This is the code repository as discussed earlier.** VS Code is a free IDE that is open source.
 
 > ![](./images/image87.png)
 
-[[TypeScript Programming with Visual Studio Code]{.underline}](https://code.visualstudio.com/docs/languages/typescript)
+[TypeScript Programming with Visual Studio Code](https://code.visualstudio.com/docs/languages/typescript)
 
 While git can be easily used on the command line, sometimes developers prefer a GUI-based approach. This can be especially helpful for those who are new to git. Some applications can help with this, such as "GitHub Desktop".
 
@@ -81,13 +81,13 @@ While the developer is coding, they normally run **unit tests or integration tes
 
 > ![](./images/image28.png)
 
-[[Rust Test Explorer - Visual Studio Marketplace]{.underline}](https://marketplace.visualstudio.com/items?itemName=swellaby.vscode-rust-test-adapter)
+[Rust Test Explorer - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=swellaby.vscode-rust-test-adapter)
 
 For instance, consider a repository opened in GitHub Desktop. It's a tool to visualize and interact with a Git repository, showing individual changes and their details. While this isn't a tutorial on Git, it's worth noting that any VCS with the capability to track and manage changes suffices; it doesn't have to be Git. The choice depends on your team's preferences and needs. Here is a screenshot of GitHub Desktop:
 
 > ![](./images/image33.png)
 
-[[https://github.com/desktop/desktop]{.underline}](https://github.com/desktop/desktop) Some other GitHub Desktop-like tools are SourceTree, GitKraken, Tower, and TortoiseGit.
+[https://github.com/desktop/desktop](https://github.com/desktop/desktop) Some other GitHub Desktop-like tools are SourceTree, GitKraken, Tower, and TortoiseGit.
 
 ---
 
@@ -126,7 +126,7 @@ For instance, consider a repository opened in GitHub Desktop. It's a tool to vis
 
 After developers are done, they then create a PR. This shows the developer's changes and allows other developers to comment on them (i.e., code review.)
 
-#### What is a pull request? {#what-is-a-pull-request .unnumbered}
+#### What is a pull request?
 
 A pull request (or a change request) is a request from a developer to merge changes from their branch into the repository. For example, when a developer is ready to integrate their changes, they would create a pull request. The pull request allows others to comment on the developer's changes and also triggers the build pipeline to validate their changes. Since a developer needs to create a pull request before merging, this means that the confidence-instilling checks can run.
 
@@ -168,9 +168,9 @@ Here are some key characteristics of a good pull request:
 
 > ![](./images/image35.png)
 
-[[How To Create a Pull Request With GitHub Desktop (vonage.com)]{.underline}](https://developer.vonage.com/en/blog/how-to-create-a-pull-request-with-github-desktop)
+[How To Create a Pull Request With GitHub Desktop (vonage.com)](https://developer.vonage.com/en/blog/how-to-create-a-pull-request-with-github-desktop)
 
-#### Testing and automated testing in the pipeline {#testing-and-automated-testing-in-the-pipeline .unnumbered}
+#### Testing and automated testing in the pipeline
 
 Software testing is crucial for ensuring that applications meet quality standards, function correctly, and deliver a positive user experience. It's a vital part of CI/CD because it helps developers catch bugs early and build confidence in their code changes. When the build pipeline runs, it runs your automated tests. If the automated tests fail, then therefore the build pipeline will fail as well. This is important, because this tells the developer that their changes cannot be merged (i.e., integrated and available to other developers) because something is wrong.
 

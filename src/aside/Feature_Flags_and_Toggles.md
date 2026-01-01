@@ -2,7 +2,7 @@
 
 ## Feature Flags and Monitoring
 
-### Feature flags {#feature-flags-2 .unnumbered}
+### Feature flags
 
 Feature flags are tools that allow you to toggle specific parts of your application on and off at runtime. Think of them like remotely controlled if statements. Initially, we'll implement our feature flags using a simple JSON file stored in a storage container, though other platforms like LaunchDarkly are also viable options. We plan to explore more complex implementations in the future.
 
@@ -10,7 +10,7 @@ One potential use for feature flags is to enhance user experience by conditional
 
 Implementing feature flags effectively requires a modular application architecture that supports enabling and disabling components without issues. To illustrate this, consider a scenario where the application code is highly interdependent and complex---a common trait of legacy systems. We'll intentionally refactor another application to mimic these conditions, making it difficult to maintain and challenging to implement feature flags. Through this exercise, we'll demonstrate the importance of clean, high-quality code as a prerequisite for using advanced development techniques like feature flags, showcasing the pitfalls of attempting such integrations in poorly structured codebases.
 
-### Scheduling Workflows and Resource Management {#scheduling-workflows-and-resource-management .unnumbered}
+### Scheduling Workflows and Resource Management
 
 - Sometimes you may want to know if you can make some performance optimizations in your scripts. Therefore, it is helpful to measure the CPU usage, memory, disk space, etc. of your runners. This is because of a few reasons: knowing if you are using your resources effectively so that you can have a fast feedback loop, and, being able to proactively prevent runner issues (e.g., disk space is gradually filling up, therefore, you may want to optimize your jobs at some point because they might start failing.)
 
@@ -18,7 +18,7 @@ Implementing feature flags effectively requires a modular application architectu
 
 - Here are the popular times that workflows are scheduled. Try to avoid times (such as 12am) because they are very crowded. If you need a job to run at a specific time, instead, check if it is possible for the job to run prior to that time (so that it has a chance that, at that time, it will run), or consider using a webhook.
 
-  - ![Chart](./images/image23.png)
+ - ![Chart](./images/image23.png)
 
 - If you need something that will run on the last day of the month, consider instead running it on the first day of the next month and then use the data (or commits) from the previous end of the month. This is because some months have 30 or 31 days, and some might have 29 (leap year) and it can't be specified cleanly in crontab syntax.
 

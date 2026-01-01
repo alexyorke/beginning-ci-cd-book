@@ -1,4 +1,4 @@
-﻿## **Practical Docker Commands in CI/CD** {#practical-docker-commands-in-cicd .unnumbered}
+﻿## **Practical Docker Commands in CI/CD**
 
 Here are practical examples of the Docker commands, incorporating best practices for CI/CD workflows:
 
@@ -93,12 +93,10 @@ This cleans up unused Docker resources and displays system-wide information.
 
 **9. Docker-compose (1 instance):**
 
-```yaml
 - name: Build and Push with Compose
   run: |
     docker-compose -f docker-compose.prod.yml build
     docker-compose -f docker-compose.prod.yml push
-```
 
 This builds and pushes a multi-container application using docker-compose.
 

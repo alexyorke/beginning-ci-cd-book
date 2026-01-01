@@ -10,11 +10,11 @@ Code Review (in the context of CI/CD) is the systematic examination of source co
 
 - Code review themes:
 
-  - Knowledge transfer
-  - Finding bugs
-  - Design discussions
-  - Verifying scope
-  - Security feedback
+ - Knowledge transfer
+ - Finding bugs
+ - Design discussions
+ - Verifying scope
+ - Security feedback
 
 - This process helps increase code quality and prevents bugs from reaching production. Sometimes a large volume of comments (nitpicks) can appear in the PR, which may be better handled with direct discussion or tooling (e.g., automated linters).
 

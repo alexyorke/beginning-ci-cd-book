@@ -43,8 +43,8 @@ Consolidated from `CI_CD_Overview_and_Diagram.md` with process summary, artifact
 - A deployment pipeline (CD) promotes a selected artifact to an environment using **infrastructure as code** (IaC) so infrastructure and configuration are reproducible (avoid “snowflake” machines).
 - CD can deploy work-in-progress safely when the feature is gated behind a **feature flag** (code can be present in production but inactive).
 - Common rollout strategies include:
-  - **Blue/green**: two environments (blue = current, green = new) for zero-downtime cutover.
-  - **Incremental/canary**: release to a subset first, then gradually increase exposure.
+ - **Blue/green**: two environments (blue = current, green = new) for zero-downtime cutover.
+ - **Incremental/canary**: release to a subset first, then gradually increase exposure.
 - Deployment does not necessarily mean release: **deploy**, **deliver**, and **release** are distinct concepts in modern pipelines.
 - Post-deploy, use continuous monitoring so issues can be detected quickly and rollbacks can occur if needed.
 
@@ -55,9 +55,9 @@ Consolidated from `CI_CD_Overview_and_Diagram.md` with process summary, artifact
 - **Compilation/build**: compile/transpile where applicable (language-dependent).
 - **Linting/static analysis (optional)**: style, quality, and some bug patterns.
 - **Automated tests**:
-  - Unit tests
-  - Integration tests
-  - End-to-end tests
+ - Unit tests
+ - Integration tests
+ - End-to-end tests
 - **Artifact publishing**: publish immutable build outputs to an artifact repository.
 - **Deployment**: select an artifact and deploy to the target environment (often with additional checks).
 
@@ -95,15 +95,14 @@ Consolidated from `Adopting_CI_CD_and_Makefile.md` with staged adoption advice a
 - Start with a basic pipeline that builds your targets and notifies on failure.
 - Treat the pipeline as production infrastructure: **a broken pipeline must be fixed immediately**.
 - Add capabilities incrementally:
-  - Static analysis
-  - Unit tests (start with new code and high-risk areas)
-  - Formatting enforcement
-  - Metrics and dashboards (build time, artifact size, coverage)
-  - On-target testing (automate flashing + running + collecting results)
+ - Static analysis
+ - Unit tests (start with new code and high-risk areas)
+ - Formatting enforcement
+ - Metrics and dashboards (build time, artifact size, coverage)
+ - On-target testing (automate flashing + running + collecting results)
 
 #### Makefile example
 
-```make
 main.o: main.c mathFunctions.h utilFunctions.h
 	gcc -c main.c
 
@@ -112,6 +111,5 @@ utilFunctions.o: utilFunctions.c utilFunctions.h
 
 mathFunctions.o: mathFunctions.c mathFunctions.h
 	gcc -c mathFunctions.c
-```
 
 

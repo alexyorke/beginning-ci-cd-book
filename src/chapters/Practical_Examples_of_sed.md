@@ -1,4 +1,4 @@
-﻿## **Practical Examples of sed** {#practical-examples-of-sed .unnumbered}
+﻿## **Practical Examples of sed**
 
 **1. Replacing Version Numbers:**
 
@@ -12,9 +12,9 @@ That dash I flag, then it will pipe the content of the file with the replacement
 
 This replaces all occurrences of version="1.2.3" with version="1.2.4" in file.txt, editing the file in place.
 
--   -i: Edits the file in place.
+- -i: Edits the file in place.
 
--   s/old/new/g: s for substitution. old is the text to be replaced, new is the replacement text. g stands for "global", replacing all occurrences on a line.
+- s/old/new/g: s for substitution. old is the text to be replaced, new is the replacement text. g stands for "global", replacing all occurrences on a line.
 
 **2. Using Different Delimiters:**
 
@@ -68,11 +68,11 @@ This replaces old_value with new_value on line 13 of source_code.c.
 
 **Key Points:**
 
--   **Delimiters:** You can use any character as a delimiter for sed substitutions, as long as it doesn't appear in the old or new text.
+- **Delimiters:** You can use any character as a delimiter for sed substitutions, as long as it doesn't appear in the old or new text.
 
--   **Safety:** Like rm, sed -i modifies files in place. Always back up important files before using sed -i.
+- **Safety:** Like rm, sed -i modifies files in place. Always back up important files before using sed -i.
 
--   **Regular Expressions:** sed is powerful because of its support for regular expressions. Explore regular expressions to perform more complex text manipulations.
+- **Regular Expressions:** sed is powerful because of its support for regular expressions. Explore regular expressions to perform more complex text manipulations.
 
 This set of examples demonstrates the versatility of sed in handling various text editing tasks. As you explore further, you'll find that sed is an indispensable tool for automating text processing in shell scripts.
 

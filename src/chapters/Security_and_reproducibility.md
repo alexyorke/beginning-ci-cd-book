@@ -1,16 +1,14 @@
-﻿## Security and reproducibility {#security-and-reproducibility .unnumbered}
+﻿## Security and reproducibility
 
 **Add Git Credential Manager here too and say to use OAuth instead of PATs**
 
-### Setting up security policies {#setting-up-security-policies .unnumbered}
+### Setting up security policies
 
 - Security is very important when working with continuous integration repositories. This is because continuous integration has an achilles heel: it makes it very easy to get changes to production, which means that attackers can also make malicious changes to production easily. Therefore, it is important that you have strong security policies to make sure that only authorized users are able to access the repository and to perform certain actions. This means that one has to prevent a single unauthorized account from doing bad changes.
 
 - Right now, each developer has an identity. This means that if a developer's account is compromised, then the damage can be tracked and the account can be disabled or reset.
 
 - Make sure that a PR requires at least two approvers in order to be merged (not including the person who authored the PR.) These policies are usually managed by your CI/CD software. Of course, if there is only a single person on the team (or two people), then it might not make sense for two people to approve.
-
-​// Start of Selection
 
 ### Useful References
 
@@ -56,45 +54,44 @@ After reviewing the information from Azure DevOps, GitLab, and GitHub Actions, w
 
 By consolidating similar points across the three platforms (Azure DevOps, GitLab, and GitHub Actions), these general themes provide an overarching perspective on best security practices in DevOps environments.
 
-### {#section-11 .unnumbered}
 
 The integration of security into the development and deployment lifecycle is an essential part of modern software practices. The term "DevSecOps" has emerged to emphasize this integration, underscoring the importance of security throughout the DevOps lifecycle. When it comes to books about CI/CD and even broader software development topics, there are several security-related areas that are often underemphasized or overlooked:
 
-1. **Shift-Left Security**  
-   The idea behind "shifting security left" is to integrate security considerations and checks earlier in the development process. While some CI/CD books might touch on automated testing or code quality checks, they may not delve into integrating security scanning tools, static analysis for security vulnerabilities, or dependency checks in the early stages of the pipeline.
+1. **Shift-Left Security** 
+ The idea behind "shifting security left" is to integrate security considerations and checks earlier in the development process. While some CI/CD books might touch on automated testing or code quality checks, they may not delve into integrating security scanning tools, static analysis for security vulnerabilities, or dependency checks in the early stages of the pipeline.
 
-2. **Secrets Management**  
-   Handling API keys, database credentials, certificates, and other secrets is critical in CI/CD pipelines. Many books might not detail best practices for secrets management, like using secret managers (e.g., HashiCorp Vault, AWS Secrets Manager) or how to rotate and revoke secrets.
+2. **Secrets Management** 
+ Handling API keys, database credentials, certificates, and other secrets is critical in CI/CD pipelines. Many books might not detail best practices for secrets management, like using secret managers (e.g., HashiCorp Vault, AWS Secrets Manager) or how to rotate and revoke secrets.
 
-3. **Immutable Infrastructure**  
-   The concept of immutability, where infrastructure is never modified after it's deployed (and is instead replaced), can enhance security. This approach reduces the attack surface and ensures consistency. Many books might not discuss the security benefits of this method in detail.
+3. **Immutable Infrastructure** 
+ The concept of immutability, where infrastructure is never modified after it's deployed (and is instead replaced), can enhance security. This approach reduces the attack surface and ensures consistency. Many books might not discuss the security benefits of this method in detail.
 
-4. **Container Security**  
-   As containerized applications and microservices architectures become more popular, securing containers is paramount. This includes scanning container images for vulnerabilities, ensuring containers run with minimal permissions, and using trusted base images. Many books might not go into the intricacies of container security.
+4. **Container Security** 
+ As containerized applications and microservices architectures become more popular, securing containers is paramount. This includes scanning container images for vulnerabilities, ensuring containers run with minimal permissions, and using trusted base images. Many books might not go into the intricacies of container security.
 
-5. **Infrastructure as Code (IaC) Security**  
-   IaC tools like Terraform or CloudFormation have their vulnerabilities. Some books might not discuss how to secure IaC scripts, best practices for code reviews, or the importance of scanning IaC for misconfigurations.
+5. **Infrastructure as Code (IaC) Security** 
+ IaC tools like Terraform or CloudFormation have their vulnerabilities. Some books might not discuss how to secure IaC scripts, best practices for code reviews, or the importance of scanning IaC for misconfigurations.
 
-6. **Runtime Application Self-Protection (RASP)**  
-   RASP solutions provide real-time application security, detecting and blocking attacks in real-time. The integration of RASP into CI/CD might be an overlooked topic in many beginner books.
+6. **Runtime Application Self-Protection (RASP)** 
+ RASP solutions provide real-time application security, detecting and blocking attacks in real-time. The integration of RASP into CI/CD might be an overlooked topic in many beginner books.
 
-7. **DAST and SAST**  
-   Dynamic Application Security Testing (DAST) and Static Application Security Testing (SAST) are methodologies for identifying vulnerabilities in running applications and source code, respectively. Their integration into CI/CD pipelines can be crucial but might not be thoroughly covered.
+7. **DAST and SAST** 
+ Dynamic Application Security Testing (DAST) and Static Application Security Testing (SAST) are methodologies for identifying vulnerabilities in running applications and source code, respectively. Their integration into CI/CD pipelines can be crucial but might not be thoroughly covered.
 
-8. **Incident Response in CI/CD**  
-   How to handle security incidents, particularly in a CI/CD context (like rolling back insecure deployments or patching in a CI/CD model), can be a topic that's glossed over.
+8. **Incident Response in CI/CD** 
+ How to handle security incidents, particularly in a CI/CD context (like rolling back insecure deployments or patching in a CI/CD model), can be a topic that's glossed over.
 
-9. **Supply Chain Attacks**  
-   Ensuring the integrity of software components, packages, and dependencies is critical to prevent supply chain attacks. Some books might not delve into the importance of verifying component integrity or the risks of using outdated or compromised packages.
+9. **Supply Chain Attacks** 
+ Ensuring the integrity of software components, packages, and dependencies is critical to prevent supply chain attacks. Some books might not delve into the importance of verifying component integrity or the risks of using outdated or compromised packages.
 
-10. **Compliance and Auditing**  
-    In regulated industries, compliance with security standards is mandatory. How to ensure and validate compliance in a CI/CD model might not always be explored in depth.
+10. **Compliance and Auditing** 
+ In regulated industries, compliance with security standards is mandatory. How to ensure and validate compliance in a CI/CD model might not always be explored in depth.
 
 Given the importance of security in today's software landscape, those interested in CI/CD should seek out resources that give due attention to security considerations. If a general CI/CD book doesn't cover security in depth, consider complementing it with resources specifically focused on DevSecOps and security best practices in the context of modern software development and deployment.
 
-- [[https://stackoverflow.com/a/49552383/220935]{.underline}](https://stackoverflow.com/a/49552383/220935) for using the job token instead of long-lived ssh keys to clone repo
+- [https://stackoverflow.com/a/49552383/220935](https://stackoverflow.com/a/49552383/220935) for using the job token instead of long-lived ssh keys to clone repo
 
-- [[Automatic token authentication - GitHub Docs]{.underline}](https://docs.github.com/en/actions/security-guides/automatic-token-authentication) github auth token, don't use ssh keys pls
+- [Automatic token authentication - GitHub Docs](https://docs.github.com/en/actions/security-guides/automatic-token-authentication) github auth token, don't use ssh keys pls
 
 ### Why is security important?
 
@@ -136,43 +133,45 @@ Given the importance of security in today's software landscape, those interested
 
 - Malicious use of resources. Even if nothing infects the build artifacts, or remains undetected, it can use excessive CPU and make the builds take longer. This can cost the organization money and resources.
 
-- Expose security telemetry to developers ([[Pragmatic Pipeline Security - James Wickett - YouTube]{.underline}](https://www.youtube.com/watch?v=Po66ANjYbHA)) for example seeing attacks and being able to mitigate them if they are surfaced
+- Expose security telemetry to developers ([Pragmatic Pipeline Security - James Wickett - YouTube](https://www.youtube.com/watch?v=Po66ANjYbHA)) for example seeing attacks and being able to mitigate them if they are surfaced
 
-- [[OWASP Top 10 CI/CD Security Risks \| OWASP Foundation]{.underline}](https://owasp.org/www-project-top-10-ci-cd-security-risks/)
+- [OWASP Top 10 CI/CD Security Risks \| OWASP Foundation](https://owasp.org/www-project-top-10-ci-cd-security-risks/)
 
-  - CICD-SEC-1: attackers can push code to branch(es) (or artifact(s) that are used in production) that are then (auto-)merged and deployed to production.
+ - CICD-SEC-1: attackers can push code to branch(es) (or artifact(s) that are used in production) that are then (auto-)merged and deployed to production.
 
-  - CICD-SEC-2: production identities are not secured, or production lacks the right ACLs and gives too many people access.
+ - CICD-SEC-2: production identities are not secured, or production lacks the right ACLs and gives too many people access.
 
-  - CICD-SEC-3: a dependency is compromised in a package by an attacker publishing a malicious version or by typojacking a legitimate dependency.
+ - CICD-SEC-3: a dependency is compromised in a package by an attacker publishing a malicious version or by typojacking a legitimate dependency.
 
-  - CICD-SEC-4: changing the build script causes the pipeline to re-run, thus executing the attacker's code in the build script.
+ - CICD-SEC-4: changing the build script causes the pipeline to re-run, thus executing the attacker's code in the build script.
 
-  - CICD-SEC-5: pipelines are highly privileged and usually contain many secrets/passwords/access to production systems; malicious code can take advantage of this if it executes on the pipeline runner.
+ - CICD-SEC-5: pipelines are highly privileged and usually contain many secrets/passwords/access to production systems; malicious code can take advantage of this if it executes on the pipeline runner.
 
-  - CICD-SEC-6: credentials printed to logs, embedded in code, embedded in images, or are unrotated.
+ - CICD-SEC-6: credentials printed to logs, embedded in code, embedded in images, or are unrotated.
 
-  - CICD-SEC-7: generic advice on securing CI/CD architecture.
+ - CICD-SEC-7: generic advice on securing CI/CD architecture.
 
-  - CICD-SEC-8: 3rd party apps linked to your account are too permissive and request too many permissions.
+ - CICD-SEC-8: 3rd party apps linked to your account are too permissive and request too many permissions.
 
-  - CICD-SEC-9: make sure to check checksums of things downloaded, sign your code and artifacts.
+ - CICD-SEC-9: make sure to check checksums of things downloaded, sign your code and artifacts.
 
-  - CICD-SEC-10: make sure to have sufficient logging and auditing set up.
+ - CICD-SEC-10: make sure to have sufficient logging and auditing set up.
 
 - Sandboxed does not mean intellectual property is safe
 
-  - Anything can be uploaded to a server in the post-install scripts. To check which packages have these scripts (or scripts in general):
+ - Anything can be uploaded to a server in the post-install scripts. To check which packages have these scripts (or scripts in general):
 
-    ```bash
-    npm view js-common --json | jq .scripts
-    ```
+ ```bash
+```bash
+ npm view js-common --json | jq .scripts
+```
+ ```
 
-  - Use example of ransomware npm package as an example
+ - Use example of ransomware npm package as an example
 
-  - [[https://stackoverflow.com/a/68865402/220935]{.underline}](https://stackoverflow.com/a/68865402/220935) can help identify which package's install scripts are causing issues (disable each type of script, re-run build and verify)
+ - [https://stackoverflow.com/a/68865402/220935](https://stackoverflow.com/a/68865402/220935) can help identify which package's install scripts are causing issues (disable each type of script, re-run build and verify)
 
-- [[FOSDEM 2023 - The 7 key ingredients of a great SBOM (archive.org)]{.underline}](https://web.archive.org/web/20230604142619/https://fosdem.org/2023/schedule/event/sbom_key_ingredients/)
+- [FOSDEM 2023 - The 7 key ingredients of a great SBOM (archive.org)](https://web.archive.org/web/20230604142619/https://fosdem.org/2023/schedule/event/sbom_key_ingredients/)
 
 - Best practices, such as not including API keys in your CI pipeline because they can be slowly dispersed throughout the organization and shared amongst multiple people, and might not obey the same security policies as the rest of the code.
 
@@ -190,19 +189,18 @@ Given the importance of security in today's software landscape, those interested
 
 - Authentication data is hardcoded (in clear) under VCS (BP29)
 
-  - " "Authentication data is hardcoded (in clear) under VCS" bad smell (BP29), is considered still relevant by our survey participants since it is mainly related to security issues"
+ - " "Authentication data is hardcoded (in clear) under VCS" bad smell (BP29), is considered still relevant by our survey participants since it is mainly related to security issues"
 
-  - Hardcoded application credentials are a security risk, because these credentials can be read by other developers. These credentials will then exist unencrypted on harddrives, meaning they can be part of backups, spread, or be read by other programs on the machine. Developers may use the credentials to do testing, even though those credentials should not be used for that purpose.
+ - Hardcoded application credentials are a security risk, because these credentials can be read by other developers. These credentials will then exist unencrypted on harddrives, meaning they can be part of backups, spread, or be read by other programs on the machine. Developers may use the credentials to do testing, even though those credentials should not be used for that purpose.
 
-  - If working on an open-source application, credentials will be immediately taken advantage of if they are pushed to a public repository. While there are security scanners that usually revoke the credentials, this in and of itself makes it an inconvenience.
+ - If working on an open-source application, credentials will be immediately taken advantage of if they are pushed to a public repository. While there are security scanners that usually revoke the credentials, this in and of itself makes it an inconvenience.
 
-  - It also makes the application unportable because the credentials must be manually changed.
+ - It also makes the application unportable because the credentials must be manually changed.
 
-  - Counterpoints:
+ - Counterpoints:
 
-    - Rapid prototyping or test applications can hardcode their credentials, because setting up the necessary infrastructure can be time consuming. It may also require service connections and other boilerplate work that reduce the velocity.
+ - Rapid prototyping or test applications can hardcode their credentials, because setting up the necessary infrastructure can be time consuming. It may also require service connections and other boilerplate work that reduce the velocity.
 
-/// Start of Selection
 
 - [Sabotage: Code added to popular NPM package wiped files in Russia and Belarus | Ars Technica](https://arstechnica.com/information-technology/2022/03/sabotage-code-added-to-popular-npm-package-wiped-files-in-russia-and-belarus/)
 
@@ -216,38 +214,38 @@ A developer inserted malicious code into the popular open-source package, node-i
 
 1. **The Software Affected**
 
-   - The software, node-ipc, enhances other open-source code libraries with remote interprocess communication and neural networking capabilities.
-   - As a dependency, node-ipc is automatically downloaded and integrated into other libraries, such as Vue.js CLI, which receives over 1 million weekly downloads.
+ - The software, node-ipc, enhances other open-source code libraries with remote interprocess communication and neural networking capabilities.
+ - As a dependency, node-ipc is automatically downloaded and integrated into other libraries, such as Vue.js CLI, which receives over 1 million weekly downloads.
 
 2. **Malicious Action**
 
-   - The author of node-ipc introduced a version of the library that identified and sabotaged computers in Russia and Belarus, countries involved in the invasion of Ukraine.
-   - This malicious version identified developers based on their IP addresses. If the IP address was traced back to Russia or Belarus, the version would delete files and replace them with a heart emoji.
-   - To hide this malicious code, the author, Brandon Nozaki Miller, encoded the changes, making it challenging for users to detect the issue by visual inspection.
+ - The author of node-ipc introduced a version of the library that identified and sabotaged computers in Russia and Belarus, countries involved in the invasion of Ukraine.
+ - This malicious version identified developers based on their IP addresses. If the IP address was traced back to Russia or Belarus, the version would delete files and replace them with a heart emoji.
+ - To hide this malicious code, the author, Brandon Nozaki Miller, encoded the changes, making it challenging for users to detect the issue by visual inspection.
 
 3. **The Fallout**
 
-   - Liran Tal, a researcher at Snyk, pointed out that this act represents a significant security risk for any system using the affected npm package if geolocated to Russia or Belarus.
-   - Tal highlighted that the node-ipc author manages 40 other libraries, raising concerns about potential malicious activity in those libraries as well.
-   - Many in the open-source community criticized the author’s actions, raising questions about trust and the implications of such aggressive actions on the author’s reputation and stake in the developer community.
+ - Liran Tal, a researcher at Snyk, pointed out that this act represents a significant security risk for any system using the affected npm package if geolocated to Russia or Belarus.
+ - Tal highlighted that the node-ipc author manages 40 other libraries, raising concerns about potential malicious activity in those libraries as well.
+ - Many in the open-source community criticized the author’s actions, raising questions about trust and the implications of such aggressive actions on the author’s reputation and stake in the developer community.
 
 4. **Protestware Emergence**
 
-   - The malicious node-ipc update is an example of what’s being termed “protestware.”
-   - Other open-source projects have also released updates protesting Russia’s actions in the war.
-   - This incident underscores the potential risks when individual developers can significantly impact many applications through open-source contributions.
+ - The malicious node-ipc update is an example of what’s being termed “protestware.”
+ - Other open-source projects have also released updates protesting Russia’s actions in the war.
+ - This incident underscores the potential risks when individual developers can significantly impact many applications through open-source contributions.
 
 5. **Past Incidents**
 
-   - In January, another incident occurred when a developer’s update to two JavaScript libraries, with over 22 million downloads, caused over 21,000 dependent applications to malfunction.
+ - In January, another incident occurred when a developer’s update to two JavaScript libraries, with over 22 million downloads, caused over 21,000 dependent applications to malfunction.
 
 6. **Resolution**
 
-   - After the discovery of the malicious code, the developer released updates to remove it from node-ipc versions 10.1.1 and 10.1.2.
-   - Snyk advises developers to cease using the compromised package or use an npm package manager to override the affected versions.
+ - After the discovery of the malicious code, the developer released updates to remove it from node-ipc versions 10.1.1 and 10.1.2.
+ - Snyk advises developers to cease using the compromised package or use an npm package manager to override the affected versions.
 
 7. **Snyk’s Statement**
-   - While Snyk supports Ukraine, they emphasized that such intentional abuse damages the global open-source community, leading them to flag the affected node-ipc versions as security vulnerabilities.
+ - While Snyk supports Ukraine, they emphasized that such intentional abuse damages the global open-source community, leading them to flag the affected node-ipc versions as security vulnerabilities.
 
 
 ### Secure resource and Managed Secrets and Key Management Service
@@ -262,7 +260,7 @@ A developer inserted malicious code into the popular open-source package, node-i
 
 - Run a static security analysis tool to find secrets currently in the codebase, and then rotate them. Once they are committed then it is too late, it is not possible to erase it because it exists in logs and has violated its RBAC boundary.
 
-- How do I know if a secret has been previously committed to the source code? Use [[https://stackoverflow.com/a/48739656/220935]{.underline}](https://stackoverflow.com/a/48739656/220935) to search through the commits. Note that you may want to try other permutations, such as base64 encoding the string (locally) and doing other forms of fuzzy matching. If it has been committed, then it is recommended that you rotate it.
+- How do I know if a secret has been previously committed to the source code? Use [https://stackoverflow.com/a/48739656/220935](https://stackoverflow.com/a/48739656/220935) to search through the commits. Note that you may want to try other permutations, such as base64 encoding the string (locally) and doing other forms of fuzzy matching. If it has been committed, then it is recommended that you rotate it.
 
 - If you are approving PRs, then it might be useful to have a proof-of-presence (or YubiKey) to show that there is something physically present approving the PRs. This should minimally slow down the development (it takes about 30 seconds or less to authenticate.) Make sure that these work across VMs/screen sharing etc.
 
@@ -296,9 +294,9 @@ A developer inserted malicious code into the popular open-source package, node-i
 
 - Auditing permissions
 
-  - Team doesn't need writable tokens if they're just going to download packages (writes should require special perms unless everyone is publishing packages.) Easy to request perhaps.
+ - Team doesn't need writable tokens if they're just going to download packages (writes should require special perms unless everyone is publishing packages.) Easy to request perhaps.
 
-  - Try to make permission sets for different scenarios. This will avoid giving people arbitrary permissions, and also help understand what people are capable of. It also makes it easy to "undo" a particular permission scenario by just removing that scenario instead of trying to manually identify which permissions were in use for this scenario (as they might overlap.)
+ - Try to make permission sets for different scenarios. This will avoid giving people arbitrary permissions, and also help understand what people are capable of. It also makes it easy to "undo" a particular permission scenario by just removing that scenario instead of trying to manually identify which permissions were in use for this scenario (as they might overlap.)
 
 #### Lifecycle management
 
@@ -363,7 +361,7 @@ A developer inserted malicious code into the popular open-source package, node-i
 
 - Is there a way to easily debug common issues with commit signing? Maybe by trying to sign a file manually with your key and verify that it works? Is there an exe that git uses internally to sign the commits?
 
-- [[amazon.ca/Yubico-YubiKey-NFC-Authentication-USB/dp/B07HBD71HL]{.underline}](https://www.amazon.ca/Yubico-YubiKey-NFC-Authentication-USB/dp/B07HBD71HL?th=1)
+- [amazon.ca/Yubico-YubiKey-NFC-Authentication-USB/dp/B07HBD71HL](https://www.amazon.ca/Yubico-YubiKey-NFC-Authentication-USB/dp/B07HBD71HL?th=1)
 
 - ![](./images/image75.png)
 
@@ -373,102 +371,102 @@ Signing commits using a YubiKey and Git involves several steps, but it provides 
 
 1. **Prerequisites**:
 
-   - Ensure you have a YubiKey that supports OpenPGP.
-   - Install GnuPG (`gpg`).
-   - Install Git.
+ - Ensure you have a YubiKey that supports OpenPGP.
+ - Install GnuPG (`gpg`).
+ - Install Git.
 
 2. **Set Up GnuPG with YubiKey**:
-   a. Insert your YubiKey and check if GnuPG recognizes it:
+ a. Insert your YubiKey and check if GnuPG recognizes it:
 
-   ```bash
-   gpg --card-status
-   ```
+ ```bash
+ gpg --card-status
+ ```
 
-   b. If it's a new YubiKey, you might need to generate a new key pair:
+ b. If it's a new YubiKey, you might need to generate a new key pair:
 
-   ```bash
-   gpg --card-edit
-   admin
-   generate
-   ```
+ ```bash
+ gpg --card-edit
+ admin
+ generate
+ ```
 
 3. **Configure Git to Use GPG**:
-   a. Tell Git about GPG:
+ a. Tell Git about GPG:
 
-   ```bash
+ ```bash
 ```bash
    git config --global gpg.program $(which gpg)
 ```
-   ```
+ ```
 
-   b. Get your GPG key ID (usually the last 8 characters):
+ b. Get your GPG key ID (usually the last 8 characters):
 
-   ```bash
-   gpg --list-secret-keys
-   ```
+ ```bash
+ gpg --list-secret-keys
+ ```
 
-   You should see output that looks like:
+ You should see output that looks like:
 
-   ```
-   sec rsa4096/1234ABCD1234ABCD 2022-01-01 [SC]
-   ```
+ ```
+ sec rsa4096/1234ABCD1234ABCD 2022-01-01 [SC]
+ ```
 
-   In this case, `1234ABCD1234ABCD` is the key ID.
+ In this case, `1234ABCD1234ABCD` is the key ID.
 
-   c. Tell Git to use this GPG key for signing:
+ c. Tell Git to use this GPG key for signing:
 
-   ```bash
+ ```bash
 ```bash
    git config --global user.signingkey 1234ABCD1234ABCD
 ```
-   ```
+ ```
 
 4. **Automatically Sign All Commits**:
-   If you want to sign all commits by default in every Git repository on your computer, run:
+ If you want to sign all commits by default in every Git repository on your computer, run:
 
-   ```bash
+ ```bash
 ```bash
    git config --global commit.gpgsign true
 ```
-   ```
+ ```
 
 5. **Signing a Commit**:
-   If you haven’t enabled automatic signing, you can sign individual commits using the `-S` flag:
+ If you haven’t enabled automatic signing, you can sign individual commits using the `-S` flag:
 
-   ```bash
+ ```bash
 ```bash
    git commit -S -m "Your commit message"
 ```
-   ```
+ ```
 
 6. **Verify Signed Commits**:
-   To verify the signed commit:
+ To verify the signed commit:
 
-   ```bash
+ ```bash
 ```bash
    git log --show-signature
 ```
-   ```
+ ```
 
-   This will show if the commit was signed and if the signature was valid.
+ This will show if the commit was signed and if the signature was valid.
 
 7. **Pushing and Working Remotely**:
-   When you push your signed commits to platforms like GitHub or GitLab, they should recognize and display the "Verified" badge next to each signed commit, confirming its authenticity.
+ When you push your signed commits to platforms like GitHub or GitLab, they should recognize and display the "Verified" badge next to each signed commit, confirming its authenticity.
 
 8. **Using Pinentry for Passphrase Prompting**:
-   If you’re using the passphrase for your GPG key and working in a GUI environment, you might need `pinentry` to be set up correctly for passphrase prompting.
+ If you’re using the passphrase for your GPG key and working in a GUI environment, you might need `pinentry` to be set up correctly for passphrase prompting.
 
-   Check your `gpg-agent.conf` (often located in `~/.gnupg/gpg-agent.conf`) and ensure it has the appropriate pinentry program set, for example:
+ Check your `gpg-agent.conf` (often located in `~/.gnupg/gpg-agent.conf`) and ensure it has the appropriate pinentry program set, for example:
 
-   ```
-   pinentry-program /usr/bin/pinentry-gtk-2
-   ```
+ ```
+ pinentry-program /usr/bin/pinentry-gtk-2
+ ```
 
-   Restart `gpg-agent` after making changes:
+ Restart `gpg-agent` after making changes:
 
-   ```bash
-   gpgconf --kill gpg-agent
-   ```
+ ```bash
+ gpgconf --kill gpg-agent
+ ```
 
 **Remember, while signing commits vouches for the integrity of the commit (i.e., that it has not been tampered with), it does not attest to the quality or safety of the code within the commit. Always review code carefully, regardless of its signature status.**
 
@@ -485,14 +483,14 @@ Commit signing in Git adds an extra layer of integrity checks to your project by
 ### Step 1: Install GPG
 
 - **Linux**: You can install GPG using the package manager for your specific Linux distribution. For Ubuntu/Debian:
-  ```
-  sudo apt-get update
-  sudo apt-get install gnupg
-  ```
+ ```
+ sudo apt-get update
+ sudo apt-get install gnupg
+ ```
 - **macOS**: If you have Homebrew installed, you can run:
-  ```
-  brew install gnupg
-  ```
+ ```
+ brew install gnupg
+ ```
 - **Windows**: Download and install it from the [official website](https://gnupg.org/download/).
 
 ### Step 2: Generate a GPG Key Pair
@@ -538,13 +536,13 @@ git config commit.gpgsign true
 ### Step 6: Add GPG Key to GitHub/GitLab/Other
 
 1. To get the GPG public key, use:
-   ```
-   gpg --armor --export [your-key-id-here]
-   ```
+ ```
+ gpg --armor --export [your-key-id-here]
+ ```
 2. Copy the GPG key, beginning with `-----BEGIN PGP PUBLIC KEY BLOCK-----` and ending with `-----END PGP PUBLIC KEY BLOCK-----`.
 3. Add this key to your GitHub/GitLab account.
-   - On GitHub, go to Settings → SSH and GPG keys → New GPG key.
-   - On GitLab, go to User Settings → GPG Keys → Add Key.
+ - On GitHub, go to Settings → SSH and GPG keys → New GPG key.
+ - On GitLab, go to User Settings → GPG Keys → Add Key.
 
 ### Step 7: Tell Git About Your GPG Key (Optional)
 
@@ -588,49 +586,49 @@ That’s it! You’ve now set up GPG signing for your Git commits. This adds a l
 
 - Sources of non-determinism
 
-  - [[Real Time Linux Summit - YouTube]{.underline}](https://www.youtube.com/watch?v=IBUlUYJrVSQ)
+ - [Real Time Linux Summit - YouTube](https://www.youtube.com/watch?v=IBUlUYJrVSQ)
 
-    1.  memory cache, tlb misses, SMI's (from BIOS)
+ 1. memory cache, tlb misses, SMI's (from BIOS)
 
-  - Configuration files: Often changed and can lead to errors if not managed correctly.
+ - Configuration files: Often changed and can lead to errors if not managed correctly.
 
-  - I/O operations: Frequent in CI/CD processes, potential for errors.
+ - I/O operations: Frequent in CI/CD processes, potential for errors.
 
-  - File system operations: Common, can lead to issues.
+ - File system operations: Common, can lead to issues.
 
-  - Access to external services: Calls to databases, other services are frequent.
+ - Access to external services: Calls to databases, other services are frequent.
 
-  - Networking: Network-related issues are relatively common.
+ - Networking: Network-related issues are relatively common.
 
-  - Use of environment variables: Often used and can be misconfigured.
+ - Use of environment variables: Often used and can be misconfigured.
 
-  - System time: Time differences can affect synchronization and scheduling.
+ - System time: Time differences can affect synchronization and scheduling.
 
-  - Time-related functions: Used for delays, timeouts, etc.
+ - Time-related functions: Used for delays, timeouts, etc.
 
-  - Creating tars/zips, different versions of software: Specific to deployment tasks, less likely to be an issue in builds.
+ - Creating tars/zips, different versions of software: Specific to deployment tasks, less likely to be an issue in builds.
 
-  - OS scheduling policies: Can affect the order of job processing.
+ - OS scheduling policies: Can affect the order of job processing.
 
-  - Memory allocation: Depending on the tasks, could be an issue.
+ - Memory allocation: Depending on the tasks, could be an issue.
 
-  - Non-deterministic thread scheduling: Multithreading is common but the OS scheduler may not always behave as expected.
+ - Non-deterministic thread scheduling: Multithreading is common but the OS scheduler may not always behave as expected.
 
-  - Race conditions: Likely if improper synchronization in concurrent settings.
+ - Race conditions: Likely if improper synchronization in concurrent settings.
 
-  - Context switching: Likely to happen but usually well-handled.
+ - Context switching: Likely to happen but usually well-handled.
 
-  - Signal handling: Used less frequently, but still possible.
+ - Signal handling: Used less frequently, but still possible.
 
-  - CPU cache: Even less likely, specific to certain types of jobs.
+ - CPU cache: Even less likely, specific to certain types of jobs.
 
 - This might be as innocuous as changing the date inside of an executable to the time it was built, or something that changes the actual code itself, such as a simple bit flip. These would normally appear as small changes to the executable code. But bit flips can have dire consequences, especially if they are done maliciously.
 
 - Concurrency is only possible when tasks are interleaved, dictated by the OS scheduler. Given that the OS scheduler is not deterministic, therefore, tasks may not be deterministic.
 
-  - This is different from data races, where outputs might be overwritten or whose order matters.
+ - This is different from data races, where outputs might be overwritten or whose order matters.
 
-  - For example, if a program that sums numbers doesn't care which array element was populated first, as long as the final array output contains the right elements. This can speed up processes on multi-core processors, which is why concurrency is normally used.
+ - For example, if a program that sums numbers doesn't care which array element was populated first, as long as the final array output contains the right elements. This can speed up processes on multi-core processors, which is why concurrency is normally used.
 
 - An OS isn't meant to be deterministic, in fact, that might slow it down. This is because some operations may take less time due to the nature of the data, or the priority of some other tasks.
 
@@ -642,7 +640,7 @@ That’s it! You’ve now set up GPG signing for your Git commits. This adds a l
 
 #### Reproducible & Deterministic Builds
 
-- "A build is reproducible if given the same source code, build environment and build instructions, any party can recreate bit-by-bit identical copies of all specified artifacts" - [[Definitions --- reproducible-builds.org]{.underline}](https://reproducible-builds.org/docs/definition/)
+- "A build is reproducible if given the same source code, build environment and build instructions, any party can recreate bit-by-bit identical copies of all specified artifacts" - [Definitions --- reproducible-builds.org](https://reproducible-builds.org/docs/definition/)
 
 - It works on my computer! Why doesn't it work on yours? Having predictability and consistency is of paramount importance for single developers, and those who work on teams because you have to be able to run your program and get the same output to make sure it is working correctly. The term was not yet coined at this stage, and was rather a function of just developing software and the ability to not be chaotic. The ability to recreate the same outputs is of critical importance, otherwise it is unclear what the output should be, and whether the program is working correctly. If other developers are unable to reproduce the build (i.e., even the ability to generate viable build artifacts), then they can't integrate their changes.
 
@@ -668,15 +666,15 @@ That’s it! You’ve now set up GPG signing for your Git commits. This adds a l
 
 - Why reproducible builds? What problems does it solve?
 
-  - Security. If the build artifacts are different every time, then there might be something injecting something in the source code or binary.
+ - Security. If the build artifacts are different every time, then there might be something injecting something in the source code or binary.
 
-  - Improving collaboration and trust in software supply chain
+ - Improving collaboration and trust in software supply chain
 
-    1.  Shows, to some degree, that a build can be re-created in the future (for example, if there needs to be patches or to reproduce a bug), and also if the compiler is sane (i.e., if it doesn't contain malware, although this is debatable.)
+ 1. Shows, to some degree, that a build can be re-created in the future (for example, if there needs to be patches or to reproduce a bug), and also if the compiler is sane (i.e., if it doesn't contain malware, although this is debatable.)
 
-  - To show that the source code can match the binaries. This is important because binaries do not have to correspond to their sources (i.e., if you publish a binary and claim to bundle its sources but it contains malicious software, there is no way of knowing.) The other consumers of your package can't verify it for security flaws as easily.
+ - To show that the source code can match the binaries. This is important because binaries do not have to correspond to their sources (i.e., if you publish a binary and claim to bundle its sources but it contains malicious software, there is no way of knowing.) The other consumers of your package can't verify it for security flaws as easily.
 
-  - Theseus's ship analogy, to what extent is software the same if the output is different? Two pieces of software can run identically if their binaries are not the same, but adopting Kantian philosophy can be helpful because it allows no room for deviation. This means it is difficult for an attacker to sneak in malicious code.
+ - Theseus's ship analogy, to what extent is software the same if the output is different? Two pieces of software can run identically if their binaries are not the same, but adopting Kantian philosophy can be helpful because it allows no room for deviation. This means it is difficult for an attacker to sneak in malicious code.
 
 - increased debuggability
 
@@ -696,7 +694,6 @@ That’s it! You’ve now set up GPG signing for your Git commits. This adds a l
 
 - Even if the file is on a trusted source and might not be compromised (but see Handbrake as a counterexample), it could have a silent version change (or a DNS takeover) and the file will change. This means that the inputs/process is different, potentially causing the build to be non-reproducible.
 
-/// Start of Selection
 
 [media.ccc.de - Reproducible Builds](https://media.ccc.de/v/31c3_-_6240_-_en_-_saal_g_-_201412271400_-_reproducible_builds_-_mike_perry_-_seth_schoen_-_hans_steiner#t=2178)
 
@@ -782,111 +779,111 @@ for (int i = 0; i < 10; i++)
 
 - How do I make my builds deterministic?
 
-  - First, check if your builds are already deterministic. Run your build process on a few different computers running the same build tools and compare the hashes of the outputs. You can use diffoscope for this.
+ - First, check if your builds are already deterministic. Run your build process on a few different computers running the same build tools and compare the hashes of the outputs. You can use diffoscope for this.
 
-  - Managing build environments: It's important to ensure that the environment in which builds are run is as consistent as possible across different machines. This can involve using virtual environments, containers, or other tools to isolate builds from the host system.
+ - Managing build environments: It's important to ensure that the environment in which builds are run is as consistent as possible across different machines. This can involve using virtual environments, containers, or other tools to isolate builds from the host system.
 
-    - If everything is different, which build is considered the standard?
+ - If everything is different, which build is considered the standard?
 
-      1.  Get everyone's exact build process steps, just collect steps/workflows. You may have to get screenshots in case there is version info or any potential miscommunications
+ 1. Get everyone's exact build process steps, just collect steps/workflows. You may have to get screenshots in case there is version info or any potential miscommunications
 
-      2.  Look at each step and question its purpose and why it is required. If it is not required or does not make sense, flag it for investigation. Look into best practices, depending on your application.
+ 2. Look at each step and question its purpose and why it is required. If it is not required or does not make sense, flag it for investigation. Look into best practices, depending on your application.
 
-      3.  Combine all workflows.
+ 3. Combine all workflows.
 
-      4.  Lock all deps, including transitive dependencies. For example, use a package-lock.json file or yarn.lock for JavaScript projects.
+ 4. Lock all deps, including transitive dependencies. For example, use a package-lock.json file or yarn.lock for JavaScript projects.
 
-      5.  Use a new process, and troubleshoot if anyone is not able to reproduce it correctly.
+ 5. Use a new process, and troubleshoot if anyone is not able to reproduce it correctly.
 
-      6.  Store all deps in a centralized read only location
+ 6. Store all deps in a centralized read only location
 
-      7.  Use reproducible build options for your build tool.
+ 7. Use reproducible build options for your build tool.
 
-    - Auto-updates: This can be tricky to manage, as it can be difficult to know what version of a dependency is being used, especially if it is being updated automatically.
+ - Auto-updates: This can be tricky to manage, as it can be difficult to know what version of a dependency is being used, especially if it is being updated automatically.
 
-    - Managing build logs: This can be helpful in troubleshooting issues with reproducibility, by comparing the logs of different builds.
+ - Managing build logs: This can be helpful in troubleshooting issues with reproducibility, by comparing the logs of different builds.
 
-    - Storing and tracking build information: This can be useful for maintaining a historical record of builds, and for troubleshooting issues with reproducibility.
+ - Storing and tracking build information: This can be useful for maintaining a historical record of builds, and for troubleshooting issues with reproducibility.
 
-    - Python pipenv package has a pip.lock file or a similarly-named file that allows for repro'able builds. Also nix is popular.
+ - Python pipenv package has a pip.lock file or a similarly-named file that allows for repro'able builds. Also nix is popular.
 
-    - Using deterministic packaging tools: Some packaging tools, such as nix or guix, use deterministic build processes that produce the same output for the same input, even across different machines. This can help ensure that builds are reproducible.
+ - Using deterministic packaging tools: Some packaging tools, such as nix or guix, use deterministic build processes that produce the same output for the same input, even across different machines. This can help ensure that builds are reproducible.
 
-    - Take all of those inputs that generate those file(s) or event(s) and then check if those are firing in a deterministic way.
+ - Take all of those inputs that generate those file(s) or event(s) and then check if those are firing in a deterministic way.
 
-    - Ordering/sorting can help make things deterministic.
+ - Ordering/sorting can help make things deterministic.
 
-    - Be careful not to go too far, only the final outputs themselves need to be deterministic. For example, internal workings of your application, as long as they are read sequentially, don't need to be single threaded. This will slow things down a lot.
+ - Be careful not to go too far, only the final outputs themselves need to be deterministic. For example, internal workings of your application, as long as they are read sequentially, don't need to be single threaded. This will slow things down a lot.
 
-    - Double check calls to specific APIs to diagnose issues where calls that are returned do not align. For example, random numbers and date/time. Start logging outputs, and then if those outputs, when re-run, don't align, then log their dependencies, and continue until the source is found. You may want to assign each log an ID, and then sort the logs afterwards. Then, you can determine where the problem lies by cross-checking the logs.
+ - Double check calls to specific APIs to diagnose issues where calls that are returned do not align. For example, random numbers and date/time. Start logging outputs, and then if those outputs, when re-run, don't align, then log their dependencies, and continue until the source is found. You may want to assign each log an ID, and then sort the logs afterwards. Then, you can determine where the problem lies by cross-checking the logs.
 
-    - It is difficult to eliminate all forms of nondeterminism, and this isn't really related to thread safety, as something could be thread safe but still nondeterministic. Adding elements to a thread-safe collection is thread safe, but reading them back is not.
+ - It is difficult to eliminate all forms of nondeterminism, and this isn't really related to thread safety, as something could be thread safe but still nondeterministic. Adding elements to a thread-safe collection is thread safe, but reading them back is not.
 
-    - Auto log all return values from all functions? TTD from Microsoft might help if snapshots can be compared.
+ - Auto log all return values from all functions? TTD from Microsoft might help if snapshots can be compared.
 
-    - Trying to make things too deterministic (when it is not needed) can slow down the program.
+ - Trying to make things too deterministic (when it is not needed) can slow down the program.
 
-    - To support reproducible and deterministic builds, you have to version everything because the inputs have to be the same. The best way to do this is to have everything pre-installed in a docker image, and then just upgrade it when you want to upgrade a dependency. This does require extra management, however, so there is a tradeoff.
+ - To support reproducible and deterministic builds, you have to version everything because the inputs have to be the same. The best way to do this is to have everything pre-installed in a docker image, and then just upgrade it when you want to upgrade a dependency. This does require extra management, however, so there is a tradeoff.
 
-  - How much nondeterminism is needed?
+ - How much nondeterminism is needed?
 
-    - Verifying digital signatures only on JAR files [[media.ccc.de - Reproducible Builds]{.underline}](https://media.ccc.de/v/31c3_-_6240_-_en_-_saal_g_-_201412271400_-_reproducible_builds_-_mike_perry_-_seth_schoen_-_hans_steiner#t=2178)
+ - Verifying digital signatures only on JAR files [media.ccc.de - Reproducible Builds](https://media.ccc.de/v/31c3_-_6240_-_en_-_saal_g_-_201412271400_-_reproducible_builds_-_mike_perry_-_seth_schoen_-_hans_steiner#t=2178)
 
-    - Software BOMs might help with this
+ - Software BOMs might help with this
 
-    - Builds (should) according to the talk [[media.ccc.de - Reproducible Builds]{.underline}](https://media.ccc.de/v/31c3_-_6240_-_en_-_saal_g_-_201412271400_-_reproducible_builds_-_mike_perry_-_seth_schoen_-_hans_steiner#t=2860) be reproducible irrespective of a kernel (e.g, BSD, Linux, Ubuntu, etc.) because this would mean an attacker would have to make a backdoor in all of those kernels for a change to be unnoticed
+ - Builds (should) according to the talk [media.ccc.de - Reproducible Builds](https://media.ccc.de/v/31c3_-_6240_-_en_-_saal_g_-_201412271400_-_reproducible_builds_-_mike_perry_-_seth_schoen_-_hans_steiner#t=2860) be reproducible irrespective of a kernel (e.g, BSD, Linux, Ubuntu, etc.) because this would mean an attacker would have to make a backdoor in all of those kernels for a change to be unnoticed
 
-  - DSC powershell for Windows could be useful
+ - DSC powershell for Windows could be useful
 
-  - [[Deterministic.js]{.underline}](https://deterministic.js.org/)
+ - [Deterministic.js](https://deterministic.js.org/)
 
-  - Higher level concept of reproducibility is quality, as you can imagine an assembly line creating products, if they are all misshapen then quality control cannot accurately assess the quality, and customers might not be happy. There isn't a threshold or understanding of what the product should be thus it cannot be evaluated against quality standards. Creating a prototype vs. an assembly line?
+ - Higher level concept of reproducibility is quality, as you can imagine an assembly line creating products, if they are all misshapen then quality control cannot accurately assess the quality, and customers might not be happy. There isn't a threshold or understanding of what the product should be thus it cannot be evaluated against quality standards. Creating a prototype vs. an assembly line?
 
 ### Tools and Strategies for Debugging and Diagnosis
 
 - Important to know what is and is not relevant to determinism, and which determinism is applicable
 
-  - The rate at which packets arrive when downloading a file doesn't matter, as long as the file is intact. The rate at which the packets arrive may be nondeterministic, but this nondeterminism is irrelevant. However, it may be relevant in another context (i.e., VoIP where the rate of packets matters, but whether they are intact is less important, as long as the receiver can hear it.) Both delays are non-deterministic in those examples, however, the importance of latency is much higher in the latter case. If the packets arrive somewhat nondeterministically in VoIP, then it can be fixed, in TCP, well, they can arrive nondeterministically but then they are re-ordered prior to application delivery. So here there are multiple layers, some which are irrelevant.
+ - The rate at which packets arrive when downloading a file doesn't matter, as long as the file is intact. The rate at which the packets arrive may be nondeterministic, but this nondeterminism is irrelevant. However, it may be relevant in another context (i.e., VoIP where the rate of packets matters, but whether they are intact is less important, as long as the receiver can hear it.) Both delays are non-deterministic in those examples, however, the importance of latency is much higher in the latter case. If the packets arrive somewhat nondeterministically in VoIP, then it can be fixed, in TCP, well, they can arrive nondeterministically but then they are re-ordered prior to application delivery. So here there are multiple layers, some which are irrelevant.
 
-  - You have to be aware of all of the layers of nondeterminism, but must use an executive decision-making process to understand which layers are important at which time.
+ - You have to be aware of all of the layers of nondeterminism, but must use an executive decision-making process to understand which layers are important at which time.
 
-  - Also depends on the extent that two objects are the same, and whether this counts against something being non-deterministic. For example, do the file(s) or resource(s) have to match precisely? The common definition is yes, they must match exactly (so that there is no interpretation for error.)
+ - Also depends on the extent that two objects are the same, and whether this counts against something being non-deterministic. For example, do the file(s) or resource(s) have to match precisely? The common definition is yes, they must match exactly (so that there is no interpretation for error.)
 
 - Excluding files that are not part of the final artifact
 
-  - For example, generated files or log files which are not essential for the final build (files that can be removed and the app will still function normally)
+ - For example, generated files or log files which are not essential for the final build (files that can be removed and the app will still function normally)
 
 - Going too far in terms of reproducibility
 
-  - Debugging symbols may require that the assembly has a unique uuid, make sure not to stamp on a fake one just to make the build always reproducible (there are better ways)
+ - Debugging symbols may require that the assembly has a unique uuid, make sure not to stamp on a fake one just to make the build always reproducible (there are better ways)
 
-  - Make sure application still works after doing changes
+ - Make sure application still works after doing changes
 
-  - Understand impact of changes and what other things depend on those metadata items
+ - Understand impact of changes and what other things depend on those metadata items
 
-  - Makefiles for example depend on modification dates (I think) to determine if the build should be re-run. Setting the modification dates to the same might interfere with that.
+ - Makefiles for example depend on modification dates (I think) to determine if the build should be re-run. Setting the modification dates to the same might interfere with that.
 
-  - Symbol servers might not be able to identify which assembly belongs to which exe
+ - Symbol servers might not be able to identify which assembly belongs to which exe
 
 - When to change the environment vs. changing yourself?
 
-  - If your app can't possibly know what the next step will be, then change the environment. For example, a file compressor nondeterministically adds files to an archive. It would not make sense to make the file compressor detect that it is compressing this app and do something special.
+ - If your app can't possibly know what the next step will be, then change the environment. For example, a file compressor nondeterministically adds files to an archive. It would not make sense to make the file compressor detect that it is compressing this app and do something special.
 
-  - If your app requires the environment to change its behavior, then change the app. For example, LC_ALL variable defines the locale. If the app must be in different locales, then the app can't have a fixed LC_ALL variable because it has to be built for different languages.
+ - If your app requires the environment to change its behavior, then change the app. For example, LC_ALL variable defines the locale. If the app must be in different locales, then the app can't have a fixed LC_ALL variable because it has to be built for different languages.
 
 - Verifying
 
-  - Run the pipeline more often to spot failure trends if something is truly unrepro'able when running just a few times
+ - Run the pipeline more often to spot failure trends if something is truly unrepro'able when running just a few times
 
-  - Version everything and use package managers when possible (or hashes of packages/installers/versions)
+ - Version everything and use package managers when possible (or hashes of packages/installers/versions)
 
-  - Use `tar -W` (verify after archiving). This is important because corruption could cause irreproducibility.
+ - Use `tar -W` (verify after archiving). This is important because corruption could cause irreproducibility.
 
-    - disable tar remote files and maybe globs in files because I can rsh into my server by default which is weird
+ - disable tar remote files and maybe globs in files because I can rsh into my server by default which is weird
 
-  - Making everyone use the same OS could be better for reproducibility but might not be possible. This means that more effort has to be put into the build system (or vice-versa.)
+ - Making everyone use the same OS could be better for reproducibility but might not be possible. This means that more effort has to be put into the build system (or vice-versa.)
 
-  - If the builds do look ok, then take more and more samples and compare them
+ - If the builds do look ok, then take more and more samples and compare them
 
 #### Troubleshooting reproducibility issues
 
@@ -894,195 +891,197 @@ for (int i = 0; i < 10; i++)
 
 - Take, for instance, the compilation of a program. Once compiled, you can cross-check the build artifacts to see if they're consistent across multiple builds. However, other steps like encryption or digital signing might introduce inconsistencies. To handle such scenarios:
 
-  - 1\. **For Encryption:** After encrypting, decrypt the application and compare it with the original. If they match, it's likely reproducible unless there's an issue with the decryption tool.
+ - 1\. **For Encryption:** After encrypting, decrypt the application and compare it with the original. If they match, it's likely reproducible unless there's an issue with the decryption tool.
 
-  - 2\. **For Signing:** Remove the digital signature and then verify the application's consistency.
+ - 2\. **For Signing:** Remove the digital signature and then verify the application's consistency.
 
-  - 3\. **For Obfuscation:** Use a consistent seed, preferably derived from the application's state before obfuscation. However, this depends on your security strategy and the capabilities of the library you're using.
+ - 3\. **For Obfuscation:** Use a consistent seed, preferably derived from the application's state before obfuscation. However, this depends on your security strategy and the capabilities of the library you're using.
 
 - If you receive inconsistent artifacts from a third-party:
 
-  - \- Determine the reason. Are they providing updated versions, has their server been compromised, or are they delivering different versions for tracking reasons?
+ - \- Determine the reason. Are they providing updated versions, has their server been compromised, or are they delivering different versions for tracking reasons?
 
-  - \- Engage in discussions with the software provider. If they're not cooperative, consider switching to a different supplier.
+ - \- Engage in discussions with the software provider. If they're not cooperative, consider switching to a different supplier.
 
-  - As a workaround, store the build artifacts you obtain and use those for subsequent builds. This ensures that unexpected changes don't occur in between builds.
+ - As a workaround, store the build artifacts you obtain and use those for subsequent builds. This ensures that unexpected changes don't occur in between builds.
 
 - Step 0: teams
 
-  1.  If you're on a team, then get each team member to build the software 10 times (preferably on different days of the week) and then submit all artifacts to a central repository. Label each one by their name.
+ 1. If you're on a team, then get each team member to build the software 10 times (preferably on different days of the week) and then submit all artifacts to a central repository. Label each one by their name.
 
-  2.  Use diffoscope to diagnose whose machines are having issues. For example, check if each developer's build is reproducible, or if they are not reproducible cross-section wise. Put artifacts on a central repository exactly as-is (for example, if delivered as a dmg, tar.gz, zip, etc. even if it is an uncompressed folder.) If each developer can reproduce the build, but together they have different builds, then this could signal different build tool versions or frameworks. If each developer can't build reproducibility on their own machine, then this could be both framework issues, or something with the application build process itself. If there's only a handful of developers who cannot match the team, then it might be because of their environment. Try using containers to standardize the deployment and deps. If there are groups of developers whose builds match, then there might be an environmental issue.
+ 2. Use diffoscope to diagnose whose machines are having issues. For example, check if each developer's build is reproducible, or if they are not reproducible cross-section wise. Put artifacts on a central repository exactly as-is (for example, if delivered as a dmg, tar.gz, zip, etc. even if it is an uncompressed folder.) If each developer can reproduce the build, but together they have different builds, then this could signal different build tool versions or frameworks. If each developer can't build reproducibility on their own machine, then this could be both framework issues, or something with the application build process itself. If there's only a handful of developers who cannot match the team, then it might be because of their environment. Try using containers to standardize the deployment and deps. If there are groups of developers whose builds match, then there might be an environmental issue.
 
-  3.  To track down the issue, make sure each developer's frameworks are exactly the same. You will have to get versions of all tools, frameworks, OSes, patches, etc.
+ 3. To track down the issue, make sure each developer's frameworks are exactly the same. You will have to get versions of all tools, frameworks, OSes, patches, etc.
 
-  4.  You may have to play peekaboo with your archives.
+ 4. You may have to play peekaboo with your archives.
 
-  - If you save the hash of the file after it is downloaded, then you can theoretically find the same file if the file disappears from the internet
+ - If you save the hash of the file after it is downloaded, then you can theoretically find the same file if the file disappears from the internet
 
-  - [[Rule of three (statistics) - Wikipedia]{.underline}](<https://en.wikipedia.org/wiki/Rule_of_three_(statistics)>)
+ - [Rule of three (statistics) - Wikipedia](<https://en.wikipedia.org/wiki/Rule_of_three_(statistics)>)
 
 - Step 1: attempt to find the non-reproducible layer(s)
 
-  - Rationale: Digitally signing multiple identical artifacts could give different hashes (I think) so look inside of the container when doing the comparison. The reproducibility issues may occur at any layer(s)
+ - Rationale: Digitally signing multiple identical artifacts could give different hashes (I think) so look inside of the container when doing the comparison. The reproducibility issues may occur at any layer(s)
 
-  - [[onekey-sec/unblob: Extract files from any kind of container formats (github.com)]{.underline}](https://github.com/onekey-sec/unblob)
+ - [onekey-sec/unblob: Extract files from any kind of container formats (github.com)](https://github.com/onekey-sec/unblob)
 
-    1.  sudo docker run -it \--rm \--pull always -v \~/extract:/data/output -v \~/files:/data/input ghcr.io/onekey-sec/unblob:latest /data/input/test.bin
+ 1. sudo docker run -it \--rm \--pull always -v \~/extract:/data/output -v \~/files:/data/input ghcr.io/onekey-sec/unblob:latest /data/input/test.bin
 
-  - If it's a compressed file, decompress it
+ - If it's a compressed file, decompress it
 
-  - Recursively compare all files, and repeat if needed
+ - Recursively compare all files, and repeat if needed
 
-  - Disable any code obfuscators or protectors
+ - Disable any code obfuscators or protectors
 
-  - Keep hashes of all files on the filesystem and compare them together if the build changes (thus checking if they are part of the dependencies)
+ - Keep hashes of all files on the filesystem and compare them together if the build changes (thus checking if they are part of the dependencies)
 
-  - Pictures are made of pixels but they can be the same except for one pixel, compare them using image comparison tools (jpegs are more complicated because one pixel can affect others)
+ - Pictures are made of pixels but they can be the same except for one pixel, compare them using image comparison tools (jpegs are more complicated because one pixel can affect others)
 
-  - [[Pseudorandom Number Sequence Test Program (fourmilab.ch)]{.underline}](https://www.fourmilab.ch/random/) for guessing if a file is compressed, encrypted, or both
+ - [Pseudorandom Number Sequence Test Program (fourmilab.ch)](https://www.fourmilab.ch/random/) for guessing if a file is compressed, encrypted, or both
 
-  - Pick higher-level tools when necessary. For example, comparing two PDFs could mean to convert them to text first, then compare them. Or convert them to an image and compare them.
+ - Pick higher-level tools when necessary. For example, comparing two PDFs could mean to convert them to text first, then compare them. Or convert them to an image and compare them.
 
-  - Go to the file layout manual and check if there is overlap with changes in the file with what the diffs show
+ - Go to the file layout manual and check if there is overlap with changes in the file with what the diffs show
 
-  - Do a three-way or four-way diff to determine if there is a pattern to the changes
+ - Do a three-way or four-way diff to determine if there is a pattern to the changes
 
-  - If in doubt, try to change things and see if it fixes it or changes other parts of the file
+ - If in doubt, try to change things and see if it fixes it or changes other parts of the file
 
-  - ![](./images/image5.png)
+ - ![](./images/image5.png)
 
-  - ![](./images/image25.png)
+ - ![](./images/image25.png)
 
-  - ![](./images/image16.png)
+ - ![](./images/image16.png)
 
-  - ![](./images/image1.png)
+ - ![](./images/image1.png)
 
-  - This corresponds to the [[tar (computing) - Wikipedia]{.underline}](<https://en.wikipedia.org/wiki/Tar_(computing)>) modification date section in the header (plus header checksum) that is different. This means that the file has a different modification date. Look into why that is the case and if tar has any options to disable modification dates.
+ - This corresponds to the [tar (computing) - Wikipedia](<https://en.wikipedia.org/wiki/Tar_(computing)>) modification date section in the header (plus header checksum) that is different. This means that the file has a different modification date. Look into why that is the case and if tar has any options to disable modification dates.
 
 
 .\\fq '.. \| select(scalars and in_bytes_range(0x123))' test.tar
 
 \|00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15\|0123456789abcdef012345\|
 
-0x108\| 61 6c 65 78 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\| alex\...\...\...\...\.....\|.files\[0\].uname: "alex"
+0x108\| 61 6c 65 78 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\| alex.................\|.files\[0\].uname: "alex"
 
 0x11e\|00 00 00 00 00 00 00 00 00 00 00
-```
 
-1.  fq does have a way to diff binary files, however it says that the tar file I'm using is broken (although it is ok.) I may have to use binwalk to find the offset, then use fq to figure out what is at that offset. [[fq/usage.md at master · wader/fq · GitHub]{.underline}](https://github.com/wader/fq/blob/master/doc/usage.md)
+1. fq does have a way to diff binary files, however it says that the tar file I'm using is broken (although it is ok.) I may have to use binwalk to find the offset, then use fq to figure out what is at that offset. [fq/usage.md at master · wader/fq · GitHub](https://github.com/wader/fq/blob/master/doc/usage.md)
 
 - Step 2: adjusting your focus on comparing a layer
 
-  1.  Focusing too low means looking at unknown binaries that have a bunch of meaningless changes
+ 1. Focusing too low means looking at unknown binaries that have a bunch of meaningless changes
 
-  2.  Focusing too far means that there was a change, but it could be anything
+ 2. Focusing too far means that there was a change, but it could be anything
 
-  3.  Using the "file" command to identify what file it should be (or is)
+ 3. Using the "file" command to identify what file it should be (or is)
 
-  4.  Try decompiling a binary into IL code or source code, maybe instructions to reduce diff size and see what changed
+ 4. Try decompiling a binary into IL code or source code, maybe instructions to reduce diff size and see what changed
 
-  5.  For example, it could be a GUID or a line of code from a library that caused the entire binary to change
+ 5. For example, it could be a GUID or a line of code from a library that caused the entire binary to change
 
-  6.  Instead of publishing a single file, try publishing a debug or release build that contains all of the libraries as separate files. This will help narrow down which file is different.
+ 6. Instead of publishing a single file, try publishing a debug or release build that contains all of the libraries as separate files. This will help narrow down which file is different.
 
-  7.  Filesystem metadata is (usually) the cause
+ 7. Filesystem metadata is (usually) the cause
 
-  8.  Some files might be hiding (e.g., resource forks or invisible files) that are only visible when the file is compressed
+ 8. Some files might be hiding (e.g., resource forks or invisible files) that are only visible when the file is compressed
 
-  9.  If the entire file changed, and it isn't possible to go in it deeper, then try to run it multiple times and see if there is a pattern
+ 9. If the entire file changed, and it isn't possible to go in it deeper, then try to run it multiple times and see if there is a pattern
 
-  10. Is the file digitally signed or encrypted? This would cause the entire file to change if even one byte changes.
+ 10. Is the file digitally signed or encrypted? This would cause the entire file to change if even one byte changes.
 
-  11. For Docker, [[docker: extracting a layer from a image - Stack Overflow]{.underline}](https://stackoverflow.com/questions/40575752/docker-extracting-a-layer-from-a-image) extract each layer and then do diffoscope on the tar files (assuming that tar files don't need to be composed first). The issue is that the layers themselves are diffs (so I'd need to diff the cumulative sum)
+ 11. For Docker, [docker: extracting a layer from a image - Stack Overflow](https://stackoverflow.com/questions/40575752/docker-extracting-a-layer-from-a-image) extract each layer and then do diffoscope on the tar files (assuming that tar files don't need to be composed first). The issue is that the layers themselves are diffs (so I'd need to diff the cumulative sum)
 
 - Step 3: intra-layer comparison tips
 
-  1.  If the files are identical, but only change when zipped, then the archiver is doing something to the files
+ 1. If the files are identical, but only change when zipped, then the archiver is doing something to the files
 
-  2.  Try compressing with just store and see if the issue persists (files might be re-ordered.) you can use the hex edit tool to view file contents and see if they are rearranged or if there are any patterns.
+ 2. Try compressing with just store and see if the issue persists (files might be re-ordered.) you can use the hex edit tool to view file contents and see if they are rearranged or if there are any patterns.
 
 - Non-reproducible debugging steps (meta-non-reproducibility)
 
-  1.  Filesystem ordering (inodes, etc.) can cause files to be ordered differently
+ 1. Filesystem ordering (inodes, etc.) can cause files to be ordered differently
 
-  2.  Locale settings
+ 2. Locale settings
 
-  3.  Datetime settings
+ 3. Datetime settings
 
-  4.  Last modified dates
+ 4. Last modified dates
 
-  5.  Non-deterministic simulations (e.g., Monte carlo), use a fixed seed instead
+ 5. Non-deterministic simulations (e.g., Monte carlo), use a fixed seed instead
 
-  6.  Adaptive compression algorithms (e.g., zstd --adapt I think)
+ 6. Adaptive compression algorithms (e.g., zstd --adapt I think)
 
-  7.  File system fragmentation (when compressing entire filesystem as a blob)
+ 7. File system fragmentation (when compressing entire filesystem as a blob)
 
-  8.  It's like a forensic metadata search in a way
+ 8. It's like a forensic metadata search in a way
 
-  9.  Appending files to tar files may cause them to become silently overwritten when decompressing, making things weird
+ 9. Appending files to tar files may cause them to become silently overwritten when decompressing, making things weird
 
-  10. More ram (or less) can impact the compressor's dictionary size, which could change how files are compressed (better or worse)
+ 10. More ram (or less) can impact the compressor's dictionary size, which could change how files are compressed (better or worse)
 
-  11. Save as much system info for each container after each build
+ 11. Save as much system info for each container after each build
 
-  12. Middle ground: adding a deterministic flag?
+ 12. Middle ground: adding a deterministic flag?
 
-  13. Files that are renamed between builds (e.g., webpack dist bundles) might be very similar or the same. Make sure to compare them.
+ 13. Files that are renamed between builds (e.g., webpack dist bundles) might be very similar or the same. Make sure to compare them.
 
-  14. [[https://stackoverflow.com/a/64606251/220935]{.underline}](https://stackoverflow.com/a/64606251/220935) for deterministic Jest tests
+ 14. [https://stackoverflow.com/a/64606251/220935](https://stackoverflow.com/a/64606251/220935) for deterministic Jest tests
 
-  15. strace -f -t -e trace=file ./node_modules/.pnpm/node_modules/.bin/jest --maxConcurrency=1 -w 1 2>&1 \| grep -F '/dev/urandom' -B 5 run it on chunks of tests individually and see where randomness is introduced
+ 15. strace -f -t -e trace=file ./node_modules/.pnpm/node_modules/.bin/jest --maxConcurrency=1 -w 1 2>&1 \| grep -F '/dev/urandom' -B 5 run it on chunks of tests individually and see where randomness is introduced
 
-  16. strace while the debugger is active and then pause program execution when /dev/urandom is hit? hmmmm
+ 16. strace while the debugger is active and then pause program execution when /dev/urandom is hit? hmmmm
 
-  17. Use jest.seed instead of Math.random for testing (so that it can be fixed through CI to a predetermined random value)
+ 17. Use jest.seed instead of Math.random for testing (so that it can be fixed through CI to a predetermined random value)
 
-  18. [[diffoscope: in-depth comparison of files, archives, and directories]{.underline}](https://diffoscope.org/) can show where, but the how is important as well
+ 18. [diffoscope: in-depth comparison of files, archives, and directories](https://diffoscope.org/) can show where, but the how is important as well
 
-- Additional troubleshooting tips
+- Additional troubleshooting tips:
 
-  1.  Use strace to determine which files are being used
+  1. Use strace to determine which files are being used
 
-  2.  strace -xx -yy -e read,openat -o output.log bash -c 'cd .. && ls'
+strace -xx -yy -e read,openat -o output.log bash -c 'cd .. && ls'
 
-  3.  grep -oP 'openat\([A-Z\_]+, "\K([\x0-9a-f]+)' strace_output.log
+  2. Extract the `openat(...)` file paths from the log
 
-  4.  Also need command to programmatically parse read calls (output is in hex) so need to decode it
-
-  5.  Code obfuscation and/or encryption can cause the artifacts to appear completely different each time. Make sure that the intermediate stages are reproducible before encryption. However, since the encryption layer can't in and of itself be verified, there is a level of trust required at that stage (e.g., The encryption process inserts untrusted code.) Deterministic obfuscation (e.g., a seed?)
-
-      1.  "Code equivalence verifier" but still in research phase
-
-  6.  Take hashes of all of those files that are being read and then if they are different then there is potentially issues with library versions
-
-  7.  Does it use the network? Those files can change by themselves.
-
-  8.  What creates the file? For example, a database might be created by a SQL script and then data is inserted. Could the data be inserted in a different order?
-
-  9.  Record hashes of each artifact component individually (in addition to the entire artifact) so that if you lose the artifact, then you will be able to troubleshoot building its constituents if the entire artifact has to be re-built
-
-  10. Take a hash of all files at each step in the process, then run your build multiple times on multiple VMs or computers. You can then horizontally compare the hashes and find out which dependency or file changed, and then determine if that file is relevant to your build process. It will help reduce uncertainty when some of the inputs are different and which step is responsible.
-
-  11. Real-world examples and case studies
-
-  12. [[OllyDbg v1.10]{.underline}](https://www.ollydbg.de/)
-
-  13. [[microsoft/Detours: Detours is a software package for monitoring and instrumenting API calls on Windows. It is distributed in source code form. (github.com)]{.underline}](https://github.com/microsoft/Detours)
-
-  14. xdelta3?
-
-  15. [[API Monitor: Spy on API Calls and COM Interfaces (Freeware 32-bit and 64-bit Versions!) \| rohitab.com]{.underline}](http://www.rohitab.com/apimonitor)
-
-  16. [[GitHub - codilime/veles: Binary data analysis and visualization tool]{.underline}](https://github.com/codilime/veles)
-
-      1.  This would be useful if you have no idea where the pattern exist in your file, or if there are certain patterns that exist at certain points in the file (e.g., the top)
-
-  17. Take hashes of the intermediate build outputs themselves (e.g., when a program is writing to a file, take the hash of what it is writing and then log the hash.) Then, you can compare the hashes between runs and the ordering of the logging to check if there are threading issues.
-
-  18. xdelta3 shows copied binary segments (e.g., files were concatenated non-deterministically)
-
+```bash
+grep -oP 'openat\([A-Z\_]+, "\K([\x0-9a-f]+)' strace_output.log
 ```
+
+  3. Also need command to programmatically parse read calls (output is in hex) so need to decode it
+
+ 5. Code obfuscation and/or encryption can cause the artifacts to appear completely different each time. Make sure that the intermediate stages are reproducible before encryption. However, since the encryption layer can't in and of itself be verified, there is a level of trust required at that stage (e.g., The encryption process inserts untrusted code.) Deterministic obfuscation (e.g., a seed?)
+
+ 1. "Code equivalence verifier" but still in research phase
+
+ 6. Take hashes of all of those files that are being read and then if they are different then there is potentially issues with library versions
+
+ 7. Does it use the network? Those files can change by themselves.
+
+ 8. What creates the file? For example, a database might be created by a SQL script and then data is inserted. Could the data be inserted in a different order?
+
+ 9. Record hashes of each artifact component individually (in addition to the entire artifact) so that if you lose the artifact, then you will be able to troubleshoot building its constituents if the entire artifact has to be re-built
+
+ 10. Take a hash of all files at each step in the process, then run your build multiple times on multiple VMs or computers. You can then horizontally compare the hashes and find out which dependency or file changed, and then determine if that file is relevant to your build process. It will help reduce uncertainty when some of the inputs are different and which step is responsible.
+
+ 11. Real-world examples and case studies
+
+ 12. [OllyDbg v1.10](https://www.ollydbg.de/)
+
+ 13. [microsoft/Detours: Detours is a software package for monitoring and instrumenting API calls on Windows. It is distributed in source code form. (github.com)](https://github.com/microsoft/Detours)
+
+ 14. xdelta3?
+
+ 15. [API Monitor: Spy on API Calls and COM Interfaces (Freeware 32-bit and 64-bit Versions!) \| rohitab.com](http://www.rohitab.com/apimonitor)
+
+ 16. [GitHub - codilime/veles: Binary data analysis and visualization tool](https://github.com/codilime/veles)
+
+ 1. This would be useful if you have no idea where the pattern exist in your file, or if there are certain patterns that exist at certain points in the file (e.g., the top)
+
+ 17. Take hashes of the intermediate build outputs themselves (e.g., when a program is writing to a file, take the hash of what it is writing and then log the hash.) Then, you can compare the hashes between runs and the ordering of the logging to check if there are threading issues.
+
+ 18. xdelta3 shows copied binary segments (e.g., files were concatenated non-deterministically)
+
 alex@DESKTOP-7M8V9ET:/mnt/c/users/Alex Yorke/Desktop$ xdelta3 printdelta test1-3-2-4_to_3-4-1-2.delta
 
 VCDIFF version: 0
@@ -1131,79 +1130,78 @@ Offset Code Type1 Size1 @Addr1 + Type2 Size2 @Addr2
 
 19. Windows-specific tips
 
-    1.  Process Monitor
+ 1. Process Monitor
 
-        1.  Tools \> File Summary \> By Folder, select your build folder, then start clicking on files to see which process modified them. Then, record names of all processes and filter events by those processes to see what libraries they are reading, registry keys, potentially other installed software, missing files, etc.
+ 1. Tools \> File Summary \> By Folder, select your build folder, then start clicking on files to see which process modified them. Then, record names of all processes and filter events by those processes to see what libraries they are reading, registry keys, potentially other installed software, missing files, etc.
 
-    2.  Clone the entire computer as a VHD and then do build there to see if it is reproducible (this is only if you're out of options or if the build is so complicated that it requires this level of isolation.) Also isolates potential issues with hardware if run on another machine.
+ 2. Clone the entire computer as a VHD and then do build there to see if it is reproducible (this is only if you're out of options or if the build is so complicated that it requires this level of isolation.) Also isolates potential issues with hardware if run on another machine.
 
 20. Environment vars
 
-    1.  PATH, LD_LIBRARY, etc
+ 1. PATH, LD_LIBRARY, etc
 
 21. tar
 
-    1.  --sort flag, -W, and
+ 1. --sort flag, -W, and
 
 22. Different architectures and OSes
 
-    1.  Difficult problem and doesn't have good solutions yet
+ 1. Difficult problem and doesn't have good solutions yet
 
 - If you cannot ssh into CI pipeline, then copy entire env to a VM and then do the build there (and check why it is failing), might be difficult with workspaces (but you could try calling binaries directly), at least narrows down the issue a bit more (plus more debugging tools because it's not a container)
 
-- For external dependencies, try to periodically archive the offline installer if one exists. If there isn't, or the installer downloads external deps, then do [[https://askubuntu.com/a/857845/23272]{.underline}](https://askubuntu.com/a/857845/23272) (mksqshfs) on the system after it has installed the deps, compress the filesystem and back it up. This will keep everything exactly as-is (you may also want to run a test script prior to the backup to make sure that the deps are all installed and working.)
+- For external dependencies, try to periodically archive the offline installer if one exists. If there isn't, or the installer downloads external deps, then do [https://askubuntu.com/a/857845/23272](https://askubuntu.com/a/857845/23272) (mksqshfs) on the system after it has installed the deps, compress the filesystem and back it up. This will keep everything exactly as-is (you may also want to run a test script prior to the backup to make sure that the deps are all installed and working.)
 
 - tar depends on ordering, so files with new inodes (e.g., ones sponge'd over top of each other) will be archived in a different order (even though the archives are reported to be the same)
 
 - diffoscope output can be confusing if files are re-ordered
 
-  1.  alex@DESKTOP-7M8V9ET:\~\$ diffoscope \--force-details test.tar test2.tar
+ 1. alex@DESKTOP-7M8V9ET:\~\$ diffoscope \--force-details test.tar test2.tar
 
-  2.  \-\-- test.tar
+ 2. \-\-- test.tar
 
-  3.  +++ test2.tar
+ 3. +++ test2.tar
 
-  4.  ├── file list
+ 4. ├── file list
 
-  5.  │ @@ -1,2 +1,2 @@
+ 5. │ @@ -1,2 +1,2 @@
 
-  6.  │ \--rw-r\--r\-- 0 alex (1000) alex (1000) 2537924 2023-01-11 05:24:43.000000 sample2.data
+ 6. │ \--rw-r\--r\-- 0 alex (1000) alex (1000) 2537924 2023-01-11 05:24:43.000000 sample2.data
 
-  7.  │ -rw-r\--r\-- 0 alex (1000) alex (1000) 2537924 2023-01-11 05:09:02.000000 sample.data
+ 7. │ -rw-r\--r\-- 0 alex (1000) alex (1000) 2537924 2023-01-11 05:09:02.000000 sample.data
 
-  8.  │ +-rw-r\--r\-- 0 alex (1000) alex (1000) 2537924 2023-01-11 05:24:43.000000 sample2.data
+ 8. │ +-rw-r\--r\-- 0 alex (1000) alex (1000) 2537924 2023-01-11 05:24:43.000000 sample2.data
 
-  9.  strace -D -t -f -y -e open,read,write -P /root/test/4019 tar -cf archive.tar test get call that modified file
+ 9. strace -D -t -f -y -e open,read,write -P /root/test/4019 tar -cf archive.tar test get call that modified file
 
-  ```{=html}
-  <!-- -->
-  ```
+ ```{=html}
+ <!-- -->
+ ```
 
-  1.  RepTrace can do it on linux [[send (ohiolink.edu)]{.underline}](https://etd.ohiolink.edu/apexprod/rws_etd/send_file/send?accession=case1595524817828183&disposition=inline)
+ 1. RepTrace can do it on linux [send (ohiolink.edu)](https://etd.ohiolink.edu/apexprod/rws_etd/send_file/send?accession=case1595524817828183&disposition=inline)
 
-```{=html}
 <!-- -->
 ```
 
 - What should I do if the software/dep that I use doesn't generate reproducible artifacts (and can't be fixed?)
 
-  - Go back to your original goals for generating reproducible artifacts. For example, if it is for security, do you know for certain that the different artifacts could be infected with a virus? Build artifacts using a dedicated internet-isolated VM if concerned about viruses on a cloud provider, take a hash of the artifact, then download and compare. Use an artifact when building and that will become the trusted artifact to use.
+ - Go back to your original goals for generating reproducible artifacts. For example, if it is for security, do you know for certain that the different artifacts could be infected with a virus? Build artifacts using a dedicated internet-isolated VM if concerned about viruses on a cloud provider, take a hash of the artifact, then download and compare. Use an artifact when building and that will become the trusted artifact to use.
 
-  - If it is for going back in time and being able to rebuild the software, can the artifacts or build process be isolated with lots of documentation on how to build them? Store the artifacts really well with versions.
+ - If it is for going back in time and being able to rebuild the software, can the artifacts or build process be isolated with lots of documentation on how to build them? Store the artifacts really well with versions.
 
-  - Consider isolating the artifact build procedure from the rest of the build, use hermetic from facebook if possible, contact the vendor for deterministic build support.
+ - Consider isolating the artifact build procedure from the rest of the build, use hermetic from facebook if possible, contact the vendor for deterministic build support.
 
-  - It is not possible to have a fully deterministic build if there are non-deterministic dependencies. Consider switching tool
+ - It is not possible to have a fully deterministic build if there are non-deterministic dependencies. Consider switching tool
 
 - Misc tips
 
-  - If you're still having issues, check build logs (and compare them) to see if there are errors or warnings for example
+ - If you're still having issues, check build logs (and compare them) to see if there are errors or warnings for example
 
-    1.  Docker can't help you forever because it depends on CPU, memory, CPU type, kernel, etc. which are not fully isolated from the host. The host can change and mess up those timings.
+ 1. Docker can't help you forever because it depends on CPU, memory, CPU type, kernel, etc. which are not fully isolated from the host. The host can change and mess up those timings.
 
-    2.  lsof for linux or sysinternals for windows to check which process was using a file
+ 2. lsof for linux or sysinternals for windows to check which process was using a file
 
-    3.  Try building it on different versions of an OS. This can help produce more artifacts that could be easier to diff (or find similar changes)
+ 3. Try building it on different versions of an OS. This can help produce more artifacts that could be easier to diff (or find similar changes)
 
 ### Challenges
 
@@ -1217,17 +1215,17 @@ Offset Code Type1 Size1 @Addr1 + Type2 Size2 @Addr2
 
 - The cost of reproducibility
 
-  - Extra maintenance, cost, time, troubleshooting, tooling, version pinning, extra scripts, extra environment changes, docs, training
+ - Extra maintenance, cost, time, troubleshooting, tooling, version pinning, extra scripts, extra environment changes, docs, training
 
-  - Useful if software is critical, needs to be audited, or has strict security requirements. Or, if you need to test a previous version of some software (rebuild it) to verify a behavior or potential security flaw
+ - Useful if software is critical, needs to be audited, or has strict security requirements. Or, if you need to test a previous version of some software (rebuild it) to verify a behavior or potential security flaw
 
 ### Setting goals
 
 - Set metrics, such as the amount of data diff between files that are different and then optimize from there. This might be highly variable, however. You may want to use another number that is more consistent (such as the number of files.)
 
-  - Unreliable build -\> Inconsistent -\> Non-deterministic -\> repeatable -\> reproducible -\> deterministic -\> guaranteed build
+ - Unreliable build -\> Inconsistent -\> Non-deterministic -\> repeatable -\> reproducible -\> deterministic -\> guaranteed build
 
-  - For metrics, you want to quickly go through your entire program and turn it into stages. From there, you can verify if each stage has been fixed or doesn't appear to have any reproducibility problems. Some of the stages can be interlinked, so might be difficult to estimate work.
+ - For metrics, you want to quickly go through your entire program and turn it into stages. From there, you can verify if each stage has been fixed or doesn't appear to have any reproducibility problems. Some of the stages can be interlinked, so might be difficult to estimate work.
 
 ### Dockerfile reproducibility issues
 
@@ -1273,7 +1271,7 @@ Based on the analysis, these commands from the provided list inherently break re
 - `RUN git clone https://github.com/CJowo/pcr-guild-django.git` (Clones default branch)
 - `RUN git clone https://github.com/algargon99/PROYECTO_IAW_GARCIA_GONZALEZ.git`
 - `RUN git clone https://github.com/CORE-UPM/quiz_2019.git`
-- `RUN     git clone https://github.com/graphite-project/whisper.git /src/whisper`
+- `RUN git clone https://github.com/graphite-project/whisper.git /src/whisper`
 
 **5. Using Volatile Base Image Tags:**
 
@@ -1290,13 +1288,13 @@ Based on the analysis, these commands from the provided list inherently break re
 
 Yes, beyond those explicitly in your list, other patterns can cause non-reproducible builds:
 
-1.  **Time-Based Commands:** Any `RUN` command whose output depends on the _time_ of the build (e.g., `RUN date > /build_timestamp.txt`, `RUN echo "Built on $(date)" > /etc/motd`).
-2.  **Randomness:** Commands that generate random data during the build process (e.g., generating cryptographic keys directly in a `RUN` step without a fixed seed).
-3.  **Build Arguments (`ARG`):** If an `ARG` has a default value that relies on external factors, or if different `--build-arg` values are provided for different builds.
-4.  **Multi-Stage Builds:** If an earlier stage (`FROM base AS builder`) is non-reproducible, any subsequent stage using `COPY --from=builder` will also be non-reproducible.
-5.  **Network/DNS Fluctuation:** Very rarely, if a command depends on resolving a hostname and that hostname's IP address changes _and_ the command's behavior differs based on the specific IP contacted.
-6.  **Build Cache Issues (Advanced):** While BuildKit aims for correctness, complex caching scenarios or bugs could potentially lead to unexpected results, though this is less common than the other factors.
-7.  **Implicit Dependencies:** Commands that implicitly rely on the state of the host system's kernel or configuration _if_ that affects the build process within the container (less common with modern Docker).
+1. **Time-Based Commands:** Any `RUN` command whose output depends on the _time_ of the build (e.g., `RUN date > /build_timestamp.txt`, `RUN echo "Built on $(date)" > /etc/motd`).
+2. **Randomness:** Commands that generate random data during the build process (e.g., generating cryptographic keys directly in a `RUN` step without a fixed seed).
+3. **Build Arguments (`ARG`):** If an `ARG` has a default value that relies on external factors, or if different `--build-arg` values are provided for different builds.
+4. **Multi-Stage Builds:** If an earlier stage (`FROM base AS builder`) is non-reproducible, any subsequent stage using `COPY --from=builder` will also be non-reproducible.
+5. **Network/DNS Fluctuation:** Very rarely, if a command depends on resolving a hostname and that hostname's IP address changes _and_ the command's behavior differs based on the specific IP contacted.
+6. **Build Cache Issues (Advanced):** While BuildKit aims for correctness, complex caching scenarios or bugs could potentially lead to unexpected results, though this is less common than the other factors.
+7. **Implicit Dependencies:** Commands that implicitly rely on the state of the host system's kernel or configuration _if_ that affects the build process within the container (less common with modern Docker).
 
 To achieve reproducible builds, you should always aim to:
 
@@ -1308,33 +1306,33 @@ To achieve reproducible builds, you should always aim to:
 
 ### Sources
 
-- [[On business adoption and use of reproducible builds for open and closed source software (springer.com)]{.underline}](https://link.springer.com/content/pdf/10.1007/s11219-022-09607-z.pdf) sources in introduction are very good
+- [On business adoption and use of reproducible builds for open and closed source software (springer.com)](https://link.springer.com/content/pdf/10.1007/s11219-022-09607-z.pdf) sources in introduction are very good
 
 - How does portability fit in with reproducibility?
 
-- [[Towards Build Verifiability for Java-based Systems (arxiv.org)]{.underline}](https://arxiv.org/pdf/2202.05906.pdf) page 7 sources of non-determinism
+- [Towards Build Verifiability for Java-based Systems (arxiv.org)](https://arxiv.org/pdf/2202.05906.pdf) page 7 sources of non-determinism
 
-- [[framingsbom_20191112.pdf (ntia.gov)]{.underline}](https://ntia.gov/files/ntia/publications/framingsbom_20191112.pdf) general info on sboms
+- [framingsbom_20191112.pdf (ntia.gov)](https://ntia.gov/files/ntia/publications/framingsbom_20191112.pdf) general info on sboms
 
-- [[Identifying Bugs in Make and JVM-Oriented Builds (arxiv.org)]{.underline}](https://arxiv.org/pdf/2005.06881.pdf) convert BuildFS into pseudo-code that other people can use
+- [Identifying Bugs in Make and JVM-Oriented Builds (arxiv.org)](https://arxiv.org/pdf/2005.06881.pdf) convert BuildFS into pseudo-code that other people can use
 
-- [[truecrypt-acsac14.pdf (concordia.ca)]{.underline}](https://users.encs.concordia.ca/~mmannan/publications/truecrypt-acsac14.pdf) "explainable build process"
+- [truecrypt-acsac14.pdf (concordia.ca)](https://users.encs.concordia.ca/~mmannan/publications/truecrypt-acsac14.pdf) "explainable build process"
 
-- [[truecrypt-acsac14.pdf (concordia.ca)]{.underline}](https://users.encs.concordia.ca/~mmannan/publications/truecrypt-acsac14.pdf) section 3.3 useful
+- [truecrypt-acsac14.pdf (concordia.ca)](https://users.encs.concordia.ca/~mmannan/publications/truecrypt-acsac14.pdf) section 3.3 useful
 
-- [[COFF - OSDev Wiki]{.underline}](https://wiki.osdev.org/COFF) to find out what is inside exe file headers,
+- [COFF - OSDev Wiki](https://wiki.osdev.org/COFF) to find out what is inside exe file headers,
 
 - This sort of overlaps with testing (non-determinism) because non-deterministic tests make it difficult to debug whether the application is actually working.
 
 - Differences between Idempotency, impure deterministic, and pure deterministic
 
-- [[eellak/build-recorder (github.com)]{.underline}](https://github.com/eellak/build-recorder)
+- [eellak/build-recorder (github.com)](https://github.com/eellak/build-recorder)
 
-- [[GitHub - VIDA-NYU/reprozip: ReproZip is a tool that simplifies the process of creating reproducible experiments from command-line executions, a frequently-used common denominator in computational science.]{.underline}](https://github.com/VIDA-NYU/reprozip)
+- [GitHub - VIDA-NYU/reprozip: ReproZip is a tool that simplifies the process of creating reproducible experiments from command-line executions, a frequently-used common denominator in computational science.](https://github.com/VIDA-NYU/reprozip)
 
-- [[GitHub - polydawn/repeatr: Repeatr: Reproducible, hermetic Computation. Provision containers from Content-Addressable snapshots; run using familiar containers (e.g. runc); store outputs in Content-Addressable form too! JSON API; connect your own pipelines! (Or, use github.com/polydawn/stellar for pipelines!)]{.underline}](https://github.com/polydawn/repeatr)
+- [GitHub - polydawn/repeatr: Repeatr: Reproducible, hermetic Computation. Provision containers from Content-Addressable snapshots; run using familiar containers (e.g. runc); store outputs in Content-Addressable form too! JSON API; connect your own pipelines! (Or, use github.com/polydawn/stellar for pipelines!)](https://github.com/polydawn/repeatr)
 
-- [[GitHub - rerun/rerun: Core rerun. See also]{.underline}](https://github.com/rerun/rerun) [[http://github.com/rerun-modules]{.underline}](http://github.com/rerun-modules) ??
+- [GitHub - rerun/rerun: Core rerun. See also](https://github.com/rerun/rerun) [http://github.com/rerun-modules](http://github.com/rerun-modules) ??
 
 - https://hal.science/hal-03196519/file/SW-2020-12-0293.R1_Zacchiroli.pdf
 
@@ -1342,24 +1340,24 @@ To achieve reproducible builds, you should always aim to:
 
 - 10.1109/ISSREW51248.2020.00044
 
-- [[https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1008316&type=printable]{.underline}](https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1008316&type=printable)
+- [https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1008316&type=printable](https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1008316&type=printable)
 
 - 10.1109/MS.2018.111095025
 
-- [[https://www.researchgate.net/profile/Duc-Ly-Vu/publication/359878507_Towards_Understanding_and_Securing_the_OSS_Supply_Chain/links/6254748ecf60536e2354f615/Towards-Understanding-and-Securing-the-OSS-Supply-Chain.pdf]{.underline}](https://www.researchgate.net/profile/Duc-Ly-Vu/publication/359878507_Towards_Understanding_and_Securing_the_OSS_Supply_Chain/links/6254748ecf60536e2354f615/Towards-Understanding-and-Securing-the-OSS-Supply-Chain.pdf)
+- [https://www.researchgate.net/profile/Duc-Ly-Vu/publication/359878507_Towards_Understanding_and_Securing_the_OSS_Supply_Chain/links/6254748ecf60536e2354f615/Towards-Understanding-and-Securing-the-OSS-Supply-Chain.pdf](https://www.researchgate.net/profile/Duc-Ly-Vu/publication/359878507_Towards_Understanding_and_Securing_the_OSS_Supply_Chain/links/6254748ecf60536e2354f615/Towards-Understanding-and-Securing-the-OSS-Supply-Chain.pdf)
 
-- [[https://www.digidow.eu/publications/2020-poell-bachelorthesis/Poell_2020_BachelorThesis_SOAP.pdf]{.underline}](https://www.digidow.eu/publications/2020-poell-bachelorthesis/Poell_2020_BachelorThesis_SOAP.pdf)
+- [https://www.digidow.eu/publications/2020-poell-bachelorthesis/Poell_2020_BachelorThesis_SOAP.pdf](https://www.digidow.eu/publications/2020-poell-bachelorthesis/Poell_2020_BachelorThesis_SOAP.pdf)
 
-- [[https://swc.rwth-aachen.de/docs/bachelor-master-theses/2022-004_BT_Strangfeld/2022-004%20BT%20Strangfeld%20-%20Thesis%20Report.pdf]{.underline}](https://swc.rwth-aachen.de/docs/bachelor-master-theses/2022-004_BT_Strangfeld/2022-004%20BT%20Strangfeld%20-%20Thesis%20Report.pdf) chapter 3
+- [https://swc.rwth-aachen.de/docs/bachelor-master-theses/2022-004_BT_Strangfeld/2022-004%20BT%20Strangfeld%20-%20Thesis%20Report.pdf](https://swc.rwth-aachen.de/docs/bachelor-master-theses/2022-004_BT_Strangfeld/2022-004%20BT%20Strangfeld%20-%20Thesis%20Report.pdf) chapter 3
 
-- [[https://link.springer.com/content/pdf/10.1007/s10664-022-10117-6.pdf]{.underline}](https://link.springer.com/content/pdf/10.1007/s10664-022-10117-6.pdf) 7.4 mitigation measures
+- [https://link.springer.com/content/pdf/10.1007/s10664-022-10117-6.pdf](https://link.springer.com/content/pdf/10.1007/s10664-022-10117-6.pdf) 7.4 mitigation measures
 
-- [[https://people.freebsd.org/\~emaste/AsiaBSDCon-2017-Reproducible-Builds-FreeBSD.pdf]{.underline}](https://people.freebsd.org/~emaste/AsiaBSDCon-2017-Reproducible-Builds-FreeBSD.pdf)
+- [https://people.freebsd.org/\~emaste/AsiaBSDCon-2017-Reproducible-Builds-FreeBSD.pdf](https://people.freebsd.org/~emaste/AsiaBSDCon-2017-Reproducible-Builds-FreeBSD.pdf)
 
 - 10.1145/3460319.3464797
 
-- [[https://link.springer.com/article/10.1007/s11219-022-09607-z]{.underline}](https://link.springer.com/article/10.1007/s11219-022-09607-z)
+- [https://link.springer.com/article/10.1007/s11219-022-09607-z](https://link.springer.com/article/10.1007/s11219-022-09607-z)
 
-- [[DIRENV-STDLIB 1 "2019" direnv "User Manuals" \| direnv]{.underline}](https://direnv.net/man/direnv-stdlib.1.html#codeuse-node-ltversiongtcode)
+- [DIRENV-STDLIB 1 "2019" direnv "User Manuals" \| direnv](https://direnv.net/man/direnv-stdlib.1.html#codeuse-node-ltversiongtcode)
 
-- [[json-stable-stringify - npm (npmjs.com)]{.underline}](https://www.npmjs.com/package/json-stable-stringify)
+- [json-stable-stringify - npm (npmjs.com)](https://www.npmjs.com/package/json-stable-stringify)

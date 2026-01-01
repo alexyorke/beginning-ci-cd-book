@@ -7,6 +7,11 @@
 ## Local tool binaries (downloaded mdBook)
 /tools/bin/
 
+## Agent scratch output (reports + recovered sources + HTML snapshots)
+/agent-tools/snapshots/
+/agent-tools/recovered/
+/agent-tools/chatgpt_filler_report.md
+
 ## Safety: ignore any accidental backup files
 *.bak
 *.bak-*

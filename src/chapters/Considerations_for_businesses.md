@@ -35,15 +35,15 @@ Honest answers to these questions will help determine if CI/CD is the right solu
 
 While CI/CD offers significant advantages in many contexts, it's not a universal panacea. There are situations where the overhead and complexity might outweigh the benefits, or where the organizational context makes successful adoption particularly challenging. Consider these scenarios:
 
-1.  **Infrequent Release Needs:** If a product is mature, stable, and requires only occasional maintenance updates (e.g., yearly patches for a legacy system scheduled for decommissioning), the effort to establish and maintain a full CI/CD pipeline might not yield a sufficient return on investment.
-2.  **Highly Regulated Environments:** Industries with extremely strict regulatory oversight (e.g., certain medical devices, avionics, nuclear systems) often have mandatory, lengthy validation and approval processes for every change. While automation (CI) can still be valuable, continuous _deployment_ might be impractical or even prohibited. Compliance requirements (like those outlined in standards such as AAMI TIR45 for medical software) must take precedence.
-3.  **Predominantly Manual, Complex Testing:** Some applications, especially those with highly complex, visual, or physically interactive components, might be exceptionally difficult or cost-prohibitive to test comprehensively through automation. If essential quality assurance relies heavily on extensive manual testing phases that cannot be easily shortened or parallelized, the "continuous" aspect of delivery will be inherently limited.
-4.  **Severe Resource Constraints:** Implementing and maintaining CI/CD requires investment in tools (build servers, artifact repositories, monitoring systems), infrastructure (potentially cloud resources, test environments), and critically, personnel time for setup, training, and ongoing maintenance. Startups or organizations operating under very tight budgets may find these initial and ongoing costs prohibitive.
-5.  **Highly Entrenched Monolithic Architectures:** While CI/CD _can_ be applied to monoliths, it's often significantly more challenging than with microservices or well-modularized applications. Long build and test times for the entire monolith can negate the rapid feedback loop that is central to CI/CD's benefits. Significant refactoring might be a prerequisite (see Chapter Y on Architecture).
-6.  **Lack of Team Buy-in and Cultural Readiness:** CI/CD is as much a cultural shift as a technical one. It requires collaboration, shared responsibility, and a willingness to change established workflows. If development teams, operations, management, or other key stakeholders are resistant or lack understanding of the principles and benefits, the implementation will likely face significant hurdles.
-7.  **Very Short Project Lifespans:** For temporary, one-off projects that won't undergo significant iteration or require long-term maintenance, the upfront effort to establish a sophisticated CI/CD pipeline is unlikely to be justified.
-8.  **Significant Infrastructure Limitations:** Teams working in environments with poor connectivity or heavily restricted access to necessary resources might find the "continuous" nature of pulling code, running builds, and deploying artifacts impractical. Similarly, heavy reliance on external dependencies that are unreliable or unavailable for testing can break the flow.
-9.  **Extremely High Cost of Failure:** In systems where failure has potentially catastrophic consequences, the emphasis naturally shifts towards exhaustive, upfront verification and validation, often involving multiple layers of manual review and sign-off, rather than rapid, continuous deployment.
+1. **Infrequent Release Needs:** If a product is mature, stable, and requires only occasional maintenance updates (e.g., yearly patches for a legacy system scheduled for decommissioning), the effort to establish and maintain a full CI/CD pipeline might not yield a sufficient return on investment.
+2. **Highly Regulated Environments:** Industries with extremely strict regulatory oversight (e.g., certain medical devices, avionics, nuclear systems) often have mandatory, lengthy validation and approval processes for every change. While automation (CI) can still be valuable, continuous _deployment_ might be impractical or even prohibited. Compliance requirements (like those outlined in standards such as AAMI TIR45 for medical software) must take precedence.
+3. **Predominantly Manual, Complex Testing:** Some applications, especially those with highly complex, visual, or physically interactive components, might be exceptionally difficult or cost-prohibitive to test comprehensively through automation. If essential quality assurance relies heavily on extensive manual testing phases that cannot be easily shortened or parallelized, the "continuous" aspect of delivery will be inherently limited.
+4. **Severe Resource Constraints:** Implementing and maintaining CI/CD requires investment in tools (build servers, artifact repositories, monitoring systems), infrastructure (potentially cloud resources, test environments), and critically, personnel time for setup, training, and ongoing maintenance. Startups or organizations operating under very tight budgets may find these initial and ongoing costs prohibitive.
+5. **Highly Entrenched Monolithic Architectures:** While CI/CD _can_ be applied to monoliths, it's often significantly more challenging than with microservices or well-modularized applications. Long build and test times for the entire monolith can negate the rapid feedback loop that is central to CI/CD's benefits. Significant refactoring might be a prerequisite (see Chapter Y on Architecture).
+6. **Lack of Team Buy-in and Cultural Readiness:** CI/CD is as much a cultural shift as a technical one. It requires collaboration, shared responsibility, and a willingness to change established workflows. If development teams, operations, management, or other key stakeholders are resistant or lack understanding of the principles and benefits, the implementation will likely face significant hurdles.
+7. **Very Short Project Lifespans:** For temporary, one-off projects that won't undergo significant iteration or require long-term maintenance, the upfront effort to establish a sophisticated CI/CD pipeline is unlikely to be justified.
+8. **Significant Infrastructure Limitations:** Teams working in environments with poor connectivity or heavily restricted access to necessary resources might find the "continuous" nature of pulling code, running builds, and deploying artifacts impractical. Similarly, heavy reliance on external dependencies that are unreliable or unavailable for testing can break the flow.
+9. **Extremely High Cost of Failure:** In systems where failure has potentially catastrophic consequences, the emphasis naturally shifts towards exhaustive, upfront verification and validation, often involving multiple layers of manual review and sign-off, rather than rapid, continuous deployment.
 
 It's crucial to remember that even if full Continuous Deployment isn't feasible or desirable, many underlying principles of CI – like version control, automated builds, and automated testing – offer benefits in almost any software development context. The decision isn't always binary; organizations can adopt practices incrementally based on their specific needs and constraints.
 
@@ -94,13 +94,13 @@ Ignoring pipeline health or starving it of maintenance resources is a common pit
 
 While this chapter focuses on business considerations, a few technical prerequisites are fundamental for enabling CI/CD:
 
-1.  **Version Control:** All code, tests, configuration, infrastructure definitions (IaC), and pipeline definitions must live in a version control system (like Git). This is non-negotiable.
-2.  **Automated Build Process:** There must be a reliable, scriptable way to compile, build, and package the application without manual intervention.
-3.  **Automated Testing:** A suite of automated tests (unit, integration, end-to-end) is critical for providing confidence in changes automatically. The ability to run these efficiently is key.
-4.  **Testable Architecture:** The application's architecture should facilitate testing. Tightly coupled components or monoliths can make isolated testing difficult and slow down feedback loops. Practices like dependency injection and clear interfaces help. (See Chapter Y on Architecture).
-5.  **Infrastructure Provisioning:** The ability to create consistent environments (testing, staging, production) reliably and automatically, often through Infrastructure as Code (IaC), is essential for repeatable deployments.
-6.  **Deployment Strategy:** A mechanism to deploy the application automatically and reliably, ideally with strategies for zero-downtime updates and quick rollbacks (e.g., blue-green, canary).
-7.  **Monitoring and Telemetry:** Once deployed, robust monitoring is needed to understand application health, performance, and user behavior, providing feedback to the development loop. Focus on customer-centric metrics (e.g., time-to-interactive, error rates affecting users) rather than just server-level stats.
+1. **Version Control:** All code, tests, configuration, infrastructure definitions (IaC), and pipeline definitions must live in a version control system (like Git). This is non-negotiable.
+2. **Automated Build Process:** There must be a reliable, scriptable way to compile, build, and package the application without manual intervention.
+3. **Automated Testing:** A suite of automated tests (unit, integration, end-to-end) is critical for providing confidence in changes automatically. The ability to run these efficiently is key.
+4. **Testable Architecture:** The application's architecture should facilitate testing. Tightly coupled components or monoliths can make isolated testing difficult and slow down feedback loops. Practices like dependency injection and clear interfaces help. (See Chapter Y on Architecture).
+5. **Infrastructure Provisioning:** The ability to create consistent environments (testing, staging, production) reliably and automatically, often through Infrastructure as Code (IaC), is essential for repeatable deployments.
+6. **Deployment Strategy:** A mechanism to deploy the application automatically and reliably, ideally with strategies for zero-downtime updates and quick rollbacks (e.g., blue-green, canary).
+7. **Monitoring and Telemetry:** Once deployed, robust monitoring is needed to understand application health, performance, and user behavior, providing feedback to the development loop. Focus on customer-centric metrics (e.g., time-to-interactive, error rates affecting users) rather than just server-level stats.
 
 Failure to establish these technical foundations will significantly impede or even prevent a successful CI/CD implementation.
 
@@ -127,11 +127,11 @@ A traditional mindset might equate frequent changes with instability. "We found 
 
 CI/CD, however, aims to _increase_ control and _reduce_ risk through several mechanisms:
 
-1.  **Smaller Changes, Lower Risk:** Integrating small, incremental changes means each merge is less complex and easier to reason about. If a problem arises, it's typically contained within a smaller set of recent changes, making debugging significantly faster. It's like constantly treading down the grass path; small obstacles are easily noticed and dealt with, preventing them from becoming major blockages.
-2.  **Automation as Strict Control:** Automated build and test pipelines provide consistent, repeatable checks. Unlike manual processes, automation executes instructions precisely, leaving no room for ambiguity or misinterpretation. A "green" pipeline provides a baseline level of confidence that critical functionality remains intact.
-3.  **Early Feedback:** Automated tests run on every commit or pull request provide immediate feedback to developers, allowing them to fix issues while the context is still fresh in their minds. This contrasts sharply with finding bugs weeks or months later during a dedicated testing phase.
-4.  **Controlled Exposure:** Techniques like feature flags allow new code to be deployed to production but kept hidden from end-users. This enables testing in the real production environment ("testing in production") without impacting customers, ensuring the feature is fully vetted before release.
-5.  **Enhanced Visibility:** CI/CD tools and practices provide greater transparency into the development process, pipeline status, test results, and deployment outcomes.
+1. **Smaller Changes, Lower Risk:** Integrating small, incremental changes means each merge is less complex and easier to reason about. If a problem arises, it's typically contained within a smaller set of recent changes, making debugging significantly faster. It's like constantly treading down the grass path; small obstacles are easily noticed and dealt with, preventing them from becoming major blockages.
+2. **Automation as Strict Control:** Automated build and test pipelines provide consistent, repeatable checks. Unlike manual processes, automation executes instructions precisely, leaving no room for ambiguity or misinterpretation. A "green" pipeline provides a baseline level of confidence that critical functionality remains intact.
+3. **Early Feedback:** Automated tests run on every commit or pull request provide immediate feedback to developers, allowing them to fix issues while the context is still fresh in their minds. This contrasts sharply with finding bugs weeks or months later during a dedicated testing phase.
+4. **Controlled Exposure:** Techniques like feature flags allow new code to be deployed to production but kept hidden from end-users. This enables testing in the real production environment ("testing in production") without impacting customers, ensuring the feature is fully vetted before release.
+5. **Enhanced Visibility:** CI/CD tools and practices provide greater transparency into the development process, pipeline status, test results, and deployment outcomes.
 
 **More Control, Not Less:**
 
@@ -288,15 +288,15 @@ How does traditional Quality Assurance fit into a world of continuous delivery? 
 
 - **Shift Left:** QA professionals should be involved _earlier_ in the development cycle. They collaborate with Product Owners and Developers on requirements, define acceptance criteria, and help design for testability _before_ code is written.
 - **Focus on Higher-Order Testing:** As repetitive regression checks become automated, QA focuses on activities requiring human insight:
-  - **Exploratory Testing:** Probing the application creatively to uncover unexpected issues or usability problems.
-  - **Usability Testing:** Evaluating the user experience.
-  - **Security Testing:** Identifying vulnerabilities.
-  - **Performance Testing Strategy:** Defining and overseeing performance and load tests (often automated but requiring careful design).
-  - **Test Strategy Definition:** Designing the overall approach to quality, including deciding which tests to automate at which level (unit, integration, end-to-end).
+ - **Exploratory Testing:** Probing the application creatively to uncover unexpected issues or usability problems.
+ - **Usability Testing:** Evaluating the user experience.
+ - **Security Testing:** Identifying vulnerabilities.
+ - **Performance Testing Strategy:** Defining and overseeing performance and load tests (often automated but requiring careful design).
+ - **Test Strategy Definition:** Designing the overall approach to quality, including deciding which tests to automate at which level (unit, integration, end-to-end).
 - **Building Automation:** QA engineers often become key contributors to building and maintaining the automated test suites, particularly for integration and end-to-end tests. They bring a tester's mindset to automation design.
 - **Staggered Testing / Release Gates (If Needed):** Full continuous _deployment_ (every commit to prod) isn't always feasible or desirable. You can implement Continuous _Delivery_ where every commit is built, tested, and deployed to a staging environment, but a final push to production requires a manual approval or follows a regular cadence (e.g., daily, weekly). This provides a window for:
-  - **Targeted Manual Testing:** QA can run focused manual or exploratory tests on the release candidate in a stable, production-like environment (e.g., staging or PPE).
-  - **Bug Bashes:** Periodic sessions where the whole team tests upcoming features.
+ - **Targeted Manual Testing:** QA can run focused manual or exploratory tests on the release candidate in a stable, production-like environment (e.g., staging or PPE).
+ - **Bug Bashes:** Periodic sessions where the whole team tests upcoming features.
 - **Collaboration is Key:** Developers should perform basic testing on their own changes. QA can guide developers on testing techniques and help identify areas needing more test coverage. Pairing developers and testers can be highly effective.
 
 The goal is not to eliminate QA but to integrate quality practices throughout the entire lifecycle, leveraging automation for speed and consistency while reserving human expertise for tasks requiring critical thinking and exploration. The exact balance depends on the product's risk profile, regulatory requirements, and team capabilities.
@@ -316,18 +316,18 @@ Applying CI/CD to older, large, or tightly-coupled systems presents unique chall
 
 **Strategies:**
 
-1.  **Don't Boil the Ocean – Start Incrementally:** Begin with foundational steps. Get the code into modern version control. Automate the existing build process, even if it's slow. Add basic smoke tests.
-2.  **Prioritize Characterization Tests:** Before refactoring, add high-level tests (often integration or end-to-end) that "characterize" the existing behavior. These tests act as a safety net, ensuring that refactoring efforts don't break critical functionality, even if you don't understand all the internal details.
-3.  **Find the Seams and Refactor Gradually:** Look for logical boundaries within the monolith. Can you isolate components? Use techniques like:
-    - **Strangler Fig Pattern:** Gradually build new functionality as separate services that intercept calls to the old monolith. Over time, the new services "strangle" the old system.
-    - **Dependency Injection/Interfaces:** Introduce interfaces between components to decouple them, making them easier to test and replace independently.
-4.  **Optimize the Build:**
-    - **Caching:** Aggressively cache dependencies and build outputs where possible.
-    - **Parallelization:** Can different modules or test suites be built/run in parallel?
-    - **Incremental Builds:** Utilize tools that only rebuild changed portions of the code.
-5.  **Containerize:** Use Docker (or similar) to package the legacy application and its dependencies. This creates a consistent, portable environment that simplifies integration with modern CI/CD tools, even if the underlying tech is old.
-6.  **Focus on Deployment Automation:** Even if builds are slow, automating the deployment process itself can yield significant benefits by reducing manual errors and deployment time. Implement reliable rollback mechanisms.
-7.  **Build Confidence Slowly:** Start by automating deployment to test environments. Gradually increase the frequency and scope of automation as confidence grows. Full continuous deployment might be a long-term goal, but achieving reliable CI and automated deployment to staging is a major win.
+1. **Don't Boil the Ocean – Start Incrementally:** Begin with foundational steps. Get the code into modern version control. Automate the existing build process, even if it's slow. Add basic smoke tests.
+2. **Prioritize Characterization Tests:** Before refactoring, add high-level tests (often integration or end-to-end) that "characterize" the existing behavior. These tests act as a safety net, ensuring that refactoring efforts don't break critical functionality, even if you don't understand all the internal details.
+3. **Find the Seams and Refactor Gradually:** Look for logical boundaries within the monolith. Can you isolate components? Use techniques like:
+ - **Strangler Fig Pattern:** Gradually build new functionality as separate services that intercept calls to the old monolith. Over time, the new services "strangle" the old system.
+ - **Dependency Injection/Interfaces:** Introduce interfaces between components to decouple them, making them easier to test and replace independently.
+4. **Optimize the Build:**
+ - **Caching:** Aggressively cache dependencies and build outputs where possible.
+ - **Parallelization:** Can different modules or test suites be built/run in parallel?
+ - **Incremental Builds:** Utilize tools that only rebuild changed portions of the code.
+5. **Containerize:** Use Docker (or similar) to package the legacy application and its dependencies. This creates a consistent, portable environment that simplifies integration with modern CI/CD tools, even if the underlying tech is old.
+6. **Focus on Deployment Automation:** Even if builds are slow, automating the deployment process itself can yield significant benefits by reducing manual errors and deployment time. Implement reliable rollback mechanisms.
+7. **Build Confidence Slowly:** Start by automating deployment to test environments. Gradually increase the frequency and scope of automation as confidence grows. Full continuous deployment might be a long-term goal, but achieving reliable CI and automated deployment to staging is a major win.
 
 Applying CI/CD to legacy systems is often a journey of gradual improvement and refactoring, rather than a quick switch. Patience, persistence, and a focus on incremental gains are key.
 
@@ -345,22 +345,22 @@ As an organization adopts CI/CD, particularly in larger projects or microservice
 
 **Strategies for Management:**
 
-1.  **Identify Common Patterns:** Analyze existing pipelines. What steps or sequences are repeated frequently? (e.g., checkout code, install dependencies, run unit tests, build Docker image, scan image, deploy to dev).
-2.  **Create Reusable Components/Templates:** Most modern CI/CD platforms allow creating reusable components:
-    - **Shared Scripts:** Abstract common logic into scripts (Bash, Python, PowerShell) stored in a shared repository and called by pipelines.
-    - **Pipeline Templates/Includes:** Define reusable pipeline snippets or entire templates that can be imported or extended by individual project pipelines (e.g., GitHub Actions reusable workflows, Azure DevOps templates, GitLab includes).
-    - **Custom Tasks/Plugins:** Develop custom tasks or plugins for your CI/CD platform to encapsulate complex, reusable logic.
-3.  **Establish a "Pipelines Library":** Create a central, version-controlled repository for these shared scripts, templates, and custom tasks. Treat this library like any other critical software project.
-4.  **Promote Standardization:** Define organizational standards or best practices for common pipeline tasks. Encourage teams to use the shared library components.
-5.  **Lifecycle Management:** Implement processes for managing pipelines over time:
-    - **Inventory:** Keep track of existing pipelines and their owners.
-    - **Deprecation:** Have a clear process for phasing out old or unused pipelines. This might involve:
-      - Notifying users.
-      - Adding warnings or randomized failures to deprecated pipelines.
-      - Reducing allocated resources (e.g., fewer runners).
-      - Setting a firm decommissioning date.
-      - Revoking associated secrets/tokens and cleaning up dependent resources.
-    - **Review:** Periodically review pipelines for efficiency, security, and adherence to standards.
+1. **Identify Common Patterns:** Analyze existing pipelines. What steps or sequences are repeated frequently? (e.g., checkout code, install dependencies, run unit tests, build Docker image, scan image, deploy to dev).
+2. **Create Reusable Components/Templates:** Most modern CI/CD platforms allow creating reusable components:
+ - **Shared Scripts:** Abstract common logic into scripts (Bash, Python, PowerShell) stored in a shared repository and called by pipelines.
+ - **Pipeline Templates/Includes:** Define reusable pipeline snippets or entire templates that can be imported or extended by individual project pipelines (e.g., GitHub Actions reusable workflows, Azure DevOps templates, GitLab includes).
+ - **Custom Tasks/Plugins:** Develop custom tasks or plugins for your CI/CD platform to encapsulate complex, reusable logic.
+3. **Establish a "Pipelines Library":** Create a central, version-controlled repository for these shared scripts, templates, and custom tasks. Treat this library like any other critical software project.
+4. **Promote Standardization:** Define organizational standards or best practices for common pipeline tasks. Encourage teams to use the shared library components.
+5. **Lifecycle Management:** Implement processes for managing pipelines over time:
+ - **Inventory:** Keep track of existing pipelines and their owners.
+ - **Deprecation:** Have a clear process for phasing out old or unused pipelines. This might involve:
+ - Notifying users.
+ - Adding warnings or randomized failures to deprecated pipelines.
+ - Reducing allocated resources (e.g., fewer runners).
+ - Setting a firm decommissioning date.
+ - Revoking associated secrets/tokens and cleaning up dependent resources.
+ - **Review:** Periodically review pipelines for efficiency, security, and adherence to standards.
 
 Effective pipeline management requires treating pipeline code as first-class code, applying principles of modularity, reusability, and lifecycle management.
 
@@ -393,17 +393,17 @@ One of the most frequently cited technical hurdles in achieving smooth continuou
 
 **Strategies for Mitigation:**
 
-1.  **Evolutionary Database Design:** Design schemas with future changes in mind. Avoid overly complex constraints initially if simpler alternatives exist.
-2.  **Expand/Contract Pattern (Parallel Change):** This is a key technique for zero-downtime changes:
-    - _Expand:_ Add the new schema elements (e.g., new columns, new tables) alongside the old ones. Deploy application code that can _write_ to both old and new structures but continues to _read_ from the old.
-    - _Migrate:_ Run a data migration process (online or offline, depending on scale) to populate the new structures based on data in the old ones.
-    - _Switch Read:_ Deploy application code that now reads from the new structures (but can still handle data in the old structure if necessary).
-    - _Contract:_ Once confident, deploy application code that no longer interacts with the old structures.
-    - _Cleanup:_ Remove the old schema elements.
-3.  **Database Migration Tools:** Use specialized tools (e.g., Liquibase, Flyway, Alembic for Python/SQLAlchemy, Active Record Migrations in Rails) to manage, version, and apply schema changes automatically as part of the deployment pipeline. These tools help track which changes have been applied to which environment and support rolling forward and sometimes rolling back changes.
-4.  **Decoupling:** Use techniques like views, stored procedures (used judiciously), or application-level data abstraction layers to reduce direct coupling between application code and the physical table structure.
-5.  **Separate Schema Changes:** Consider deploying schema changes separately from application code changes, carefully sequencing them.
-6.  **Testing:** Rigorously test migration scripts in staging environments with production-like data volumes to identify performance issues or unexpected errors before hitting production.
+1. **Evolutionary Database Design:** Design schemas with future changes in mind. Avoid overly complex constraints initially if simpler alternatives exist.
+2. **Expand/Contract Pattern (Parallel Change):** This is a key technique for zero-downtime changes:
+ - _Expand:_ Add the new schema elements (e.g., new columns, new tables) alongside the old ones. Deploy application code that can _write_ to both old and new structures but continues to _read_ from the old.
+ - _Migrate:_ Run a data migration process (online or offline, depending on scale) to populate the new structures based on data in the old ones.
+ - _Switch Read:_ Deploy application code that now reads from the new structures (but can still handle data in the old structure if necessary).
+ - _Contract:_ Once confident, deploy application code that no longer interacts with the old structures.
+ - _Cleanup:_ Remove the old schema elements.
+3. **Database Migration Tools:** Use specialized tools (e.g., Liquibase, Flyway, Alembic for Python/SQLAlchemy, Active Record Migrations in Rails) to manage, version, and apply schema changes automatically as part of the deployment pipeline. These tools help track which changes have been applied to which environment and support rolling forward and sometimes rolling back changes.
+4. **Decoupling:** Use techniques like views, stored procedures (used judiciously), or application-level data abstraction layers to reduce direct coupling between application code and the physical table structure.
+5. **Separate Schema Changes:** Consider deploying schema changes separately from application code changes, carefully sequencing them.
+6. **Testing:** Rigorously test migration scripts in staging environments with production-like data volumes to identify performance issues or unexpected errors before hitting production.
 
 Managing database changes requires discipline, the right tooling, and adopting patterns that allow changes to be applied incrementally and safely alongside application deployments. It's a solvable problem but requires dedicated attention and effort.
 
@@ -412,11 +412,11 @@ Managing database changes requires discipline, the right tooling, and adopting p
 A practical decision during implementation is where your CI/CD build agents (runners) will operate.
 
 - **Cloud-Hosted Runners:** Provided by the CI/CD platform vendor (e.g., GitHub-hosted runners, GitLab SaaS runners).
-  - _Pros:_ Easy setup, managed OS updates, scalability on demand, no infrastructure maintenance overhead for the runners themselves.
-  - _Cons:_ Can be more expensive at scale (pay-per-minute), potential data egress costs, less control over the environment, might require network configurations to access internal resources.
+ - _Pros:_ Easy setup, managed OS updates, scalability on demand, no infrastructure maintenance overhead for the runners themselves.
+ - _Cons:_ Can be more expensive at scale (pay-per-minute), potential data egress costs, less control over the environment, might require network configurations to access internal resources.
 - **Self-Hosted Runners:** You manage the infrastructure (VMs, containers, physical machines) where the runner software executes, connecting back to the CI/CD control plane (which might still be cloud-based).
-  - _Pros:_ More control over the environment (OS, installed software, hardware), potentially lower cost for high utilization or specialized hardware, easier access to internal network resources, can run on-premises if required.
-  - _Cons:_ Requires infrastructure setup and ongoing maintenance (OS patching, security, scaling), responsible for runner capacity management.
+ - _Pros:_ More control over the environment (OS, installed software, hardware), potentially lower cost for high utilization or specialized hardware, easier access to internal network resources, can run on-premises if required.
+ - _Cons:_ Requires infrastructure setup and ongoing maintenance (OS patching, security, scaling), responsible for runner capacity management.
 
 **Choosing Factors:**
 
@@ -475,15 +475,15 @@ Continuously ask "So what?" regarding your CI/CD metrics. If you deploy 10 times
 
 Adopting Continuous Integration and Continuous Deployment/Delivery is a strategic undertaking with profound implications for a business. It's far more than a technical upgrade; it's a shift in culture, process, and mindset aimed at delivering value faster and more reliably. Before embarking on or continuing this journey, businesses must carefully consider:
 
-1.  **The "Why":** Clearly define the business problems you aim to solve or the goals you seek to achieve (e.g., faster time-to-market, improved stability, increased innovation). Avoid adopting CI/CD just for trends.
-2.  **Readiness and Fit:** Honestly assess if CI/CD is appropriate for your context. Highly regulated environments, resource constraints, or extremely stable products with infrequent changes might warrant a different approach or only partial adoption.
-3.  **Cultural Shift:** Recognize that success requires breaking down silos, fostering collaboration, embracing automation, promoting shared responsibility, and ensuring psychological safety. People issues must be addressed.
-4.  **Systems Thinking:** View the delivery process holistically. Optimizing one part in isolation can create downstream problems. Address root causes of bottlenecks.
-5.  **Measurable Goals:** Define clear metrics to track your current state and measure progress towards tangible business outcomes (Lead Time, Deployment Frequency, Change Failure Rate, MTTR).
-6.  **Gradual Adoption:** Implement CI/CD incrementally, starting with foundational practices like version control, automated builds, and testing, then gradually automating deployment and refining processes.
-7.  **Technical Foundations:** Ensure prerequisites like version control, automated testing, testable architecture, and infrastructure automation are in place or planned for.
-8.  **Addressing Challenges:** Be prepared to tackle specific hurdles like database schema migrations, managing legacy systems, and avoiding common anti-patterns (e.g., ignoring failures, inconsistent environments).
-9.  **Ongoing Investment:** CI/CD is not "set and forget." Budget time and resources for continuous maintenance, monitoring, training, and improvement of pipelines and processes. Treat your delivery system as a product.
+1. **The "Why":** Clearly define the business problems you aim to solve or the goals you seek to achieve (e.g., faster time-to-market, improved stability, increased innovation). Avoid adopting CI/CD just for trends.
+2. **Readiness and Fit:** Honestly assess if CI/CD is appropriate for your context. Highly regulated environments, resource constraints, or extremely stable products with infrequent changes might warrant a different approach or only partial adoption.
+3. **Cultural Shift:** Recognize that success requires breaking down silos, fostering collaboration, embracing automation, promoting shared responsibility, and ensuring psychological safety. People issues must be addressed.
+4. **Systems Thinking:** View the delivery process holistically. Optimizing one part in isolation can create downstream problems. Address root causes of bottlenecks.
+5. **Measurable Goals:** Define clear metrics to track your current state and measure progress towards tangible business outcomes (Lead Time, Deployment Frequency, Change Failure Rate, MTTR).
+6. **Gradual Adoption:** Implement CI/CD incrementally, starting with foundational practices like version control, automated builds, and testing, then gradually automating deployment and refining processes.
+7. **Technical Foundations:** Ensure prerequisites like version control, automated testing, testable architecture, and infrastructure automation are in place or planned for.
+8. **Addressing Challenges:** Be prepared to tackle specific hurdles like database schema migrations, managing legacy systems, and avoiding common anti-patterns (e.g., ignoring failures, inconsistent environments).
+9. **Ongoing Investment:** CI/CD is not "set and forget." Budget time and resources for continuous maintenance, monitoring, training, and improvement of pipelines and processes. Treat your delivery system as a product.
 10. **Business Value:** Continuously link CI/CD efforts and metrics back to tangible business value and strategic objectives.
 
 By thoughtfully navigating these considerations, businesses can harness the power of CI/CD not just as a set of tools, but as a strategic capability to build better software faster, adapt to changing markets, and ultimately achieve greater success.

@@ -1,4 +1,4 @@
-﻿## Getting started with GitHub Actions {#getting-started-with-github-actions .unnumbered}
+﻿## Getting started with GitHub Actions
 
 Throughout this guide, we will explore the key features of GitHub Actions and how to effectively structure workflow files in YAML to maximize the benefits of CI/CD. We'll start by creating a somewhat simple weather application, but make it more complex over time. This is designed to simulate a real world application.
 
@@ -6,7 +6,7 @@ GitHub is a company that has a product called "Actions" (sometimes referred to a
 
 GitHub is a company, thus, it is not possible to install GitHub--it is not an application. Git is the version control system that can be installed.
 
-If you need more information on the specific intricacies of GitHub Actions, please see the GitHub Actions documentation. [[GitHub Actions documentation - GitHub Docs]{.underline}](https://docs.github.com/en/actions)
+If you need more information on the specific intricacies of GitHub Actions, please see the GitHub Actions documentation. [GitHub Actions documentation - GitHub Docs](https://docs.github.com/en/actions)
 
 Let's build a pipeline that can do the following:
 
@@ -43,26 +43,26 @@ Workflow
 ├── Events (e.g., push, pull_request)
 │
 ├── Jobs
-│   ├── Runs-on (Runner)
-│   ├── Needs (Dependencies on other jobs)
-│   ├── Steps
-│   │   ├── Uses (Actions)
-│   │   │   ├── Inputs
-│   │   │   ├── Outputs
-│   │   │   └── Environment (e.g., secrets, env variables)
-│   │   └── Run (Shell commands)
-│   ├── Environment Variables
-│   ├── Secrets
-│   ├── Services (Service Containers)
-│   └── Artifacts
-│       ├── Upload Artifact
-│       └── Download Artifact
+│ ├── Runs-on (Runner)
+│ ├── Needs (Dependencies on other jobs)
+│ ├── Steps
+│ │ ├── Uses (Actions)
+│ │ │ ├── Inputs
+│ │ │ ├── Outputs
+│ │ │ └── Environment (e.g., secrets, env variables)
+│ │ └── Run (Shell commands)
+│ ├── Environment Variables
+│ ├── Secrets
+│ ├── Services (Service Containers)
+│ └── Artifacts
+│ ├── Upload Artifact
+│ └── Download Artifact
 │
 └── Workflow Commands (e.g., set-output, set-env)
 
 If you want to get started right away, GitHub Actions has several templates for many different project types. Use a template to get started quickly.
 
-#### Setting up error notifications {#setting-up-error-notifications}
+#### Setting up error notifications
 
 When your workflow fails, it means that continuous integration is no longer possible. Implement error notifications to alert your team when the build pipeline fails—especially for production workflows. Consider these notification methods:
 
@@ -88,23 +88,23 @@ Benefits of this structured approach:
 
 > ![](./images/image84.png)
 
-[[5 Things to Know About Pipe Scaffolding (supremepipe.com)]{.underline}](https://supremepipe.com/blog/pipe-scaffolding/)
+[5 Things to Know About Pipe Scaffolding (supremepipe.com)](https://supremepipe.com/blog/pipe-scaffolding/)
 
-CI server                                                                                                | macOS/Linux                                                        | Windows
+CI server | macOS/Linux | Windows
 -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | --------------------------------------------------
-name: CI                                                                                                 | #!/bin/bash                                                        | @echo off
-on:                                                                                                      | echo "Starting CI process"                                         | echo Starting CI process
-push:                                                                                                    | # Assuming Git and Node.js are already installed                   | REM Assuming Git and Node.js are already installed
-jobs:                                                                                                    | git clone <repository_url>                                         | git clone <repository_url>
-setup_and_test:                                                                                          | cd <repository_directory>                                          | cd <repository_directory>
-runs-on: ubuntu-latest                                                                                   | # Note: this depends on the NPM version installed on your computer | npm install
-steps:                                                                                                   | npm install                                                        | npm test
-- name: Checkout code                                                                                    | npm test                                                           |
-uses: actions/checkout@v2                                                                                |                                                                    |
-- name: Install dependencies                                                                             |                                                                    |
-run: npm install # we will get into later as to why we shouldn't be running npm install, instead, npm ci |                                                                    |
-- name: Run tests                                                                                        |                                                                    |
-run: npm test                                                                                            |                                                                    |
+name: CI | #!/bin/bash | @echo off
+on: | echo "Starting CI process" | echo Starting CI process
+push: | # Assuming Git and Node.js are already installed | REM Assuming Git and Node.js are already installed
+jobs: | git clone <repository_url> | git clone <repository_url>
+setup_and_test: | cd <repository_directory> | cd <repository_directory>
+runs-on: ubuntu-latest | # Note: this depends on the NPM version installed on your computer | npm install
+steps: | npm install | npm test
+- name: Checkout code | npm test |
+uses: actions/checkout@v2 | |
+- name: Install dependencies | |
+run: npm install # we will get into later as to why we shouldn't be running npm install, instead, npm ci | |
+- name: Run tests | |
+run: npm test | |
 
 > In this example, we demonstrate how you can execute commands on your local computer to simulate what a build server does. You can effectively use your own laptop as a server, albeit with caveats mentioned earlier. As an exercise, consider installing the GitHub Actions agent on your computer. Then, set up a self-hosted runner and execute the build script on it. This process will allow you to recreate or emulate the actions performed by a build server, right from your local environment. See the appendix for more info.
 
@@ -114,14 +114,14 @@ The script `echo hello world` is a Bash script. Note that while Bash is commonly
 
 The feedback loop for workflow changes can be slow—you typically need to edit, commit, and run the workflow on GitHub Actions to see the results. To streamline this process, consider these strategies:
 
-1. **Simplify Workflow Steps:**  
-   Ensure that workflow steps are simple enough to run locally. This improves speed and manageability. Use provider-agnostic scripts (e.g., PowerShell or Bash).
+1. **Simplify Workflow Steps:** 
+ Ensure that workflow steps are simple enough to run locally. This improves speed and manageability. Use provider-agnostic scripts (e.g., PowerShell or Bash).
 
-2. **Use Docker Containers:**  
-   Create and use a Docker container that closely mirrors the GitHub Actions environment. This lets you test workflows locally in a similar setting.
+2. **Use Docker Containers:** 
+ Create and use a Docker container that closely mirrors the GitHub Actions environment. This lets you test workflows locally in a similar setting.
 
-3. **Utilize the `act` Library:**  
-   The [`act`](https://github.com/nektos/act) library lets you run GitHub Actions locally. While it may not perfectly replicate the GitHub Actions environment, it works well for simpler scripts. See the appendix for more details.
+3. **Utilize the `act` Library:** 
+ The [`act`](https://github.com/nektos/act) library lets you run GitHub Actions locally. While it may not perfectly replicate the GitHub Actions environment, it works well for simpler scripts. See the appendix for more details.
 
 ## Aside end
 
@@ -189,7 +189,7 @@ git push -u origin main
 
 An exercise, try putting in the workflow described earlier in the doc GitHub workflow and see if you can figure out how to run it. It should just display Hello World and it doesn't require any code to build.
 
-### Workflow Triggers and Patterns {#workflow-triggers-and-patterns .unnumbered}
+### Workflow Triggers and Patterns
 
 Workflow triggers are ways to automatically trigger your pipeline. When the workflow is triggered, it receives a set of inputs, for example the branch that it was triggered on as well as the date and time.
 
@@ -225,7 +225,7 @@ It's important to configure workflow triggers to respond only to relevant events
 
 **Aside end**
 
-### Setting Up Your First Workflow {#setting-up-your-first-workflow .unnumbered}
+### Setting Up Your First Workflow
 
 To create a basic "Hello world!" workflow in GitHub Actions, start by creating a new file named `main.yml` in the `.github/workflows` directory in your previously created branch and add the following content:
 
@@ -259,15 +259,15 @@ Here are some tips for the workflow:
 
 - Tips for the YAML syntax:
 
-  - Indent with two spaces.
+ - Indent with two spaces.
 
-  - Use : to indicate options for a key.
+ - Use : to indicate options for a key.
 
-  - Quote values to ensure they are interpreted as strings.
+ - Quote values to ensure they are interpreted as strings.
 
-  - Validation: Use a YAML linter or language server to avoid syntax errors.
+ - Validation: Use a YAML linter or language server to avoid syntax errors.
 
-  - For more information see the sample web page called Learn YAML in X minutes.
+ - For more information see the sample web page called Learn YAML in X minutes.
 
 Now commit this file and then push those changes to your branch. You should see the following screenshot.
 
@@ -283,7 +283,7 @@ After you've run it, then you should see the output.
 
 ### Workflow Name
 
-Workflow Name        | Description
+Workflow Name | Description
 -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Hello World Workflow | The workflow's name is "Hello World Workflow". You can find it because we set the **name** mapping to "Hello World Workflow". This name shows up in the sidebar of your repository. The **name** mapping specifies the name of the workflow. (If omitted, the workflow’s filename will be used.)
 
@@ -291,9 +291,9 @@ Hello World Workflow | The workflow's name is "Hello World Workflow". You can fi
 
 ### Triggers
 
-Trigger            | Description
+Trigger | Description
 ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-on:                | The **on** mapping specifies the list of triggers when this workflow runs. "workflow_dispatch" indicates that this workflow is manually triggered, so you can use GitHub’s UI to start it.
+on: | The **on** mapping specifies the list of triggers when this workflow runs. "workflow_dispatch" indicates that this workflow is manually triggered, so you can use GitHub’s UI to start it.
 workflow_dispatch: | (No additional details provided)
 
 ---
@@ -302,7 +302,7 @@ workflow_dispatch: | (No additional details provided)
 
 For now, everything goes in a single job called **all**.
 
-Key                      | Description
+Key | Description
 ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 runs-on: "ubuntu-latest" | The **runs-on** attribute in your workflow file defines the container environment where your job executes. This choice determines the operating system and the pre-installed software available. You should choose an operating system that your developers are using when they test the application. For example, if the vast majority of developers use Windows, then you should use a Windows runner instead. Since GitHub Actions is designed to be cross-platform, maintaining consistency across different environments is important. If multiple team members use different operating systems, different build tools might be used—so it’s crucial that everyone uses the same operating system.
 
@@ -310,19 +310,19 @@ Popular options:
 
 - **ubuntu-latest (Linux):** Supports bash and cross-platform scripts (e.g., Node.js).
 - **Windows runners:** For Windows-specific builds and PowerShell/CMD scripts.
-  Considerations:
+ Considerations:
 - **Platform compatibility:** Choose a runner that supports your required tools and scripts.
 - **Pre-installed software:** Review the available software to avoid unnecessary installation steps.
-  For this guide, we'll use **ubuntu-latest** with bash scripts. |
+ For this guide, we'll use **ubuntu-latest** with bash scripts. |
 
 ---
 
 ### Steps
 
-Step                    | Details
+Step | Details
 ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 - name: "Checkout code" | **Step 1:** Uses `actions/checkout@v2` to check out the repository. This action handles repository authentication (useful for private repositories) and checks out the correct branch associated with the workflow trigger, setting the working directory to the repository’s content.
-- name: Say Hello       | **Step 2:** Runs the command `echo "Hello world!"` to display a greeting message.
+- name: Say Hello | **Step 2:** Runs the command `echo "Hello world!"` to display a greeting message.
 
 ---
 
@@ -330,13 +330,13 @@ Beyond the basic setup, templates in GitHub Actions offer a foundation for best 
 
 ![](./images/image20.png)
 
-#### Steps {#steps .unnumbered}
+#### Steps
 
 In a GitHub Actions workflow, each task is organized into steps. These steps are detailed in the workflow file and can include various actions, such as running scripts or utilizing user-created actions available in the GitHub Marketplace.
 
 Scripts within these steps can span multiple lines. The scripting language used depends on the operating system specified in the workflow's `runs-on` attribute. For instance, if you're using the `ubuntu-latest` runner, the default scripting language is Bash because it's based on Linux. However, you can use other scripting languages provided their interpreters are installed on the runner. Similarly, for runners using Windows, the default scripting language is CMD, though you can switch to PowerShell or others as needed.
 
-#### What is "actions/checkout@v2"? {#what-is-actionscheckoutv2 .unnumbered}
+#### What is "actions/checkout@v2"?
 
 This is called an action, and can be written in many different programming languages, but usually TypeScript/JavaScript. Actions can do many things, such as installing software, changing configuration, downloading files, etc. This action automatically clones the branch associated with this pipeline. For more information on what this action does, visit its documentation page for options on how to configure it.
 
@@ -344,11 +344,11 @@ This is called an action, and can be written in many different programming langu
 
 - Be careful not to use too many actions (only when they are necessary), because they are difficult to run locally on your own computer because they use GitHub's Workflow Engine that, at the time of this writing, does not have the ability to be called from a desktop application. This means that it might be hard to run the action locally to see if it is correct and therefore developers will have a slow feedback loop.
 
-- [[GitHub - nektos/act: Run your GitHub Actions locally 🚀]{.underline}](https://github.com/nektos/act) works for most actions.
+- [GitHub - nektos/act: Run your GitHub Actions locally 🚀](https://github.com/nektos/act) works for most actions.
 
 - To debug your CI/CD pipelines effectively, consider setting up a temporary self-hosted GitHub agent. This allows you to run builds and inspect the application and build server outputs in detail. You can also integrate "sleep" steps into your workflow to pause execution at key points for thorough examination of the process and file system.
 
-#### What is a Pipeline? {#what-is-a-pipeline .unnumbered}
+#### What is a Pipeline?
 
 A pipeline is like a project manager for your build scripts. It orchestrates and automates the steps needed to build, test, and deploy your software.
 
@@ -390,11 +390,11 @@ Pipeline Status:
 
 ![](./images/image67.png)
 
-[[A Basic Continuous Integration Pipeline with GitHub Actions -- Burkhard Stubert (embeddeduse.com)]{.underline}](https://embeddeduse.com/2022/06/06/a-basic-continuous-integration-pipeline-with-github-actions/)
+[A Basic Continuous Integration Pipeline with GitHub Actions -- Burkhard Stubert (embeddeduse.com)](https://embeddeduse.com/2022/06/06/a-basic-continuous-integration-pipeline-with-github-actions/)
 
-[[Github Actions or Jenkins? Making the Right Choice for You \| by Viduni Wickramarachchi \| Bits and Pieces (bitsrc.io)]{.underline}](https://blog.bitsrc.io/github-actions-or-jenkins-making-the-right-choice-for-you-9ac774684c8)
+[Github Actions or Jenkins? Making the Right Choice for You \| by Viduni Wickramarachchi \| Bits and Pieces (bitsrc.io)](https://blog.bitsrc.io/github-actions-or-jenkins-making-the-right-choice-for-you-9ac774684c8)
 
-#### What is a build server? {#what-is-a-build-server .unnumbered}
+#### What is a build server?
 
 A build server is a dedicated machine or cluster that automates the software build process, ensuring consistency and generating build artifacts for production. Triggered by events like code changes or pull requests, it clones the code, executes build scripts in an ephemeral environment, and provides a single point of truth for build results.
 
@@ -408,7 +408,7 @@ Build servers offer several advantages over local builds:
 
 - Build servers are typically disposable and replaceable, existing in pools, and can be hosted in the cloud or on-premise. They remain idle until triggered by a CI/CD system.
 
-#### Helpful tips and best practices {#helpful-tips-and-best-practices .unnumbered}
+#### Helpful tips and best practices
 
 - You might find it helpful to use an IDE Plugin, such as Github Workflows plugin in the IntelliJ IDEA IDE to author the workflow files. This is because the syntax can be fussy.
 
@@ -430,7 +430,7 @@ Build servers offer several advantages over local builds:
 
 - Normally, you'd want to set the runs-on to your development environment, assuming that that is the same environment where you are deploying to. If you need to run on multiple environments, you can use matrix builds (an advanced topic.)
 
-#### Build notifications {#build-notifications .unnumbered}
+#### Build notifications
 
 Webhooks are a mechanism for one system to notify another system of events or updates in real-time. In the context of continuous integration (CI), webhooks are essential for facilitating automation and communication between various tools and services in the CI/CD pipeline. For example, if a build fails, then a webhook can be called, which can "send" a message to another service, such as Teams, Slack, and many others.
 
@@ -446,7 +446,7 @@ Webhooks are widely supported among many different integration providers.
 
 - Configure notifications to alert stakeholders impacted by broken builds using suitable channels like Teams, text messages, or emails, triggered only during failures.
 
-### Security {#security .unnumbered}
+### Security
 
 - Continuous Integration and Continuous Delivery (CI/CD) aim to streamline the development process by swiftly moving changes from a developer's environment to production. However, this rapid process can inadvertently introduce security risks, allowing malicious code to infiltrate production should an attacker gain access to a compromised account. This means that an attacker can easily push code to production--a two-edged sword. Therefore, having a good review system in place, along with 2FA (two factor authentication, requires that employees use their phone or other device to log in), dual-approval (two employees must approve of the changes before they go into production), dependency scanning, security scanning on code via SAST (static analysis), secret management, branch protection to limit who can and can't push to master, and YubiKeys can potentially limit or negate the damage done by attackers. Make sure to use proper identity management techniques by your provider, and don't share accounts.
 
@@ -464,7 +464,7 @@ Webhooks are widely supported among many different integration providers.
 
 - Shifting left on security implies embedding security considerations from the start of the development process, rather than retrofitting them later. It's about ensuring that security is integrated from the onset and that reactive measures are minimized. After all, in the dynamic landscape of CI/CD, prevention is always better than cure.
 
-#### Popular security static analysis tools {#popular-security-static-analysis-tools .unnumbered}
+#### Popular security static analysis tools
 
 Open-Source Tools
 
@@ -487,7 +487,7 @@ Commercial Tools
 - Kiuwan: Offers a broad range of language support and integrates with various IDEs and CI/CD tools.
 - Synopsys Coverity: Supports multiple languages and offers CI/CD integration.
 
-#### Integrating with External Services and Tools {#integrating-with-external-services-and-tools .unnumbered}
+#### Integrating with External Services and Tools
 
 Sometimes, your build pipeline might need to connect to other services because it doesn't have all of the information it needs inside of the repository. This is because there are external APIs, artifact repositories, secret managers, etc. that can't be part of the repository.
 

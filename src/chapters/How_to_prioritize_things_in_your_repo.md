@@ -1,4 +1,4 @@
-# How to prioritize things in your repo {#how-to-prioritize-things-in-your-repo .unnumbered}
+# How to prioritize things in your repo
 
 Prioritization is key:
 

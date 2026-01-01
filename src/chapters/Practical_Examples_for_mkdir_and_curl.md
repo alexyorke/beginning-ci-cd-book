@@ -1,4 +1,4 @@
-﻿## **Practical Examples for mkdir and curl** {#practical-examples-for-mkdir-and-curl .unnumbered}
+﻿## **Practical Examples for mkdir and curl**
 
 **mkdir**
 
@@ -127,7 +127,7 @@ bash script.sh
 curl --fail-early -o file1.txt https://www.example.com/file1.txt -o file2.txt https://www.example.com/file2.txt
 ```
 
-// Start of Selection
+
 **Remember:**
 
 - `-o` is generally preferred over redirection operators (`>`) for writing to files, as it allows for retry flags.
@@ -164,9 +164,9 @@ Here’s a breakdown of the issues:
 
 2. **Server-Side Inconsistencies:** Even if the `Content-Disposition` header is present, the filename it provides can change depending on factors like:
 
-   - **Dynamically generated content:** For example, a website might create a new file name each time you request it, so `-J` would give you a different filename every time.
-   - **Server configuration:** Different servers might have different settings for the `Content-Disposition` header.
-   - **File extensions:** The server might not include the file extension in the header, making it difficult to determine the file type.
+ - **Dynamically generated content:** For example, a website might create a new file name each time you request it, so `-J` would give you a different filename every time.
+ - **Server configuration:** Different servers might have different settings for the `Content-Disposition` header.
+ - **File extensions:** The server might not include the file extension in the header, making it difficult to determine the file type.
 
 3. **Potential Security Issues:** Using `-J` can expose you to potential security vulnerabilities if you’re not careful. If a malicious server sends a `Content-Disposition` header with a filename that tries to access sensitive system files or directories, `curl -J` could unknowingly execute commands or provide access to sensitive data.
 

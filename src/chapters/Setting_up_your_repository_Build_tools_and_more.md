@@ -1,6 +1,6 @@
-﻿## Setting up your repository: Build tools and more {#setting-up-your-repository-build-tools-and-more .unnumbered}
+﻿## Setting up your repository: Build tools and more
 
-### Introduction {#introduction-1 .unnumbered}
+### Introduction
 
 Clicking "Run" or "Start" in an IDE initiates a sequence of command-line tools that compile and manage dependencies to create build artifacts, simplifying the complex process with a single button. This abstraction can obscure the specific tools used, complicating tool selection for CI/CD pipelines.
 
@@ -25,46 +25,46 @@ The main artifact is the executable, or code, and are typically produced via you
 
 ## Visual Studio (for C++/C#)
 
-- **Build Commands**  
-  Visual Studio uses `msbuild` to build projects. To see the exact commands:
-  - Open the **Tools** menu.
-  - Select **Options**.
-  - Navigate to **Projects and Solutions → Build and Run**.
-  - In the **MSBuild project build output verbosity** dropdown, choose **Detailed** or **Diagnostic**.
-- **Build Order**  
-  The build order appears in the output window during a build (especially with verbosity set to Detailed or Normal).
+- **Build Commands** 
+ Visual Studio uses `msbuild` to build projects. To see the exact commands:
+ - Open the **Tools** menu.
+ - Select **Options**.
+ - Navigate to **Projects and Solutions → Build and Run**.
+ - In the **MSBuild project build output verbosity** dropdown, choose **Detailed** or **Diagnostic**.
+- **Build Order** 
+ The build order appears in the output window during a build (especially with verbosity set to Detailed or Normal).
 
 _Note:_ Build logs are primarily for troubleshooting. In legacy or complex projects, you might sometimes need to provide custom commands.
 
 ## IntelliJ IDEA (for Java)
 
 - **Build Commands**
-  - The IDE uses its own builder. For Maven or Gradle builds:
-    - Open the **Terminal** tab.
-    - Run your build tool command (e.g., `mvn compile` for Maven).
-    - The executed commands are printed in the terminal.
+ - The IDE uses its own builder. For Maven or Gradle builds:
+ - Open the **Terminal** tab.
+ - Run your build tool command (e.g., `mvn compile` for Maven).
+ - The executed commands are printed in the terminal.
 - **Build Order**
-  - When using tools like Maven, the lifecycle phases determine the order. The order is also visible in the **Build** tool window messages.
+ - When using tools like Maven, the lifecycle phases determine the order. The order is also visible in the **Build** tool window messages.
 
 ## Eclipse (for Java)
 
 - **Build Commands**
-  - Eclipse uses its internal builder. To view detailed build info:
-    - Go to **Window → Preferences**.
-    - Navigate to **General → Workspace**.
-    - Enable **Verbose output for the build**.
+ - Eclipse uses its internal builder. To view detailed build info:
+ - Go to **Window → Preferences**.
+ - Navigate to **General → Workspace**.
+ - Enable **Verbose output for the build**.
 - **Build Order**
-  - Eclipse handles the build order internally. For more complex projects (often using Maven), the build lifecycle phases clarify the sequence.
+ - Eclipse handles the build order internally. For more complex projects (often using Maven), the build lifecycle phases clarify the sequence.
 
 ## Xcode (for C++/Swift/Objective-C)
 
 - **Build Commands**
-  - Open **Xcode** from the top menu.
-  - Select **Preferences** and go to the **Locations** tab.
-  - Set the **Derived Data** location to **Relative**.
-  - After building, check the **Report Navigator** (rightmost tab) to view build logs.
+ - Open **Xcode** from the top menu.
+ - Select **Preferences** and go to the **Locations** tab.
+ - Set the **Derived Data** location to **Relative**.
+ - After building, check the **Report Navigator** (rightmost tab) to view build logs.
 - **Build Order**
-  - The order is determined by your project dependencies and can be reviewed in the build logs in the **Report Navigator**.
+ - The order is determined by your project dependencies and can be reviewed in the build logs in the **Report Navigator**.
 
 _Overall:_ Reviewing the output or log pane during builds is the best way to understand the commands executed and their sequence.
 
@@ -74,11 +74,11 @@ _Overall:_ Reviewing the output or log pane during builds is the best way to und
 
 When choosing build tools and configuring your CI pipeline, consider these guidelines:
 
-- **Favor Specific, Portable Tools Over Hacking**  
-  A poor tool selection can lead to “CI bad smells.” Relying on custom shell scripts to patch issues may work initially but can later cause maintainability and portability problems. Instead, use established plugins and ensure tool versions do not conflict on your CI server.
+- **Favor Specific, Portable Tools Over Hacking** 
+ A poor tool selection can lead to “CI bad smells.” Relying on custom shell scripts to patch issues may work initially but can later cause maintainability and portability problems. Instead, use established plugins and ensure tool versions do not conflict on your CI server.
 
-- **Avoid Out-of-the-Box Configurations**  
-  Default configurations for external tools might not be optimal. Involve developers when defining quality gates instead of relying solely on customer requirements. This collaborative approach helps avoid irrelevant warnings and keeps the CI process efficient.
+- **Avoid Out-of-the-Box Configurations** 
+ Default configurations for external tools might not be optimal. Involve developers when defining quality gates instead of relying solely on customer requirements. This collaborative approach helps avoid irrelevant warnings and keeps the CI process efficient.
 
 ---
 
@@ -86,14 +86,14 @@ When choosing build tools and configuring your CI pipeline, consider these guide
 
 Build scripts can become too tightly coupled with the IDE, leading to several problems:
 
-- **Hard-Coded Paths:**  
-  Some IDEs install build tools in fixed locations. If your configuration references these paths, it can make your project IDE dependent, limiting portability.
+- **Hard-Coded Paths:** 
+ Some IDEs install build tools in fixed locations. If your configuration references these paths, it can make your project IDE dependent, limiting portability.
 
-- **Configuration Challenges:**  
-  Mixing personal IDE preferences with essential build settings can make collaboration difficult. Different environments (including CI servers) may not replicate the same configuration, leading to errors.
+- **Configuration Challenges:** 
+ Mixing personal IDE preferences with essential build settings can make collaboration difficult. Different environments (including CI servers) may not replicate the same configuration, leading to errors.
 
-- **Reproducibility on CI:**  
-  Custom IDE settings, specific software versions, or environment variables injected at build time might not be available on CI. This discrepancy can change application behavior and hinder reliable builds.
+- **Reproducibility on CI:** 
+ Custom IDE settings, specific software versions, or environment variables injected at build time might not be available on CI. This discrepancy can change application behavior and hinder reliable builds.
 
 ---
 
@@ -101,17 +101,17 @@ Build scripts can become too tightly coupled with the IDE, leading to several pr
 
 Determining the type of project and its build process can be done using a few heuristics:
 
-- **Use GitHub Linguist:**  
-  Analyze the project’s primary languages. For example, if a project shows a high percentage of TypeScript and contains a `package.json`, it’s likely an npm project.
+- **Use GitHub Linguist:** 
+ Analyze the project’s primary languages. For example, if a project shows a high percentage of TypeScript and contains a `package.json`, it’s likely an npm project.
 
 - **Common Build Flows by Language:**
 
-  - **Java:** Code → Bytecode → Run on JVM.
-  - **Python:** Code is interpreted.
-  - **C#:** Code compiles into DLLs or EXE files.
+ - **Java:** Code → Bytecode → Run on JVM.
+ - **Python:** Code is interpreted.
+ - **C#:** Code compiles into DLLs or EXE files.
 
-- **Check for Dependency Manifests:**  
-  Look for files like `package.json`, `Gemfile`, `pom.xml`, etc., in the root directory. These files indicate the project type and guide you on how to build and test it.
+- **Check for Dependency Manifests:** 
+ Look for files like `package.json`, `Gemfile`, `pom.xml`, etc., in the root directory. These files indicate the project type and guide you on how to build and test it.
 
 ---
 
@@ -121,70 +121,70 @@ Below are several examples (from Heroku buildpacks) that illustrate how differen
 
 - **Ruby**
 
-  - **Files:** Gemfile, Rakefile
-  - **Build:** Not compiled in the traditional sense
-  - **Test:** `rake test`
-  - [Heroku Buildpack Ruby](https://github.com/heroku/heroku-buildpack-ruby/blob/main/bin/detect)
+ - **Files:** Gemfile, Rakefile
+ - **Build:** Not compiled in the traditional sense
+ - **Test:** `rake test`
+ - [Heroku Buildpack Ruby](https://github.com/heroku/heroku-buildpack-ruby/blob/main/bin/detect)
 
 - **JavaScript/TypeScript**
 
-  - **Files:** package.json
-  - **Build:** `npm ci` or `npm install` (or corresponding Yarn commands; be cautious if both package-lock.json and yarn.lock exist)
-  - **Test:** `npm test`
-  - [Heroku Buildpack Nodejs](https://github.com/heroku/heroku-buildpack-nodejs/blob/main/bin/detect)
+ - **Files:** package.json
+ - **Build:** `npm ci` or `npm install` (or corresponding Yarn commands; be cautious if both package-lock.json and yarn.lock exist)
+ - **Test:** `npm test`
+ - [Heroku Buildpack Nodejs](https://github.com/heroku/heroku-buildpack-nodejs/blob/main/bin/detect)
 
 - **Clojure**
 
-  - **Files:** project.clj
-  - **Build:** `/bin/build` or `lien compile?`
-  - **Test:** `lien test`
-  - [Heroku Buildpack Clojure](https://github.com/heroku/heroku-buildpack-clojure/blob/main/bin/detect)
+ - **Files:** project.clj
+ - **Build:** `/bin/build` or `lien compile?`
+ - **Test:** `lien test`
+ - [Heroku Buildpack Clojure](https://github.com/heroku/heroku-buildpack-clojure/blob/main/bin/detect)
 
 - **Python**
 
-  - **Files:** requirements.txt, setup.py, Pipfile
-  - **Build:** Use pip to install dependencies
-  - **Test:** `python -m unittest` (varies by project)
-  - [Heroku Buildpack Python](https://github.com/heroku/heroku-buildpack-python/blob/main/bin/detect)
+ - **Files:** requirements.txt, setup.py, Pipfile
+ - **Build:** Use pip to install dependencies
+ - **Test:** `python -m unittest` (varies by project)
+ - [Heroku Buildpack Python](https://github.com/heroku/heroku-buildpack-python/blob/main/bin/detect)
 
 - **Java (Maven)**
 
-  - **Files:** pom.xml (and related variants: pom.atom, pom.clj, etc.)
-  - **Build:** `mvn compile`
-  - **Test:** `mvn test`
-  - [Heroku Buildpack Java](https://github.com/heroku/heroku-buildpack-java/blob/main/bin/detect)
+ - **Files:** pom.xml (and related variants: pom.atom, pom.clj, etc.)
+ - **Build:** `mvn compile`
+ - **Test:** `mvn test`
+ - [Heroku Buildpack Java](https://github.com/heroku/heroku-buildpack-java/blob/main/bin/detect)
 
 - **Java (Gradle)**
 
-  - **Files:** build.gradle, gradlew, build.gradle.kts, settings.gradle, settings.gradle.kts
-  - **Build:** `gradlew {check, test, build, etc.}`
-  - **Test:** `gradlew test`
-  - [Heroku Buildpack Gradle](https://github.com/heroku/heroku-buildpack-gradle/blob/main/bin/detect)
+ - **Files:** build.gradle, gradlew, build.gradle.kts, settings.gradle, settings.gradle.kts
+ - **Build:** `gradlew {check, test, build, etc.}`
+ - **Test:** `gradlew test`
+ - [Heroku Buildpack Gradle](https://github.com/heroku/heroku-buildpack-gradle/blob/main/bin/detect)
 
 - **PHP**
 
-  - **Files:** index.php, composer.json
-  - **Build:** `composer install`
-  - **Test:** Varies depending on the application
-  - [Heroku Buildpack PHP](https://github.com/heroku/heroku-buildpack-php/blob/main/bin/detect)
+ - **Files:** index.php, composer.json
+ - **Build:** `composer install`
+ - **Test:** Varies depending on the application
+ - [Heroku Buildpack PHP](https://github.com/heroku/heroku-buildpack-php/blob/main/bin/detect)
 
 - **Go**
 
-  - **Files:** go.mod, Gopkg.lock, Godeps/Godeps.json, vendor/vendor.json, glide.yaml
-  - **Build:** `go build`
-  - **Test:** `go test`
-  - [Heroku Buildpack Go](https://github.com/heroku/heroku-buildpack-go/blob/main/bin/detect)
+ - **Files:** go.mod, Gopkg.lock, Godeps/Godeps.json, vendor/vendor.json, glide.yaml
+ - **Build:** `go build`
+ - **Test:** `go test`
+ - [Heroku Buildpack Go](https://github.com/heroku/heroku-buildpack-go/blob/main/bin/detect)
 
 - **C#**
 
-  - **Files:** .sln, .csproj, .fsproj, .vbproj
-  - **Build:** Typically `dotnet build`
-  - **Test:** Typically `dotnet test`
+ - **Files:** .sln, .csproj, .fsproj, .vbproj
+ - **Build:** Typically `dotnet build`
+ - **Test:** Typically `dotnet test`
 
 - **C/C++**
-  - **Files:** Look for Makefile, CMakeLists.txt (for CMake), or .pro files (for qmake)
-  - **Build/Test:** Depends on the build system (e.g., make, cmake, qmake)
-  - _Note:_ Makefiles can be used for various project types and might require inspection of the commands (gcc, g++, as, ld, etc.).
+ - **Files:** Look for Makefile, CMakeLists.txt (for CMake), or .pro files (for qmake)
+ - **Build/Test:** Depends on the build system (e.g., make, cmake, qmake)
+ - _Note:_ Makefiles can be used for various project types and might require inspection of the commands (gcc, g++, as, ld, etc.).
 
 Typically, software development projects are complex and there may be different interpretations of what a project is. When organizing code, there are two main approaches: mono repo and multi repo.
 
@@ -210,7 +210,7 @@ Typically, software development projects are complex and there may be different 
 
 If you're working with multiple developers, you may want to set up a GitHub organization to help manage multiple users access to your repositories. However, there are some security settings you should pay particular attention to. Below are the recommended settings when creating a new GitHub organization.
 
-### Setting up user accounts on GitHub {#setting-up-user-accounts-on-github .unnumbered}
+### Setting up user accounts on GitHub
 
 Setting up user accounts in GitHub Enterprise and ensuring secure access involves several steps. Here's a comprehensive guide to help you manage user accounts and enforce security measures like two-factor authentication (2FA) for accessing your GitHub repository.
 
@@ -220,54 +220,54 @@ Setting up user accounts in GitHub Enterprise and ensuring secure access involve
 
 1. **Login as an Administrator**:
 
-   - Sign in to your GitHub Enterprise Server as an administrator.
+ - Sign in to your GitHub Enterprise Server as an administrator.
 
 2. **Navigate to the Admin Dashboard**:
 
-   - Click on the upper-right profile or organization icon, then select "Enterprise settings."
+ - Click on the upper-right profile or organization icon, then select "Enterprise settings."
 
 3. **Manage Users**:
-   - Under the "Users" menu in the sidebar, click on "All users."
-   - Here, you can add new users by clicking "Invite user" and entering their email addresses. Users will receive an invitation to join your GitHub Enterprise environment.
+ - Under the "Users" menu in the sidebar, click on "All users."
+ - Here, you can add new users by clicking "Invite user" and entering their email addresses. Users will receive an invitation to join your GitHub Enterprise environment.
 
 ##### For GitHub Enterprise Cloud:
 
 1. **Organization Setup**:
-   - As an organization owner, go to your organization's page.
-   - Click "People" and select "Invite member" to add new users by entering their GitHub usernames or their email addresses.
+ - As an organization owner, go to your organization's page.
+ - Click "People" and select "Invite member" to add new users by entering their GitHub usernames or their email addresses.
 
 #### Step 2: Configure Permissions
 
 1. **Assign Roles and Teams**:
 
-   - Assign users to specific teams within your organization to manage repository access effectively.
-   - Teams can be created from the "Teams" tab in your organization settings. After creating a team, you can manage repository access and permissions through the team settings.
+ - Assign users to specific teams within your organization to manage repository access effectively.
+ - Teams can be created from the "Teams" tab in your organization settings. After creating a team, you can manage repository access and permissions through the team settings.
 
 2. **Set Repository Permissions**:
-   - For each repository, you can specify who has read, write, or admin access. Navigate to the repository settings, click on "Collaborators & teams," and then add the teams or individuals with the appropriate access levels.
+ - For each repository, you can specify who has read, write, or admin access. Navigate to the repository settings, click on "Collaborators & teams," and then add the teams or individuals with the appropriate access levels.
 
 #### Step 3: Enforce Security Policies
 
 1. **Enable Two-Factor Authentication (2FA)**:
-   - For enhanced security, enforce two-factor authentication for all users.
-   - In GitHub Enterprise Cloud, go to your organization's settings, select "Security," then under "Authentication security," choose "Require two-factor authentication for everyone in your organization."
-   - For GitHub Enterprise Server, navigate to the admin dashboard, select "Settings," find the "Authentication" section, and enforce 2FA by checking "Require two-factor authentication for all users."
+ - For enhanced security, enforce two-factor authentication for all users.
+ - In GitHub Enterprise Cloud, go to your organization's settings, select "Security," then under "Authentication security," choose "Require two-factor authentication for everyone in your organization."
+ - For GitHub Enterprise Server, navigate to the admin dashboard, select "Settings," find the "Authentication" section, and enforce 2FA by checking "Require two-factor authentication for all users."
 
 #### Step 4: Secure Connections
 
 1. **Use HTTPS or SSH for Repository Access**:
-   - Ensure that all users access repositories using HTTPS or SSH.
-   - Encourage users to set up SSH keys for a secure connection without needing to supply username and password each time. This can be done under their personal account settings by selecting "SSH and GPG keys" and adding a new SSH key.
+ - Ensure that all users access repositories using HTTPS or SSH.
+ - Encourage users to set up SSH keys for a secure connection without needing to supply username and password each time. This can be done under their personal account settings by selecting "SSH and GPG keys" and adding a new SSH key.
 
 #### Step 5: Audit and Compliance
 
 1. **Regular Audits**:
 
-   - Regularly audit user access and permissions to ensure compliance with your organization's policies.
-   - Use the audit log feature to monitor activities. Access this in GitHub Enterprise Server by going to the admin dashboard and selecting "Audit log." For GitHub Enterprise Cloud, find it under your organization settings.
+ - Regularly audit user access and permissions to ensure compliance with your organization's policies.
+ - Use the audit log feature to monitor activities. Access this in GitHub Enterprise Server by going to the admin dashboard and selecting "Audit log." For GitHub Enterprise Cloud, find it under your organization settings.
 
 2. **Continuous Training**:
-   - Continually educate users on security best practices, including the importance of strong passwords, recognizing phishing attacks, and securely managing their authentication credentials.
+ - Continually educate users on security best practices, including the importance of strong passwords, recognizing phishing attacks, and securely managing their authentication credentials.
 
 #### Additional Recommendations
 
@@ -387,7 +387,7 @@ When creating a runner, typically, you would use the OS that most of your team m
 
 The instructions that github provides is for a stateful runner, much different from the runners cloud hosted by github. You will have to use kubernetes to re-create the nodes.
 
-[[Trace Context Level 3 (w3c.github.io)]{.underline}](https://w3c.github.io/trace-context/)
+[Trace Context Level 3 (w3c.github.io)](https://w3c.github.io/trace-context/)
 
 A good dev setup guide (i.,e readme) should be clear and comprehensive. It should:
 
@@ -403,7 +403,6 @@ A good dev setup guide (i.,e readme) should be clear and comprehensive. It shoul
 
 6\. Include thorough documentation and possibly revise how wikis are managed on GitHub.
 
-Here's a breakdown of what happened:
 
 - **Compromised Server:** Attackers gained unauthorized access to one of Handbrake's download servers.
 

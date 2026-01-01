@@ -2,7 +2,7 @@
 
 ## Budgeting and cost management
 
-### Budgeting and cost management {#budgeting-and-cost-management .unnumbered}
+### Budgeting and cost management
 
 ![](./images/image50.png)
 
@@ -20,7 +20,7 @@ If you're really running out of space and budget, you may need to remove any art
 
 ## Cost-Effective CI/CD Workflow Management: Quick Tips
 
-## **Cost-Effective CI/CD Workflow Management: Quick Tips** {#cost-effective-cicd-workflow-management-quick-tips .unnumbered}
+## **Cost-Effective CI/CD Workflow Management: Quick Tips**
 
 **Workflow Optimization:**
 
@@ -30,11 +30,11 @@ If you're really running out of space and budget, you may need to remove any art
 
 - **Dependabot Management:**
 
-  - Trigger Dependabot PRs manually or conditionally.
+ - Trigger Dependabot PRs manually or conditionally.
 
-  - Limit the number of open Dependabot PRs.
+ - Limit the number of open Dependabot PRs.
 
-  - Balance limiting PRs with potential missed alerts.
+ - Balance limiting PRs with potential missed alerts.
 
 **Resource Management:**
 
@@ -54,6 +54,6 @@ If you're really running out of space and budget, you may need to remove any art
 
 - **Hardware Considerations:** Invest in adequate infrastructure to minimize wait times, especially for critical production deployments.
 
-[[Build monitor for Github Actions, Gitlab CI, Travis CI, Bitrise and Buddy! | Meercode]{.underline}](https://meercode.io/) interesting (use free version)
+[Build monitor for Github Actions, Gitlab CI, Travis CI, Bitrise and Buddy! | Meercode](https://meercode.io/) interesting (use free version)
 
 

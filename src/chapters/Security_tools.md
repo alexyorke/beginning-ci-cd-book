@@ -24,7 +24,6 @@ Certainly! Here's a list of 10 security build tools, commonly known as static ap
 
 10. **GitLab Static Application Security Testing (SAST)**: Integrated into the GitLab CI/CD process, automatically scans the latest code changes for vulnerabilities.
 
-It's important to note that no tool can identify all vulnerabilities, and they often need to be used in conjunction with other security practices—including dynamic analysis and manual code review—to ensure comprehensive application security.
 
 #### <a id="section-4" class="unnumbered"></a>
 
@@ -52,41 +51,42 @@ It's important to note that no tool can identify all vulnerabilities, and they o
 
 - You might already have a lockfile. If not, I would recommend that you create one. This is how you do it in the popular programming languages:
 
-Sure, here's a list of instructions on how to utilize lock files during installation for each of the respective programming languages:
 
 1. **JavaScript (using npm)**:
 
-   - Once you have `package-lock.json` in your project directory (e.g., from npm install).
-   - Run:  
-     npm ci
-   - This command uses the `package-lock.json` file to provide a clean, exact installation of your dependencies.
+ - Once you have `package-lock.json` in your project directory (e.g., from npm install).
+ - Run: 
+```bash
+ npm ci
+```
+ - This command uses the `package-lock.json` file to provide a clean, exact installation of your dependencies.
 
 2. **Python (using pipenv)**:
 
-   - With both `Pipfile` and `Pipfile.lock` present in your project directory:
-   - Run:  
-     pipenv install --ignore-pipfile
-   - This ensures that the installation uses versions specified in the `Pipfile.lock`.
+ - With both `Pipfile` and `Pipfile.lock` present in your project directory:
+ - Run: 
+ pipenv install --ignore-pipfile
+ - This ensures that the installation uses versions specified in the `Pipfile.lock`.
 
 3. **Java (using Maven)**:
 
-   - While Maven's `pom.xml` doesn't function as a lock file in the traditional sense, you should specify exact versions in `pom.xml`.
-   - Run:  
-     mvn clean install
-   - Maven will fetch and install the exact versions defined in `pom.xml`.
+ - While Maven's `pom.xml` doesn't function as a lock file in the traditional sense, you should specify exact versions in `pom.xml`.
+ - Run: 
+ mvn clean install
+ - Maven will fetch and install the exact versions defined in `pom.xml`.
 
 4. **Ruby (using Bundler)**:
 
-   - Once you have a `Gemfile.lock` in your project:
-   - Run:  
-     bundle install
-   - Bundler will install the exact versions specified.
+ - Once you have a `Gemfile.lock` in your project:
+ - Run: 
+ bundle install
+ - Bundler will install the exact versions specified.
 
 5. **C# (using .NET Core/NuGet)**:
-   - With specified versions in your `.csproj` file:
-   - Run:  
-     dotnet restore
-   - The .NET CLI will fetch and install the correct packages as listed in the `.csproj`.
+ - With specified versions in your `.csproj` file:
+ - Run: 
+ dotnet restore
+ - The .NET CLI will fetch and install the correct packages as listed in the `.csproj`.
 
 It's crucial to ensure that the lock files (or their equivalents) are committed to your version control system so others can benefit from consistent builds.
 
@@ -113,9 +113,9 @@ Below is a concise overview of typical project structures. Adapt them based on y
 #### C# Project Layout
 
 - **/src**: Main source code.
-  - ProjectName: Contains .cs files and ProjectName.csproj
+ - ProjectName: Contains .cs files and ProjectName.csproj
 - **/tests**: Unit and integration tests.
-  - ProjectName.Tests.csproj
+ - ProjectName.Tests.csproj
 - **/docs**: Documentation.
 - **/lib**: Libraries not in package managers.
 - **/tools**: Build and related tools.
@@ -124,14 +124,14 @@ Below is a concise overview of typical project structures. Adapt them based on y
 - **/.git**: Git metadata.
 - **.gitignore & .gitattributes**: Git configuration.
 - **/bin**: Compiled binaries.
-  - /bin/Debug
-  - /bin/Release (usually for deployment)
+ - /bin/Debug
+ - /bin/Release (usually for deployment)
 - **/obj**: Intermediate files (not for deployment).
 
 #### Python Project Layout
 
 - **/src** (optional): Main source code.
-  - your_package_name: .py files
+ - your_package_name: .py files
 - **/tests**: Unit tests (often using pytest).
 - **/docs**: Documentation (e.g., Sphinx).
 - **/scripts**: Utility or migration scripts.
@@ -146,10 +146,10 @@ Deployment often involves installing dependencies from requirements.txt using pi
 #### JavaScript/TypeScript Project Layout
 
 - **/src**: Main source code.
-  - /components (for React, etc.)
-  - /models or /types
-  - /assets
-  - /utils or /lib
+ - /components (for React, etc.)
+ - /models or /types
+ - /assets
+ - /utils or /lib
 - **/dist** or **/build**: Transpiled/compiled output (for deployment).
 - **/tests** or **/**tests\*\*\*\*: Unit/integration tests with Jest/Mocha, etc.
 - **/public**: Static assets (index.html, CSS, etc.).
@@ -163,10 +163,10 @@ Deployment often involves installing dependencies from requirements.txt using pi
 #### Java Project Layout
 
 - **/src**: Main code/resources.
-  - /main/java (source code)
-  - /main/resources (config, images, etc.)
-  - /test/java (test code)
-  - /test/resources (test resources)
+ - /main/java (source code)
+ - /main/resources (config, images, etc.)
+ - /test/java (test code)
+ - /test/resources (test resources)
 - **/target** or **/build**: Compiled artifacts (JARs, WARs).
 - **pom.xml** (Maven) or **build.gradle** (Gradle).
 - **.gitignore**: Ignore rules.
@@ -180,31 +180,31 @@ Commonly used deployment strategies in CI/CD:
 
 1. **Blue-Green Deployment**
 
-   - Two environments: Blue (current production) and Green (new version). Switch traffic to Green when ready.
-   - Advantages: Quick rollback, reduced downtime.
-   - Disadvantages: Requires duplicated environments.
+ - Two environments: Blue (current production) and Green (new version). Switch traffic to Green when ready.
+ - Advantages: Quick rollback, reduced downtime.
+ - Disadvantages: Requires duplicated environments.
 
 2. **Canary Deployment**
 
-   - Gradual rollout to a subset of users before expanding to all.
-   - Advantages: Early detection of issues, reduced risk.
-   - Disadvantages: Requires sophisticated routing and monitoring.
+ - Gradual rollout to a subset of users before expanding to all.
+ - Advantages: Early detection of issues, reduced risk.
+ - Disadvantages: Requires sophisticated routing and monitoring.
 
 3. **Rolling Deployment**
 
-   - Incrementally replace old version instances with new.
-   - Advantages: Simpler than Blue-Green in terms of environment duplication.
-   - Disadvantages: Multiple versions run simultaneously during rollout, complicating rollback.
+ - Incrementally replace old version instances with new.
+ - Advantages: Simpler than Blue-Green in terms of environment duplication.
+ - Disadvantages: Multiple versions run simultaneously during rollout, complicating rollback.
 
 4. **Feature Toggles (Feature Flags)**
 
-   - Deploy code behind flags; enable features when ready.
-   - Advantages: Granular control, quick rollback without redeploy.
-   - Disadvantages: Adds complexity if toggles are not well managed.
+ - Deploy code behind flags; enable features when ready.
+ - Advantages: Granular control, quick rollback without redeploy.
+ - Disadvantages: Adds complexity if toggles are not well managed.
 
 5. **Shadow Deployment**
-   - New version runs alongside old in production, but real traffic doesn't affect live users.
-   - Advantages: Test with real traffic without user impact.
-   - Disadvantages: Resource-intensive, requires traffic mirroring setup.
+ - New version runs alongside old in production, but real traffic doesn't affect live users.
+ - Advantages: Test with real traffic without user impact.
+ - Disadvantages: Resource-intensive, requires traffic mirroring setup.
 
 The best strategy depends on your application, infrastructure, and team capabilities. Many organizations use a combination of these based on their needs.

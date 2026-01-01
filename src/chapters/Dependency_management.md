@@ -36,21 +36,21 @@ So, how do we solve the problems of manual dependency wrangling? Enter the **pac
 
 Think back to our baking analogy. Instead of going to the grocery store yourself, listing every ingredient, checking your pantry for duplicates, and carrying everything home, imagine you have an assistant. You just give the assistant your recipes (for the chocolate cake and maybe some cookies that share some ingredients like flour and sugar). The assistant:
 
-1.  **Figures out the _total_ list:** They see both recipes need flour, sugar, eggs, etc., but cookies also need chocolate chips.
-2.  **Checks your pantry (your project):** They see you already have plenty of flour.
-3.  **Goes to the store (package repository):** They know exactly where to find reliable ingredients (standardized packages).
-4.  **Gets _exactly_ what's needed:** They buy sugar, eggs, cocoa powder, milk, butter, vanilla, and chocolate chips – _without_ buying extra flour you already have.
-5.  **Ensures compatibility:** They make sure to get baking soda _and_ baking powder if both are required, not substituting one for the other incorrectly.
-6.  **Stocks your pantry correctly:** They put the ingredients away neatly (install packages in your project, often in a specific folder like `node_modules` or `vendor`).
+1. **Figures out the _total_ list:** They see both recipes need flour, sugar, eggs, etc., but cookies also need chocolate chips.
+2. **Checks your pantry (your project):** They see you already have plenty of flour.
+3. **Goes to the store (package repository):** They know exactly where to find reliable ingredients (standardized packages).
+4. **Gets _exactly_ what's needed:** They buy sugar, eggs, cocoa powder, milk, butter, vanilla, and chocolate chips – _without_ buying extra flour you already have.
+5. **Ensures compatibility:** They make sure to get baking soda _and_ baking powder if both are required, not substituting one for the other incorrectly.
+6. **Stocks your pantry correctly:** They put the ingredients away neatly (install packages in your project, often in a specific folder like `node_modules` or `vendor`).
 
 This is precisely what a package manager does for your software project:
 
-1.  **Reads your project's requirements:** Usually from a manifest file (like `package.json`, `pom.xml`, `requirements.txt`).
-2.  **Resolves the dependency tree:** It figures out not just your direct dependencies, but also the dependencies _of_ your dependencies (transitive dependencies).
-3.  **Downloads packages:** It fetches the required packages from configured repositories (like npmjs.com, PyPI, Maven Central).
-4.  **Installs packages:** It places the package files correctly within your project structure.
-5.  **Handles conflicts (or flags them):** If two different dependencies require incompatible versions of a third dependency, the package manager will try to resolve this based on its strategy or report an error.
-6.  **Ensures consistency:** Often using a **lock file**, it records the _exact_ versions of all installed dependencies, ensuring reproducible builds.
+1. **Reads your project's requirements:** Usually from a manifest file (like `package.json`, `pom.xml`, `requirements.txt`).
+2. **Resolves the dependency tree:** It figures out not just your direct dependencies, but also the dependencies _of_ your dependencies (transitive dependencies).
+3. **Downloads packages:** It fetches the required packages from configured repositories (like npmjs.com, PyPI, Maven Central).
+4. **Installs packages:** It places the package files correctly within your project structure.
+5. **Handles conflicts (or flags them):** If two different dependencies require incompatible versions of a third dependency, the package manager will try to resolve this based on its strategy or report an error.
+6. **Ensures consistency:** Often using a **lock file**, it records the _exact_ versions of all installed dependencies, ensuring reproducible builds.
 
 Package managers provide structure and automation. While they might seem restrictive sometimes (e.g., flagging version conflicts), this is a feature, not a bug! They prevent chaotic situations where incompatible versions coexist or where builds become unpredictable. They enforce a level of discipline that is crucial for reliable software development, especially within automated CI/CD pipelines.
 
@@ -85,9 +85,9 @@ This covers the introduction, the "why," the role of package managers, and the b
 
 **Next Steps:** Based on your notes, the logical continuation would be to delve into:
 
-1.  **Key Concepts in Practice:** Semantic Versioning (SemVer) in detail, the critical role of Lock Files.
-2.  **Working with Package Managers:** Common commands, creating package feeds (briefly), private vs. public repositories, authentication.
-3.  **Challenges of Dependency Management:** Picking suitable dependencies, managing version conflicts in more detail (strategies, overrides), handling deprecated/unmaintained packages, security risks.
+1. **Key Concepts in Practice:** Semantic Versioning (SemVer) in detail, the critical role of Lock Files.
+2. **Working with Package Managers:** Common commands, creating package feeds (briefly), private vs. public repositories, authentication.
+3. **Challenges of Dependency Management:** Picking suitable dependencies, managing version conflicts in more detail (strategies, overrides), handling deprecated/unmaintained packages, security risks.
 
 Okay, let's continue building the chapter, focusing now on the practical mechanisms that make dependency management work reliably: Semantic Versioning and Lock Files, and then touching upon package repositories and common tools.
 
@@ -150,10 +150,10 @@ This is where **lock files** save the day. Common examples include:
 
 A lock file acts like a detailed snapshot or a "receipt" of the exact dependency tree that was resolved and installed at a specific point in time. It records:
 
-1.  The **exact version** of _every single package_ installed (including all direct and transitive dependencies).
-2.  The specific location (URL or registry) from where each package was downloaded.
-3.  Often, a checksum (hash) of the package content to ensure integrity.
-4.  The resolved dependency structure, showing which version of a dependency satisfies which dependent package.
+1. The **exact version** of _every single package_ installed (including all direct and transitive dependencies).
+2. The specific location (URL or registry) from where each package was downloaded.
+3. Often, a checksum (hash) of the package content to ensure integrity.
+4. The resolved dependency structure, showing which version of a dependency satisfies which dependent package.
 
 **Why Lock Files are CRITICAL for CI/CD:**
 
@@ -171,10 +171,10 @@ With SemVer providing versioning clarity and lock files ensuring reproducibility
 
 - **Public Repositories:** These are the large, well-known central hubs for specific ecosystems (e.g., [npmjs.com](https://npmjs.com) for Node.js/JavaScript, [PyPI (Python Package Index)](https://pypi.org/) for Python, [Maven Central](https://search.maven.org/) for Java/JVM languages, [NuGet Gallery](https://www.nuget.org/) for .NET, [RubyGems.org](https://rubygems.org/) for Ruby, [Crates.io](https://crates.io/) for Rust). They host vast numbers of open-source packages. _(Tip: Check the status pages of these repositories, like [npm's status page](https://status.npmjs.org/), as outages can break CI pipelines.)_
 - **Private Repositories:** Organizations often set up their own private repositories (using tools like JFrog Artifactory, Sonatype Nexus, GitHub Packages, Azure Artifacts, GitLab Package Registry). These serve several purposes:
-  - **Hosting Internal Packages:** Sharing proprietary code libraries within the company without making them public.
-  - **Security & Compliance:** Acting as a curated proxy/cache for public repositories, allowing organizations to vet and approve external packages before developers can use them.
-  - **Improved Performance/Reliability:** Caching frequently used public packages locally can speed up builds and reduce reliance on external services.
-  - **Fine-grained Access Control:** Managing who can publish or consume specific packages.
+ - **Hosting Internal Packages:** Sharing proprietary code libraries within the company without making them public.
+ - **Security & Compliance:** Acting as a curated proxy/cache for public repositories, allowing organizations to vet and approve external packages before developers can use them.
+ - **Improved Performance/Reliability:** Caching frequently used public packages locally can speed up builds and reduce reliance on external services.
+ - **Fine-grained Access Control:** Managing who can publish or consume specific packages.
 
 **Authentication:** Accessing private repositories naturally requires **authentication**. Your package manager needs credentials (like tokens, API keys, or username/password combinations, often configured via environment variables or configuration files) to prove it has permission to download or publish packages. This is a common setup step required in CI/CD pipelines to allow them to fetch private dependencies.
 
@@ -199,11 +199,11 @@ Now we've covered the core mechanics (SemVer, Lock Files) and the infrastructure
 
 **Next Steps:** We can now dive into the common **Challenges of Dependency Management** as outlined in your notes:
 
-1.  Identifying suitable dependencies (quality, maintenance, licensing).
-2.  Managing version conflicts in detail (resolution strategies, overrides, tools for visualization).
-3.  Handling deprecated or unmaintained dependencies.
-4.  Dealing with security risks (vulnerability scanning, malicious packages).
-5.  Keeping dependencies up-to-date (strategies, automation).
+1. Identifying suitable dependencies (quality, maintenance, licensing).
+2. Managing version conflicts in detail (resolution strategies, overrides, tools for visualization).
+3. Handling deprecated or unmaintained dependencies.
+4. Dealing with security risks (vulnerability scanning, malicious packages).
+5. Keeping dependencies up-to-date (strategies, automation).
 
 Okay, let's dive into the common hurdles you'll encounter when managing dependencies and how to approach them, especially within a CI/CD context.
 
@@ -249,30 +249,30 @@ These tools help you trace _why_ a specific version of a problematic package is 
 
 **Resolution Strategies:**
 
-1.  **Upgrade the Parent:** Often, the simplest solution is to upgrade the direct dependencies (Project A and/or Project B in our example) to newer versions. Ideally, their authors will have updated their own dependencies, potentially resolving the conflict by agreeing on a newer compatible version of LibZ.
-2.  **Find a Compatible Set:** Manually examine the version requirements of Project A and Project B for LibZ. Is there a single version of LibZ (perhaps an older or newer one than currently installed) that satisfies _both_ constraints? You might need to adjust the version specified in your _own_ project's manifest file or try installing a specific version.
-3.  **Use Overrides/Resolutions (Use with Caution!):** Most package managers provide a mechanism to _force_ a specific version of a transitive dependency, overriding what the intermediate packages requested.
+1. **Upgrade the Parent:** Often, the simplest solution is to upgrade the direct dependencies (Project A and/or Project B in our example) to newer versions. Ideally, their authors will have updated their own dependencies, potentially resolving the conflict by agreeing on a newer compatible version of LibZ.
+2. **Find a Compatible Set:** Manually examine the version requirements of Project A and Project B for LibZ. Is there a single version of LibZ (perhaps an older or newer one than currently installed) that satisfies _both_ constraints? You might need to adjust the version specified in your _own_ project's manifest file or try installing a specific version.
+3. **Use Overrides/Resolutions (Use with Caution!):** Most package managers provide a mechanism to _force_ a specific version of a transitive dependency, overriding what the intermediate packages requested.
 
-    - **npm:** `overrides` field in `package.json` ([See RFC](https://github.com/npm/rfcs/blob/main/accepted/0036-overrides.md))
-    - **Yarn:** `resolutions` field in `package.json` ([See Docs](https://classic.yarnpkg.com/en/docs/selective-version-resolutions/))
-    - **pnpm:** `pnpm.overrides` field in `package.json`
-    - **Maven:** `<dependencyManagement>` section in `pom.xml`
-    - **Gradle:** `resolutionStrategy` block
-    - **Cargo:** `[patch]` section in `Cargo.toml` ([See Docs](https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html))
-    - **Dart:** `dependency_overrides` in `pubspec.yaml` ([See Docs](https://dart.dev/tools/pub/dependencies#dependency-overrides))
+ - **npm:** `overrides` field in `package.json` ([See RFC](https://github.com/npm/rfcs/blob/main/accepted/0036-overrides.md))
+ - **Yarn:** `resolutions` field in `package.json` ([See Docs](https://classic.yarnpkg.com/en/docs/selective-version-resolutions/))
+ - **pnpm:** `pnpm.overrides` field in `package.json`
+ - **Maven:** `<dependencyManagement>` section in `pom.xml`
+ - **Gradle:** `resolutionStrategy` block
+ - **Cargo:** `[patch]` section in `Cargo.toml` ([See Docs](https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html))
+ - **Dart:** `dependency_overrides` in `pubspec.yaml` ([See Docs](https://dart.dev/tools/pub/dependencies#dependency-overrides))
 
-    **Why use overrides?** Sometimes necessary to apply urgent security patches to a transitive dependency when the direct dependency hasn't been updated yet, or to work around incorrect version constraints set by a library author.
+ **Why use overrides?** Sometimes necessary to apply urgent security patches to a transitive dependency when the direct dependency hasn't been updated yet, or to work around incorrect version constraints set by a library author.
 
-    **The HUGE Risk:** When you override a transitive dependency, you are forcing a package (say, Project A) to use a version of its dependency (LibZ) that its author likely _did not test it with_. You bypass their testing and potentially introduce subtle runtime bugs, data corruption, or crashes that only appear under specific conditions. You lose the benefit of the wider community testing that specific combination.
+ **The HUGE Risk:** When you override a transitive dependency, you are forcing a package (say, Project A) to use a version of its dependency (LibZ) that its author likely _did not test it with_. You bypass their testing and potentially introduce subtle runtime bugs, data corruption, or crashes that only appear under specific conditions. You lose the benefit of the wider community testing that specific combination.
 
-    **If You MUST Override:**
+ **If You MUST Override:**
 
-    - Apply the override as narrowly as possible (e.g., only for the specific package needing the fix, if your tool allows).
-    - **TEST THOROUGHLY!** Your own application's test suite is essential.
-    - **Consider testing the _intermediate_ package:** As suggested in your notes, try checking out the source code of the _direct_ dependency (Project A), applying the override to _its_ dependencies (forcing the new LibZ version), and running _its_ test suite. This gives some confidence that the direct dependency still functions correctly with the forced transitive version. (This can be complex, involving finding the right source version, potentially dealing with missing lock files, and setting up its build environment).
-    - Document _why_ the override exists and create a plan to remove it once the direct dependency is properly updated.
+ - Apply the override as narrowly as possible (e.g., only for the specific package needing the fix, if your tool allows).
+ - **TEST THOROUGHLY!** Your own application's test suite is essential.
+ - **Consider testing the _intermediate_ package:** As suggested in your notes, try checking out the source code of the _direct_ dependency (Project A), applying the override to _its_ dependencies (forcing the new LibZ version), and running _its_ test suite. This gives some confidence that the direct dependency still functions correctly with the forced transitive version. (This can be complex, involving finding the right source version, potentially dealing with missing lock files, and setting up its build environment).
+ - Document _why_ the override exists and create a plan to remove it once the direct dependency is properly updated.
 
-4.  **Isolate the Conflict:** Sometimes, especially in complex graphs, tools or techniques might help identify the minimal set of conflicting constraints (an "unsatisfiable core"). While direct tooling for this isn't always user-friendly in package managers, understanding the concept helps focus debugging efforts.
+4. **Isolate the Conflict:** Sometimes, especially in complex graphs, tools or techniques might help identify the minimal set of conflicting constraints (an "unsatisfiable core"). While direct tooling for this isn't always user-friendly in package managers, understanding the concept helps focus debugging efforts.
 
 **The Bigger Picture:** Frequent or complex dependency conflicts might indicate your project is becoming too large or monolithic, or that some dependencies have fundamentally diverged. It might be a signal to reconsider architectural boundaries.
 
@@ -287,33 +287,33 @@ Sooner or later, you'll encounter a dependency that is no longer actively mainta
 
 **What to do?**
 
-1.  **Find an Alternative:** Look for a currently maintained library that offers similar functionality. This is often the best long-term solution.
-2.  **Contribute Upstream:** If it's open source and potentially just needs a maintainer, consider contributing fixes or even taking over maintenance if you have the resources and willingness.
-3.  **Fork and Maintain Internally:** If no alternative exists and the code is critical, you might fork the repository and apply necessary fixes yourself. This creates an internal maintenance burden.
-4.  **Remove the Dependency:** Re-evaluate if you still truly need the functionality. Can you rewrite it using other tools or standard libraries?
-5.  **Accept the Risk (Temporary & Documented):** If the dependency is small, has limited scope, thoroughly audited, and replacement is difficult, you _might_ accept the risk for a limited time, but document this decision and the associated risks clearly.
+1. **Find an Alternative:** Look for a currently maintained library that offers similar functionality. This is often the best long-term solution.
+2. **Contribute Upstream:** If it's open source and potentially just needs a maintainer, consider contributing fixes or even taking over maintenance if you have the resources and willingness.
+3. **Fork and Maintain Internally:** If no alternative exists and the code is critical, you might fork the repository and apply necessary fixes yourself. This creates an internal maintenance burden.
+4. **Remove the Dependency:** Re-evaluate if you still truly need the functionality. Can you rewrite it using other tools or standard libraries?
+5. **Accept the Risk (Temporary & Documented):** If the dependency is small, has limited scope, thoroughly audited, and replacement is difficult, you _might_ accept the risk for a limited time, but document this decision and the associated risks clearly.
 
 #### 4. Addressing Security Risks
 
 Dependencies are a major vector for security vulnerabilities. A flaw in a single, popular library can affect thousands of applications.
 
 - **Known Vulnerabilities (CVEs):** Most ecosystems have tools that scan your dependencies (using your manifest and lock file) and compare the versions against databases of known vulnerabilities (like the National Vulnerability Database (NVD), GitHub Advisory Database).
-  - **Tools:** `npm audit`, `yarn audit`, `pip-audit`, OWASP Dependency-Check (Java, .NET, etc.), Snyk, GitHub Dependabot security alerts, GitLab dependency scanning.
-  - **CI Integration:** Running these scanners automatically in your CI pipeline is crucial. A failing security scan should ideally fail the build, preventing vulnerable code from reaching production.
+ - **Tools:** `npm audit`, `yarn audit`, `pip-audit`, OWASP Dependency-Check (Java, .NET, etc.), Snyk, GitHub Dependabot security alerts, GitLab dependency scanning.
+ - **CI Integration:** Running these scanners automatically in your CI pipeline is crucial. A failing security scan should ideally fail the build, preventing vulnerable code from reaching production.
 - **Malicious Packages:** Attackers publish packages designed to steal data, install malware, or disrupt systems. Tactics include:
-  - **Typosquatting:** Naming a package very similar to a popular one (e.g., `request` vs. `requesst`).
-  - **Dependency Confusion:** Tricking package managers into downloading a malicious internal-looking package name from a public repository instead of your private one.
-  - **Maintainer Account Takeover:** Compromising a legitimate maintainer's account to publish malicious versions.
-  - **Hidden Malice:** Including obfuscated malicious code within an otherwise functional package.
+ - **Typosquatting:** Naming a package very similar to a popular one (e.g., `request` vs. `requesst`).
+ - **Dependency Confusion:** Tricking package managers into downloading a malicious internal-looking package name from a public repository instead of your private one.
+ - **Maintainer Account Takeover:** Compromising a legitimate maintainer's account to publish malicious versions.
+ - **Hidden Malice:** Including obfuscated malicious code within an otherwise functional package.
 - **Mitigation Strategies:**
-  - **Use Trusted Sources:** Prefer official repositories. Be extra cautious with obscure or unverified sources.
-  - **Vet Dependencies:** Apply the "Identifying Suitable Dependencies" checks rigorously. Look for signs of legitimacy (verified publisher, recent activity, sensible code).
-  - **Use Lock Files:** Prevents unexpected package updates that might introduce malicious code.
-  - **Scan Regularly:** Use vulnerability scanning tools.
-  - **Least Privilege:** Ensure your build and runtime environments have only the minimum necessary permissions.
-  - **Consider Disabling Install Scripts:** Some package managers (like npm) allow packages to run arbitrary scripts during installation (`"preinstall"`, `"postinstall"`). These can be a vector for attack. Running installs with flags like `npm install --ignore-scripts` can mitigate this specific risk, but may break packages that legitimately need setup scripts. It's a trade-off.
-  - **Checksum/Signature Verification:** Package managers often verify checksums automatically. Some systems support cryptographic signatures for stronger authenticity guarantees, though adoption varies.
-  - **Avoid `curl | bash`:** As noted, piping arbitrary scripts from the internet directly into a shell bypasses many security checks (like repository vetting, versioning, signature verification, potential HTTPS downgrade attacks) and makes reproducible builds harder. Prefer installing via a package manager whenever possible. If you _must_ download manually, verify checksums/signatures provided by the author (obtained securely!) and consider scanning the downloaded artifact.
+ - **Use Trusted Sources:** Prefer official repositories. Be extra cautious with obscure or unverified sources.
+ - **Vet Dependencies:** Apply the "Identifying Suitable Dependencies" checks rigorously. Look for signs of legitimacy (verified publisher, recent activity, sensible code).
+ - **Use Lock Files:** Prevents unexpected package updates that might introduce malicious code.
+ - **Scan Regularly:** Use vulnerability scanning tools.
+ - **Least Privilege:** Ensure your build and runtime environments have only the minimum necessary permissions.
+ - **Consider Disabling Install Scripts:** Some package managers (like npm) allow packages to run arbitrary scripts during installation (`"preinstall"`, `"postinstall"`). These can be a vector for attack. Running installs with flags like `npm install --ignore-scripts` can mitigate this specific risk, but may break packages that legitimately need setup scripts. It's a trade-off.
+ - **Checksum/Signature Verification:** Package managers often verify checksums automatically. Some systems support cryptographic signatures for stronger authenticity guarantees, though adoption varies.
+ - **Avoid `curl | bash`:** As noted, piping arbitrary scripts from the internet directly into a shell bypasses many security checks (like repository vetting, versioning, signature verification, potential HTTPS downgrade attacks) and makes reproducible builds harder. Prefer installing via a package manager whenever possible. If you _must_ download manually, verify checksums/signatures provided by the author (obtained securely!) and consider scanning the downloaded artifact.
 
 #### 5. Keeping Up with Updates and Changes
 
@@ -321,15 +321,15 @@ Dependencies aren't static. They evolve to fix bugs, improve performance, add fe
 
 - **Why Update?** Security patches are paramount. Bug fixes can improve stability. Performance enhancements are beneficial. New features might simplify your own code. Maintaining compatibility with the ecosystem often requires updates.
 - **Manual vs. Automated Updates:**
-  - **Manual:** You periodically check for updates (e.g., `npm outdated`, `mvn versions:display-dependency-updates`) and apply them deliberately. Gives more control but is time-consuming and easy to forget.
-  - **Automated:** Tools like [GitHub Dependabot](https://github.com/dependabot) or [Renovate Bot](https://github.com/renovatebot) automatically detect new versions, open pull requests/merge requests to update dependencies, and often include release notes. This drastically reduces the effort but requires trust in your test suite.
+ - **Manual:** You periodically check for updates (e.g., `npm outdated`, `mvn versions:display-dependency-updates`) and apply them deliberately. Gives more control but is time-consuming and easy to forget.
+ - **Automated:** Tools like [GitHub Dependabot](https://github.com/dependabot) or [Renovate Bot](https://github.com/renovatebot) automatically detect new versions, open pull requests/merge requests to update dependencies, and often include release notes. This drastically reduces the effort but requires trust in your test suite.
 - **The CI Safety Net:** Automated dependency updates are only safe if you have a comprehensive automated test suite running in CI. The pull request opened by Dependabot/Renovate should trigger your full build and test pipeline. If tests pass, merging the update is likely low-risk (especially for PATCH/MINOR SemVer bumps). If they fail, it prevents a broken dependency from being merged.
 - **Strategies:**
-  - **Update Frequently:** Small, frequent updates (especially patches) are often easier to manage and debug than massive updates after long periods.
-  - **Dedicated Pipeline/Schedule:** Some teams have separate pipelines or dedicated time slots (e.g., "update Fridays") specifically for reviewing and merging dependency updates.
-  - **Security First:** Prioritize updates that fix known security vulnerabilities.
-  - **Rollback Plan:** Know how to revert a dependency update if it causes unexpected production issues (usually involves reverting the merge commit and redeploying).
-  - **Monitor Breaking Changes (`MAJOR` updates):** These require careful planning, reading changelogs, potential code modifications, and extensive testing. Don't automate merging MAJOR version bumps without careful consideration.
+ - **Update Frequently:** Small, frequent updates (especially patches) are often easier to manage and debug than massive updates after long periods.
+ - **Dedicated Pipeline/Schedule:** Some teams have separate pipelines or dedicated time slots (e.g., "update Fridays") specifically for reviewing and merging dependency updates.
+ - **Security First:** Prioritize updates that fix known security vulnerabilities.
+ - **Rollback Plan:** Know how to revert a dependency update if it causes unexpected production issues (usually involves reverting the merge commit and redeploying).
+ - **Monitor Breaking Changes (`MAJOR` updates):** These require careful planning, reading changelogs, potential code modifications, and extensive testing. Don't automate merging MAJOR version bumps without careful consideration.
 
 **Second-Order Effects:** As noted, aggressive security patching requirements can force frequent, sometimes breaking, updates. This can increase development friction, make troubleshooting harder (as changes ripple through layers), and potentially lead teams to take riskier shortcuts like overusing overrides or inlining dependencies (which hides them from scanners). This highlights the need for robust testing and potentially architectures that better isolate components (like microservices, or well-defined modules within a monolith, perhaps using tools like NetArchTest, Packwerk, or Deptrac mentioned in your notes).
 
@@ -339,11 +339,11 @@ This section covers the main challenges outlined in your notes.
 
 **Next Steps:**
 
-1.  We could add a section specifically on **Best Practices Summary/Checklist**.
-2.  Flesh out the **Exercises** section.
-3.  Review and refine the flow and examples.
-4.  Consider adding a brief section on **Managing Dependencies in Monorepos** if relevant to your audience.
-5.  Discuss `devDependencies` vs `dependencies` and prioritizing security/updates based on environment (as per your notes).
+1. We could add a section specifically on **Best Practices Summary/Checklist**.
+2. Flesh out the **Exercises** section.
+3. Review and refine the flow and examples.
+4. Consider adding a brief section on **Managing Dependencies in Monorepos** if relevant to your audience.
+5. Discuss `devDependencies` vs `dependencies` and prioritizing security/updates based on environment (as per your notes).
 
 Okay, let's continue by adding the section on distinguishing dependency types (like `devDependencies`) and then summarizing the key takeaways into a Best Practices Checklist. Finally, we'll flesh out the exercises.
 
@@ -355,17 +355,17 @@ Most package managers allow you to classify your dependencies based on where the
 
 - **Dependencies (Runtime):** These are packages required for your application to _run_ in production. They include libraries that provide core functionality, frameworks your application is built on, utility functions used at runtime, etc. If you're baking that cake, these are the flour, sugar, eggs – the essential ingredients that _must_ be in the final product.
 - **DevDependencies (Development):** These are packages needed only during the development and build process. They are _not_ required for the application to run in production. Examples include:
-  - Testing frameworks (Jest, Pytest, JUnit)
-  - Linters and formatters (ESLint, Prettier, Black, Checkstyle)
-  - Build tools and bundlers (Webpack, Rollup, TypeScript compiler, Babel)
-  - Code generation tools
-  - Documentation generators
+ - Testing frameworks (Jest, Pytest, JUnit)
+ - Linters and formatters (ESLint, Prettier, Black, Checkstyle)
+ - Build tools and bundlers (Webpack, Rollup, TypeScript compiler, Babel)
+ - Code generation tools
+ - Documentation generators
 
 **Why Make the Distinction?**
 
-1.  **Smaller Production Footprint:** When deploying your application, you typically only install the runtime `dependencies`. This results in smaller artifact sizes (e.g., smaller Docker images), faster deployment times, and a reduced attack surface (fewer packages installed in the production environment). Package manager commands often have flags for this (e.g., `npm install --production`, `pip install --no-dev`).
-2.  **Prioritization of Issues:** When dealing with dependency updates or security vulnerabilities, you can often prioritize fixing issues in runtime `dependencies` over `devDependencies`. A vulnerability in a runtime library directly impacts your production application's security. A vulnerability in a testing framework, while still important to fix, primarily affects the development environment and CI pipeline, making it slightly less critical (though still needing attention!).
-3.  **Clarity:** It clearly documents the purpose of each dependency in your project.
+1. **Smaller Production Footprint:** When deploying your application, you typically only install the runtime `dependencies`. This results in smaller artifact sizes (e.g., smaller Docker images), faster deployment times, and a reduced attack surface (fewer packages installed in the production environment). Package manager commands often have flags for this (e.g., `npm install --production`, `pip install --no-dev`).
+2. **Prioritization of Issues:** When dealing with dependency updates or security vulnerabilities, you can often prioritize fixing issues in runtime `dependencies` over `devDependencies`. A vulnerability in a runtime library directly impacts your production application's security. A vulnerability in a testing framework, while still important to fix, primarily affects the development environment and CI pipeline, making it slightly less critical (though still needing attention!).
+3. **Clarity:** It clearly documents the purpose of each dependency in your project.
 
 **How to Determine the Type?**
 
@@ -411,33 +411,33 @@ By following these practices, you can significantly reduce the friction caused b
 
 Let's put your knowledge into practice! Choose the exercises relevant to the primary language/ecosystem you work with or want to learn about.
 
-1.  **Explore Your Project's Dependencies:**
-    - Take an existing project (or a sample one).
-    - Identify its manifest file (e.g., `package.json`, `pom.xml`, `requirements.txt`).
-    - Use your package manager to list all direct dependencies.
-    - Use your package manager to display the full dependency tree (including transitive dependencies). Can you spot any packages that appear multiple times at different versions (if your ecosystem allows) or that are required by several different direct dependencies?
-    - Identify the lock file. Examine its contents – can you find specific versions and locations for a few key dependencies?
-2.  **Simulate a Conflict (If possible/safe):**
-    - _(Use a sample/test project for this!)_ Find two libraries in your ecosystem that are known to depend on different MAJOR versions of a third, common library.
-    - Try installing both libraries into your test project.
-    - Observe the error message or the resolution strategy your package manager uses (does it fail? does it install multiple versions?).
-    - Use the visualization tools (from Exercise 1) to see the conflict in the tree.
-    - Try resolving the conflict by:
-      - Finding newer versions of the parent libraries (if they exist) that might agree on the transitive dependency.
-      - _(Carefully)_ Using your package manager's override/resolution mechanism to force a specific version of the transitive dependency. Does the installation succeed now? (Note: The application might still break at runtime!)
-3.  **Dependency Audit:**
-    - Take an existing project (or clone an older open-source project).
-    - Run a security audit using your ecosystem's tool (e.g., `npm audit`, `yarn audit`, `pip-audit`, OWASP Dependency-Check).
-    - Analyze the report. Are there vulnerabilities? Are they in direct or transitive dependencies? Are they in runtime or development dependencies?
-    - For one identified vulnerability, research it online (using the CVE number if provided). Understand the potential impact.
-    - Try updating the specific package(s) to fix the vulnerability. Did this introduce any new issues or conflicts?
-4.  **Investigate a Dependency:**
-    - Choose a direct dependency from one of your projects.
-    - Find its source code repository (e.g., on GitHub).
-    - Check its maintenance status: When was the last commit/release? Are issues actively being handled?
-    - Check its license. Is it permissive (MIT, Apache 2.0) or copyleft (GPL)?
-    - Look at its own dependencies. Does it pull in many other libraries?
-5.  **Pinning System Dependencies:**
-    - Find a simple `Dockerfile` online that installs a package using `apt-get install <package-name>`.
-    - Modify it to pin the package to a specific version. You might need to search online for how to find available versions for that package in the base image's distribution (e.g., using `apt-cache madison <package-name>`).
-    - Change the `FROM` line to use a specific version tag (e.g., `ubuntu:22.04`) instead of `latest`. Why is this important for reproducibility in CI/CD?
+1. **Explore Your Project's Dependencies:**
+ - Take an existing project (or a sample one).
+ - Identify its manifest file (e.g., `package.json`, `pom.xml`, `requirements.txt`).
+ - Use your package manager to list all direct dependencies.
+ - Use your package manager to display the full dependency tree (including transitive dependencies). Can you spot any packages that appear multiple times at different versions (if your ecosystem allows) or that are required by several different direct dependencies?
+ - Identify the lock file. Examine its contents – can you find specific versions and locations for a few key dependencies?
+2. **Simulate a Conflict (If possible/safe):**
+ - _(Use a sample/test project for this!)_ Find two libraries in your ecosystem that are known to depend on different MAJOR versions of a third, common library.
+ - Try installing both libraries into your test project.
+ - Observe the error message or the resolution strategy your package manager uses (does it fail? does it install multiple versions?).
+ - Use the visualization tools (from Exercise 1) to see the conflict in the tree.
+ - Try resolving the conflict by:
+ - Finding newer versions of the parent libraries (if they exist) that might agree on the transitive dependency.
+ - _(Carefully)_ Using your package manager's override/resolution mechanism to force a specific version of the transitive dependency. Does the installation succeed now? (Note: The application might still break at runtime!)
+3. **Dependency Audit:**
+ - Take an existing project (or clone an older open-source project).
+ - Run a security audit using your ecosystem's tool (e.g., `npm audit`, `yarn audit`, `pip-audit`, OWASP Dependency-Check).
+ - Analyze the report. Are there vulnerabilities? Are they in direct or transitive dependencies? Are they in runtime or development dependencies?
+ - For one identified vulnerability, research it online (using the CVE number if provided). Understand the potential impact.
+ - Try updating the specific package(s) to fix the vulnerability. Did this introduce any new issues or conflicts?
+4. **Investigate a Dependency:**
+ - Choose a direct dependency from one of your projects.
+ - Find its source code repository (e.g., on GitHub).
+ - Check its maintenance status: When was the last commit/release? Are issues actively being handled?
+ - Check its license. Is it permissive (MIT, Apache 2.0) or copyleft (GPL)?
+ - Look at its own dependencies. Does it pull in many other libraries?
+5. **Pinning System Dependencies:**
+ - Find a simple `Dockerfile` online that installs a package using `apt-get install <package-name>`.
+ - Modify it to pin the package to a specific version. You might need to search online for how to find available versions for that package in the base image's distribution (e.g., using `apt-cache madison <package-name>`).
+ - Change the `FROM` line to use a specific version tag (e.g., `ubuntu:22.04`) instead of `latest`. Why is this important for reproducibility in CI/CD?

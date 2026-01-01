@@ -2,18 +2,18 @@ Okay, here are the consolidated and rephrased questions, grouped by topic, as if
 
 **Fundamentals & Concepts:**
 
-1.  I'm still really confused about what Docker actually _is_ and _why_ I should use it. How is it different from just running my code directly or using a virtual machine? What problems does it solve, especially for solo projects or simple web apps? Is it like a lightweight VM, or something else entirely? (Frequency: ~35+)
-2.  What's the real difference between a Docker image and a container? Is the image just the blueprint and the container the running instance? (Frequency: ~5)
-3.  I hear "container orchestration" mentioned a lot with Docker, especially Kubernetes. What does orchestration actually mean in this context, and why is it needed? (Frequency: ~5)
-4.  What's the practical difference between stopping a container and removing it? When should I do each? (Frequency: ~3)
-5.  How does Docker handle resources? If I run multiple containers, will they crash my server if they use too much memory or CPU? How are resources allocated? (Frequency: ~3)
-6.  How secure are Docker containers? If they share the host OS kernel, could a virus in one container affect others or the host? What about running scripts inside – is that safe? How can I trust third-party images from Docker Hub? (Frequency: ~8)
-7.  What's the difference between the Docker client, the Docker daemon, and the Docker engine? Are they all separate things I need to install or understand? (Frequency: ~3)
-8.  Is Docker still relevant today, especially with tools like Kubernetes or alternatives like Podman? Is it deprecated or being replaced? (Frequency: ~5)
+1. I'm still really confused about what Docker actually _is_ and _why_ I should use it. How is it different from just running my code directly or using a virtual machine? What problems does it solve, especially for solo projects or simple web apps? Is it like a lightweight VM, or something else entirely? (Frequency: ~35+)
+2. What's the real difference between a Docker image and a container? Is the image just the blueprint and the container the running instance? (Frequency: ~5)
+3. I hear "container orchestration" mentioned a lot with Docker, especially Kubernetes. What does orchestration actually mean in this context, and why is it needed? (Frequency: ~5)
+4. What's the practical difference between stopping a container and removing it? When should I do each? (Frequency: ~3)
+5. How does Docker handle resources? If I run multiple containers, will they crash my server if they use too much memory or CPU? How are resources allocated? (Frequency: ~3)
+6. How secure are Docker containers? If they share the host OS kernel, could a virus in one container affect others or the host? What about running scripts inside – is that safe? How can I trust third-party images from Docker Hub? (Frequency: ~8)
+7. What's the difference between the Docker client, the Docker daemon, and the Docker engine? Are they all separate things I need to install or understand? (Frequency: ~3)
+8. Is Docker still relevant today, especially with tools like Kubernetes or alternatives like Podman? Is it deprecated or being replaced? (Frequency: ~5)
 
 **Dockerfile & Images:**
 
-9.  I need a solid explanation of the `Dockerfile`. What are the essential commands (like `FROM`, `RUN`, `CMD`, `ENTRYPOINT`, `COPY`, `WORKDIR`, `EXPOSE`, `ARG`, `ENV`), what do they do, and when should I use each one? What's the difference between `RUN`, `CMD`, and `ENTRYPOINT`? (Frequency: ~30+)
+9. I need a solid explanation of the `Dockerfile`. What are the essential commands (like `FROM`, `RUN`, `CMD`, `ENTRYPOINT`, `COPY`, `WORKDIR`, `EXPOSE`, `ARG`, `ENV`), what do they do, and when should I use each one? What's the difference between `RUN`, `CMD`, and `ENTRYPOINT`? (Frequency: ~30+)
 10. How do I choose the right base image (`FROM`)? Does it matter if I use `ubuntu`, `alpine`, `node`, `python`, or a `slim` version? What are the implications for size and functionality? Does the base image OS need to match my host OS? (Frequency: ~15+)
 11. My Docker images seem really large. How can I make them smaller? What are multi-stage builds and distroless images, and how do they help reduce size? Does building _inside_ the Dockerfile (multi-stage) make sense compared to copying pre-built artifacts? (Frequency: ~15+)
 12. How does Docker's build cache work? Why do some commands run every time even if the files haven't changed? How does the order of commands affect caching, especially `COPY package.json` vs `COPY . .`? When should I use `--no-cache`? (Frequency: ~10+)

@@ -1,22 +1,22 @@
 ### Unanswered questions
 
-1.  What about code formatting and linting tasks?
+1. What about code formatting and linting tasks?
 
-2.  [[fkirc/skip-duplicate-actions: Save time and cost when using GitHub Actions]{.underline}](https://github.com/fkirc/skip-duplicate-actions)
+2. [fkirc/skip-duplicate-actions: Save time and cost when using GitHub Actions](https://github.com/fkirc/skip-duplicate-actions)
 
-3.  [[corretto-8/.github/workflows/submit.yml at 92a88d5bd8087f15f18222d87ddacf3a076628c0 · corretto/corretto-8]{.underline}](https://github.com/corretto/corretto-8/blob/92a88d5bd8087f15f18222d87ddacf3a076628c0/.github/workflows/submit.yml#L39)
+3. [corretto-8/.github/workflows/submit.yml at 92a88d5bd8087f15f18222d87ddacf3a076628c0 · corretto/corretto-8](https://github.com/corretto/corretto-8/blob/92a88d5bd8087f15f18222d87ddacf3a076628c0/.github/workflows/submit.yml#L39)
 
-4.  [[prisma/.github/workflows at main · prisma/prisma]{.underline}](https://github.com/prisma/prisma/tree/main/.github/workflows)
+4. [prisma/.github/workflows at main · prisma/prisma](https://github.com/prisma/prisma/tree/main/.github/workflows)
 
-5.  GitHub bots to post on comments with test reports
+5. GitHub bots to post on comments with test reports
 
-6.  Ignore paths for pushes such as README.md and other paths (is there a template for this?)
+6. Ignore paths for pushes such as README.md and other paths (is there a template for this?)
 
-7.  [[yplatform/.github/workflows/main.yml at c4c188e21215efab824a3f14d80494c0071567e7 · ysoftwareab/yplatform]{.underline}](https://github.com/ysoftwareab/yplatform/blob/c4c188e21215efab824a3f14d80494c0071567e7/.github/workflows/main.yml#L33)
+7. [yplatform/.github/workflows/main.yml at c4c188e21215efab824a3f14d80494c0071567e7 · ysoftwareab/yplatform](https://github.com/ysoftwareab/yplatform/blob/c4c188e21215efab824a3f14d80494c0071567e7/.github/workflows/main.yml#L33)
 
-8.  [[arm-oraclelinux-wls-cluster/.github/workflows/build.yml at develop · wls-eng/arm-oraclelinux-wls-cluster]{.underline}](https://github.com/wls-eng/arm-oraclelinux-wls-cluster/blob/develop/.github/workflows/build.yml)
+8. [arm-oraclelinux-wls-cluster/.github/workflows/build.yml at develop · wls-eng/arm-oraclelinux-wls-cluster](https://github.com/wls-eng/arm-oraclelinux-wls-cluster/blob/develop/.github/workflows/build.yml)
 
-9.  Lots of people use "working-directory"
+9. Lots of people use "working-directory"
 
 10. Make sure that if you're running scripts, that someone who makes a PR can't just stick a script in that folder and have it run
 
@@ -40,9 +40,9 @@
 
 20. Publishing debug symbols to private server
 
-21. [**[GitTools/GitVersion: From git log to SemVer in no time (github.com)]{.underline}**](https://github.com/GitTools/GitVersion)
+21. [**[GitTools/GitVersion: From git log to SemVer in no time (github.com)]**](https://github.com/GitTools/GitVersion)
 
-22. [**[https://stackoverflow.com/a/69123272/220935]{.underline}**](https://stackoverflow.com/a/69123272/220935)
+22. [**[https://stackoverflow.com/a/69123272/220935]**](https://stackoverflow.com/a/69123272/220935)
 
 23. https://github.com/GitTools/GitVersion
 
@@ -60,6 +60,6 @@
 
 30. https://github.com/changesets/changesets
 
-31. [[https://github.com/release-it/release-it]{.underline}](https://github.com/release-it/release-it)
+31. [https://github.com/release-it/release-it](https://github.com/release-it/release-it)
 
 

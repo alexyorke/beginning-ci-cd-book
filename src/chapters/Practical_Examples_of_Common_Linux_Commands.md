@@ -1,4 +1,4 @@
-﻿## **Practical Examples of Common Linux Commands** {#practical-examples-of-common-linux-commands .unnumbered}
+﻿## **Practical Examples of Common Linux Commands**
 
 Here are some practical examples demonstrating the usage of common Linux commands:
 
@@ -94,7 +94,7 @@ directory/
 
 - file2.txt
 
-content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487).
+content_copyUse code [with caution](https://support.google.com/legal/answer/13505487).
 
 The archive.tar will have a similar structure when extracted:
 
@@ -106,7 +106,7 @@ extracted/
 
 - file2.txt
 
-content_copyUse code [[with caution]{.underline}](https://support.google.com/legal/answer/13505487).
+content_copyUse code [with caution](https://support.google.com/legal/answer/13505487).
 
 **3. zip**
 
@@ -179,7 +179,7 @@ done
 for i in {1..5}; do
 
 ```bash
-echo "Executing command\..."
+echo "Executing command..."
 ```
 
 sleep 2

@@ -1,4 +1,4 @@
-﻿## Introduction {#introduction .unnumbered}
+﻿## Introduction
 
 Many developers and organizations embark on their journey with Continuous Integration and Continuous Deployment (CI/CD) full of optimism, yet the real-life experiences of countless developers reveal that the path to mastering CI/CD is fraught with complications, unexpected setbacks, and sometimes overwhelming obstacles. As we strip away the buzz and the lofty claims about CI/CD revolutionizing development, we often find developers entangled in tedious manual setups, scrambling to manage breakdowns in production, hindered by team silos, and grappling with complex, fragile systems.
 
@@ -10,11 +10,11 @@ Readers familiar with foundational concepts like those outlined in works such as
 
 ### What is CI/CD?
 
-#### Continuous Integration (CI) {#continuous-integration-ci .unnumbered}
+#### Continuous Integration (CI)
 
 **Integration is the act of constantly merging your changes with other developers', and vice-versa. It's the act of combining multiple changes, from multiple developers, into a single, cohesive whole, regularly.** All developers work on a shared codebase. The product owner or another person (internally) should be able to use your app, or another team can demo their feature--it might not be finished but the application still works as intended.
 
-#### Continuous Deployment (CD) and Continuous Development (CD) {#continuous-deployment-cd-and-continuous-development-cd .unnumbered}
+#### Continuous Deployment (CD) and Continuous Development (CD)
 
 **Continuous Deployment** (often confused with Continuous Delivery) is the practice where every change that passes the automated tests and other confidence-inducing procedures is **automatically deployed** into the production environment with little to no human intervention.
 
@@ -22,7 +22,7 @@ Readers familiar with foundational concepts like those outlined in works such as
 
 Deployments are technical events managed by engineering, releasing (making those features usable by customers) is both an engineering and a business task.
 
-#### CI/CD {#cicd .unnumbered}
+#### CI/CD
 
 CI/CD aims to avoid "integration hell" by ensuring continuous integration and either continuous delivery or deployment. Work is constantly merged into the main/master branch after it has been verified via code review and the continuous integration pipeline. This involves practices like trunk-based development, where all developers work on a shared branch, promoting constant integration and minimizing merge conflicts.
 
@@ -42,9 +42,9 @@ These shifts require that the application itself is modular and easy to modify, 
 
 Here is what the software development process looks like when using CI/CD. Note that many of these processes are automated.
 
-### ![](./images/image3.png) {#section .unnumbered}
+### ![](./images/image3.png)
 
-### Why is CI/CD important? {#why-is-cicd-important .unnumbered}
+### Why is CI/CD important?
 
 There are many reasons why a company or a project may use CI/CD. Core Benefits:
 
@@ -80,7 +80,7 @@ Despite these benefits, several challenges can hinder successful CI/CD implement
 
 CI/CD is not a magic bullet. It demands discipline, commitment to quality, and a proactive approach to addressing technical and organizational challenges. However, when implemented effectively, it can significantly accelerate development, enhance software quality, and empower teams to deliver value more efficiently.
 
-### Traditional software development {#traditional-software-development .unnumbered}
+### Traditional software development
 
 Traditional software development is a methodology that is difficult to define because there's multiple definitions of what traditional means. This usually means before continuous integration and development was widely popularized, for example prior to 2010.
 
@@ -108,7 +108,7 @@ CI/CD Development:
 >
 > ![](./images/image73.png)
 
-#### The build server or build pipeline {#the-build-server-or-build-pipeline .unnumbered}
+#### The build server or build pipeline
 
 A build server or, more accurately, a **build runner** or **agent**, is the environment where automated CI/CD tasks like building, testing, and scanning are executed. While the underlying host machine might be a virtual machine (especially for cloud-provided runners like GitHub's `ubuntu-latest`), the actual build often runs inside a **container**. This containerized approach provides a consistent, isolated environment with all necessary tools and dependencies, ensuring reproducibility and acting as a quality gatekeeper for the CI/CD workflow. The runner executes instructions defined in the workflow configuration file.
 
@@ -118,19 +118,19 @@ Build runners/agents are used instead of developer workstations because:
 
 - Consistency and Isolation: Each server, agent, or VM should operate independently to minimize the impact of potential compromises. The agent only runs for a fixed amount of time, then is erased. Developer machines are long-lived, and could have lots of software unnecessary for building the application.
 
-#### Automation {#automation .unnumbered}
+#### Automation
 
 Automation is essential for CI/CD, streamlining tasks like builds, deployments, and testing. This saves time, improves efficiency, and ensures consistency and reliability, crucial for frequent deployments. However, over-automation can be detrimental, especially for tasks requiring human judgment or adaptability.
 
 The key is to find the right balance, automating repetitive tasks while retaining human oversight for critical decision-making and complex scenarios. Robust error handling and clear guidelines for human intervention are crucial for successful automation.
 
-[[researchgate.net/profile/Kevin-Hoff-3/publication/272887576_Trust_in_Automation_Integrating_Empirical_Evidence_on_Factors_That_Influence_Trust/links/57952ba008aec89db7a8cf4f/Trust-in-Automation-Integrating-Empirical-Evidence-on-Factors-That-Influence-Trust.pdf]{.underline}](https://www.researchgate.net/profile/Kevin-Hoff-3/publication/272887576_Trust_in_Automation_Integrating_Empirical_Evidence_on_Factors_That_Influence_Trust/links/57952ba008aec89db7a8cf4f/Trust-in-Automation-Integrating-Empirical-Evidence-on-Factors-That-Influence-Trust.pdf)
+[researchgate.net/profile/Kevin-Hoff-3/publication/272887576_Trust_in_Automation_Integrating_Empirical_Evidence_on_Factors_That_Influence_Trust/links/57952ba008aec89db7a8cf4f/Trust-in-Automation-Integrating-Empirical-Evidence-on-Factors-That-Influence-Trust.pdf](https://www.researchgate.net/profile/Kevin-Hoff-3/publication/272887576_Trust_in_Automation_Integrating_Empirical_Evidence_on_Factors_That_Influence_Trust/links/57952ba008aec89db7a8cf4f/Trust-in-Automation-Integrating-Empirical-Evidence-on-Factors-That-Influence-Trust.pdf)
 
 Trust in automation: Part I. Theoretical issues in the study of trust and human intervention in automated systems. Ergonomics, 37(11), 1905--1922 \| 10.1080/00140139408964957
 
 A model for types and levels of human interaction with automation. IEEE Transactions on Systems, Man, and Cybernetics - Part A: Systems and Humans, 30(3), 286--297 \| 10.1109/3468.844354
 
-#### Testing, code review, and quality assurance {#testing-code-review-and-quality-assurance .unnumbered}
+#### Testing, code review, and quality assurance
 
 Testing and quality assurance are crucial for CI/CD, ensuring software quality and confidence in deployments. While both automated and manual testing play vital roles, they address different aspects:
 
@@ -144,7 +144,7 @@ Testing and quality assurance are crucial for CI/CD, ensuring software quality a
 
 > **Aside:** fire QA, right?! Well, no. QA shifts left, and instead prioritizes testing PRs (which have a smaller scope and smaller changeset.) Since checking (testing an outcome that is known) is done mostly via unit tests, QA can use their human-ness to evaluate the product for quality, usability, functionality, and exploration testing. When a feature is developed under a feature flag, QA can test it in the pre-production environment (feature flag enabled for them), allowing developers to get early feedback.
 
-#### Rapid Feedback Loops {#rapid-feedback-loops .unnumbered}
+#### Rapid Feedback Loops
 
 The essence of CI/CD lies in maintaining business agility through a fast feedback loop. This allows companies, especially startups and small businesses, to rapidly experiment, identify what works, and make quick improvements.
 
@@ -160,7 +160,7 @@ Rapid feedback loops are a multi-pronged approach:
 
 - Comprehensive Monitoring & Alerting: Implement robust monitoring in all environments to detect issues early. Define a severity matrix for appropriate stakeholder notifications, escalating critical incidents promptly.
 
-#### Infrastructure as Code and modularity {#infrastructure-as-code-and-modularity .unnumbered}
+#### Infrastructure as Code and modularity
 
 To achieve continuous integration and efficient deployments, it's essential to structure applications so that small changes are manageable. This involves both the application itself and its underlying infrastructure. If making small changes is cumbersome, integration becomes challenging, as larger updates can span multiple components, increasing both the testing burden and the associated risks.
 
@@ -170,7 +170,7 @@ To achieve continuous integration and efficient deployments, it's essential to s
 
 - Eliminate configuration inconsistencies between development, testing, and production, preventing "snowflake servers" and ensuring reliable deployments.
 
-#### Feature Flags {#feature-flags .unnumbered}
+#### Feature Flags
 
 Feature flags are for **experimentation and release. They separate the act of deploying (moving the code to production, managed by engineering) and the act of making the changes usable by customers (commonly associated with a marketing event from the business's side.)** They are remote-controlled conditional statements that allow the selective activation or deactivation of application functionalities across different environments (development, integration, pre-production, production) without needing a redeployment. These flags can be toggled within seconds or minutes and can be set based on criteria like geographic location, IP address, or user type, facilitating targeted and gradual feature rollouts.
 
@@ -180,7 +180,7 @@ Typically, developers can enable these feature flags by themselves. Here's an ex
 
 ![](./images/image81.png)
 
-[[Implementing feature flags in React with Unleash - Case Study (claimcompass.eu)]{.underline}](https://www.claimcompass.eu/blog/en/feature-flags-in-react-with-unleash/)
+[Implementing feature flags in React with Unleash - Case Study (claimcompass.eu)](https://www.claimcompass.eu/blog/en/feature-flags-in-react-with-unleash/)
 
 Feature flags need not be complicated or require third-party software. You can get started with a simple JSON file with a list of key/value pairs that is outside of the deployment system, but still accessible by your app. This does not require any subscription to a feature flag service. They can also be embedded in your application, for example, in a config file. This approach limits flexibility, however, as a redeployment is needed to change the config file.
 
@@ -202,14 +202,14 @@ Proper feature flag management is crucial. Unused flags should be removed to avo
 
 Summary table,
 
-Aspect                  | Branching                                                                                                                                                           | Feature Flags
+Aspect | Branching | Feature Flags
 ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-What It Is              | Managing and isolating code changes in separate lines of development.                                                                                               | Tools for remotely controlling the visibility of new features in the production environment.
-Main Actions            | Changes stay within the branch. To make changes visible, merge, copy, squash, or rebase onto a production-bound branch (like trunk/master).                         | Allowing code changes to exist in production without being visible to everyone. Can be enabled for specific users or scenarios.
-Visibility to Customers | Changes are not visible to customers unless the branch is deployed to production. Testing in environments like test, dev, experimental is possible.                 | Feature flags are crucial in managing what customers see in production. They hide or reveal new features based on their status.
+What It Is | Managing and isolating code changes in separate lines of development. | Tools for remotely controlling the visibility of new features in the production environment.
+Main Actions | Changes stay within the branch. To make changes visible, merge, copy, squash, or rebase onto a production-bound branch (like trunk/master). | Allowing code changes to exist in production without being visible to everyone. Can be enabled for specific users or scenarios.
+Visibility to Customers | Changes are not visible to customers unless the branch is deployed to production. Testing in environments like test, dev, experimental is possible. | Feature flags are crucial in managing what customers see in production. They hide or reveal new features based on their status.
 Specific Considerations | Recommended to deploy the main or trunk branch to production, especially in TBD (trunk-based development). Branches are ideal for testing and isolated development. | Feature flags should be used judiciously, as overuse can complicate application maintenance. They are intended to be temporary and should not replace good branching and merging strategies.
 
-#### Version Control System (VCS) {#version-control-system-vcs .unnumbered}
+#### Version Control System (VCS)
 
 Version control systems are crucial for continuous integration and development because they track changes, **simplifying the integration process**. For instance, if you have two versions of a document, merging them into one requires a detailed comparison of each word. This task involves identifying and understanding changes. Version control automates this process, significantly reducing the likelihood of errors associated with manually tracking changes. This automation ensures smooth and accurate integration of code changes, forming a cohesive whole.
 
@@ -217,7 +217,7 @@ VCSes show that work has been integrated because it is considered a central sour
 
 VCSs enhance auditability, allowing developers to easily trace back to see when and why code was altered. This is particularly important from a security perspective to ensure that only authorized changes are made. For example, if unauthorized changes occur, they can be quickly identified and reverted.
 
-#### Culture and communication, collaboration {#culture-and-communication-collaboration .unnumbered}
+#### Culture and communication, collaboration
 
 While CI/CD tools automate integration and deployment, successful implementation requires more than just technology. It demands a fundamental shift in organizational culture and project management.
 
@@ -239,7 +239,7 @@ Ignoring the human element of CI/CD can lead to challenges:
 
 CI/CD is not a one-time setup. It requires ongoing maintenance, pipeline updates, and continuous learning to adapt to evolving practices. Effective testing, code reviews, and organizational support for these processes are vital for maintaining a smooth development cycle.
 
-### Continuous Deployment/Continuous Delivery {#continuous-deploymentcontinuous-delivery .unnumbered}
+### Continuous Deployment/Continuous Delivery
 
 Infrastructure as Code (IaC) represents a transformative approach in managing and provisioning computing resources, utilizing machine-readable definition files rather than traditional physical hardware setups. This automation-focused methodology enhances the setup, configuration, and management of infrastructure, promoting rapid deployments, efficient resource utilization, and consistent, reliable environments. IaC is mainly declarative, targeting the desired end state of the infrastructure while the underlying tooling manages the execution. This is crucial in Continuous Deployment (CD) pipelines where IaC templates are automatically deployed in the cloud, ensuring each deployment is consistent, reproducible, and easily reversible. This aligns with principles like idempotency, immutability, and composability---key for maintaining interoperable and stable components.
 
@@ -247,7 +247,6 @@ The benefits of adopting IaC are extensive, including consistent infrastructure 
 
 Historically, server management was a manual process involving system administrators physically logging into servers to apply changes, a method prone to errors and inconsistencies, especially in complex server environments. This labor-intensive process made replicating servers difficult, often requiring extensive documentation and manual reconfiguration. Before the adoption of IaC, administrators relied on shell scripts to manage and synchronize server configurations, though these scripts were limited in handling complex scenarios effectively. The rise of configuration management tools in the mid-to-late 2000s, such as CFEngine, Puppet, and Chef, began to address the issue of "snowflake servers"---highly customized servers difficult to replicate from scratch. Despite the advancements, many continued using shell scripts and command-line tools for their simplicity and familiarity. Today, IaC practices, exemplified by Terraform and other cloud-specific tools, have largely superseded these older methods, providing scalable, reliable, and repeatable server environment setups.
 
-Here's a snippet of a simple Terraform configuration that demonstrates how to create an AWS infrastructure:
 
 ```
 provider "aws" {
@@ -276,7 +275,7 @@ resource "aws_instance" "sample_ec2" {
 
 > ![](./images/image58.png)
 
-### Providers and hosting {#providers-and-hosting .unnumbered}
+### Providers and hosting
 
 Providers fall into two overlapping categories: CI/CD tooling and application hosting infrastructure. You can mix and match—for example, use GitHub Actions for CI/CD while hosting your application on AWS, Azure, or Google Cloud. Sticking with a provider you already have a contract with can streamline integration with your security policies.
 
@@ -304,26 +303,26 @@ Providers fall into two overlapping categories: CI/CD tooling and application ho
 
 This book is somewhat focused on GitHub Actions, but tries to provide a provider-agnostic view. Some of the terms might be a bit different depending on your CI/CD provider. Here is a table that helps clarify.
 
-Definition                                                                  | Generic Term  | Jenkins            | GitHub Actions       | GitLab CI/CD    | CircleCI
+Definition | Generic Term | Jenkins | GitHub Actions | GitLab CI/CD | CircleCI
 --------------------------------------------------------------------------- | ------------- | ------------------ | -------------------- | --------------- | ---------------------
-**Build Step**: A single CI/CD task (e.g. compile, test, deploy).           | Build Step    | Build Step         | Job                  | Job             | Job
-**Environment**: The runtime setup (OS, tools, variables, network).         | Environment   | Node               | Runner               | Runner          | Executor
-**Workflow**: A series of tasks defining the build process.                 | Workflow      | Pipeline           | Workflow             | Pipeline        | Workflow
-**Trigger**: An event (commit, PR, schedule) that starts the pipeline.      | Trigger       | Build Trigger      | Event                | Trigger         | Trigger
-**Secrets**: Sensitive data (passwords, tokens, keys) used securely.        | Secrets       | Credentials        | Secrets              | Variables       | Environment Variables
-**Container**: An isolated package with code, runtime, and tools.           | Container     | Agent/Docker Agent | Container            | Docker Executor | Docker
-**Configuration**: Files specifying build settings (e.g. YAML).             | Configuration | Jenkinsfile        | .github/workflows/\* | .gitlab-ci.yml  | .circleci/config.yml
-**Artifacts**: Files produced by the build (binaries, docs, containers).    | Artifacts     | Build Artifacts    | Artifacts            | Artifacts       | Artifacts
-**Cache**: Stored build data (dependencies, compiled code) for faster runs. | Cache         | Workspace          | Cache                | Cache           | Cache
-**Parallelism**: Running multiple tasks concurrently to speed builds.       | Parallelism   | Parallel Builds    | Matrix Builds        | Parallel Matrix | Parallel Jobs
-**Build Status**: Indicator of build success or failure.                    | Build Status  | Build Status       | Build Status         | Build Status    | Build Status
+**Build Step**: A single CI/CD task (e.g. compile, test, deploy). | Build Step | Build Step | Job | Job | Job
+**Environment**: The runtime setup (OS, tools, variables, network). | Environment | Node | Runner | Runner | Executor
+**Workflow**: A series of tasks defining the build process. | Workflow | Pipeline | Workflow | Pipeline | Workflow
+**Trigger**: An event (commit, PR, schedule) that starts the pipeline. | Trigger | Build Trigger | Event | Trigger | Trigger
+**Secrets**: Sensitive data (passwords, tokens, keys) used securely. | Secrets | Credentials | Secrets | Variables | Environment Variables
+**Container**: An isolated package with code, runtime, and tools. | Container | Agent/Docker Agent | Container | Docker Executor | Docker
+**Configuration**: Files specifying build settings (e.g. YAML). | Configuration | Jenkinsfile | .github/workflows/\* | .gitlab-ci.yml | .circleci/config.yml
+**Artifacts**: Files produced by the build (binaries, docs, containers). | Artifacts | Build Artifacts | Artifacts | Artifacts | Artifacts
+**Cache**: Stored build data (dependencies, compiled code) for faster runs. | Cache | Workspace | Cache | Cache | Cache
+**Parallelism**: Running multiple tasks concurrently to speed builds. | Parallelism | Parallel Builds | Matrix Builds | Parallel Matrix | Parallel Jobs
+**Build Status**: Indicator of build success or failure. | Build Status | Build Status | Build Status | Build Status | Build Status
 
-### Further readings {#further-readings .unnumbered}
+### Further readings
 
-[[Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation: Humble, Jez, Farley, David: 9780321601919: Books - Amazon.ca]{.underline}](https://www.amazon.ca/Continuous-Delivery-Reliable-Deployment-Automation/dp/0321601912/ref=sr_1_1?crid=2H71BL6NRSX7Q&keywords=continuous+delivery&qid=1698110152&sprefix=continuous+delivery%2Caps%2C132&sr=8-1)
+[Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation: Humble, Jez, Farley, David: 9780321601919: Books - Amazon.ca](https://www.amazon.ca/Continuous-Delivery-Reliable-Deployment-Automation/dp/0321601912/ref=sr_1_1?crid=2H71BL6NRSX7Q&keywords=continuous+delivery&qid=1698110152&sprefix=continuous+delivery%2Caps%2C132&sr=8-1)
 
-[[Continuous Integration: Improving Software Quality and Reducing Risk: Duvall, Paul, Matyas, Steve, Glover, Andrew: 9780321336385: Books - Amazon.ca]{.underline}](https://www.amazon.ca/Continuous-Integration-Improving-Software-Reducing/dp/0321336380/ref=sr_1_1?crid=3VS7DPPXR40T8&keywords=continuous+integration&qid=1698110160&sprefix=continuous+integration%2Caps%2C123&sr=8-1)
+[Continuous Integration: Improving Software Quality and Reducing Risk: Duvall, Paul, Matyas, Steve, Glover, Andrew: 9780321336385: Books - Amazon.ca](https://www.amazon.ca/Continuous-Integration-Improving-Software-Reducing/dp/0321336380/ref=sr_1_1?crid=3VS7DPPXR40T8&keywords=continuous+integration&qid=1698110160&sprefix=continuous+integration%2Caps%2C123&sr=8-1)
 
-[[The Phoenix Project: A Novel about IT, DevOps, and Helping Your Business Win: Kim, Gene, Behr, Kevin, Spafford, George: 9781942788294: Books - Amazon.ca]{.underline}](https://www.amazon.ca/Phoenix-Project-DevOps-Helping-Business/dp/1942788290/ref=sr_1_1?crid=969HQYQJ3ROE&keywords=%22The+Phoenix+Project%22&qid=1698110264&sprefix=the+phoenix+project+%2Caps%2C128&sr=8-1)
+[The Phoenix Project: A Novel about IT, DevOps, and Helping Your Business Win: Kim, Gene, Behr, Kevin, Spafford, George: 9781942788294: Books - Amazon.ca](https://www.amazon.ca/Phoenix-Project-DevOps-Helping-Business/dp/1942788290/ref=sr_1_1?crid=969HQYQJ3ROE&keywords=%22The+Phoenix+Project%22&qid=1698110264&sprefix=the+phoenix+project+%2Caps%2C128&sr=8-1)
 
-[[The DevOps Handbook: How to Create World-Class Agility, Reliability, and Security in Technology Organizations: Kim, Gene, Debois, Patrick, Willis, John, Humble, Jez, Allspaw, John: 9781942788003: Books - Amazon.ca]{.underline}](https://www.amazon.ca/DevOps-Handbook-World-Class-Reliability-Organizations/dp/1942788002)
+[The DevOps Handbook: How to Create World-Class Agility, Reliability, and Security in Technology Organizations: Kim, Gene, Debois, Patrick, Willis, John, Humble, Jez, Allspaw, John: 9781942788003: Books - Amazon.ca](https://www.amazon.ca/DevOps-Handbook-World-Class-Reliability-Organizations/dp/1942788002)

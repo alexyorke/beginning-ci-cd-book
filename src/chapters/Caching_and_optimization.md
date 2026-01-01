@@ -18,17 +18,17 @@
 
 - How to handle different types of files and assets that need to be cached, such as build artifacts, dependencies, and test results
 
-  - Some artifacts do and don't benefit from compression, and some compression algorithms might be more efficient for certain types of data, you'd have to experiment with them
+ - Some artifacts do and don't benefit from compression, and some compression algorithms might be more efficient for certain types of data, you'd have to experiment with them
 
-  - Whether symlinks have to be preserved or modification dates (tar might be good in this case)
+ - Whether symlinks have to be preserved or modification dates (tar might be good in this case)
 
-  - Consider decompression algorithms that can be streamed, so you can decompress the data while downloading
+ - Consider decompression algorithms that can be streamed, so you can decompress the data while downloading
 
-  - Some files may be large, others might be a set of small files. This will impact how the files are stored and if any preprocessing is required. For example, one tar file will probably be better to compact the data, but tarring a large file might not provide any benefits (other than to provide a container.) Some very large files may have to be downloaded quickly, so a distributed cache system could be better.
+ - Some files may be large, others might be a set of small files. This will impact how the files are stored and if any preprocessing is required. For example, one tar file will probably be better to compact the data, but tarring a large file might not provide any benefits (other than to provide a container.) Some very large files may have to be downloaded quickly, so a distributed cache system could be better.
 
-  - Some artifacts can be quickly regenerated, some might be more complex. Consider this when prioritizing the caching strategies.
+ - Some artifacts can be quickly regenerated, some might be more complex. Consider this when prioritizing the caching strategies.
 
-  - If you're building a dependency that is used by multiple teams, then it could instead be built once and then included as a dependency (e.g., through a CDN or as-is as an artifact) and then could be cached more widely. This also means it could exist on a more permanent storage medium which could improve the performance characteristics.
+ - If you're building a dependency that is used by multiple teams, then it could instead be built once and then included as a dependency (e.g., through a CDN or as-is as an artifact) and then could be cached more widely. This also means it could exist on a more permanent storage medium which could improve the performance characteristics.
 
 #### Creating a cache
 
@@ -66,56 +66,56 @@
 
 - Preventing vendor lock-in
 
-  - When you construct your workflows, you want to make sure that you can run them locally. This is important because:
+ - When you construct your workflows, you want to make sure that you can run them locally. This is important because:
 
-    - Fast feedback loop for debugging or adding steps to the build process. This is because some parts of the CI/CD workflow are proprietary and must be run on the CI server itself. This means that one may resort to manually updating the workflow file to update it, resulting in a very slow and frustrating experience.
+ - Fast feedback loop for debugging or adding steps to the build process. This is because some parts of the CI/CD workflow are proprietary and must be run on the CI server itself. This means that one may resort to manually updating the workflow file to update it, resulting in a very slow and frustrating experience.
 
-    - An understanding of what is happening behind the scenes when your workflow is running, and to prevent "magic". It's important to have a good understanding of the build process and what processes do what, because debugging requires extensive knowledge of the system. It is also important to ensure its correctness, because if you do not understand what the desired state is or what the program is doing, then it is not possible to verify it.
+ - An understanding of what is happening behind the scenes when your workflow is running, and to prevent "magic". It's important to have a good understanding of the build process and what processes do what, because debugging requires extensive knowledge of the system. It is also important to ensure its correctness, because if you do not understand what the desired state is or what the program is doing, then it is not possible to verify it.
 
-    - When you run/test software locally, then it depends on a specific environment. If your CI/CD system is too complicated, then it might mean that it is not possible to run it within any reasonable approximation locally. This means that it can be difficult to know if your software is working as intended, because the two environments are different and may introduce subtle bugs.
+ - When you run/test software locally, then it depends on a specific environment. If your CI/CD system is too complicated, then it might mean that it is not possible to run it within any reasonable approximation locally. This means that it can be difficult to know if your software is working as intended, because the two environments are different and may introduce subtle bugs.
 
-    - If there is too much vendor lock-in, then it might be difficult to move to a new platform in the future because it would cause the existing workflows to have to be rewritten, verified, and require additional staff training. This means that your business requirements are partially dependent on what the vendor seeks to offer, which may or may not be aligned with your business model. Therefore, it is theoretically possible to be constrained by outside limitations on which you do not have control over.
+ - If there is too much vendor lock-in, then it might be difficult to move to a new platform in the future because it would cause the existing workflows to have to be rewritten, verified, and require additional staff training. This means that your business requirements are partially dependent on what the vendor seeks to offer, which may or may not be aligned with your business model. Therefore, it is theoretically possible to be constrained by outside limitations on which you do not have control over.
 
-  - Some things are difficult to replicate locally, but are not impossible. For example, caching actions usually upload to a vendor-specific location that is encapsulated within a vendor's proprietary action.
+ - Some things are difficult to replicate locally, but are not impossible. For example, caching actions usually upload to a vendor-specific location that is encapsulated within a vendor's proprietary action.
 
-  - Even if actions/workflows are open-source, ultimately they depend on the infrastructure and idioms of the infrastructure that they are implemented within.
+ - Even if actions/workflows are open-source, ultimately they depend on the infrastructure and idioms of the infrastructure that they are implemented within.
 
 - Other things
 
-  - By key
+ - By key
 
-    - Writing safe cache keys
+ - Writing safe cache keys
 
-    - Dependencies on package-lock.json, OS, and node and npm versions
+ - Dependencies on package-lock.json, OS, and node and npm versions
 
-    - Make sure to add a delimiter that isn't used by any scripts, so that values are not erroneously concatenated together and create a new cache key that may already exist. For example "3" and "39" or "33" and "9". If you use dashes then it becomes 3-39 or 33-9 but they cannot be mixed up.
+ - Make sure to add a delimiter that isn't used by any scripts, so that values are not erroneously concatenated together and create a new cache key that may already exist. For example "3" and "39" or "33" and "9". If you use dashes then it becomes 3-39 or 33-9 but they cannot be mixed up.
 
-    - Use a monotonically increasing number that is incremented when you want the cache to be reset
+ - Use a monotonically increasing number that is incremented when you want the cache to be reset
 
-    - npm scripts may cause node_modules to not be cacheable because it can mutate it depending on the source code
+ - npm scripts may cause node_modules to not be cacheable because it can mutate it depending on the source code
 
-    - Also, npm scripts may cause the node_modules not to be cacheable if software is installed outside of node_modules (for example, npm_config_binroot [[scripts \| npm Docs]{.underline}](https://docs.npmjs.com/cli/v9/using-npm/scripts#:~:text=Inspect%20the%20env%20to%20determine%20where%20to%20put%20things.%20For%20instance%2C%20if%20the%20npm_config_binroot%20environment%20variable%20is%20set%20to%20/home/user/bin%2C%20then%20don%27t%20try%20to%20install%20executables%20into%20/usr/local/bin.%20The%20user%20probably%20set%20it%20up%20that%20way%20for%20a%20reason).)
+ - Also, npm scripts may cause the node_modules not to be cacheable if software is installed outside of node_modules (for example, npm_config_binroot [scripts \| npm Docs](https://docs.npmjs.com/cli/v9/using-npm/scripts#:~:text=Inspect%20the%20env%20to%20determine%20where%20to%20put%20things.%20For%20instance%2C%20if%20the%20npm_config_binroot%20environment%20variable%20is%20set%20to%20/home/user/bin%2C%20then%20don%27t%20try%20to%20install%20executables%20into%20/usr/local/bin.%20The%20user%20probably%20set%20it%20up%20that%20way%20for%20a%20reason).)
 
-  - How consistent does it need to be?
+ - How consistent does it need to be?
 
-    - For example, npm caches don't have to match the packages that are being installed, because it will backfill with items from the external registry. However, if the items are only being fetched from the cache, then there is a risk it could be out of date. Check the ETags of resources.
+ - For example, npm caches don't have to match the packages that are being installed, because it will backfill with items from the external registry. However, if the items are only being fetched from the cache, then there is a risk it could be out of date. Check the ETags of resources.
 
-    - Checking the hash of the downloaded file can still help (even if you have to re-download it) because the downloaded file might in and of itself be an installer, so this would save on CPU time re-installing it
+ - Checking the hash of the downloaded file can still help (even if you have to re-download it) because the downloaded file might in and of itself be an installer, so this would save on CPU time re-installing it
 
-  - Advanced auto-expiring cache rules (TTL)
+ - Advanced auto-expiring cache rules (TTL)
 
-    - Expire after date
+ - Expire after date
 
-    - Expire if file matches hash
+ - Expire if file matches hash
 
-    - Expire after end of day, end of week, end of month
+ - Expire after end of day, end of week, end of month
 
-    - Expire after day of the week
+ - Expire after day of the week
 
-    - Expire after X days (use X cache keys with +1 added to each of them?)
+ - Expire after X days (use X cache keys with +1 added to each of them?)
 
-    - Expire if size of folder is too large
+ - Expire if size of folder is too large
 
-    - Algebra with keys (ORing, ANDing, XORing, etc.) ORing would be a cartesian product
+ - Algebra with keys (ORing, ANDing, XORing, etc.) ORing would be a cartesian product
 
-# Appendix {#appendix .unnumbered}
+# Appendix

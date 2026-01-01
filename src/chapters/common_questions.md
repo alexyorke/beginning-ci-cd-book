@@ -214,130 +214,130 @@ Okay, let's filter the questions relevant to a CI/CD book and group them into th
 
 **Theme 1: How should CI/CD pipeline structure, stages, and triggers be designed and optimized?**
 
-1.  (32) What is the optimal order for pipeline stages like unit testing and building? Should tests always run before builds?
-2.  (92) Is a separate build stage always necessary, for instance, for Node.js applications? What determines the required stages?
-3.  (97) In the CI/CD process, where does code merging typically happen – during build or release management?
-4.  (143, 706) What is the recommended order for steps like Docker image building and security scanning (e.g., Trivy)? Should scanning happen before or after pushing to a registry?
-5.  (211) Where is the configuration that tells the CI/CD system (e.g., GitLab) to automatically trigger the pipeline YAML file on every commit?
-6.  (227) How can CI/CD pipelines be configured _not_ to run on every single commit, but perhaps on specific triggers instead?
-7.  (449, 578, ...) Does polling SCM trigger builds based only on detected changes, or does it trigger periodically regardless?
-8.  (520) Why might a pipeline be structured with deployment steps within a build stage rather than a separate deploy stage?
-9.  (541) How can AWS CodePipeline be configured to trigger based on pull requests in CodeCommit?
+1. (32) What is the optimal order for pipeline stages like unit testing and building? Should tests always run before builds?
+2. (92) Is a separate build stage always necessary, for instance, for Node.js applications? What determines the required stages?
+3. (97) In the CI/CD process, where does code merging typically happen – during build or release management?
+4. (143, 706) What is the recommended order for steps like Docker image building and security scanning (e.g., Trivy)? Should scanning happen before or after pushing to a registry?
+5. (211) Where is the configuration that tells the CI/CD system (e.g., GitLab) to automatically trigger the pipeline YAML file on every commit?
+6. (227) How can CI/CD pipelines be configured _not_ to run on every single commit, but perhaps on specific triggers instead?
+7. (449, 578, ...) Does polling SCM trigger builds based only on detected changes, or does it trigger periodically regardless?
+8. (520) Why might a pipeline be structured with deployment steps within a build stage rather than a separate deploy stage?
+9. (541) How can AWS CodePipeline be configured to trigger based on pull requests in CodeCommit?
 10. (629) Should CI/CD pipelines trigger on every commit, or typically after merge/pull requests are completed?
 
 **Theme 2: How should configuration, secrets, and environment variables be managed securely across different deployment environments?**
 
-1.  (10, 60, 192, ...) How should configuration files (like `.env`) and sensitive data (secrets, keys, connection strings) be managed securely across different environments (dev, test, prod) when they are not stored in the Git repository?
-2.  (17) How can configuration files on target servers (e.g., nginx config) be managed during deployment if direct editing via script is problematic?
-3.  (245) How are environment variables and connection references managed when deploying to specific cloud environments (e.g., Azure managed environments) via pipelines?
-4.  (274) How can parameters, like target URLs for Selenium tests, be passed into Azure Pipelines dynamically instead of hardcoding them?
-5.  (176) How can secrets or tokens like `GITHUB_TOKEN` be securely shared or used across multiple repositories in a CI/CD setup?
-6.  (198) What are secure methods for deploying from CI/CD systems (like GitLab) to cloud environments (like AWS) without storing sensitive credentials like private keys directly as variables?
-7.  (525) How is authentication handled between ECR and the deployment yaml file when pulling the image?
-8.  (711, 353, 403, ...) How are secrets managed within pipelines (e.g., GitHub Actions secrets, Jenkins credentials, Vault integration)?
-9.  (786) How can environment variables be injected based on the deployment environment (dev/staging/prod) when deploying to platforms like ECS?
+1. (10, 60, 192, ...) How should configuration files (like `.env`) and sensitive data (secrets, keys, connection strings) be managed securely across different environments (dev, test, prod) when they are not stored in the Git repository?
+2. (17) How can configuration files on target servers (e.g., nginx config) be managed during deployment if direct editing via script is problematic?
+3. (245) How are environment variables and connection references managed when deploying to specific cloud environments (e.g., Azure managed environments) via pipelines?
+4. (274) How can parameters, like target URLs for Selenium tests, be passed into Azure Pipelines dynamically instead of hardcoding them?
+5. (176) How can secrets or tokens like `GITHUB_TOKEN` be securely shared or used across multiple repositories in a CI/CD setup?
+6. (198) What are secure methods for deploying from CI/CD systems (like GitLab) to cloud environments (like AWS) without storing sensitive credentials like private keys directly as variables?
+7. (525) How is authentication handled between ECR and the deployment yaml file when pulling the image?
+8. (711, 353, 403, ...) How are secrets managed within pipelines (e.g., GitHub Actions secrets, Jenkins credentials, Vault integration)?
+9. (786) How can environment variables be injected based on the deployment environment (dev/staging/prod) when deploying to platforms like ECS?
 10. (801) How can different configurations for different environments be managed effectively in a CI/CD workflow?
 
 **Theme 3: How can runners/agents be configured, secured, and managed effectively, and how are execution environment issues resolved?**
 
-1.  (7, 13, 14, 18, ...) How should runner/agent permissions (sudo, file access, SSH keys) be configured correctly, and how are common permission/authentication errors resolved?
-2.  (20, 31, 592) How are dependencies (like JDK, Maven, curl, Gradle) managed or installed within the runner/agent execution environment if they aren't pre-installed?
-3.  (74, 202) How are issues with runners/agents being unavailable or jobs getting stuck resolved?
-4.  (80, 81, 326, ...) How are errors related to the Docker daemon (connection refused, not found, socket issues) handled within the runner/agent environment?
-5.  (208, 700) Can CI/CD runners/agents be deployed and managed on Kubernetes clusters? What are the benefits?
-6.  (237) Does runner/agent registration need to happen on a specific server? Where do the jobs actually execute?
-7.  (244) What are the pros and cons of using self-hosted runners/agents versus cloud-provided ones, including failure scenarios?
-8.  (345) In Docker-based agent setups, if a container environment is provided, why might the agent definition still require specifying a Docker image?
-9.  (351) How can a Docker agent running on a local machine establish a connection to a Jenkins master running on a remote server?
+1. (7, 13, 14, 18, ...) How should runner/agent permissions (sudo, file access, SSH keys) be configured correctly, and how are common permission/authentication errors resolved?
+2. (20, 31, 592) How are dependencies (like JDK, Maven, curl, Gradle) managed or installed within the runner/agent execution environment if they aren't pre-installed?
+3. (74, 202) How are issues with runners/agents being unavailable or jobs getting stuck resolved?
+4. (80, 81, 326, ...) How are errors related to the Docker daemon (connection refused, not found, socket issues) handled within the runner/agent environment?
+5. (208, 700) Can CI/CD runners/agents be deployed and managed on Kubernetes clusters? What are the benefits?
+6. (237) Does runner/agent registration need to happen on a specific server? Where do the jobs actually execute?
+7. (244) What are the pros and cons of using self-hosted runners/agents versus cloud-provided ones, including failure scenarios?
+8. (345) In Docker-based agent setups, if a container environment is provided, why might the agent definition still require specifying a Docker image?
+9. (351) How can a Docker agent running on a local machine establish a connection to a Jenkins master running on a remote server?
 10. (599) What are the alternatives if the Docker socket cannot be mounted into agents (e.g., due to using containerd)?
 
 **Theme 4: What are effective strategies for testing (unit, integration, security, quality) within CI/CD pipelines?**
 
-1.  (2) How can security testing tools be integrated into a CI/CD pipeline? (Incl. 104, 112, ...)
-2.  (48, 71, 106) How can integration test failures due to connection errors or issues with testing SPAs be addressed in CI/CD?
-3.  (99, 100, 577) What is the scope of Continuous Integration (CI)? Does it typically include running automated functional/integration tests?
-4.  (101, 644) Who is typically responsible for writing and ensuring the quality of test cases used in CI/CD pipelines?
-5.  (212) Is it possible to run specific subsets of tests (similar to TestNG groups) within a Jenkins pipeline, and how?
-6.  (225) How can API test tools like Newman be integrated into pipelines, and how can their results be generated and accessed?
-7.  (228) How should a pipeline configuration file be structured for a specific testing stack like WebdriverIO + Cucumber to run tests and generate reports?
-8.  (496, 501, ...) How are issues with SonarQube integration (pending quality gates, server unreachable, scanner errors) troubleshooted?
-9.  (543, 544, 778) How are integration tests incorporated into CI/CD? What tools are used, and do they typically interact with real downstream services?
+1. (2) How can security testing tools be integrated into a CI/CD pipeline? (Incl. 104, 112, ...)
+2. (48, 71, 106) How can integration test failures due to connection errors or issues with testing SPAs be addressed in CI/CD?
+3. (99, 100, 577) What is the scope of Continuous Integration (CI)? Does it typically include running automated functional/integration tests?
+4. (101, 644) Who is typically responsible for writing and ensuring the quality of test cases used in CI/CD pipelines?
+5. (212) Is it possible to run specific subsets of tests (similar to TestNG groups) within a Jenkins pipeline, and how?
+6. (225) How can API test tools like Newman be integrated into pipelines, and how can their results be generated and accessed?
+7. (228) How should a pipeline configuration file be structured for a specific testing stack like WebdriverIO + Cucumber to run tests and generate reports?
+8. (496, 501, ...) How are issues with SonarQube integration (pending quality gates, server unreachable, scanner errors) troubleshooted?
+9. (543, 544, 778) How are integration tests incorporated into CI/CD? What tools are used, and do they typically interact with real downstream services?
 10. (679, 285) Can writing comprehensive tests be challenging for complex applications, and how does this impact CI effectiveness?
 
 **Theme 5: How should artifacts and versioning be handled throughout the CI/CD lifecycle?**
 
-1.  (28, 82) How can artifact or source download failures (e.g., "Unable to download from S3") during deployment be diagnosed and resolved?
-2.  (46) Where do Docker image names used in pipelines typically originate or get defined?
-3.  (72, 519, 709) What are common strategies for versioning and tagging Docker images built within a CI/CD pipeline? Why might double-tagging be used?
-4.  (88, 177, 178, ...) How are artifacts managed in CI/CD pipelines (creation, storage location, transfer between stages/jobs, cleanup, troubleshooting upload errors)?
-5.  (257) What does the term "releasing the artifact" mean in the context of CI/CD? Does it imply installation?
-6.  (364, 440, 447, ...) How are "artifact not found" errors (e.g., "No wars found" during deployment) diagnosed when the build process seems successful?
-7.  (416) If artifacts or configuration files disappear from the Jenkins workspace, what are alternative persistent storage strategies?
-8.  (421, 427, 438, ...) How are artifacts reliably transferred between different servers or stages in a multi-step pipeline (e.g., Jenkins to Ansible)?
-9.  (442, 571, ...) How do pipelines need to be adapted if the build artifact is a JAR file instead of a WAR file?
+1. (28, 82) How can artifact or source download failures (e.g., "Unable to download from S3") during deployment be diagnosed and resolved?
+2. (46) Where do Docker image names used in pipelines typically originate or get defined?
+3. (72, 519, 709) What are common strategies for versioning and tagging Docker images built within a CI/CD pipeline? Why might double-tagging be used?
+4. (88, 177, 178, ...) How are artifacts managed in CI/CD pipelines (creation, storage location, transfer between stages/jobs, cleanup, troubleshooting upload errors)?
+5. (257) What does the term "releasing the artifact" mean in the context of CI/CD? Does it imply installation?
+6. (364, 440, 447, ...) How are "artifact not found" errors (e.g., "No wars found" during deployment) diagnosed when the build process seems successful?
+7. (416) If artifacts or configuration files disappear from the Jenkins workspace, what are alternative persistent storage strategies?
+8. (421, 427, 438, ...) How are artifacts reliably transferred between different servers or stages in a multi-step pipeline (e.g., Jenkins to Ansible)?
+9. (442, 571, ...) How do pipelines need to be adapted if the build artifact is a JAR file instead of a WAR file?
 10. (547) If deploying to Kubernetes (AKS), how are build artifacts (e.g., Docker images) consumed or referenced in the deployment process?
 
 **Theme 6: What are effective deployment strategies, including handling multiple environments, rollbacks, and specific target platforms?**
 
-1.  (3) How can source code be updated on a server without deleting dynamically generated data or folders?
-2.  (29, 95) How does the final release to production or customer servers typically happen after the main CI/CD pipeline stages?
-3.  (59, 417, 468, ...) How can simultaneous deployment to multiple servers within the same environment be achieved?
-4.  (63, 271, 306, ...) How can CI/CD pipelines be adapted to deploy different types of applications or to different targets (e.g., REST API vs React, .NET vs Python, Tomcat vs Apache, K8s vs ECS vs VPS)? (Incl. 287, 318, 372, 388, 391, 411, ...)
-5.  (98, 105, 352, ...) How can pipelines support different deployment strategies like blue/green, canary, rolling updates, A/B testing, and zero-downtime?
-6.  (102, 240, 255, ...) How are pipelines structured and managed for multiple environments (Dev, QA, Staging, Prod), including promotion and handling infrastructure differences?
-7.  (125, 781, 369, ...) How can database changes (migrations, schema updates) be automatically included as part of a CI/CD deployment process?
-8.  (401) How can deployment scripts orchestrate application server lifecycle events (e.g., stop/start Tomcat)?
-9.  (535, 714, 803, ...) How are rollbacks typically implemented or handled within CI/CD pipelines?
+1. (3) How can source code be updated on a server without deleting dynamically generated data or folders?
+2. (29, 95) How does the final release to production or customer servers typically happen after the main CI/CD pipeline stages?
+3. (59, 417, 468, ...) How can simultaneous deployment to multiple servers within the same environment be achieved?
+4. (63, 271, 306, ...) How can CI/CD pipelines be adapted to deploy different types of applications or to different targets (e.g., REST API vs React, .NET vs Python, Tomcat vs Apache, K8s vs ECS vs VPS)? (Incl. 287, 318, 372, 388, 391, 411, ...)
+5. (98, 105, 352, ...) How can pipelines support different deployment strategies like blue/green, canary, rolling updates, A/B testing, and zero-downtime?
+6. (102, 240, 255, ...) How are pipelines structured and managed for multiple environments (Dev, QA, Staging, Prod), including promotion and handling infrastructure differences?
+7. (125, 781, 369, ...) How can database changes (migrations, schema updates) be automatically included as part of a CI/CD deployment process?
+8. (401) How can deployment scripts orchestrate application server lifecycle events (e.g., stop/start Tomcat)?
+9. (535, 714, 803, ...) How are rollbacks typically implemented or handled within CI/CD pipelines?
 10. (634) If automation stops at pre-production, what are the common processes for promoting a build to production?
 
 **Theme 7: What branching strategies work well with CI/CD, and how are workflows like pull requests and hotfixes handled?**
 
-1.  (4) What are the concerns with specific triggering strategies like tags versus branch commits?
-2.  (107) How can automated updates to deployment configuration (e.g., `deployment.yaml`) work correctly if the target branch is protected?
-3.  (170) Why run tests before merging a PR if the developer should have already pulled the latest changes?
-4.  (190, 564, 712) How can jobs within a single pipeline file be configured to run conditionally based on the trigger event (e.g., push to specific branch, merge request)?
-5.  (206) Why might a pipeline run correctly for the main branch but fail with "No stages/jobs" for other branches?
-6.  (209) How does merge request validation work in CI/CD (triggering jobs, checking code)?
-7.  (278) What are the implications of running a deployment pipeline against branches other than the intended target branch?
-8.  (616, 647, 648, 654) What is the standard process for handling hotfixes in a multi-environment CI/CD setup, including branching and testing?
-9.  (655) Who is responsible for merging code between different environment branches (Developers or DevOps engineers)? What merge strategies are typically used?
+1. (4) What are the concerns with specific triggering strategies like tags versus branch commits?
+2. (107) How can automated updates to deployment configuration (e.g., `deployment.yaml`) work correctly if the target branch is protected?
+3. (170) Why run tests before merging a PR if the developer should have already pulled the latest changes?
+4. (190, 564, 712) How can jobs within a single pipeline file be configured to run conditionally based on the trigger event (e.g., push to specific branch, merge request)?
+5. (206) Why might a pipeline run correctly for the main branch but fail with "No stages/jobs" for other branches?
+6. (209) How does merge request validation work in CI/CD (triggering jobs, checking code)?
+7. (278) What are the implications of running a deployment pipeline against branches other than the intended target branch?
+8. (616, 647, 648, 654) What is the standard process for handling hotfixes in a multi-environment CI/CD setup, including branching and testing?
+9. (655) Who is responsible for merging code between different environment branches (Developers or DevOps engineers)? What merge strategies are typically used?
 10. (657-678) What are the principles and trade-offs of Trunk-Based Development versus feature branching in a CI/CD context?
 
 **Theme 8: How can Infrastructure as Code (IaC) and configuration management tools be integrated into CI/CD pipelines?**
 
-1.  (117, 149, 300, ...) How can Infrastructure as Code (IaC) tools like Terraform or configuration management tools like Ansible/Chef/Puppet be integrated into CI/CD pipelines? (Incl. 129, 153, 226, ...)
-2.  (395, 402) What are the specific advantages of using tools like Ansible for deployment tasks within a pipeline compared to simpler scripting?
-3.  (397) How can CI/CD tools (like Jenkins) orchestrate configuration management tools (like Ansible) when they run on separate servers?
-4.  (404, 563) How does Ansible typically perform deployment after receiving an artifact from Jenkins? Does it require further orchestration?
-5.  (425) When using Ansible for multi-environment deployments, what are the strategies for managing environment-specific configurations (e.g., multiple playbooks vs. dynamic inventories/variables)?
-6.  (559) How can the setup of configuration management tools like Ansible be automated, especially for large numbers of target servers?
-7.  (725, 367) How is Terraform integrated with CI/CD tools like GitHub Actions or Jenkins?
-8.  (782) When integrating IaC, should tools like Terraform be applied during the deployment phase or as a separate preceding/following step?
-9.  (812) Can IaC tools like Terraform or CloudFormation be used to provision the necessary infrastructure _before_ the application deployment pipeline runs?
+1. (117, 149, 300, ...) How can Infrastructure as Code (IaC) tools like Terraform or configuration management tools like Ansible/Chef/Puppet be integrated into CI/CD pipelines? (Incl. 129, 153, 226, ...)
+2. (395, 402) What are the specific advantages of using tools like Ansible for deployment tasks within a pipeline compared to simpler scripting?
+3. (397) How can CI/CD tools (like Jenkins) orchestrate configuration management tools (like Ansible) when they run on separate servers?
+4. (404, 563) How does Ansible typically perform deployment after receiving an artifact from Jenkins? Does it require further orchestration?
+5. (425) When using Ansible for multi-environment deployments, what are the strategies for managing environment-specific configurations (e.g., multiple playbooks vs. dynamic inventories/variables)?
+6. (559) How can the setup of configuration management tools like Ansible be automated, especially for large numbers of target servers?
+7. (725, 367) How is Terraform integrated with CI/CD tools like GitHub Actions or Jenkins?
+8. (782) When integrating IaC, should tools like Terraform be applied during the deployment phase or as a separate preceding/following step?
+9. (812) Can IaC tools like Terraform or CloudFormation be used to provision the necessary infrastructure _before_ the application deployment pipeline runs?
 10. (432, 611, ...) How can tools like Ansible be used to manage Windows nodes from a Linux-based control machine within a pipeline?
 
 **Theme 9: What are common CI/CD pipeline errors and troubleshooting techniques?**
 
-1.  (45, 51, 54, ...) How can build failures due to missing files, dependency installation issues (yarn/npm), or version mismatches be fixed?
-2.  (48, 71, 106) How can integration test failures due to connection errors (`curl` failing to connect) be addressed?
-3.  (213) How can Docker Hub pull rate limits encountered during CI builds be resolved or mitigated?
-4.  (217) How are artifact upload failures (like 504 Gateway Timeout) typically troubleshooted?
-5.  (313) How can webhook integration issues (e.g., GitHub webhook not triggering Jenkins) be troubleshooted?
-6.  (373, 504, 507, ...) How are Java version incompatibility errors resolved when integrating tools like SonarQube scanner?
-7.  (424, 603, 652, ...) How are SSH connection timeout errors diagnosed and fixed?
-8.  (430, 609, 657, ...) How can complex, multi-part pipeline failures (e.g., hostname resolution + file transfer + script execution errors) be broken down and debugged?
-9.  (446, 452, 496, ...) How are "Failed to connect to repository" errors resolved when configuring SCM integration?
+1. (45, 51, 54, ...) How can build failures due to missing files, dependency installation issues (yarn/npm), or version mismatches be fixed?
+2. (48, 71, 106) How can integration test failures due to connection errors (`curl` failing to connect) be addressed?
+3. (213) How can Docker Hub pull rate limits encountered during CI builds be resolved or mitigated?
+4. (217) How are artifact upload failures (like 504 Gateway Timeout) typically troubleshooted?
+5. (313) How can webhook integration issues (e.g., GitHub webhook not triggering Jenkins) be troubleshooted?
+6. (373, 504, 507, ...) How are Java version incompatibility errors resolved when integrating tools like SonarQube scanner?
+7. (424, 603, 652, ...) How are SSH connection timeout errors diagnosed and fixed?
+8. (430, 609, 657, ...) How can complex, multi-part pipeline failures (e.g., hostname resolution + file transfer + script execution errors) be broken down and debugged?
+9. (446, 452, 496, ...) How are "Failed to connect to repository" errors resolved when configuring SCM integration?
 10. (814) What are general techniques and tools for debugging failing CI/CD pipelines?
 
 **Theme 10: How do different CI/CD tools and platforms compare, and how are they integrated with other ecosystem tools?**
 
-1.  (58, 77, 551, ...) How do different CI/CD tools (GitLab CI, GitHub Actions, Jenkins, Azure DevOps, AWS Code\*, Bamboo) compare in terms of features, security, or capabilities? (Incl. 608, 688, 696, 813)
-2.  (108, 109, 610, ...) How do GitOps tools like ArgoCD integrate with other tools like Kustomize or handle updates back to Git?
-3.  (174) How can CI/CD tools like GitHub Actions and Argo Workflows be used together effectively?
-4.  (239, 390, 549) How can different CI/CD platforms be integrated (e.g., listing GitLab repo files in Jenkins)?
-5.  (251) How can a pipeline in one cloud platform (e.g., Azure Pipelines) be configured to deploy resources to another cloud (e.g., GCP)?
-6.  (285, 694) How is integration between CI/CD tools (like Jenkins) and SCM platforms (like GitHub or Bitbucket) configured?
-7.  (389, 443, 572, ...) How is authentication configured for CI/CD tools to interact securely with cloud providers (AWS, Azure, GCP)?
-8.  (594, 363, 411) How can pipelines be integrated with artifact repositories like JFrog Artifactory or Nexus?
-9.  (721, 359, 399) How can CI/CD pipelines integrate with issue tracking tools like Jira?
+1. (58, 77, 551, ...) How do different CI/CD tools (GitLab CI, GitHub Actions, Jenkins, Azure DevOps, AWS Code\*, Bamboo) compare in terms of features, security, or capabilities? (Incl. 608, 688, 696, 813)
+2. (108, 109, 610, ...) How do GitOps tools like ArgoCD integrate with other tools like Kustomize or handle updates back to Git?
+3. (174) How can CI/CD tools like GitHub Actions and Argo Workflows be used together effectively?
+4. (239, 390, 549) How can different CI/CD platforms be integrated (e.g., listing GitLab repo files in Jenkins)?
+5. (251) How can a pipeline in one cloud platform (e.g., Azure Pipelines) be configured to deploy resources to another cloud (e.g., GCP)?
+6. (285, 694) How is integration between CI/CD tools (like Jenkins) and SCM platforms (like GitHub or Bitbucket) configured?
+7. (389, 443, 572, ...) How is authentication configured for CI/CD tools to interact securely with cloud providers (AWS, Azure, GCP)?
+8. (594, 363, 411) How can pipelines be integrated with artifact repositories like JFrog Artifactory or Nexus?
+9. (721, 359, 399) How can CI/CD pipelines integrate with issue tracking tools like Jira?
 10. (726, 348, 391, ...) How can pipelines integrate with notification tools like Slack or email?

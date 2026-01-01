@@ -1,12 +1,12 @@
-[[bmwiedemann/theunreproduciblepackage: The Unreproducible Package (github.com)]{.underline}](https://github.com/bmwiedemann/theunreproduciblepackage/tree/master)
+[bmwiedemann/theunreproduciblepackage: The Unreproducible Package (github.com)](https://github.com/bmwiedemann/theunreproduciblepackage/tree/master)
 
-[[ftp2.osuosl.org/pub/fosdem/2024/k1105/fosdem-2024-3353-reproducible-builds-the-first-ten-years.mp4]{.underline}](https://ftp2.osuosl.org/pub/fosdem/2024/k1105/fosdem-2024-3353-reproducible-builds-the-first-ten-years.mp4)
+[ftp2.osuosl.org/pub/fosdem/2024/k1105/fosdem-2024-3353-reproducible-builds-the-first-ten-years.mp4](https://ftp2.osuosl.org/pub/fosdem/2024/k1105/fosdem-2024-3353-reproducible-builds-the-first-ten-years.mp4)
 
-[[ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3074-sharing-and-reusing-sboms-with-the-osselot-curation-database.mp4]{.underline}](https://ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3074-sharing-and-reusing-sboms-with-the-osselot-curation-database.mp4)
+[ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3074-sharing-and-reusing-sboms-with-the-osselot-curation-database.mp4](https://ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3074-sharing-and-reusing-sboms-with-the-osselot-curation-database.mp4)
 
-[[ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3146-phantom-dependencies-in-python-and-what-to-do-about-them-.mp4]{.underline}](https://ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3146-phantom-dependencies-in-python-and-what-to-do-about-them-.mp4)
+[ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3146-phantom-dependencies-in-python-and-what-to-do-about-them-.mp4](https://ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3146-phantom-dependencies-in-python-and-what-to-do-about-them-.mp4)
 
-[[bmwiedemann/theunreproduciblepackage: The Unreproducible Package (github.com)]{.underline}](https://github.com/bmwiedemann/theunreproduciblepackage/tree/master)
+[bmwiedemann/theunreproduciblepackage: The Unreproducible Package (github.com)](https://github.com/bmwiedemann/theunreproduciblepackage/tree/master)
 
 https://docs.guac.sh/
 
@@ -26,16 +26,16 @@ This talk, featuring Mike from the Tor Project and Seth from EFF, delves into th
 
 - **Examples & Implementations:** The talk highlights successful implementations of reproducible builds, including:
 
-  - **Tor Browser:** Leveraging the Gideon system for reproducible builds across different platforms.
-  - **Debian:** Achieving reproducible builds for a significant portion of its package repository.
-  - **F-Droid:** Developing a verification server to enhance trust in Android packages.
+ - **Tor Browser:** Leveraging the Gideon system for reproducible builds across different platforms.
+ - **Debian:** Achieving reproducible builds for a significant portion of its package repository.
+ - **F-Droid:** Developing a verification server to enhance trust in Android packages.
 
 - **Addressing the Trusting Trust Attack:** Reproducible builds, combined with techniques like diverse double compilation, offer a way to mitigate the "trusting trust" attack where backdoors can be hidden in compilers and propagate through software generations.
 
 - **Challenges & Future Directions:**
-  - Reproducibility efforts require addressing challenges like build environment variations, timestamps, and file system inconsistencies.
-  - Ensuring software update distribution integrity is crucial and can be enhanced using technologies like blockchain and certificate transparency.
-  - Continuous improvement and adoption of reproducible builds across the software development community are vital for a more secure and trustworthy software ecosystem.
+ - Reproducibility efforts require addressing challenges like build environment variations, timestamps, and file system inconsistencies.
+ - Ensuring software update distribution integrity is crucial and can be enhanced using technologies like blockchain and certificate transparency.
+ - Continuous improvement and adoption of reproducible builds across the software development community are vital for a more secure and trustworthy software ecosystem.
 
 This talk effectively emphasizes the importance of reproducible builds for enhancing software security and encourages developers and users to champion this practice for a more trustworthy digital future.
 

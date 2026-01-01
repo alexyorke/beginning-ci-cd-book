@@ -2,9 +2,9 @@
 
 ## Complexity
 
-## [**1w7qpw29ni6lnbex9gksl5y6d961.mp3**](https://1drv.ms/u/s!AOnf7tByrSaDkzU) {#w7qpw29ni6lnbex9gksl5y6d961.mp3 .unnumbered}
+## [**1w7qpw29ni6lnbex9gksl5y6d961.mp3**](https://1drv.ms/u/s!AOnf7tByrSaDkzU)
 
-## **Key Points from the Continuous Delivery Podcast: Complexity** {#key-points-from-the-continuous-delivery-podcast-complexity .unnumbered}
+## **Key Points from the Continuous Delivery Podcast: Complexity**
 
 This episode explores complexity in software development from various angles.
 
@@ -64,9 +64,9 @@ This episode explores complexity in software development from various angles.
 
 ## Overcoming Blockers
 
-## [**9514875-ep-62-overcoming-blockers-to-continuous-delivery.mp3**](https://1drv.ms/u/s!AOnf7tByrSaDkz8) {#ep-62-overcoming-blockers-to-continuous-delivery.mp3 .unnumbered}
+## [**9514875-ep-62-overcoming-blockers-to-continuous-delivery.mp3**](https://1drv.ms/u/s!AOnf7tByrSaDkz8)
 
-## **Key Points from Continuous Delivery Podcast: Overcoming Blockers** {#key-points-from-continuous-delivery-podcast-overcoming-blockers .unnumbered}
+## **Key Points from Continuous Delivery Podcast: Overcoming Blockers**
 
 This episode discusses common obstacles to achieving Continuous Delivery and offers solutions:
 

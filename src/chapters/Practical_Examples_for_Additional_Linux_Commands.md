@@ -1,4 +1,4 @@
-﻿## **Practical Examples for Additional Linux Commands:** {#practical-examples-for-additional-linux-commands .unnumbered}
+﻿## **Practical Examples for Additional Linux Commands:**
 
 **1. env**
 
@@ -59,7 +59,7 @@ choco update -y all
 while \[ ! -f "my_file.txt" \]; do
 
 ```bash
-echo "Waiting for my_file.txt\..."
+echo "Waiting for my_file.txt..."
 ```
 
 sleep 1
@@ -132,7 +132,7 @@ apt upgrade
 
 apt remove vim
 
-### Tips on working with JSON {#tips-on-working-with-json .unnumbered}
+### Tips on working with JSON
 
 I would be tempted to use Python if you are doing advanced string manipulation/JSON.
 
@@ -166,7 +166,7 @@ Jq is a command-line JSON parser. It is very powerful and can even parse messy J
 
 Knowing about the pitfalls and workarounds allow you to use jq more robustly and avoid changing it with other commands which can cause parsing issues later on that are difficult to debug.
 
-### Use jq -r if you don't want quotes; don't use tr -d {#use-jq--r-if-you-dont-want-quotes-dont-use-tr--d .unnumbered}
+### Use jq -r if you don't want quotes; don't use tr -d
 
 Say you have a value in a JSON string that has quotes but you want to remove the quotes. You could do:
 
@@ -184,7 +184,7 @@ echo "{"x": ""Three"" }" \| jq -r .x
 
 The output is "Three" (with quotes) which probably was intended.
 
-### If the JSON isn't valid, jq will stop parsing and will print incomplete output {#if-the-json-isnt-valid-jq-will-stop-parsing-and-will-print-incomplete-output .unnumbered}
+### If the JSON isn't valid, jq will stop parsing and will print incomplete output
 
 Be careful when parsing documents that could be invalid JSON because jq will print the first part that parsed correctly. If you're piping it, it may appear that it was parsed in its entirety. Always check status codes to ensure that the entire JSON block was parsed.
 
@@ -226,7 +226,7 @@ parse error: Expected separator between values at line 448, column 7
 
 I get output, but that output is incomplete. Ensure you check the status code from jq (in this case it was 4.) If I stored it in a variable, I would get a string but that string would be invalid because the parsing error didn't parse the entire file. If I just checked if the variable's length wasn't zero, then I wouldn't be getting the right output.
 
-#### Just use set -e\...right? Right? {#just-use-set--e...right-right .unnumbered}
+#### Just use set -e\...right? Right?
 
 You may think that set -e will help. It can, if the output isn't piped. If it is piped, then the receiving program could line-buffer the input and start processing it when it could be invalid or incomplete.
 
@@ -244,11 +244,11 @@ echo "I am still running"
 
 The output is "test" followed by "I am still running" (although some errors), even though the command jq invalid failed (because the file doesn't exist.) The script still continued to run even though one of the lines returned a failure code. Also, the exit code from the script is 0, indicating success even though it was unsuccessful.
 
-#### Considerations {#considerations .unnumbered}
+#### Considerations
 
 Use jq's empty filter to validate the file before parsing, or check the error code after parsing the JSON.
 
-### Be careful with jq -r and newlines {#be-careful-with-jq--r-and-newlines .unnumbered}
+### Be careful with jq -r and newlines
 
 Let's go back to an example file. You run cat test \| jq -c .\[\].friends and get the following output:
 
@@ -282,15 +282,15 @@ Dana Stout
 
 Here, Cherie and Frederick are on two seperate lines. If you were to parse them, then the names wouldn't match.
 
-#### Considerations {#considerations-1 .unnumbered}
+#### Considerations
 
 Use jq -0 instead of -r to delimit using null characters.
 
-### Don't quote the output yourself, use -R {#dont-quote-the-output-yourself-use--r .unnumbered}
+### Don't quote the output yourself, use -R
 
 Wrapping the output in double quotes doesn't guarantee that the characters will be escaped correctly if the input contains double quotes.
 
-### Use -a for escaping unicode characters {#use--a-for-escaping-unicode-characters .unnumbered}
+### Use -a for escaping unicode characters
 
 Depending on the JSON parser or other parsers in the pipeline, it might not expect non-ASCII chars.
 
@@ -308,25 +308,25 @@ The -a switch changes this behavior and replaces them with escape sequences:
 echo "Á" \| jq -a -R yields "\u00c1" (with quotes.)
 ```
 
-#### Considerations {#considerations-2 .unnumbered}
+#### Considerations
 
 Use -a when you need unicode safety.
 
-### Use \@filters instead of \$(\...) when concatenating strings {#use-filters-instead-of-...-when-concatenating-strings .unnumbered}
+### Use \@filters instead of \$(\...) when concatenating strings
 
 Running this command produces the right output,
 
-echo "{\"page\": 3}" \| echo "https://example.com/search?id=\$(jq .page)" (outputs [[https://example.com/search?id=3]{.underline}](https://example.com/search?id=3)).
+echo "{\"page\": 3}" \| echo "https://example.com/search?id=\$(jq .page)" (outputs [https://example.com/search?id=3](https://example.com/search?id=3)).
 
 But it gets dangerous if the number turns into text that contains non-URI safe characters:
 
-echo "{\"page\": \"\[3-2\]\"}" \| echo "https://example.com/search?id=\$(jq .page)" which returns [[https://example.com/search?id="\[3]{.underline}](https://example.com/search?id=%22%5B3)-2\]" . If you were to pipe this URL into curl, curl interprets the square brackets as a URL range. Curl fails to download that URL with the error, "curl: (3) \[globbing\] bad range in column 26".
+echo "{\"page\": \"\[3-2\]\"}" \| echo "https://example.com/search?id=\$(jq .page)" which returns [https://example.com/search?id="\[3](https://example.com/search?id=%22%5B3)-2\]" . If you were to pipe this URL into curl, curl interprets the square brackets as a URL range. Curl fails to download that URL with the error, "curl: (3) \[globbing\] bad range in column 26".
 
 However, running:
 
-echo "{\"page\": \"\[3-2\]\"}" \| jq '@uri "[[https://www.google.com/search?q=\\(.page)]{.underline}](<https://www.google.com/search?q=%5C(.page)>)"' which returns "[[https://www.google.com/search?q=%5B3-2%5D]{.underline}](https://www.google.com/search?q=%5B3-2%5D)". This is URL safe.
+echo "{\"page\": \"\[3-2\]\"}" \| jq '@uri "[https://www.google.com/search?q=\\(.page)](<https://www.google.com/search?q=%5C(.page)>)"' which returns "[https://www.google.com/search?q=%5B3-2%5D](https://www.google.com/search?q=%5B3-2%5D)". This is URL safe.
 
-#### Considerations {#considerations-3 .unnumbered}
+#### Considerations
 
 Use jq's filters when concatenating inputs from multiple sources. Look into the \@sh filter for creating shell compatible output to ensure command interoperability.
 
@@ -350,4 +350,4 @@ These commands are using the GitHub API to perform a variety of tasks related to
 
 Overall, these commands represent a diverse set of automated tasks related to software development and deployment, leveraging GitHub as a central platform for source code management and CI/CD processes.
 
-**[After this, here are the next sections (not finished) it will continue with the weather app And introduce more complex things such as blue-green deployments as well as advanced deployment strategies including ARM and BICEP templates, infrastructure as code, security, and everything described below.]{.mark}**
+**[After this, here are the next sections (not finished) it will continue with the weather app And introduce more complex things such as blue-green deployments as well as advanced deployment strategies including ARM and BICEP templates, infrastructure as code, security, and everything described below.]**

@@ -1,4 +1,4 @@
-﻿## **Streamlined Guide to Setting Up a Continuous Deployment Pipeline** {#streamlined-guide-to-setting-up-a-continuous-deployment-pipeline .unnumbered}
+﻿## **Streamlined Guide to Setting Up a Continuous Deployment Pipeline**
 
 This guide provides a concise overview of setting up a continuous deployment (CD) pipeline, focusing on key concepts and best practices:
 
@@ -14,26 +14,26 @@ This guide provides a concise overview of setting up a continuous deployment (CD
 
 - Key cloud provider offerings include:
 
-  - Container orchestration (Kubernetes services like ECS, AKS, GKE)
+ - Container orchestration (Kubernetes services like ECS, AKS, GKE)
 
-  - Serverless platforms (AWS Lambda, Azure Functions, Google Cloud Functions)
+ - Serverless platforms (AWS Lambda, Azure Functions, Google Cloud Functions)
 
-  - Infrastructure as Code (IaC) tools (CloudFormation, ARM, Deployment Manager)
+ - Infrastructure as Code (IaC) tools (CloudFormation, ARM, Deployment Manager)
 
-  - Monitoring and Logging services
+ - Monitoring and Logging services
 
-  - Security and Compliance tools
+ - Security and Compliance tools
 
-  - Artifact Management services
+ - Artifact Management services
 
 
 - Carefully evaluate hosting providers based on:
 
-  - Existing relationships and contracts
+ - Existing relationships and contracts
 
-  - Support contracts and SLAs
+ - Support contracts and SLAs
 
-  - Use-case support (e.g., IaC compatibility)
+ - Use-case support (e.g., IaC compatibility)
 
 - **3. Continuous Deployment Pipeline Steps:**
 
@@ -53,7 +53,7 @@ This guide provides a concise overview of setting up a continuous deployment (CD
 
 - **Deployment:** Automate the deployment process to your chosen infrastructure.
 
-  - Use safe deployment practices like blue-green or rolling deployments for minimal downtime.
+ - Use safe deployment practices like blue-green or rolling deployments for minimal downtime.
 
 
 - **Infrastructure Provisioning:** Utilize IaC to manage and automate infrastructure setup.
@@ -76,7 +76,7 @@ This guide provides a concise overview of setting up a continuous deployment (CD
 
 By following these guidelines, you can establish a robust and efficient continuous deployment pipeline that enables faster and more reliable software releases.
 
-### What is IaC (infrastructure as code?) {#what-is-iac-infrastructure-as-code .unnumbered}
+### What is IaC (infrastructure as code?)
 
 - So, you have your application sitting as build artifacts. That's not super useful to the customer. How do you get it to the customer? Well, it has to be deployed to an environment accessible to the customer, usually via the internet.
 
@@ -94,41 +94,41 @@ By following these guidelines, you can establish a robust and efficient continuo
 
 - Why is it related to CD?
 
-  - The CD pipeline would take the template provided in VCS and run the terraform script on your cloud provider and prepare the infrastructure. This should happen all automatically.
+ - The CD pipeline would take the template provided in VCS and run the terraform script on your cloud provider and prepare the infrastructure. This should happen all automatically.
 
 - What are the principles or values of IaC?
 
-  - Idempotency: no matter how many times you deploy, you'll get the same thing.
+ - Idempotency: no matter how many times you deploy, you'll get the same thing.
 
-  - Immutable: immutable means something that cannot change. Therefore, instead of updating the infrastructure, which could cause configuration issues, replace everything with a new, deployed copy.
+ - Immutable: immutable means something that cannot change. Therefore, instead of updating the infrastructure, which could cause configuration issues, replace everything with a new, deployed copy.
 
-  - Composable. Create other puzzle pieces that fit into other architecture patterns.
+ - Composable. Create other puzzle pieces that fit into other architecture patterns.
 
 - Why should I use IaC?
 
-  - Consistency. Everytime you roll out, it will be exactly the same.
+ - Consistency. Everytime you roll out, it will be exactly the same.
 
-  - Reproducibility.
+ - Reproducibility.
 
-  - Version controlled, thus, it is a single source of truth. Easily rollback to a previous architecture, find what changed (i.e., auditability), or inspect the current architecture.
+ - Version controlled, thus, it is a single source of truth. Easily rollback to a previous architecture, find what changed (i.e., auditability), or inspect the current architecture.
 
-  - Speed and a fast feedback loop. Reduce trying to manage your infrastructure and trying to track what you changed manually, which could lead to configuration drift between different environments (e.g., QA/dev and prod.) The issue with configuration drift is that it makes it difficult for developers to have a fast feedback loop, because they can't trust that their changes will work in prod if it works in dev because the environments might be too different. Tracking changes in dev to reflect in prod is also tedious.
+ - Speed and a fast feedback loop. Reduce trying to manage your infrastructure and trying to track what you changed manually, which could lead to configuration drift between different environments (e.g., QA/dev and prod.) The issue with configuration drift is that it makes it difficult for developers to have a fast feedback loop, because they can't trust that their changes will work in prod if it works in dev because the environments might be too different. Tracking changes in dev to reflect in prod is also tedious.
 
-  - Security.
+ - Security.
 
 - What providers do I have for infrastructure deployments? What are some ways I can run IaC code? There are several tools and providers available for infrastructure deployments:
 
-  - Terraform: A cloud-agnostic tool that uses HCL.
+ - Terraform: A cloud-agnostic tool that uses HCL.
 
-  - AWS CloudFormation: Specific to AWS, it uses JSON or YAML templates.
+ - AWS CloudFormation: Specific to AWS, it uses JSON or YAML templates.
 
-  - Azure Resource Manager (ARM): Used for deploying resources in Microsoft Azure.
+ - Azure Resource Manager (ARM): Used for deploying resources in Microsoft Azure.
 
-  - Google Cloud Deployment Manager: For Google Cloud Platform (GCP) resources.
+ - Google Cloud Deployment Manager: For Google Cloud Platform (GCP) resources.
 
-  - Ansible: An open-source automation tool that can handle tasks such as configuration management and application deployment.
+ - Ansible: An open-source automation tool that can handle tasks such as configuration management and application deployment.
 
-  - Chef and Puppet: Configuration management tools that allow you to define the state of your systems and then automatically enforce that state.
+ - Chef and Puppet: Configuration management tools that allow you to define the state of your systems and then automatically enforce that state.
 
 Certainly! **Infrastructure as Code (IaC)** is a practice in which infrastructure (networks, virtual machines, load balancers, and connection topology) is provisioned and managed using code and software development techniques. The "advanced beginner" in software or IT might be familiar with setting up environments manually through user interfaces or direct commands. IaC takes this to the next level, leveraging code to automate these tasks. Here's a more detailed breakdown tailored for an advanced beginner:
 
@@ -230,11 +230,11 @@ id: resourceId('Microsoft.Network/networkInterfaces', 'myVMNic')
 
 - This enables quite a few things.
 
-  - First, we can now deploy our template pretty much anywhere (well, on the same cloud provider, more on that in a bit.) I would like to have a test environment that is essentially identical to production. Bam. Done. Now I can test my code freely, and know that it's likely to work on production.
+ - First, we can now deploy our template pretty much anywhere (well, on the same cloud provider, more on that in a bit.) I would like to have a test environment that is essentially identical to production. Bam. Done. Now I can test my code freely, and know that it's likely to work on production.
 
-  - What if I made a mistake, and changed a network adapter but I forgot what settings I changed? IaC templates are part of your repository, and are version controlled with the other code. Therefore, just revert back. All of the changes are logged, so you know what went wrong and how to fix it.
+ - What if I made a mistake, and changed a network adapter but I forgot what settings I changed? IaC templates are part of your repository, and are version controlled with the other code. Therefore, just revert back. All of the changes are logged, so you know what went wrong and how to fix it.
 
-  - All of a sudden, we have more traffic. All we need to do is just deploy the template again (well...)
+ - All of a sudden, we have more traffic. All we need to do is just deploy the template again (well...)
 
 - Ultimately, they allow for much more control, reproducibility, and experimentation, albeit indirectly.
 
@@ -248,9 +248,9 @@ id: resourceId('Microsoft.Network/networkInterfaces', 'myVMNic')
 
 - This is a collaborative process, provided by CI, that, through code review and small PRs, allow for some semblance of the big picture and allows people to work together to incrementally add the puzzle pieces together.
 
-### Continuous Monitoring {#continuous-monitoring-1 .unnumbered}
+### Continuous Monitoring
 
-[[GitHub - microsoft/FeatureManagement-Dotnet: Microsoft.FeatureManagement provides standardized APIs for enabling feature flags within applications. Utilize this library to secure a consistent experience when developing applications that use patterns such as beta access, rollout, dark deployments, and more.]{.underline}](https://github.com/microsoft/FeatureManagement-Dotnet)
+[GitHub - microsoft/FeatureManagement-Dotnet: Microsoft.FeatureManagement provides standardized APIs for enabling feature flags within applications. Utilize this library to secure a consistent experience when developing applications that use patterns such as beta access, rollout, dark deployments, and more.](https://github.com/microsoft/FeatureManagement-Dotnet)
 
 Look at Grafana "exemplars" and "correlations". and application topology map.
 
@@ -404,17 +404,17 @@ It's designed to capture events such as input delays during usage, continuously 
 
 - Things that a good monitoring system has:
 
-  - Coverage. The ability to trace a request through the entire system. This doesn't mean that you will necessarily know precisely what happens at each step, only that it goes through a system, but it got messed up for example. There has to be a complete path from the user's web browser all the way to the request being serviced, and back again. Teams should provide a correlation id with requests, or provide the capability for you to add your own trace id to the request so that you can track it and helps the other team know if you need help. This might mean that you need to add monitoring to many other intermediary services.
+ - Coverage. The ability to trace a request through the entire system. This doesn't mean that you will necessarily know precisely what happens at each step, only that it goes through a system, but it got messed up for example. There has to be a complete path from the user's web browser all the way to the request being serviced, and back again. Teams should provide a correlation id with requests, or provide the capability for you to add your own trace id to the request so that you can track it and helps the other team know if you need help. This might mean that you need to add monitoring to many other intermediary services.
 
-  - Useful data. The events/metrics/logs have to be useful and contain relevant information which can be used to debug. For example, if a user is trying to sign up, but fails, then it might be useful to log their user id or the associated error message. One of the goals should be to reduce execution entropy. Think about it from the person using the logs to ascertain previous system behavior. Are they able to find out where the request failed within your application? How much are they able to narrow it down? It might also include the application's version, along with other versioning information, such as what server it is running on.
+ - Useful data. The events/metrics/logs have to be useful and contain relevant information which can be used to debug. For example, if a user is trying to sign up, but fails, then it might be useful to log their user id or the associated error message. One of the goals should be to reduce execution entropy. Think about it from the person using the logs to ascertain previous system behavior. Are they able to find out where the request failed within your application? How much are they able to narrow it down? It might also include the application's version, along with other versioning information, such as what server it is running on.
 
-  - Useful logging points. This is similar to useful data, but the logging should be in places where it matters, and has a capability to help debug the application, for example, usually before and after control-flow statements, but this depends.
+ - Useful logging points. This is similar to useful data, but the logging should be in places where it matters, and has a capability to help debug the application, for example, usually before and after control-flow statements, but this depends.
 
-  - Priority/importance. Not all logs are useful, but some are. This doesn't mean you shouldn't log anything that is not critical, it just means to assign a priority to your logs. This allows you to easily filter for the high-important items, providing a better signal to noise ratio.
+ - Priority/importance. Not all logs are useful, but some are. This doesn't mean you shouldn't log anything that is not critical, it just means to assign a priority to your logs. This allows you to easily filter for the high-important items, providing a better signal to noise ratio.
 
-  - Frequency. Stale or old data is normally less useful than fresh, up to date data, much like a stream.
+ - Frequency. Stale or old data is normally less useful than fresh, up to date data, much like a stream.
 
-- Collecting data is the "easy" part. What do I do with all of this data? This is called sensemaking, literally, making sense of the data. IThe act of aggregating, graphing, plotting, and transforming your data is likely to take 90% or more of your time. It's important that you have clear graphs that represent your data accurately, and you might find it useful to graph the same data using multiple data visualization formats multiple times to get different perspectives. [[Show Me the Numbers: Designing Tables and Graphs to Enlighten: Few, Stephen: 9780970601971: Books - Amazon.ca]{.underline}](https://www.amazon.ca/Show-Me-Numbers-Designing-Enlighten/dp/0970601972/ref=sr_1_2?crid=23RT5HWHMW45D&keywords=stephen+few&qid=1698282393&s=books&sprefix=stephen+fe%2Cstripbooks%2C131&sr=1-2) This book is intended for how to design boring graphs. Boring graphs aren't a bad thing, you don't want to be distracted by unnecessary visuals which might alter your perception of the data, or to distract you. Graphs should be used to enlighten, not confuse (at least within the technical realm.)
+- Collecting data is the "easy" part. What do I do with all of this data? This is called sensemaking, literally, making sense of the data. IThe act of aggregating, graphing, plotting, and transforming your data is likely to take 90% or more of your time. It's important that you have clear graphs that represent your data accurately, and you might find it useful to graph the same data using multiple data visualization formats multiple times to get different perspectives. [Show Me the Numbers: Designing Tables and Graphs to Enlighten: Few, Stephen: 9780970601971: Books - Amazon.ca](https://www.amazon.ca/Show-Me-Numbers-Designing-Enlighten/dp/0970601972/ref=sr_1_2?crid=23RT5HWHMW45D&keywords=stephen+few&qid=1698282393&s=books&sprefix=stephen+fe%2Cstripbooks%2C131&sr=1-2) This book is intended for how to design boring graphs. Boring graphs aren't a bad thing, you don't want to be distracted by unnecessary visuals which might alter your perception of the data, or to distract you. Graphs should be used to enlighten, not confuse (at least within the technical realm.)
 
 #### Why is monitoring important?
 
@@ -422,11 +422,11 @@ It's designed to capture events such as input delays during usage, continuously 
 
 - Some of the other questions we'd like answered are:
 
-  - Was the puzzle squished in shipping?
+ - Was the puzzle squished in shipping?
 
-  - Do the colors look nice?
+ - Do the colors look nice?
 
-  - Did the image look ok?
+ - Did the image look ok?
 
 - Instead of spending more and more and more energy making the process perfect, which would significantly hinder the integration time (i.e., diminishing returns), we instead try to be resilient and understand how to fix things as they come up, and limit the amount of damage. We expect that there are, at some point, going to be issues. Therefore, we proactively make sure that we have the capability to know when these errors will occur, and limit the amount of customers that are impacted by doing incremental rollouts. We also want to have the ability to know if our customers are using the feature as well, which is important for the business (which would be considered a non-error metric.)
 
@@ -458,11 +458,11 @@ It's designed to capture events such as input delays during usage, continuously 
 
 - The way continuous monitoring is integrated into your application is two-fold:
 
-  - On the servers hosting the application, there are several integrations or applications you can use to monitor server-specific metrics, such as the number of requests served per second, CPU usage, memory, disk, etc. These are usually agents or applications that run directly on your server, or, it could be provided by your cloud-hosting provider. Normally, this doesn't require modifying the application, but it depends on what type of metrics you want to collect.
+ - On the servers hosting the application, there are several integrations or applications you can use to monitor server-specific metrics, such as the number of requests served per second, CPU usage, memory, disk, etc. These are usually agents or applications that run directly on your server, or, it could be provided by your cloud-hosting provider. Normally, this doesn't require modifying the application, but it depends on what type of metrics you want to collect.
 
-  - On the applications themselves, normally, you'd want to collect application-specific or user-specific telemetry. This does require modifying the application to add code to log the specific metrics that you are interested in. There are some frameworks on how to collect this telemetry, and, depending on which telemetry you are collecting, might be sent to a third-party server or your server. If collecting it yourself, it is normally via an HTTP endpoint which stores events into a database that can be queried later (e.g., for reporting.) Some useful metrics that you might be interested in are how many users are using your application per month (MAU), per week, or per day, and whether the user's are happy.
+ - On the applications themselves, normally, you'd want to collect application-specific or user-specific telemetry. This does require modifying the application to add code to log the specific metrics that you are interested in. There are some frameworks on how to collect this telemetry, and, depending on which telemetry you are collecting, might be sent to a third-party server or your server. If collecting it yourself, it is normally via an HTTP endpoint which stores events into a database that can be queried later (e.g., for reporting.) Some useful metrics that you might be interested in are how many users are using your application per month (MAU), per week, or per day, and whether the user's are happy.
 
-  - There might be several points in-between, such as those from different teams, that may also benefit from monitoring.
+ - There might be several points in-between, such as those from different teams, that may also benefit from monitoring.
 
 #### Frequency of monitoring
 
@@ -472,17 +472,17 @@ It's designed to capture events such as input delays during usage, continuously 
 
 - Of course, someone isn't staring at the data all day, that would not be a very good use of their time. Instead, we can set up alerts or rules that trigger an event (such as a phone call, email, etc. based on the severity of the alert) for an intervention to occur. An intervention is an act that a human does in order to fix or silence the alert; the computer says that something is wrong, and the human has to either fix it or silence the alert by evaluating the situation. Sometimes, you can also set up automatic interventions where a pre-programmed action takes place if there is a certain type of alert.
 
-  - Let's say we have some telemetry for our new feature set up. Whenever there is an error, the error handler triggers and sends us some error telemetry. If there's a lot of people using our application, there's bound to be maybe one or two false positives. Say that there are millions of people using our application. We might not want to wake up every time someone encounters an error, otherwise I would not get any sleep.
+ - Let's say we have some telemetry for our new feature set up. Whenever there is an error, the error handler triggers and sends us some error telemetry. If there's a lot of people using our application, there's bound to be maybe one or two false positives. Say that there are millions of people using our application. We might not want to wake up every time someone encounters an error, otherwise I would not get any sleep.
 
-  - In the industry, we measure application reliability and success through something called ACE and ICE [[Delve Telemetry & Monitoring. My name is Luka Bozic and I'm a... \| by Delve Engineering \| Medium]{.underline}](https://medium.com/@delveeng/delve-telemetry-monitoring-686cdbf4b84f).
+ - In the industry, we measure application reliability and success through something called ACE and ICE [Delve Telemetry & Monitoring. My name is Luka Bozic and I'm a... \| by Delve Engineering \| Medium](https://medium.com/@delveeng/delve-telemetry-monitoring-686cdbf4b84f).
 
-  - "ICE (Ideal Customer Experience) = successes / starts". In this case, we have 999999 successes and 10000000 total starts (one error.) So, our ICE would be 0.999999.
+ - "ICE (Ideal Customer Experience) = successes / starts". In this case, we have 999999 successes and 10000000 total starts (one error.) So, our ICE would be 0.999999.
 
-  - "ACE (Adjusted Customer Experience) = (successes + expected failures) / starts". Expected failures are errors that are retried (succeeded), or errors that are technically not "errors". In this case, our ACE would be the same as our ICE.
+ - "ACE (Adjusted Customer Experience) = (successes + expected failures) / starts". Expected failures are errors that are retried (succeeded), or errors that are technically not "errors". In this case, our ACE would be the same as our ICE.
 
 - What would my ICE and ACE be? It depends on your application, but usually 99.95% is a good start. This really underscores the importance of good monitoring and also bridges the gap between what the customers see, and what is being evaluated against. Monitoring is only as good as what you put into it.
 
-- But, that doesn't allow for much experimentation, does it? Correct. This allows for about four hours and 20 minutes of downtime, per year [[SLA & Uptime calculator: How much downtime corresponds to 99.95 % uptime]{.underline}](https://uptime.is/). Going up to 99.99% is about 52 minutes of downtime per year. Note that this normally means that the entire application is unavailable; if items are feature flighted then it is likely that an individual customer(s) will have downtime. Therefore, if you are going to make an SLA, then know that it can restrict how much experimentation takes place.
+- But, that doesn't allow for much experimentation, does it? Correct. This allows for about four hours and 20 minutes of downtime, per year [SLA & Uptime calculator: How much downtime corresponds to 99.95 % uptime](https://uptime.is/). Going up to 99.99% is about 52 minutes of downtime per year. Note that this normally means that the entire application is unavailable; if items are feature flighted then it is likely that an individual customer(s) will have downtime. Therefore, if you are going to make an SLA, then know that it can restrict how much experimentation takes place.
 
 - Wow, we should be super on the safe side, right? Well, technically. You can take calculated risks, such as by using an error budget which allows the team to perform more risky changes when you still have SLA remaining. This allows customers to expect a certain level of stability, while also ensuring that the team can continue to experiment and deliver features on time. This also helps keep stakeholders informed as to the extent that customers are impacted.
 
@@ -500,7 +500,6 @@ Let's consider an example involving a simple function to process user registrati
 
 ### Poor Logging Strategy
 
-```python
 def register_user(username, password, email):
     try:
         # ... some code to add user to database ...
@@ -515,7 +514,6 @@ def register_user(username, password, email):
 
 # Usage
 register_user("alice", "password123", "alice@example.com")
-```
 
 Issues with the above code:
 
@@ -531,7 +529,6 @@ Issues with the above code:
 
 Using Python's `logging` module:
 
-```python
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -556,7 +553,6 @@ def register_user(username, password, email):
 
 # Usage
 register_user("alice", "password123", "alice@example.com")
-```
 
 Improvements in the above code:
 
@@ -620,7 +616,7 @@ telemetry.send(event);
 
 - There are other levels of where stats should be collected at. For example, the HTTP request itself, such as its status code, latency, etc. This is usually done server-side, and because of the homogeneity of many back-ends, many alerting templates likely will automatically monitor this as a default. These are mostly diagnostic data: for example, 100ms for an HTTP request doesn't mean much in and of itself, or 10% CPU usage, and then fluctuates to 5% for example doesn't mean much either. This is useful for example if you are having issues on the client, or people are experiencing issues and you find out that the CPU usage is at 110%, then it's likely there's a CPU usage issue.
 
-  - However, some are useful for keeping track of. If the CPU usage is steadily rising, with more and more traffic, then you might need to consider your scaling strategy or to provision more servers for example. This provides an early warning sign before issues occur.
+ - However, some are useful for keeping track of. If the CPU usage is steadily rising, with more and more traffic, then you might need to consider your scaling strategy or to provision more servers for example. This provides an early warning sign before issues occur.
 
 - It's also important to collect actual user feedback as well, for example, through a feedback form. This is helpful for collecting higher-level errors, such as usability or new features, which would be difficult to capture via diagnostic data.
 
@@ -636,7 +632,7 @@ telemetry.send(event);
 
 - Webapps are very complex. Only measuring the HTTP calls is a poor representation of the user's experience, because many HTTP calls can comprise a user's request. Therefore, even a single call per user could lead to a bad experience (or a slow script) which might not be reflected in the time that the HTTP calls are made. Browsers pipeline requests, and can do requests in parallel, thus making it very challenging to reconstruct it.
 
-- web-vitals useful for measuring web-app perf [[GoogleChrome/web-vitals: Essential metrics for a healthy site. (github.com)]{.underline}](https://github.com/GoogleChrome/web-vitals)
+- web-vitals useful for measuring web-app perf [GoogleChrome/web-vitals: Essential metrics for a healthy site. (github.com)](https://github.com/GoogleChrome/web-vitals)
 
 - Know the limitations of your monitoring tool. If it can only measure status codes, then therefore it might be too granular to use for specific user-experience metrics, such as click time.
 
@@ -664,7 +660,7 @@ telemetry.send(event);
 
 - Sample size is important, and provides confidence in estimates (use effect size.) Using heuristics are unlikely to be reliable and are difficult to compare over time.
 
-- [[https://www.youtube.com/watch?v=Y5n2WtCXz48]{.underline}](https://www.youtube.com/watch?v=Y5n2WtCXz48) 12% increase in revenue with faster load times, might be getting a bit off topic...
+- [https://www.youtube.com/watch?v=Y5n2WtCXz48](https://www.youtube.com/watch?v=Y5n2WtCXz48) 12% increase in revenue with faster load times, might be getting a bit off topic...
 
 - For other data, such as goals or diagnostics, you'd typically want to perform sensemaking on them. There are many tools that can connect to your database (e.g., ClickHouse) and can visualize the data. Visualizing data is a way where you can generate insights on the data and be able to do stuff with it. For example, if the performance of a particular part of your application is slow, then you can optimize engineering efforts to improve that piece.
 
@@ -726,13 +722,13 @@ The section on "Monitoring and Feedback in Continuous Deployment" is comprehensi
 
 Overall, you've done an excellent job at consolidating a vast amount of information into a coherent and informative piece. The content covers the essentials of monitoring and feedback in CI/CD thoroughly, making it a valuable resource.
 
-#### 1. **Goal of Monitoring:** {#goal-of-monitoring .unnumbered}
+#### 1. **Goal of Monitoring:**
 
 The aim is to reduce or eliminate ambiguity when diagnosing incorrect functionality. It's important to log strategically, showing a clear execution path but ensuring it doesn't excessively slow down the application due to data storage concerns.
 
-#### What should I add to the code to do monitoring? Where do I monitor? {#what-should-i-add-to-the-code-to-do-monitoring-where-do-i-monitor .unnumbered}
+#### What should I add to the code to do monitoring? Where do I monitor?
 
-#### Monitoring software/tools {#monitoring-softwaretools .unnumbered}
+#### Monitoring software/tools
 
 Certainly! Monitoring and observability are critical components of the CI/CD pipeline, especially in production environments. Here's a list of some popular CI/CD software monitoring products:
 
@@ -762,7 +758,7 @@ Certainly! Monitoring and observability are critical components of the CI/CD pip
 
 It's worth noting that the best monitoring solution often depends on the specific requirements of the organization, the existing tech stack, and the nature of the applications being monitored. Many companies use a combination of several tools to achieve full-stack observability.
 
-#### 2. **Dashboard Types:** {#dashboard-types .unnumbered}
+#### 2. **Dashboard Types:**
 
 > There are generally two types:
 >
@@ -770,7 +766,7 @@ It's worth noting that the best monitoring solution often depends on the specifi
 >
 > **KPI Dashboards:** These are goal-oriented, showcasing metrics like Monthly Active Users (MAU), Daily Active Users (DAU), customer behavior in an app, or success rates for particular scenarios.
 
-#### 3. **Design Considerations:** {#design-considerations .unnumbered}
+#### 3. **Design Considerations:**
 
 > Maintain minimalism, avoiding unnecessary decorations that could clutter the dashboard.
 >
@@ -778,13 +774,13 @@ It's worth noting that the best monitoring solution often depends on the specifi
 >
 > Prioritize end-to-end (E2E) metrics that mirror user experience, rather than an aggregate of smaller, potentially unrelated metrics.
 
-#### 4. **Metrics to Consider:** {#metrics-to-consider .unnumbered}
+#### 4. **Metrics to Consider:**
 
 > Focus on higher-level metrics like those from the web-vitals library for web applications to better reflect the user experience.
 >
 > While HTTP-based metrics are helpful for diagnosis, they may not always be indicative of the overall customer experience.
 
-#### 5. **Graphing Data Sources:** {#graphing-data-sources .unnumbered}
+#### 5. **Graphing Data Sources:**
 
 > There are primarily two categories:
 >
@@ -792,13 +788,13 @@ It's worth noting that the best monitoring solution often depends on the specifi
 >
 > **KPIs/Scenario Metrics:** More user-focused, they show how users interact with a feature, for instance.
 
-#### 6. **Performance Monitoring:** {#performance-monitoring .unnumbered}
+#### 6. **Performance Monitoring:**
 
 > CPU usage can be an indicator, but it's essential to pair it with end-user experience metrics to get a holistic view.
 >
 > Consider utilizing cloud providers for scalability and fault tolerance. Robust monitoring tools should alert immediately if there's a performance issue, possibly via third-party software to ensure redundancy.
 
-#### 7. **Logging Considerations:** {#logging-considerations .unnumbered}
+#### 7. **Logging Considerations:**
 
 > Log managers manage, tabulate, and graph logs but don't instruct on what or where to log.
 >
@@ -808,7 +804,7 @@ It's worth noting that the best monitoring solution often depends on the specifi
 >
 > Assigning priority levels to different logs is crucial. Telemetry is typically what's logged, with different types categorized by importance.
 
-[[Logging and Log Management (ipfs.localhost)]{.underline}](http://bafykbzaceaj2pndeya33yj3lkzcvbkbrdetebwouligktjwdr3vtzhzvjxhyw.ipfs.localhost:8080/?filename=Anton%20A.%20Chuvakin%2C%20Kevin%20J.%20Schmidt%20-%20Logging%20and%20log%20management_%20The%20authoritative%20guide%20to%20understanding%20the%20concepts%20surrounding%20logging%20and%20log%20management-Syngress%20%282012%29.pdf)
+[Logging and Log Management (ipfs.localhost)](http://bafykbzaceaj2pndeya33yj3lkzcvbkbrdetebwouligktjwdr3vtzhzvjxhyw.ipfs.localhost:8080/?filename=Anton%20A.%20Chuvakin%2C%20Kevin%20J.%20Schmidt%20-%20Logging%20and%20log%20management_%20The%20authoritative%20guide%20to%20understanding%20the%20concepts%20surrounding%20logging%20and%20log%20management-Syngress%20%282012%29.pdf)
 
 > **In general, logs should provide insights into:**
 >
@@ -862,27 +858,27 @@ It's worth noting that the best monitoring solution often depends on the specifi
 >
 > Given the event, what should one do next?
 
-### Feature Flags {#feature-flags-1 .unnumbered}
+### Feature Flags
 
-#### Precedent {#precedent .unnumbered}
+#### Precedent
 
-- Likely originated (the word "flag" as used in programming to indicate a state) from [[International maritime signal flags - Wikipedia]{.underline}](https://en.wikipedia.org/wiki/International_maritime_signal_flags)
+- Likely originated (the word "flag" as used in programming to indicate a state) from [International maritime signal flags - Wikipedia](https://en.wikipedia.org/wiki/International_maritime_signal_flags)
 
-- [[Best of Velocity: Move Fast and Ship Things - Facebook's Operational and Release Processes - YouTube]{.underline}](https://www.youtube.com/watch?v=dDf2t-E_Ea8&t=680s) facebook popularized it? 2013 so nope
+- [Best of Velocity: Move Fast and Ship Things - Facebook's Operational and Release Processes - YouTube](https://www.youtube.com/watch?v=dDf2t-E_Ea8&t=680s) facebook popularized it? 2013 so nope
 
-- [[10+ Deploys Per Day: Dev and Ops Cooperation at Flickr \| PPT (slideshare.net)]{.underline}](https://www.slideshare.net/jallspaw/10-deploys-per-day-dev-and-ops-cooperation-at-flickr) 2009
+- [10+ Deploys Per Day: Dev and Ops Cooperation at Flickr \| PPT (slideshare.net)](https://www.slideshare.net/jallspaw/10-deploys-per-day-dev-and-ops-cooperation-at-flickr) 2009
 
-# Feature Flags {#feature-flags-1 .unnumbered}
+# Feature Flags
 
-## Precedent {#precedent .unnumbered}
+## Precedent
 
 * The programming term **“flag”** likely draws inspiration from **international maritime signal flags**, where visual flags convey state and intent. See: [International maritime signal flags — Wikipedia](https://en.wikipedia.org/wiki/International_maritime_signal_flags).
 * Feature flags (a.k.a. *feature toggles*) have been used for years. Notable early public discussions include:
 
-  * **“10+ Deploys Per Day: Dev and Ops Cooperation at Flickr” (2009)** — highlighted deployment practices that paved the way for frequent releases and controlled exposure. [Slides](https://www.slideshare.net/jallspaw/10-deploys-per-day-dev-and-ops-cooperation-at-flickr).
-  * **Facebook’s “Move Fast and Ship Things” (2013)** — popularized modern rollout and operational controls at scale. [Talk](https://www.youtube.com/watch?v=dDf2t-E_Ea8&t=680s).
+ * **“10+ Deploys Per Day: Dev and Ops Cooperation at Flickr” (2009)** — highlighted deployment practices that paved the way for frequent releases and controlled exposure. [Slides](https://www.slideshare.net/jallspaw/10-deploys-per-day-dev-and-ops-cooperation-at-flickr).
+ * **Facebook’s “Move Fast and Ship Things” (2013)** — popularized modern rollout and operational controls at scale. [Talk](https://www.youtube.com/watch?v=dDf2t-E_Ea8&t=680s).
 
-## What are feature flags? {#what-are-feature-flags .unnumbered}
+## What are feature flags?
 
 **Feature flags are remotely controlled `if` statements.** They allow you to alter code paths at runtime without redeploying. In CI/CD, they enable rapid, low-risk releases by:
 
@@ -892,9 +888,9 @@ It's worth noting that the best monitoring solution often depends on the specifi
 
 Flags are often resolved by fetching key–value pairs (e.g., `"EnableSpecialFeature": true`) from a server. Throughout this chapter, **feature flag** and **feature toggle** are used interchangeably.
 
-## Why use feature flags? {#why-would-i-want-to-use-feature-flags .unnumbered}
+## Why use feature flags?
 
-### Advantages {#advantages-of-feature-flags .unnumbered}
+### Advantages
 
 * **Release independence:** Turn features on/off at runtime, independent of your deployment pipeline. Multiple features can be released (or hidden) in parallel.
 * **Fine-grained targeting:** Expose a feature to cohorts (beta testers, premium users), regions/languages, or by request attributes.
@@ -1066,7 +1062,7 @@ Different cohorts may generate different data shapes. Plan migrations and compat
 * If secrecy matters, **don’t ship** related resources until the feature is truly live.
 * If you must ship client flags, consider obfuscation and name hygiene; rely on this only as a minor deterrent.
 
-## Limitations & risks {#limitations-of-feature-flags .unnumbered}
+## Limitations & risks
 
 * **Combinatorial explosion:** Many flags → many interactions → harder QA. Always capture flag states in logs and error reports.
 * **Inadequate concealment:** Client-delivered code can be probed (including enterprise-only features). Avoid leaking names that reveal roadmap details.
@@ -1081,18 +1077,18 @@ Different cohorts may generate different data shapes. Plan migrations and compat
 * **Code obfuscation** only as a deterrent; pair with not shipping disabled resources.
 * **Lifecycle automation** (see below) to prevent stale flags.
 
-## Feature flags vs. branching {#feature-flags-vs.-branching .unnumbered}
+## Feature flags vs. branching
 
 * **Both** separate lines of work, but at different layers:
 
-  * **Branches** isolate **source code**. Non-trunk work isn’t deployed; it lives in the repo until merged.
-  * **Flags** control **runtime execution** of already-deployed code in production and other environments.
+ * **Branches** isolate **source code**. Non-trunk work isn’t deployed; it lives in the repo until merged.
+ * **Flags** control **runtime execution** of already-deployed code in production and other environments.
 * Flags enable early integration and experimentation without redeploys. Branches defer integration and are ideal for larger or unstable work.
 * Use **both**: develop on branches, merge often, protect risky paths with flags, and release progressively.
 
 *(Metaphor: a tree’s branches diverge from the trunk; flags decide which “path” to walk at runtime.)*
 
-## Environments {#what-is-a-feature-flag-environment .unnumbered}
+## Environments
 
 An **environment** is a curated set of flag states. Common environments are `dev`, `staging`, and `prod`, but you can create cohorts such as `beta`, `experimental`, or region/language-specific sets.
 
@@ -1100,7 +1096,7 @@ An **environment** is a curated set of flag states. Common environments are `dev
 * Allow **manual opt-in** for beta programs.
 * Keep environment definitions in code or your flag service for traceability.
 
-## Lifecycle {#feature-flag-lifecycle .unnumbered}
+## Lifecycle
 
 * **Short-lived by default:** Most flags should live days/weeks, not months. Once a feature is at **100%**, remove the flag and dead code.
 * **Time bombs / expiries:** Add an **expiration date** and alerts; auto-disable or page owners when stale.
@@ -1108,7 +1104,7 @@ An **environment** is a curated set of flag states. Common environments are `dev
 * **Cleanup tooling:** Use static analyzers or tools (e.g., Uber’s **Piranha**) to remove unused flags automatically.
 * **Testing discipline:** If you plan to disable a widely enabled feature, periodically test the **off** path with other active flags.
 
-## Naming patterns {#feature-flag-naming-patterns .unnumbered}
+## Naming patterns
 
 Good names prevent technical debt and make cleanup/search reliable.
 
@@ -1127,7 +1123,7 @@ Good names prevent technical debt and make cleanup/search reliable.
 
 **Example:** `ui_EnableDarkMode_rollout_beta_v2_rm20250401`
 
-## Popular feature flag providers/managers {#popular-feature-flag-providersmanagers .unnumbered}
+## Popular feature flag providers/managers
 
 1. **LaunchDarkly** — mature feature management with targeting and experiments.
 2. **Split.io** — flags + experimentation + monitoring.
@@ -1178,10 +1174,9 @@ Blue-green deployments are typically reserved for significant changes such as la
 You want to use feature flags to incrementally expose (or hide) features that are currently being developed. This will be part of your regular CI workflow. When you're working on a feature, put it behind a feature flag. There is an annotated example below with a code implementation.
 
 
-
 ---
 
-### Artifacts, Docker, and Versioning {#artifacts-docker-and-versioning .unnumbered}
+### Artifacts, Docker, and Versioning
 
 #### What are artifacts?
 
@@ -1218,31 +1213,31 @@ CMD ["python", "app.py"]
 
 * Build with a tag immediately to avoid dangling, untagged images:
 
-  ```bash
-  docker build -t myuser/myapp:v1.0 .
-  ```
+ ```bash
+ docker build -t myuser/myapp:v1.0 .
+ ```
 * If you build without `-t`, you’ll get an image with `<none>:<none>` and an image ID (e.g., `d49c4d85c3ea`), which is hard to track. Retag if needed:
 
-  ```bash
+ ```bash
 ```bash
   docker tag d49c4d85c3ea myuser/myapp:v1.0
 ```
-  ```
+ ```
 
 #### Tagging images & pushing to registries
 
 * A **tag** identifies *which* image you mean (and often *where* it lives). The full name includes the registry when pushing somewhere other than Docker Hub:
 
-  ```
-  <registry>/<namespace>/<repo>:<tag>
-  # e.g. ghcr.io/acme/myapp:v1.2.3
-  ```
+ ```
+ <registry>/<namespace>/<repo>:<tag>
+ # e.g. ghcr.io/acme/myapp:v1.2.3
+ ```
 * Common tag strategies:
 
-  * **SemVer**: `v1.2.3`
-  * **Channels**: `dev`, `staging`, `prod`
-  * **Immutability**: short **Git SHA** (`sha-abc123`)
-  * Combine: `v1.2.3-sha-abc123`
+ * **SemVer**: `v1.2.3`
+ * **Channels**: `dev`, `staging`, `prod`
+ * **Immutability**: short **Git SHA** (`sha-abc123`)
+ * Combine: `v1.2.3-sha-abc123`
 * Avoid relying on `latest`; be explicit.
 
 **Build, tag, push (general)**
@@ -1301,9 +1296,9 @@ az acr repository show-tags --name myregistry --repository myapp --output table
 * Prefer **pinned versions** and **idempotent** steps. For example, avoid a bare `apt-get install curl`; pin to a version or use deterministic sources.
 * Consider occasional **no-cache** builds in CI to catch drift:
 
-  ```bash
-  docker build --no-cache -t myuser/myapp:ci-check .
-  ```
+ ```bash
+ docker build --no-cache -t myuser/myapp:ci-check .
+ ```
 
 #### Integrating artifact repositories with CI/CD
 
@@ -1319,8 +1314,8 @@ az acr repository show-tags --name myregistry --repository myapp --output table
 * Decide how you’ll **trace an artifact** across environments (build → QA → staging → prod). Use consistent **metadata**: build number, version, commit SHA, build date, source branch.
 * **When is a version assigned?**
 
-  * Some teams assign a build version each run and record which version gets promoted.
-  * Others version only on release. Either way, **record** which artifact was released.
+ * Some teams assign a build version each run and record which version gets promoted.
+ * Others version only on release. Either way, **record** which artifact was released.
 * **Marketing vs. engineering versions**: “Version 5” publicly can map to many internal patch versions (5.0.1, 5.2, …). Keep a mapping.
 * **Evergreen/remote assets** (e.g., JS payloads fetched at runtime): make sure you instrument with telemetry so you know exactly which version each client is running.
 * **Name safety**: If embedding branch names in image names or tags, **slugify** them to match Docker’s allowed characters.
@@ -1331,8 +1326,8 @@ az acr repository show-tags --name myregistry --repository myapp --output table
 * Keep **just enough history** to support rollbacks, audits, and customer support; avoid hoarding every build forever.
 * Use your repository’s **retention policies** and deprecation features:
 
-  * Track **downloads/usage** to learn what’s still in use.
-  * **Deprecate** versions with clear comms (replacement, removal date, impact, contact). For rarely used artifacts, a silent deprecation may be fine, but document the decision.
+ * Track **downloads/usage** to learn what’s still in use.
+ * **Deprecate** versions with clear comms (replacement, removal date, impact, contact). For rarely used artifacts, a silent deprecation may be fine, but document the decision.
 * Providers often default to \~**30 days** retention for temporary artifacts; configure to your needs.
 
 #### Git tags & release automation
@@ -1340,14 +1335,14 @@ az acr repository show-tags --name myregistry --repository myapp --output table
 * **Git tags** label a specific commit (lightweight or annotated). Tags alone don’t “make a release”—your CI/CD must **react** to them.
 * Typical flow:
 
-  1. **Decide release strategy** (what triggers a release, who approves).
-  2. Implement a **tagging strategy** that encodes that decision (e.g., push `vX.Y.Z` tag on `main`).
-  3. CI job on **tag push**: build, set app version, create release notes, publish artifacts/images.
+ 1. **Decide release strategy** (what triggers a release, who approves).
+ 2. Implement a **tagging strategy** that encodes that decision (e.g., push `vX.Y.Z` tag on `main`).
+ 3. CI job on **tag push**: build, set app version, create release notes, publish artifacts/images.
 * **Version in the app**: If your app shows a version string, update it in your config or embed it during build (and do this **before**/as you tag).
 * **SemVer vs. evergreen**:
 
-  * **SemVer** needs human judgment for “major” changes; automate detection of obvious API breaks where tooling exists, but expect manual decisions.
-  * **Evergreen** (monotonic or SHA-based) can be fully automated; use promotion markers (e.g., “this SHA is now prod”).
+ * **SemVer** needs human judgment for “major” changes; automate detection of obvious API breaks where tooling exists, but expect manual decisions.
+ * **Evergreen** (monotonic or SHA-based) can be fully automated; use promotion markers (e.g., “this SHA is now prod”).
 
 > **FAQ: Why does a container image get built on every merge?**
 > Your CI may be wired to build on each push/merge and optionally **auto-deploy** (CD). The pipeline runs the Dockerfile, tags the image, and pushes it to a registry for the target environment.
@@ -1362,7 +1357,7 @@ az acr repository show-tags --name myregistry --repository myapp --output table
 
 ---
 
-### Blue-green database deployment strategies {#blue-green-database-deployment-strategies .unnumbered}
+### Blue-green database deployment strategies
 
 * See ***Refactoring Databases*** for patterns and caveats; treat schema changes as versioned, reversible artifacts aligned to the app release cadence.
 
@@ -1388,8 +1383,8 @@ Here’s a tighter, de-duplicated version that keeps the substance and flow.
 * **Naming conventions.** Use a clear schema (e.g., `<org>/<module>:<version>` or `<group>/<name>/<version>`). Keep it consistent with your repo’s layout rules.
 * **When versions are assigned.**
 
-  * Some teams stamp **every build** and promote selected builds.
-  * Others version **only on release**. In all cases, record the released artifact version in release notes/logs.
+ * Some teams stamp **every build** and promote selected builds.
+ * Others version **only on release**. In all cases, record the released artifact version in release notes/logs.
 * **Marketing vs. engineering versions.** Public “Version 5” often maps to many internal versions (5.0.1, 5.2…). Maintain the mapping.
 * **Evergreen/remote assets.** If clients fetch assets at runtime (e.g., JS payloads), instrument with telemetry to know exactly which version each client runs.
 

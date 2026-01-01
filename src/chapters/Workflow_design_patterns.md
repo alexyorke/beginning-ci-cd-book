@@ -4,24 +4,28 @@
 
 * Avoid **long, unreadable command lines** with heavy escaping. Instead:
 
-  * Use **here-docs** for multi-line literals:
+ * Use **here-docs** for multi-line literals:
 
-    ```bash
-    cat << EOF
-    Line 1
-    Line 2
-    Line 3
-    EOF
-    ```
-  * Break long commands with `\` so each step is clear:
+ ```bash
+```bash
+ cat << EOF
+```
+ Line 1
+ Line 2
+ Line 3
+ EOF
+ ```
+ * Break long commands with `\` so each step is clear:
 
-    ```bash
-    find . -type f -name "*.txt" -exec wc -l {} + \
-      | awk '$1 >= 100' \
-      | sort -nr \
-      | head -n 5 \
-      | awk '{print "File: " $2 " - Line Count: " $1}'
-    ```
+ ```bash
+```bash
+ find . -type f -name "*.txt" -exec wc -l {} + \
+```
+ | awk '$1 >= 100' \
+ | sort -nr \
+ | head -n 5 \
+ | awk '{print "File: " $2 " - Line Count: " $1}'
+ ```
 * Multi-line formatting improves **readability** for pipelines.
 * Use **functions** in bash scripts for organization.
 * Add **error checking** so you know which command failed.

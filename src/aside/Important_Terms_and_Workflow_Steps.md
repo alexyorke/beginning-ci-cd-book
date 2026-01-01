@@ -10,9 +10,9 @@
 
 - ***
 
-  **Definition** **Generic Term** **Jenkins** **GitHub Actions** **GitLab CI/CD** **CircleCI**
+ **Definition** **Generic Term** **Jenkins** **GitHub Actions** **GitLab CI/CD** **CircleCI**
 
-  ***
+ ***
 
 Build Step: A build step is a single task or command within a CI/CD pipeline. It's a specific action to be executed, such as compiling code, running tests, or deploying software. Build Step Build Step Job Job Job
 
@@ -40,9 +40,9 @@ Build Status: Build status is an indicator of whether a build or integration pro
 
 - Some testing environments might have different terms. These might be called "Development Environment", Dev, QA, Staging, UAT, PPE, Testing, Experimental, or Beta. These terms may have different connotations, depending on which environments you are using, and for which purpose.
 
-### What steps should my workflow have? {#what-steps-should-my-workflow-have .unnumbered}
+### What steps should my workflow have?
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
 The steps can be grouped by major themes such as Release Management, Build Process, Docker and Container Management, Version Control, Testing, Caching, Environment and Setup, and Miscellaneous Tools. Each sub-theme under these major themes is based on the actions that the steps are implied to perform.
 
 Each major theme will be annotated with its summed frequency and ordered according to the sum. Sub-themes will be described along with speculative actions they might be performing.

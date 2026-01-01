@@ -46,7 +46,7 @@ Includes: default success(), failure(), cancelled(), always(), needs, continue-o
 
 - Every step has an implicit `if: success()` unless you override it.
 - Use these common status functions:
-  - `success()`, `failure()`, `cancelled()`, `always()`
+ - `success()`, `failure()`, `cancelled()`, `always()`
 - Use `continue-on-error: true` when a step can fail without poisoning the job.
 - Use `needs:` to express job dependencies and enable DAG-style workflows.
 

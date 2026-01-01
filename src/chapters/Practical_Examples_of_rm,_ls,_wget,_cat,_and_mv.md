@@ -1,6 +1,4 @@
-﻿# Start of Selection
-
-## **Practical Examples of rm, ls, wget, cat, and mv** {#practical-examples-of-rm-ls-wget-cat-and-mv .unnumbered}
+﻿## **Practical Examples of rm, ls, wget, cat, and mv**
 
 ### rm (Remove files and directories)
 

@@ -24,7 +24,6 @@ Here's a breakdown of how to add paths to your \$PATH variable, illustrating bot
 
   - **Zsh:** Add it to your .zshrc file.
 
--
 
 **2. Using eval and inline commands:**
 

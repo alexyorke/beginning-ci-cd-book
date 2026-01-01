@@ -249,7 +249,6 @@ A developer inserted malicious code into the popular open-source package, node-i
 7. **Snyk’s Statement**
    - While Snyk supports Ukraine, they emphasized that such intentional abuse damages the global open-source community, leading them to flag the affected node-ipc versions as security vulnerabilities.
 
--
 
 ### Secure resource and Managed Secrets and Key Management Service
 
@@ -311,65 +310,50 @@ A developer inserted malicious code into the popular open-source package, node-i
 
 - FindBugs with FindSecBugs Plugin: A static code analysis tool for Java that can identify security vulnerabilities with the FindSecBugs plugin.
 
--
 
 - Checkmarx: Although primarily a commercial tool, Checkmarx does offer a limited free version that performs static code analysis for multiple languages.
 
--
 
 - Bandit: Focuses on Python codebase and is designed to find common security issues.
 
--
 
 - Brakeman: A static analysis tool for Ruby on Rails applications.
 
--
 
 - SonarQube: Offers various language plugins and detects many types of vulnerabilities. The Community Edition is free.
 
--
 
 - ESLint with Security Plugin: A widely-used linting tool for JavaScript that can also be used for security checks with the right set of plugins.
 
--
 
 - Flawfinder: Scans C and C++.
 
--
 
 - Cppcheck: Another static analysis tool for C/C++ codebases.
 
--
 
 - YASCA (Yet Another Source Code Analyzer): Supports multiple languages including Java, C/C++, and HTML, but focuses primarily on web vulnerabilities.
 
--
 
 - Commercial Tools
 
 - Checkmarx: A leading SAST tool that supports multiple programming languages and is designed for enterprise use.
 
--
 
 - Veracode: Offers a static analysis service as part of a larger application security suite.
 
--
 
 - Fortify Static Code Analyzer: Provided by Micro Focus, it covers multiple languages and offers integration with IDEs and CI/CD tools.
 
--
 
 - IBM AppScan: Focuses on identifying vulnerabilities in web and mobile applications, supporting multiple programming languages.
 
--
 
 - Kiuwan: Offers a broad range of language support and integrates with various IDEs and CI/CD tools.
 
--
 
 - Synopsys Coverity: Supports multiple languages and offers CI/CD integration.
 
--
 
 - GitLab Ultimate: Built-in SAST in their Ultimate plan. It supports many languages and is integrated directly into the GitLab CI/CD pipeline.
 
@@ -976,7 +960,6 @@ for (int i = 0; i < 10; i++)
 
   - This corresponds to the [[tar (computing) - Wikipedia]{.underline}](<https://en.wikipedia.org/wiki/Tar_(computing)>) modification date section in the header (plus header checksum) that is different. This means that the file has a different modification date. Look into why that is the case and if tar has any options to disable modification dates.
 
-  -
 
 .\\fq '.. \| select(scalars and in_bytes_range(0x123))' test.tar
 

@@ -4,22 +4,31 @@ Here are practical examples of how to use the chmod command to change file permi
 
 **1. Making a File Executable:**
 
-**Single file:\
-** chmod +x script.sh
+**Single file:**
 
--   [This command adds execute permission to the file script.sh. Required in order to run your bash script if you were to write it on a GitHub runner.Now you can run the script by typing ./script.sh.]{.mark}
+```bash
+chmod +x script.sh
+```
 
-**Recursive on a directory:\
-** chmod -R +x bin/
+- This command adds execute permission to `script.sh`. On a GitHub runner, this is required if you want to execute the script (e.g., `./script.sh`).
+
+**Recursive on a directory:**
+
+```bash
+chmod -R +x bin/
+```
 
 -   This command recursively adds execute permission to all files and directories within the bin/ directory.
 
 **2. Setting Specific Permissions:**
 
-**[SSH public keys and private keys each have a certain permissions. Otherwise it won't be possible to use these keys when you use SSH within your runner.]{.mark}**
+**SSH keys have required permissions.** If the permissions are too open, SSH may refuse to use the key.
 
-**Setting read and write permissions for the owner:\
-** chmod 600 \~/.ssh/id_rsa
+**Setting read and write permissions for the owner:**
+
+```bash
+chmod 600 ~/.ssh/id_rsa
+```
 
 -   This sets the permissions of the file \~/.ssh/id_rsa to 600, which translates to:
 
@@ -29,10 +38,12 @@ Here are practical examples of how to use the chmod command to change file permi
 
     -   0 - others have no permissions
 
--   
 
-**Setting read permissions for the owner, group, and others:\
-** chmod 644 \~/.ssh/id_rsa.pub
+**Setting read permissions for the owner, group, and others:**
+
+```bash
+chmod 644 ~/.ssh/id_rsa.pub
+```
 
 -   This sets the permissions of the file \~/.ssh/id_rsa.pub to 644, which translates to:
 
@@ -42,7 +53,6 @@ Here are practical examples of how to use the chmod command to change file permi
 
     -   4 - others have read permissions
 
--   
 
 **3. Understanding Permission Modes:**
 
@@ -54,7 +64,6 @@ Here are practical examples of how to use the chmod command to change file permi
 
     -   The third digit (ones place) represents the others' permissions.
 
--   
 
 -   **Permissions:**
 
@@ -64,7 +73,6 @@ Here are practical examples of how to use the chmod command to change file permi
 
     -   1: Execute permission
 
--   
 
 **4. Using umask:**
 

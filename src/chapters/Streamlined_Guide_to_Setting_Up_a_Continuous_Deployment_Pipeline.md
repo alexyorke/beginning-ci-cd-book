@@ -26,7 +26,6 @@ This guide provides a concise overview of setting up a continuous deployment (CD
 
   - Artifact Management services
 
--
 
 - Carefully evaluate hosting providers based on:
 
@@ -56,7 +55,6 @@ This guide provides a concise overview of setting up a continuous deployment (CD
 
   - Use safe deployment practices like blue-green or rolling deployments for minimal downtime.
 
--
 
 - **Infrastructure Provisioning:** Utilize IaC to manage and automate infrastructure setup.
 
@@ -498,35 +496,26 @@ It's designed to capture events such as input delays during usage, continuously 
 
 - Another situation which overlaps is determine if there are issues or problems in your application, for example errors or performance issues. What are the core user scenarios, for example, when they click on your app, how long does it take to load for the first impression? What about some other processes, like creating a project? Does that take 10 minutes when it should take 10 seconds? What is the entire flow from when a user enters the app to that point? This might require logging at many different points, but there should be a well-reasoned strategy, such as logging in places that reduce execution entropy. For example, logging twice in a row is, in general, probably not as useful to determine what happened next than if it was logged after an if statement. Here's an example.
 
-Certainly! Let's consider an example involving a simple function to process user registration in a hypothetical application.
+Let's consider an example involving a simple function to process user registration in a hypothetical application.
 
 ### Poor Logging Strategy
 
-`python
-
+```python
 def register_user(username, password, email):
+    try:
+        # ... some code to add user to database ...
+        db.add_user(username, password, email)
 
-try:
+        # Vague and non-descriptive log
+        print("Operation completed.")
 
-\# ... some code to add user to database ...
+    except Exception as e:
+        # Logging the whole exception without context
+        print(e)
 
-db.add_user(username, password, email)
-
-\# Vague and non-descriptive log
-
-print("Operation completed.")
-
-except Exception as e:
-
-\# Logging the whole exception without context
-
-print(e)
-
-\# Usage
-
+# Usage
 register_user("alice", "password123", "alice@example.com")
-
-`
+```
 
 Issues with the above code:
 
@@ -542,37 +531,32 @@ Issues with the above code:
 
 Using Python's `logging` module:
 
-`python
-
+```python
 import logging
 
 logging.basicConfig(level=logging.INFO)
-
-logger = logging.getLogger(\_\_name\_\_)
+logger = logging.getLogger(__name__)
 
 def register_user(username, password, email):
+    try:
+        # ... some code to add user to database ...
+        db.add_user(username, password, email)
 
-try:
+        # Descriptive log message with relevant context
+        logger.info(
+            f"User registration successful for username: {username}, email: {email}"
+        )
 
-\# ... some code to add user to database ...
+    except Exception as e:
+        # Logging error with context and without exposing sensitive information
+        logger.error(
+            f"Failed to register user with username: {username}, email: {email}. "
+            f"Error: {type(e).__name__}"
+        )
 
-db.add_user(username, password, email)
-
-\# Descriptive log message with relevant context
-
-logger.info(f"User registration successful for username: {username}, email: {email}")
-
-except Exception as e:
-
-\# Logging error with context and without exposing sensitive information
-
-logger.error(f"Failed to register user with username: {username}, email: {email}. Error: {type(e).\_\_name\_\_}")
-
-\# Usage
-
+# Usage
 register_user("alice", "password123", "alice@example.com")
-
-`
+```
 
 Improvements in the above code:
 

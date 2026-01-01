@@ -53,6 +53,7 @@
 # Appendix
 
 - [Considerations for Businesses](chapters/Considerations_for_businesses.md)
+- [Future topics to cover](future.md)
 - [The Open-Core Model](aside/The_open-core_model.md)
 - [Additional Readings](aside/Additional_readings.md)
 - [Asides Index](aside/aside.md)

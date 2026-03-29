@@ -1,42 +1,80 @@
-[bmwiedemann/theunreproduciblepackage: The Unreproducible Package (github.com)](https://github.com/bmwiedemann/theunreproduciblepackage/tree/master)
+# Reproducible Builds and SBOMs
 
-[ftp2.osuosl.org/pub/fosdem/2024/k1105/fosdem-2024-3353-reproducible-builds-the-first-ten-years.mp4](https://ftp2.osuosl.org/pub/fosdem/2024/k1105/fosdem-2024-3353-reproducible-builds-the-first-ten-years.mp4)
+## The Trust Gap in Software Builds
 
-[ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3074-sharing-and-reusing-sboms-with-the-osselot-curation-database.mp4](https://ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3074-sharing-and-reusing-sboms-with-the-osselot-curation-database.mp4)
+Free and open-source software promises transparency, but there is a gap between the source code and the binary that ships to users. Users must trust that the developer's build environment was uncompromised and that the resulting binary actually corresponds to the published source. Reproducible builds close this gap by making it possible for anyone to compile the same source and get a bit-for-bit identical output.
 
-[ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3146-phantom-dependencies-in-python-and-what-to-do-about-them-.mp4](https://ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3146-phantom-dependencies-in-python-and-what-to-do-about-them-.mp4)
+This talk ([31c3: Reproducible Builds — Closing the Trust Gap](https://1drv.ms/u/s!AOnf7tByrSaDlRE)) from Mike (Tor Project) and Seth (EFF) covers the core concepts:
 
-[bmwiedemann/theunreproduciblepackage: The Unreproducible Package (github.com)](https://github.com/bmwiedemann/theunreproduciblepackage/tree/master)
+- **Why developers are targets:** Build servers and developer machines are high-value attack surfaces. A compromised build server can inject malicious code into software used by millions, with no visible change to the source repository.
+- **Reproducible builds as a mitigation:** If the same source always produces the same binary, independent parties can verify the build and detect tampering.
+- **Real implementations:** Tor Browser uses the Gideon system; Debian achieves reproducibility across a significant portion of its package archive; F-Droid runs a verification server for Android packages.
+- **The trusting trust problem:** Reproducible builds, combined with diverse double-compilation, help address the classic attack where a backdoor is injected into a compiler and propagates through all software it compiles.
+- **Remaining challenges:** Build environment variations (timestamps, filesystem ordering, locale), ensuring update distribution integrity.
 
-https://docs.guac.sh/
+## Further Resources
 
-## [**[31c3-6240-en-Reproducible_Builds_mp3.mp3](https://1drv.ms/u/s!AOnf7tByrSaDlRE)**](#c3-6240-en-reproducible_builds_mp3.mp3)
+- [The Unreproducible Package](https://github.com/bmwiedemann/theunreproduciblepackage/tree/master) — a curated collection of ways builds can fail to be reproducible, useful for testing your own toolchain.
+- [GUAC](https://docs.guac.sh/) — Graph for Understanding Artifact Composition; enables automated analysis of software supply chain graphs.
+- [FOSDEM 2024: Reproducible Builds — The First Ten Years](https://ftp2.osuosl.org/pub/fosdem/2024/k1105/fosdem-2024-3353-reproducible-builds-the-first-ten-years.mp4) — retrospective on progress across the ecosystem.
+- [FOSDEM 2024: Sharing and Reusing SBOMs with the OSSelot Curation Database](https://ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3074-sharing-and-reusing-sboms-with-the-osselot-curation-database.mp4)
+- [FOSDEM 2024: Getting Lulled into a False Sense of Security by SBOM and VEX](https://ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3230-getting-lulled-into-a-false-sense-of-security-by-sbom-and-vex.mp4) — important nuance on SBOM limitations.
+- [FOSDEM 2024: Phantom Dependencies in Python](https://ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3146-phantom-dependencies-in-python-and-what-to-do-about-them-.mp4)
 
-## **Reproducible Builds: Closing the Trust Gap in Software Security**
+## Generating an SBOM in GitHub Actions
 
-This talk, featuring Mike from the Tor Project and Seth from EFF, delves into the crucial security concept of reproducible builds and its increasing relevance in today's software landscape.
+A Software Bill of Materials (SBOM) is a machine-readable inventory of all components in your software. GitHub can generate one automatically for your repository, or you can produce one as part of your CI pipeline.
 
-**Key Points:**
+### Option 1: GitHub's built-in dependency graph export
 
-- **The Trust Gap:** Free software promises transparency, but verifying that a binary matches the source code relies on trust in developers and infrastructure. This trust gap exposes users to potential vulnerabilities and malicious code.
+GitHub automatically generates a dependency graph for supported ecosystems (npm, pip, Maven, Cargo, etc.). You can export it as an SBOM in SPDX format via the API:
 
-- **Why Developers Are Targets:** Developers' computers and build servers, while often assumed secure, are attractive targets for attackers seeking to compromise widely used software and gain access to millions of machines.
+```bash
+gh api /repos/{owner}/{repo}/dependency-graph/sbom > sbom.json
+```
 
-- **Reproducible Builds as a Solution:** Reproducible builds ensure that anyone can generate an identical binary from the source code, eliminating the single point of failure of the developer's machine and making it significantly harder to inject malicious code undetected.
+Or attach it as a release asset from a workflow:
 
-- **Examples & Implementations:** The talk highlights successful implementations of reproducible builds, including:
+```yaml
+- name: Export GitHub SBOM
+  run: |
+    gh api /repos/${{ github.repository }}/dependency-graph/sbom > sbom.spdx.json
+  env:
+    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
- - **Tor Browser:** Leveraging the Gideon system for reproducible builds across different platforms.
- - **Debian:** Achieving reproducible builds for a significant portion of its package repository.
- - **F-Droid:** Developing a verification server to enhance trust in Android packages.
+- name: Upload SBOM as artifact
+  uses: actions/upload-artifact@v4
+  with:
+    name: sbom
+    path: sbom.spdx.json
+```
 
-- **Addressing the Trusting Trust Attack:** Reproducible builds, combined with techniques like diverse double compilation, offer a way to mitigate the "trusting trust" attack where backdoors can be hidden in compilers and propagate through software generations.
+### Option 2: Syft (for deeper analysis)
 
-- **Challenges & Future Directions:**
- - Reproducibility efforts require addressing challenges like build environment variations, timestamps, and file system inconsistencies.
- - Ensuring software update distribution integrity is crucial and can be enhanced using technologies like blockchain and certificate transparency.
- - Continuous improvement and adoption of reproducible builds across the software development community are vital for a more secure and trustworthy software ecosystem.
+[Syft](https://github.com/anchore/syft) generates SBOMs from container images, directories, or lock files and supports CycloneDX, SPDX, and other formats:
 
-This talk effectively emphasizes the importance of reproducible builds for enhancing software security and encourages developers and users to champion this practice for a more trustworthy digital future.
+```yaml
+- name: Install Syft
+  uses: anchore/sbom-action/download-syft@v0
 
+- name: Generate SBOM with Syft
+  uses: anchore/sbom-action@v0
+  with:
+    path: .
+    format: spdx-json
+    output-file: sbom.spdx.json
 
+- name: Upload SBOM
+  uses: actions/upload-artifact@v4
+  with:
+    name: sbom
+    path: sbom.spdx.json
+```
+
+### What to do with the SBOM
+
+- Attach it to GitHub Releases so downstream users can audit what went into a release.
+- Feed it into a vulnerability scanner (e.g., Grype, OSV Scanner) to find known CVEs in your dependency tree.
+- Store it as a compliance artifact alongside your release artifacts.
+
+> For the security implications of SBOMs and supply chain security more broadly, see the Security and Reproducibility chapter.

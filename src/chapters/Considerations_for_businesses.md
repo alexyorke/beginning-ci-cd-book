@@ -1,4 +1,4 @@
-﻿## Chapter X: Considerations for Businesses: Is CI/CD Right for You?
+## Chapter X: Considerations for Businesses: Is CI/CD Right for You?
 
 ### Introduction: Beyond the Buzzwords
 
@@ -487,3 +487,21 @@ Adopting Continuous Integration and Continuous Deployment/Delivery is a strategi
 10. **Business Value:** Continuously link CI/CD efforts and metrics back to tangible business value and strategic objectives.
 
 By thoughtfully navigating these considerations, businesses can harness the power of CI/CD not just as a set of tools, but as a strategic capability to build better software faster, adapt to changing markets, and ultimately achieve greater success.
+
+## Vendor Lock-in in CI Pipelines
+
+CI pipelines are a common place to accumulate vendor-specific constructs. Steps using GitHub-specific actions (like `actions/upload-artifact`) cannot easily be run locally or migrated to another platform. Consider the following:
+
+- **CI pipelines** (build, test, lint) benefit from staying portable. Use standard shell commands where possible, and avoid GitHub-specific actions for steps you may want to run locally.
+- **CD pipelines** (deploy, release) are more difficult to make portable and often do not need to be run locally. Accepting some vendor lock-in at the deployment stage is a reasonable trade-off.
+- Using a Makefile or a simple shell script as the "entrypoint" for build steps lets you call the same logic from GitHub Actions, locally, or from another CI system.
+
+## Migrating from Azure Pipelines to GitHub Actions
+
+If you are moving code from Azure DevOps to GitHub but are not ready to migrate CI pipelines at the same time, you can install the **Azure Pipelines GitHub App**. This lets Azure DevOps continue to own the pipeline while triggering it from GitHub events (pushes, pull requests). Your team can then manage code, pull requests, and issues fully in GitHub, and migrate individual pipelines to GitHub Actions incrementally without disrupting the business.
+
+This approach is useful when:
+
+- The business requires an audit trail that currently lives in Azure DevOps.
+- Some pipelines are complex and need time to be rewritten.
+- Different teams are at different stages of their migration.

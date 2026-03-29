@@ -1,59 +1,71 @@
 # Budgeting and Cost Management: Quick Tips
 
-## Budgeting and cost management
+GitHub Actions charges for compute time (minutes) and storage (artifacts, packages). These tips help keep both under control without sacrificing developer experience.
 
-### Budgeting and cost management
+## Workflow Duration and Timeouts
 
-![](./images/image50.png)
+- Monitor how long your workflows take. Duration typically grows with the codebase — that's expected — but sudden increases indicate a problem.
+- Lower the default 6-hour timeout to match your actual workflow duration plus a reasonable buffer (e.g., if your workflow usually takes 20 minutes, set a timeout of 40–60 minutes). This prevents runaway jobs from burning minutes silently.
+- Use [Meercode](https://meercode.io/) (free tier available) or GitHub's own workflow analytics to visualize duration trends over time.
 
-Make sure that your workflows don't run unnecessarily long by frequently checking how long they take. There are actions and ways to monitor typical workflow duration. It's normal for the duration to increase as the project grows because there's more code to compile.
+## Concurrency Control
 
-You can also limit the total length of time on your workflow from the default 12 hours to potentially one or two hours, depending on how long they normally take. If they get stuck, you'll be wasting money.
+- Limit concurrent builds per pull request to one. Auto-cancel older runs when a new commit is pushed:
 
-Another approach is to set concurrency to one if the workflow might be running multiple times in the same PR, in which case there's only one job that will be used for its output. You may also want to set concurrency to one if you're doing a deployment; you don't want multiple deployments happening concurrently, which could cause a race condition.
+```yaml
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+```
 
-Additionally, make sure to compress your artifacts when you upload them. Adjust the retention period so they're not retained too long or too short. For pull requests, you might retain artifacts for a day or even less. Since you get charged for storage space in GitHub Actions, be careful about what you're storing in artifacts. Anything not required for deployment should be excluded or simply logged.
+- For deployment workflows, set `cancel-in-progress: false` instead — you don't want two deploys racing each other. Use a dedicated deployment environment with required reviewers to gate concurrent runs.
 
-If you're really running out of space and budget, you may need to remove any artifacts that haven't been deployed, but otherwise it's usually not a problem.
+## Branch and Trigger Selection
 
----
+- Avoid running CI on branches that have no open pull request (except `main`/`master`). Use path filters and branch filters to limit unnecessary triggers.
+- Don't trigger expensive workflows on changes to documentation-only files:
 
-## Cost-Effective CI/CD Workflow Management: Quick Tips
+```yaml
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+```
 
-## **Cost-Effective CI/CD Workflow Management: Quick Tips**
+## Caching
 
-**Workflow Optimization:**
+- Cache dependencies (npm modules, pip packages, Gradle caches, etc.) to avoid re-downloading them on every run. A well-placed cache step can cut minutes off each run.
+- Be aware: stale caches can introduce subtle bugs. Use `hashFiles()` on your lock file as the cache key so the cache busts when dependencies change.
+- Don't over-cache. Caching build output is often not worth the complexity unless your build is genuinely slow.
 
-- **Concurrency Control:** Limit concurrent builds per Pull Request (PR) to one. Auto-cancel older builds on new commits.
+## Artifact Storage
 
-- **Timeout Optimization:** Set workflow timeouts based on doubled median workflow time, adjusting upwards as the project grows.
+- Compress artifacts before uploading. The `actions/upload-artifact` action compresses by default, but be explicit about what you include.
+- Set retention periods intentionally:
+  - PR/dev builds: 1–3 days
+  - Release artifacts: 30–90 days (or per compliance requirements)
+- Exclude files from artifacts that are not needed for deployment or debugging (e.g., intermediate object files, test fixtures).
 
-- **Dependabot Management:**
+## Test and Analysis Efficiency
 
- - Trigger Dependabot PRs manually or conditionally.
+- **Fast fail first:** Run the quickest-failing tests first. If unit tests take 30 seconds and integration tests take 10 minutes, run unit tests in a separate early job.
+- **Selective testing:** For monorepos, use path filters or tools like `nx affected` to run only tests relevant to changed code.
+- **Static analysis:** Only run static analysis tools (ESLint, SonarCloud, CodeQL) if someone is actively looking at and acting on the results. Unused tooling costs minutes per run and adds maintenance burden.
 
- - Limit the number of open Dependabot PRs.
+## Dependabot Cost Considerations
 
- - Balance limiting PRs with potential missed alerts.
+- Dependabot PRs trigger CI just like developer PRs. If Dependabot is very active, it can multiply your CI minutes.
+- Limit open Dependabot PRs with `open-pull-requests-limit` in `dependabot.yml`:
 
-**Resource Management:**
+```yaml
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+```
 
-- **Branch Selection:** Avoid running CI on branches without PRs (except main/master).
-
-- **Fast Fail:** Prioritize quick-failing tests to optimize feedback loops.
-
-- **Caching Strategy:** Employ caching strategically, ensuring effectiveness and avoiding potential security risks.
-
-- **Selective Testing:** Utilize multi-threaded test execution and focus on testing affected code.
-
-- **Tool Usage:** Only employ static analysis tools if their output is actively used.
-
-**Developer Experience:**
-
-- **Balanced Approach:** Prioritize developer efficiency and quick feedback loops without compromising cost effectiveness.
-
-- **Hardware Considerations:** Invest in adequate infrastructure to minimize wait times, especially for critical production deployments.
-
-[Build monitor for Github Actions, Gitlab CI, Travis CI, Bitrise and Buddy! | Meercode](https://meercode.io/) interesting (use free version)
-
-
+- Use grouped updates to batch multiple dependency bumps into a single PR where appropriate.

@@ -326,11 +326,40 @@ Don't use curl | bash; code owners and branch protection; artifact retention win
 - Enforce least privilege:
   - [Azure RBAC best practices (Microsoft Learn)](https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#only-grant-the-access-users-need)
 
-- Reproducible builds:
-  - [dotnet/reproducible-builds](https://github.com/dotnet/reproducible-builds)
+- Reproducible builds: See the [Reproducible Builds and SBOMs](Reproducible_Builds_and_SBOMs.md) aside and the Security and Reproducibility chapter for in-depth coverage.
 
 - Anti-malware scanning for build artifacts:
   - [Windows Antivirus and antimalware software FAQ (Microsoft Support)](https://support.microsoft.com/en-us/windows/antivirus-and-antimalware-software-faq-31f2a46e-fad6-b713-45cf-b9db579973e6#disable_def)
+
+---
+
+## Preventing PR Code from Overriding CI Scripts
+
+In large open-source projects that accept external pull requests, a malicious or erroneous PR could modify the CI scripts that run during the build. If CI runs the PR's version of those scripts, it may execute untrusted code with access to secrets and the runner environment.
+
+The Apache Airflow project addresses this with a two-checkout pattern:
+
+1. **Check out trusted main scripts** into a separate directory:
+
+```yaml
+- name: "Checkout main branch to 'main-airflow' to use trusted scripts"
+  uses: actions/checkout@v3
+  with:
+    path: "main-airflow"
+```
+
+2. **Overwrite the CI script directory** with the main-branch version before running anything:
+
+```yaml
+- name: "Override scripts/ci with the main branch version"
+  run: |
+    rm -rf "scripts/ci"
+    mv "main-airflow/scripts/ci" "scripts"
+```
+
+This ensures that no matter what a PR changes inside `scripts/ci`, those changes are discarded before execution. Apply this pattern to any directory that contains scripts invoked by the CI pipeline but should remain under maintainer control.
+
+---
 
 - Useful analyzers / scanners:
   - [PyCQA/bandit](https://github.com/PyCQA/bandit)

@@ -1,4 +1,4 @@
-﻿Okay, let's start building the "Dependency Management" chapter for your "Beginning CI/CD" book based on your notes. I'll structure it logically, expand on the concepts, integrate the analogies, and aim for a clear, beginner-friendly tone suitable for your audience.
+Okay, let's start building the "Dependency Management" chapter for your "Beginning CI/CD" book based on your notes. I'll structure it logically, expand on the concepts, integrate the analogies, and aim for a clear, beginner-friendly tone suitable for your audience.
 
 Here is the first part of the chapter:
 
@@ -441,3 +441,24 @@ Let's put your knowledge into practice! Choose the exercises relevant to the pri
  - Find a simple `Dockerfile` online that installs a package using `apt-get install <package-name>`.
  - Modify it to pin the package to a specific version. You might need to search online for how to find available versions for that package in the base image's distribution (e.g., using `apt-cache madison <package-name>`).
  - Change the `FROM` line to use a specific version tag (e.g., `ubuntu:22.04`) instead of `latest`. Why is this important for reproducibility in CI/CD?
+
+## Staying Ahead of Deprecations
+
+GitHub Actions dependencies change frequently: Node.js runtime versions are deprecated, runner images are removed, action APIs change, and commands like `set-output` and `save-state` get retired. Missing these notices can cause silent breakage or sudden pipeline failures.
+
+**Subscribe to these GitHub Changelog feed categories** and route new posts to email or your project management tool with due dates:
+
+- [deprecation](https://github.blog/changelog/label/deprecation/) (RSS)
+- `end of life`, `breaking changes`, `removal`, `brown out` (not all posts are tagged consistently — consider subscribing to the full changelog as well)
+
+**A sample of past deprecations worth knowing about:**
+
+- Node 12 removed from runner → Node 16 → Node 20 transitions
+- `set-output` / `save-state` commands replaced with `GITHUB_OUTPUT` / `GITHUB_STATE` file approach
+- `actions/checkout@v1` and `@v2` superseded by `@v3`/`@v4`
+- Ubuntu 18.04 runner image removed (December 2022)
+- macOS 10.15 runner image removed (August 2022)
+- CodeQL Action v1 deprecated
+- Source Imports REST API deprecated
+
+Treat deprecation notices the same way you treat a dependency security alert: acknowledge, schedule, and resolve before the deadline.

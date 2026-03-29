@@ -1,97 +1,67 @@
-﻿## The open-core model
+# The Open-Core Model
 
-- [The Cathedral & the Bazaar: Musings on Linux and Open Source by an Accidental Revolutionary: Raymond, Eric: 9780596001087: Books - Amazon.ca](https://www.amazon.ca/Cathedral-Bazaar-Musings-Accidental-Revolutionary/dp/0596001088/ref=sr_1_1?crid=XCFSOMVRR5D4&keywords=The+Cathedral+%26+the+Bazaar&qid=1700097194&sprefix=the+cathedral+%26+the+bazaar%2Caps%2C120&sr=8-1)
+The open-core model is a business strategy where the core of a product is open source, but additional features — typically enterprise-focused — are offered under a proprietary license. It combines the benefits of open-source development (community contributions, transparency, trust) with a sustainable commercial revenue stream.
 
-- [Producing Open Source Software](https://cloudflare-ipfs.com/ipfs/bafykbzacedv5v4ghgwokmo2xchmi7ymhwx2qzvs275nue2prhyiksb6fbn36k?filename=Fogel%2C%20Karl%20-%20Producing%20Open%20Source%20Software_%20How%20to%20Run%20a%20Successful%20Free%20Software%20Project-O%27Reilly%20Media%2C%20Inc%20%282005_2009%29.pdf)
+This aside focuses on the engineering and release strategy side of running an open-core project, not the marketing or legal dimensions.
 
-- I shouldn't go too much into the monetization aspect, but I can go into the release strategies and how to incorporate contributions from other developers and how to architect your software to be able to do that.
+## Further Reading
 
-- [https://grafana.com/oss-vs-cloud/?plcmt=footer](https://grafana.com/oss-vs-cloud/?plcmt=footer)
+- [The Cathedral & the Bazaar](https://www.amazon.ca/Cathedral-Bazaar-Musings-Accidental-Revolutionary/dp/0596001088/) by Eric Raymond — foundational essay on open-source development culture.
+- [Producing Open Source Software](https://producingoss.com/) by Karl Fogel — practical guide to running a successful open-source project.
+- [Open Core Business Model Handbook](https://handbook.opencoreventures.com/open-core-business-model) — detailed framework for structuring open-core products.
+- [Grafana: OSS vs Cloud](https://grafana.com/oss-vs-cloud/) — Grafana Labs' own explanation of their model.
+- [Archetypes of Open-Source Business Models](https://link.springer.com/article/10.1007/s12525-022-00557-9) (Springer) — academic taxonomy.
 
-- [Open Core Business Model (opencoreventures.com)](https://handbook.opencoreventures.com/open-core-business-model)
+**Video explanations:**
 
-- You have to know a little bit about how you want your open-core application to work first. So, for example, is it just proprietary plugins or large features?
+- [What does Open Core mean?](https://www.youtube.com/watch?v=DnjmsaAYZfc)
+- [Open Core vs Proprietary SaaS](https://www.youtube.com/watch?v=9Vj51JqQgzA)
+- [Commercial Open Source Business Models: GitLab's Bet on Buyer-based Open Core](https://www.youtube.com/watch?v=Xt1kY7EEXb8)
+- [Open source business models — PostHog](https://www.youtube.com/watch?v=L1Ovbzs7vyo)
 
- - [Open Core Business Model (opencoreventures.com)](https://handbook.opencoreventures.com/open-core-business-model)
+## Structuring Your Open-Core Repository
 
- - [Distribution (opencoreventures.com)](https://handbook.opencoreventures.com/distribution)
+The first question to answer is: what is proprietary, and how tightly is it coupled to the open-source core?
 
- - [Ship open source software \| Replicated](https://www.replicated.com/for-open-core)
+**Scenario A: Proprietary plugins or small feature additions**
 
- - [Archetypes of open-source business models \| Electronic Markets (springer.com)](https://link.springer.com/article/10.1007/s12525-022-00557-9)
+If the proprietary components are small (extra integrations, enterprise authentication providers, admin dashboards), keep the open-source core as the primary repository and expose well-defined extension points. The proprietary additions are published as separate packages or plugins that consume the public core as a dependency.
 
- - [google/copybara: Copybara: A tool for transforming and moving code between repositories. (github.com)](https://github.com/google/copybara)
+This approach is simpler to maintain. The private plugin can be tested against a published release of the public core, and the two repositories remain loosely coupled.
 
- - [Moving code between GIT repositories with Copybara (kubesimplify.com)](https://blog.kubesimplify.com/moving-code-between-git-repositories-with-copybara)
+**Scenario B: Heavy-duty proprietary integration**
 
- - [github - How to track upstream using Git when forking a project? - Open Source Stack Exchange](https://opensource.stackexchange.com/questions/7625/how-to-track-upstream-using-git-when-forking-a-project?rq=1)
+If the proprietary code is deeply integrated (different application behavior, licensing enforcement, white-labeling), you need a more structured sync between a public and a private repository.
 
- - [What is the best and right way to open-source packages from a company monorepo? \| Hacker News (ycombinator.com)](https://news.ycombinator.com/item?id=23377012)
+A recommended pattern:
 
- - [Open source business models - your choices and how PostHog makes money - YouTube](https://www.youtube.com/watch?v=L1Ovbzs7vyo)
+- Do all work in the **public repo** by default. Only proprietary-specific code lives in the private repo.
+- The public repo's `main` branch is automatically synced to a `public` branch in the private repo (via a PAT stored as a GitHub secret and a push step in CI).
+- When you want to test a public PR against the private integrations, push the PR branch to a `public/<branch-name>` branch in the private repo, trigger the private pipeline via `repository_dispatch` or a webhook, and report the result back on the public PR.
+- [Copybara](https://github.com/google/copybara) is a Google tool designed for this — it transforms and moves code between repositories, handling include/exclude rules cleanly.
 
- - [Commercial Open Source Business Models: GitLab's Bet on Buyer-based Open Core - Brendan O'Leary - YouTube](https://www.youtube.com/watch?v=Xt1kY7EEXb8)
+## Syncing Public and Private Repositories
 
- - [What does Open Core mean? - YouTube](https://www.youtube.com/watch?v=DnjmsaAYZfc)
+```yaml
+# In the public repo's workflow — push main to the private repo's public branch
+- name: Sync to private repo
+  run: |
+    git remote add private https://x-access-token:${{ secrets.PRIVATE_REPO_PAT }}@github.com/your-org/private-repo.git
+    git push private main:public --force
+  env:
+    PRIVATE_REPO_PAT: ${{ secrets.PRIVATE_REPO_PAT }}
+```
 
- - [Open Core vs Proprietary SaaS (which to bet your startup's life on?) - YouTube](https://www.youtube.com/watch?v=9Vj51JqQgzA)
+**Before open-sourcing:** Audit the full git history for secrets, credentials, and internal hostnames. If any exist, rotate or expire them and scrub history before making the repository public. A leaked credential in git history is as dangerous as one in live code.
 
- - [Releases (readme.io)](https://diffgram.readme.io/docs/releases)
+## Companies Using the Open-Core Model
 
- - There are many different approaches. It depends on what you are trying to build and what you are trying to do.
-
- - If you are planning to have 95-99% of your application open source, or maybe even 100%, and then have a few extra proprietary things that are very small, then you may consider adding them as plugins. This would require that you make the application suited to have plugins, or to add integration points to the application. Or, if your application is 100%-99% closed source, then you may just want to create a fully open source plugin. It would have no connection to the other repo, it would be as if was managed by a different company. Therefore, you would have to "release" your plugin and then test it against the private application.
-
- - If you're doing heavy-duty changes to the application, such as different application behaviors, features, licensing, etc. then the following approach might be more suited for what you are trying to do.
-
- - If all you want to do is share your code with the community, then you can do that relatively easily, just make sure that you have proper sanitization steps and you have the private things separated from the public things. This may require restructuring the application. This might miss the entire point of open core, however, as you're not allowing other people to easily contribute changes back, rather, you're just dumping code and hoping that someone figures out how to use it.
-
- - There is another approach which is a more integrated approach. I would recommend having a private repo with a branch called "public" that would track the public repo. The goal of open core is to not send blobs of code to the open source community without their "permission" because this is not very nice. Therefore, everything should be done by default in the public repo, unless it is specific to a private integration. This allows for other contributors to see what is going on, and to provide feedback--that is the entire point of open source.
-
- - When you want to test your new change against the private repo (because it has private things), you would want to somehow fetch and pull down your public branch into the private repo under (public/your-branch), and then make sure that it is merged into the private repo. Then you can do some more tests and checks to make sure everything is ok. This might be able to be automated.
-
- - If the private integrations are plugins, or small changes to the application, then it might make more sense to instead include a release of the public project (as an external package) into the private integration or plugin. This would make things much simpler. This would also mean that the private plugin is somewhat separated from the application, and other people (might) want to use it in the public. For example, if the private contributions are very small, then you may be able to consume it as a public package. Or, if the private integration doesn't change much and is not released too often, then you don't have to have all of the webhook things set up and instead just manually test it against whatever the public release is, and then just do fixes manually.
-
- - When you push to main on the public repo, it should push the entire content of its repo (assuming that the build was successful) to the public branch of the private repo. This can be done via a PAT token in GitHub secrets. This makes sure that the changes stay up-to-date.
-
- - When the pipeline on the PR is almost done, it can push its changes to a public-derived branch (e.g., public/your-PR) to the private repo, so that way people can check it locally against any private integrations.
-
- - In the public repo, you can then set up a webhook that tests the code against the proprietary integrations. What it would do, is to push the public branch to a public/your-PR branch in the private repo, call a webhook in the private repo to run the pipeline on that branch in the private repo (since it is up to date), then in the meantime, run the pipeline in the public repo, and then report the status of the private pipeline once the webhook reports a status. A pull method (i.e., from public to private) might be safer because then you don't have any possibility of the private tokens stored on your repo. You'd have to make a scheduled task in your private repo to pull in changes from the public branch, however, or have some sort of webhook maybe that would be called from the public repo to pull in the branch.
-
- - Another approach is to just synchronize the code in one direction, that is, if you don't have any private things, then just copy everything over to GitHub, there are lots of tasks for that. This is sort of like the "code dumping" approach and is not useful if you want to accept substantial contributions (small contributions can be upstreamed, however) because nobody is able to review the PRs for the project. If you are planning to open source your project, you have to be super, super careful and make sure that there are no secrets, and any secrets that may have existed are either removed from the history or have no use anymore (i.e., expired.)
-
- - Lots of considerations for dual-licensing, marketing, social-aspects as well, etc.
-
-Yes, several of the startups listed are known for following the "Open Core" model. In the Open Core model, the core functionality of the product is open source, but additional features, often enterprise-focused, are offered under a proprietary license. Here are some of the startups from the list that are known for using the Open Core model:
-
-1. **GitLab**:
-
-- GitLab offers an open-source version known as GitLab Community Edition (CE), while providing additional features in its proprietary Enterprise Edition (EE).
-
-2. **HashiCorp**:
-
-- Known for products like Terraform, Vagrant, and Consul, HashiCorp offers core tools as open source, with additional enterprise features available in paid versions.
-
-3. **Docker**:
-
-- Docker, particularly known for Docker Engine and Docker Compose, follows a similar model where the core Docker software is open source, but Docker also offers Docker Enterprise for business customers with additional features.
-
-4. **Elastic**:
-
-- Elastic, the company behind Elasticsearch and Kibana, provides open-source versions of its products, as well as proprietary features and managed services under Elastic Cloud.
-
-5. **MongoDB**:
-
-- MongoDB, the NoSQL database, is available as open source, but the company also offers MongoDB Atlas, a fully managed database service with additional features.
-
-6. **Cockroach Labs**:
-
-- CockroachDB, their primary product, is available in an open-source version, with additional enterprise features available in their commercial offerings.
-
-7. **Grafana Labs**:
-
-- Grafana is an open-source monitoring solution, and Grafana Labs offers additional enterprise features and hosted Grafana as part of their commercial products.
-
-These companies leverage the Open Core model to combine the benefits of open-source development (such as community contributions and transparency) with a sustainable revenue model through the sale of premium features and services.
-
-
+| Company | Open-source core | Proprietary layer |
+|---------|-----------------|-------------------|
+| **GitLab** | GitLab Community Edition (CE) | Enterprise Edition (EE) |
+| **HashiCorp** | Terraform, Vault, Consul | Enterprise editions |
+| **Docker** | Docker Engine, Docker Compose | Docker Business/Enterprise |
+| **Elastic** | Elasticsearch, Kibana | Elastic Cloud, proprietary features |
+| **MongoDB** | MongoDB Community | Atlas managed service |
+| **CockroachDB** | CockroachDB Core | CockroachDB Enterprise |
+| **Grafana Labs** | Grafana OSS | Grafana Cloud, Enterprise features |

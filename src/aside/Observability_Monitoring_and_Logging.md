@@ -1,205 +1,113 @@
 # Observability, Monitoring, Logging, and Reporting
 
-## Deployment, Release, and Monitoring
-
-**Chapter 7: Deployment, Release, and Monitoring**
-
-[Content moved from the draft: definitions (deploy/deliver/release); blue/green and canary strategies; feature flags with JSON example and modularity; release management (branching, artifacts, versioning, changelog, GitHub Releases); monitoring and observability; rollbacks with workflow example.]
-
----
-
 ## Application Monitoring
 
-### Application monitoring
+Deploying your application successfully doesn't always guarantee it's functioning correctly, especially in complex setups with a backend. Errors can arise from many sources: backend server failures, problematic builds that prevent the app from loading, or external API issues (for example, a weather data endpoint that is rate-limited or down).
 
-Deploying your application successfully doesn't always guarantee it's functioning as expected, especially in complex setups with a backend. For instance, refreshing the browser could reset the application since it doesn't maintain state server-side. Errors can also arise from other areas like backend server failures that require restarts, problematic builds that prevent the app from displaying content, or external API issues like the weather data endpoint failing.
+### Common error categories to monitor
 
-![](./images/image88.png)
+- **Deployment errors** — Is the application loading? A blank page or failure to load can indicate file deployment issues or client-side script errors.
+- **API dependency failures** — External APIs can fail, be blocked, hit rate limits, or return unexpected responses.
+- **Performance degradation** — Slow load times degrade user experience and may indicate the need for optimization.
 
-2. **Identifying Potential Errors**:
+### Setting clear goals before you instrument
 
-- **Deployment Errors**: Check if the application is loading correctly. A blank page or a failure to load could indicate issues with file deployment or script errors within the application.
+Monitoring without defined success criteria produces noise. Before adding dashboards, answer:
 
-- **API Dependencies**: If your application relies on external APIs (like a weather API), these can fail, be blocked, reach rate limits, or return unexpected responses.
+- What does success look like for this service? (e.g., 99% adjusted customer experience score, 100 monthly active users)
+- What metrics reflect that? (error rates, load times, user engagement events)
+- Who are the stakeholders and what questions do they need the dashboard to answer?
 
-- **Performance Issues**: Slow load times can degrade user experience, indicating the need for performance optimization.
+### What to measure
 
-![](./images/image40.png)
+Beyond server-level metrics (CPU, memory, disk), focus on user-facing indicators:
+
+- **Web Vitals** (Largest Contentful Paint, Cumulative Layout Shift, Interaction to Next Paint) — measure what users actually experience.
+- **Error rates** — HTTP 4xx and 5xx rates, JavaScript exceptions.
+- **Engagement events** — search interactions, map zoom, account creation, subscription sign-ups.
+- **Custom metrics** — actions specific to your application (e.g., "weather forecast viewed").
+
+### Error budgets
+
+Set a practical error budget: a threshold of acceptable errors that allows for innovation without compromising user experience. Configure alerts at meaningful thresholds rather than alerting on every minor error. Alert fatigue is real.
+
+### Dashboard design principles
+
+- Use white space to group related data.
+- Include both quantitative data (numbers) and qualitative signals (outstanding customer issues).
+- Avoid decorative elements that distract from the key message.
+- Make critical data stand out (larger text, visual distinction).
+- Keep chart styles consistent so comparisons are easy.
+- Include error budget metrics: surplus, deficit, burn-down rate.
 
 ---
 
 ## CI/CD Observability and Telemetry
 
-[GUAC Docs | GUAC](https://docs.guac.sh/) and the need to do automated dependency management (manual dependencies are harder to scan)
+CI/CD pipelines themselves can be observed as a system. Slow pipelines, flaky tests, and high failure rates are signals worth tracking.
 
-[krzko/run-with-telemetry: GitHub Action `run` action with OpenTelemetry instrumentation](https://github.com/krzko/run-with-telemetry)
+**Key resources:**
 
-[inception-health/otel-export-trace-action (github.com)](https://github.com/inception-health/otel-export-trace-action)
+- [GUAC](https://docs.guac.sh/) — Graph for Understanding Artifact Composition; enables automated dependency graph analysis. Works best with automated (not manual) dependency management.
+- [run-with-telemetry](https://github.com/krzko/run-with-telemetry) — GitHub Action `run` wrapper with OpenTelemetry instrumentation.
+- [otel-export-trace-action](https://github.com/inception-health/otel-export-trace-action) — Export GitHub Actions traces to an OpenTelemetry collector.
+- [Elastic CI/CD Observability Guide](https://www.elastic.co/guide/en/observability/current/ci-cd-observability.html) — Practical reference for ingesting pipeline telemetry into Elastic Stack.
 
-- [Improve your software delivery with CI/CD observability and OpenTelemetry](https://www.elastic.co/virtual-events/ci-cd-observability-and-opentelemetry)
+**Talks and presentations:**
 
-- [DevOpsWorld 2021 - Embracing Observability in Jenkins with OpenTelemetry](https://www.youtube.com/watch?v=3XzVOxvNpGM)
-
-- [DevOpsWorld 2021 - Who Observes the Watchers? An Observability Journey](https://www.cloudbees.com/videos/who-observes-the-watchers-an-observability-journey?wvideo=wv11m4uazu)
-
-- [Embracing Observability in CI/CD with OpenTelemetry](https://www.slideshare.net/cyrille.leclerc/embracing-observability-in-cicd-with-opentelemetry)
-
-- [FOSDEM 2022 - OpenTelemetry and CI/CD](https://archive.fosdem.org/2022/schedule/event/opentelemetry_and_ci_cd/)
-
-- [cdCon Austin 2022 - Making your CI/CD Pipelines Speaking in Tongues with OpenTelemetry](https://www.youtube.com/watch?v=1jDLNNe_TEM)
-
-- [Observability Guide - Elastic Stack 8.7](https://www.elastic.co/guide/en/observability/current/ci-cd-observability.html)
-
-[ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3445-strategic-sampling-architectural-approaches-to-efficient-telemetry.mp4](https://ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3445-strategic-sampling-architectural-approaches-to-efficient-telemetry.mp4)
-
-![](./images/image49.png)
-
-![](./images/image53.png)
-
-
-[ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3262-what-is-ci-cd-observability-and-how-to-bring-observability-to-ci-cd-pipelines-.mp4](https://ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3262-what-is-ci-cd-observability-and-how-to-bring-observability-to-ci-cd-pipelines-.mp4)
-
-[ftp2.osuosl.org/pub/fosdem/2024/ud2208/fosdem-2024-1805-squash-the-flakes-how-to-minimize-the-impact-of-flaky-tests.mp4](https://ftp2.osuosl.org/pub/fosdem/2024/ud2208/fosdem-2024-1805-squash-the-flakes-how-to-minimize-the-impact-of-flaky-tests.mp4)
-
-[ftp2.osuosl.org/pub/fosdem/2024/k1105/fosdem-2024-3353-reproducible-builds-the-first-ten-years.mp4](https://ftp2.osuosl.org/pub/fosdem/2024/k1105/fosdem-2024-3353-reproducible-builds-the-first-ten-years.mp4)
-
-[ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3230-getting-lulled-into-a-false-sense-of-security-by-sbom-and-vex.mp4](https://ftp2.osuosl.org/pub/fosdem/2024/k4401/fosdem-2024-3230-getting-lulled-into-a-false-sense-of-security-by-sbom-and-vex.mp4)
-
-[ftp2.osuosl.org/pub/fosdem/2024/ub2252a/fosdem-2024-3398-modern-build-systems-for-containers.mp4](https://ftp2.osuosl.org/pub/fosdem/2024/ub2252a/fosdem-2024-3398-modern-build-systems-for-containers.mp4)
-
-[ftp2.osuosl.org/pub/fosdem/2024/ub5230/fosdem-2024-1909-broom-not-included-curling-the-modern-way.mp4](https://ftp2.osuosl.org/pub/fosdem/2024/ub5230/fosdem-2024-1909-broom-not-included-curling-the-modern-way.mp4)
+- [Embracing Observability in Jenkins with OpenTelemetry](https://www.youtube.com/watch?v=3XzVOxvNpGM) (DevOpsWorld 2021) — covers the plugin approach for Jenkins.
+- [Making CI/CD Pipelines Speak in Tongues with OpenTelemetry](https://www.youtube.com/watch?v=1jDLNNe_TEM) (cdCon 2022) — cross-platform perspective.
+- [FOSDEM 2022 – OpenTelemetry and CI/CD](https://archive.fosdem.org/2022/schedule/event/opentelemetry_and_ci_cd/) — foundational talk.
+- [Strategic Sampling: Architectural Approaches to Efficient Telemetry](https://ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3445-strategic-sampling-architectural-approaches-to-efficient-telemetry.mp4) (FOSDEM 2024).
+- [What is CI/CD Observability and How to Bring It to Pipelines](https://ftp2.osuosl.org/pub/fosdem/2024/ua2220/fosdem-2024-3262-what-is-ci-cd-observability-and-how-to-bring-observability-to-ci-cd-pipelines-.mp4) (FOSDEM 2024).
+- [Squash the Flakes: Minimizing Flaky Test Impact](https://ftp2.osuosl.org/pub/fosdem/2024/ud2208/fosdem-2024-1805-squash-the-flakes-how-to-minimize-the-impact-of-flaky-tests.mp4) (FOSDEM 2024).
 
 ---
 
-## Frequent Logging Data Types
+## What Gets Logged in CI/CD Workflows
 
-## Frequent logging data types in Google GitHub Actions workflows
+Understanding what real-world pipelines log helps you design your own logging strategy. Based on analysis of Google's open-source GitHub Actions workflows, these are the most common data types captured in logs:
 
-
-1. **Versions:**
- * **Tool Versions:** Explicit checks like `cmake --version`, `bazel version`, `bazelisk --version`, `clang --version`, `go version`, `magika --version`, `clang-format --version`. Implicitly logged when tools like `setup-java`, `setup-python`, `setup-go`, `rustup`, `actions/setup-node` run or during installation (`apt install`, `pip install`, etc.).
- * **Dependency Versions:** Logged during installation steps (`pip install`, `npm install`, `apt install`, `cargo build`/`update`, `mvn dependency:go-offline`, `conan install`). Checks like `cargo outdated` explicitly log version differences. Specific versions are often pinned in `uses:` lines (e.g., `actions/checkout@v4`, `golangci/golangci-lint-action@v6.5.2`).
- * **OS/Platform Versions:** Implicit in the `runs-on:` directive (e.g., `ubuntu-22.04`, `macos-14`). Android API levels (`matrix.api-level`) are logged.
- * **Language Standard Versions:** Explicitly set C++ standards (`-std=c++17`, `-std=c++20`).
- * **Build/Release Versions:** Calculated from Git tags (`${GITHUB_REF#refs/tags/v}`, `${REF:10}`) or commit SHAs (`${GITHUB_SHA}`) and often logged via `echo` or used in artifact names/paths. Tools like `goreleaser` log the version being released.
-
-2. **Hashes:**
- * **Commit SHAs:** Frequently logged for checkout actions, determining base refs (`${{ github.event.pull_request.base.sha }}`, `git merge-base`), identifying the commit being built/tested (`${{ github.sha }}`, `${{ github.event.pull_request.head.sha }}`), generating build versions, or reporting status (`statuses/${{ github.sha }}`). Explicitly logged with `git rev-parse HEAD` or `git describe`.
- * **File Hashes:** Used in cache keys (`hashFiles(...)`).
- * **Checksums:** Logged by Gradle Wrapper validation (`wrapper-validation-action`). GoReleaser generates checksum files, which are then often logged (e.g., base64 encoded). SLSA verification steps involve checksums.
- * **Container Image Digests:** Logged by GoReleaser and used in SLSA provenance generation/verification for images.
-
-3. **Configuration & Flags:**
- * **Build Types:** `Release`, `Debug`, `RelWithDebInfo` (often via `matrix.build_type` or `CMAKE_BUILD_TYPE`).
- * **Compiler/Build Flags:** `CMAKE_CXX_FLAGS`, `CXXFLAGS`, `-march=`, `-fsanitize=`, `-DBUILD_SHARED_LIBS=ON/OFF`, `-DDRACO_TRANSCODER_SUPPORTED=ON/OFF`, `-DSNAPPY_REQUIRE_AVX=...`, CMake presets (`--preset`).
- * **Tool Arguments:** Arguments passed to scripts (`./script.sh arg`), linters (`golangci-lint-action` args), tests (`pytest -n auto`), build tools (`bazel build --config=...`), `osv-scanner` args (`scan-args`), `cibuildwheel` env vars (`CIBW_...`).
- * **Environment Variables:** Explicitly set via `echo "VAR=value" >> $GITHUB_ENV` or logged via `env:` blocks in steps.
- * **Targets/Architectures:** `TARGET: ${{ matrix.targets[0] }}`, `matrix.arch`, `--config=android_arm64`, `--platform=...`.
-
-4. **File Paths & Names:**
- * Paths added to `$GITHUB_PATH`.
- * Paths specified in `actions/cache` or `actions/upload-artifact`.
- * Output directories (`out/dist`, `build`, `wheelhouse`).
- * Specific config files being used (`.github/labeler.yml`, `debian/control`).
- * Lists of changed files (`git diff --name-only`).
- * Artifact names (often including versions/platforms).
- * Source/test directories targeted by commands (`./src`, `./test`, `po/*.po`).
-
-5. **Test Results & Diagnostics:**
- * Pass/Fail status of individual tests and suites.
- * Verbose test output (e.g., `test_output=errors`, `CTEST_OUTPUT_ON_FAILURE=1`).
- * Specific test names being run or filtered (`--gtest_filter=...`, `-E IntegrationTest`).
- * Code coverage upload status (Codecov, Coveralls).
- * JUnit XML report paths/generation (`make junit-regtest`).
- * Flaky test run counts (`--runs_per_test 50`).
- * `flutter doctor -v` output (detailed environment info).
- * Emulator configuration (API level, target, arch).
-
-6. **Linter/Formatter/Static Analysis Results:**
- * Specific findings (file:line:message) from tools like `clang-format`, `clang-tidy`, `golangci-lint`, `ruff`, `black`, `flake8`, `isort`, `mypy`, `pytype`, `pylint`, `gosec`.
- * Diffs generated by formatters (`clang-format.diff`, `go mod tidy -diff`).
- * SARIF file generation/upload status (CodeQL, OSV Scanner, Gosec).
- * License header check results (list of files missing headers).
- * API compatibility diffs (`japicmp:cmp`).
- * Security scan results (OSV Scanner, CodeQL, Gosec, Coverity).
- * Scorecard results.
-
-7. **Dependency Information:**
- * Packages being installed/updated (`apt install <pkg>`, `pip install <pkg>`).
- * Cache hit/miss status and keys (`actions/cache`).
- * Outdated dependency lists (`cargo outdated`).
- * `go mod tidy -diff` output.
-
-8. **Deployment & Release Information:**
- * Target tags/branches (`${{ github.ref_name }}`).
- * Asset upload status and names (`actions/upload-release-asset`, GoReleaser logs).
- * Publishing status to registries (PyPI, NPM, GHCR, Sonatype, CocoaPods).
- * SLSA provenance generation/verification logs.
- * Sigstore signing logs.
- * Release note paths (`docs/release-notes/...`).
-
-9. **System & Environment Information:**
- * Cache statistics (`ccache --show-stats`).
- * Docker system info (`docker info`, `docker buildx ls`).
- * Basic system info like processor count (`getconf _NPROCESSORS_CONF`).
-
-10. **Git Operations Details:**
- * Changed file lists (`git diff --name-only`).
- * Merge base commit hashes.
- * Commit counts (`git rev-list --count`).
- * Cherry-pick status and target commits.
-
-In essence, while high-level actions are performed, the logs are rich with specific details about versions, hashes, configurations, file paths, test outcomes, static analysis findings, and deployment statuses.
+1. **Tool and dependency versions** — `cmake --version`, `bazel version`, `go version`; implicit in `setup-node`, `setup-java` etc.
+2. **Commit SHAs and hashes** — `${{ github.sha }}`, `git rev-parse HEAD`, `hashFiles(...)` for cache keys.
+3. **Configuration and flags** — build types (Release/Debug), compiler flags, CMake presets, tool arguments.
+4. **File paths** — `$GITHUB_PATH` additions, artifact upload/download paths, lists of changed files.
+5. **Test results** — pass/fail status, verbose output, JUnit XML paths, coverage upload status, flaky test re-run counts.
+6. **Static analysis findings** — file:line:message from ESLint, golangci-lint, Ruff, mypy; SARIF upload status.
+7. **Dependency information** — packages installed, cache hit/miss status, outdated dependency lists.
+8. **Deployment and release details** — target tags, asset upload status, registry publishing status, SLSA provenance logs.
+9. **System environment info** — `ccache --show-stats`, `docker info`, processor count.
+10. **Git operation details** — changed file lists, merge-base hashes, commit counts.
 
 ---
 
-## Reporting, Code Coverage and SonarCloud
+## Code Coverage and Reporting
 
-### Reporting, code coverage, etc.
+Coverage measures how much of your code is exercised by tests. It is a useful signal but must be interpreted carefully — see the "Test Coverage Paradox" for why 100% coverage does not equal high confidence.
 
-- How do I process code coverage reports? Should I bother with them? How do I compile and aggregate test reports?
-- Coverage is the measure of how much the code is covered by tests, usually unit tests. You have to make sure that you understand the limitations and benefits of coverage; otherwise, it stops being a useful metric. For more information, see the Test Coverage Paradox.
+**Popular coverage integrations** (based on real workflow data):
 
-These are popular integrations based on actual workflow data (aggregated):
-
-- https://docs.coveralls.io/api-introduction 
-- https://docs.codeclimate.com/docs/finding-your-test-coverage-token 
-- https://docs.sonarcloud.io/advanced-setup/ci-based-analysis/github-actions-for-sonarcloud/ 
-- https://docs.codecov.com/docs
-
-So, you should consider how to integrate these tools into your pipeline—understanding what they do and how the results work, etc.
+- [Coveralls](https://docs.coveralls.io/api-introduction) — simple coverage badge and history.
+- [CodeClimate](https://docs.codeclimate.com/docs/finding-your-test-coverage-token) — combines coverage with maintainability metrics.
+- [SonarCloud](https://docs.sonarcloud.io/advanced-setup/ci-based-analysis/github-actions-for-sonarcloud/) — code quality, security hotspots, and coverage in one platform.
+- [Codecov](https://docs.codecov.com/docs) — coverage diffs on PRs, flag-based coverage.
 
 ---
 
-## **Setting up SonarCloud with GitHub Actions: A Step-by-Step Guide**
+## Setting up SonarCloud with GitHub Actions
 
-This guide walks you through integrating SonarCloud code analysis into your GitHub Actions workflow, enabling automated code quality checks with every push or pull request.
+### Step 1: Generate a SonarCloud token
 
-**Step 1: Generate a SonarCloud Token**
+1. Log in to SonarCloud → **My Account** → **Security**.
+2. Generate a new token and copy it.
 
-1. Log in to your SonarCloud account.
-2. Navigate to “My Account” > “Security”.
-3. Generate a new token.
-4. Copy the token value; you’ll need it for the next step.
+### Step 2: Store the token as a GitHub secret
 
-**Step 2: Store the Token as a GitHub Secret**
+Repository **Settings** → **Secrets and variables** → **Actions** → **New repository secret** → name it `SONAR_TOKEN`.
 
-1. Go to your GitHub repository.
-2. Click “Settings” > “Secrets” > “Actions”.
-3. Click “New repository secret”.
-4. Name the secret SONAR_TOKEN.
-5. Paste the SonarCloud token you copied in Step 1 into the “Value” field.
-6. Save the secret.
+### Step 3: Define SonarCloud project properties
 
-**Step 3: Define SonarCloud Properties (Project-Specific)** 
-You’ll need to specify these properties for SonarCloud to identify your project. The location of these properties varies depending on your project type.
-
-- **Java (Maven):** pom.xml
-- **Java (Gradle):** build.gradle
-- **.NET:** Within the SonarScanner command line arguments
-- **Other:** Create a sonar-project.properties file in your repository’s root
-
-Inside these files, set the following:
+Add these to your project's configuration file (`sonar-project.properties`, `pom.xml`, `build.gradle`, etc.):
 
 ```
 sonar.projectKey=your-project-key
@@ -207,23 +115,15 @@ sonar.organization=your-organization-key
 sonar.host.url=https://sonarcloud.io
 ```
 
-Replace `your-project-key` and `your-organization-key` with your actual values from SonarCloud.
+### Step 4: Add a workflow
 
-**Step 4: Create the GitHub Actions Workflow File**
-
-1. Create a file named `.github/workflows/build.yml` in your repository’s root.
-
-Choose the Workflow Configuration based on your project type:
-
-### a) Single Project Workflow
+**Single project:**
 
 ```yaml
 name: SonarCloud Analysis
-
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -232,87 +132,61 @@ jobs:
     name: SonarCloud Scan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 ```
 
-### b) Monorepo Workflow (Multiple Projects)
-
-name: SonarCloud Monorepo Analysis
-
-on:
- push:
- branches:
- - main
- # Add path filters if needed (e.g., - 'project1/**')
- pull_request:
- types: [opened, synchronize, reopened]
-
-jobs:
- sonarcloudScan1:
- name: Project 1 Scan
- runs-on: ubuntu-latest
- steps:
- - uses: actions/checkout@v3
- with:
- fetch-depth: 0
-
- - name: SonarCloud Scan
- uses: SonarSource/sonarcloud-github-action@master
- env:
- SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
- with:
- projectBaseDir: project1/ # Path to project 1
-
- sonarcloudScan2:
- name: Project 2 Scan
- runs-on: ubuntu-latest
- steps:
- # ... (Similar to sonarcloudScan1, but with projectBaseDir: project2/)
-
-### c) C/C++ Project Workflow
-
-This workflow simplifies the process by automatically installing necessary tools:
+**Monorepo (multiple projects):**
 
 ```yaml
-name: SonarCloud C/C++ Analysis
-
+name: SonarCloud Monorepo Analysis
 on:
-  # ... (Trigger events same as above)
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
-  sonarcloud:
-    name: SonarCloud Scan
+  sonarcloudProject1:
+    name: Project 1 Scan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: project1/
+
+  sonarcloudProject2:
+    name: Project 2 Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: project2/
 ```
 
-**Step 5: Commit and Push Your Changes** 
-Commit your updated project configuration files and the `.github/workflows/build.yml` file to your repository. This will trigger your first SonarCloud analysis.
+### Step 5: Commit, push, and view results
 
-**Step 6: View the Analysis Report**
+Push the workflow file to trigger your first analysis. Results appear in your SonarCloud project dashboard: code smells, bugs, security vulnerabilities, and coverage.
 
-1. Go to your SonarCloud project dashboard.
-2. You’ll see the results of your code analysis, including code smells, bugs, security vulnerabilities, and code coverage.
+**Notes:**
 
-**Important Notes**
-
-- **Reusable Workflows**: For reusable workflows, use the `secret: inherit` feature to pass the SONAR_TOKEN securely.
-- **Detailed Configuration**: For advanced configuration options, refer to the official SonarCloud documentation and the `sonar-project.properties` file.
-- **Language-Specific Setup**: For languages not explicitly mentioned, check the SonarCloud documentation for specific setup instructions.
-
-
+- For reusable workflows, use `secrets: inherit` to pass `SONAR_TOKEN` securely.
+- For C/C++ projects, use the same action — it automatically installs the build wrapper.
+- Refer to the [SonarCloud documentation](https://docs.sonarcloud.io/) for language-specific configuration.

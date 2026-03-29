@@ -140,4 +140,25 @@ npm publish
 
 How do I consume this package on GitHub on my developer's machines? They would also need to create their .npmrc file (not committed to Git) with the aforementioned content. You may not want to give all developers package publish permissions.
 
+## Artifacts vs. Packages: Choosing the Right Registry
+
+When deciding where to host build output, distinguish between two scenarios:
+
+- **Short-lived build artifacts** (e.g., compiled binaries from a PR): Use `actions/upload-artifact` / `actions/download-artifact` to pass them between jobs within a single workflow run. These are ephemeral and tied to the workflow run.
+
+- **Versioned, shareable packages** (e.g., an npm library, a Docker image, a .NET NuGet package): Use **GitHub Packages** (`npm.pkg.github.com`, `ghcr.io`, etc.) for easier access, streamlined authentication via `GITHUB_TOKEN`, and visibility alongside your repository.
+
+### On-premises resources and self-hosted runners
+
+For resources that cannot move to the cloud (special servers, shared file drives, internal artifact repositories), deploy a **self-hosted GitHub Actions runner** inside your network. The runner connects outbound to GitHub and executes jobs with access to internal resources — no inbound firewall rules are required.
+
+### Proxying public registries
+
+Rather than pulling packages directly from public registries (npmjs.org, Docker Hub, PyPI), consider routing through a **private registry proxy** (e.g., Nexus, Artifactory, or GitHub Packages with upstreaming). Benefits include:
+
+- Control over which package versions are allowed in your organization.
+- Ability to detect and block potentially malicious downloads.
+- A cached copy that keeps builds working even if the upstream registry has an outage.
+- An audit trail of what packages were pulled and when.
+
 

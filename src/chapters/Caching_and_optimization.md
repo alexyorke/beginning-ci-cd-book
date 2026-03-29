@@ -1,4 +1,4 @@
-﻿## Caching and optimization
+## Caching and optimization
 
 ### Introduction
 
@@ -117,5 +117,68 @@
  - Expire if size of folder is too large
 
  - Algebra with keys (ORing, ANDing, XORing, etc.) ORing would be a cartesian product
+
+## Cost and Resource Management
+
+GitHub Actions charges for compute time (minutes) and storage (artifacts, packages). These tips help keep both under control without sacrificing developer experience.
+
+### Workflow Duration and Timeouts
+
+- Monitor how long your workflows take. Duration typically grows with the codebase — sudden increases indicate a problem.
+- Lower the default 6-hour timeout to match your actual workflow duration plus a reasonable buffer (e.g., if your workflow usually takes 20 minutes, set a timeout of 40–60 minutes).
+- Use [Meercode](https://meercode.io/) (free tier available) or GitHub's own workflow analytics to visualize duration trends.
+
+### Concurrency Control
+
+Limit concurrent builds per pull request to one. Auto-cancel older runs when a new commit is pushed:
+
+```yaml
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+```
+
+For deployment workflows, set `cancel-in-progress: false` instead — you don't want two deploys racing each other.
+
+### Branch and Trigger Selection
+
+- Avoid running CI on branches that have no open pull request (except `main`/`master`).
+- Don't trigger expensive workflows on documentation-only changes:
+
+```yaml
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+```
+
+### Artifact Storage
+
+- Compress artifacts before uploading. Be explicit about what files you include.
+- Set retention periods intentionally: PR/dev builds 1–3 days; release artifacts 30–90 days.
+- Exclude files not needed for deployment or debugging (intermediate object files, test fixtures).
+
+### Test and Analysis Efficiency
+
+- **Fast fail first:** Run the quickest-failing tests first in a separate early job.
+- **Selective testing:** For monorepos, use path filters or tools like `nx affected` to run only tests relevant to changed code.
+- **Static analysis:** Only run static analysis tools if someone is actively looking at and acting on the results.
+
+### Dependabot Cost Considerations
+
+Dependabot PRs trigger CI just like developer PRs. Limit open Dependabot PRs with `open-pull-requests-limit` in `dependabot.yml`:
+
+```yaml
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+```
+
+Use grouped updates to batch multiple dependency bumps into a single PR.
 
 # Appendix

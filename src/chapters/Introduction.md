@@ -1,4 +1,4 @@
-﻿## Introduction
+## Introduction
 
 Many developers and organizations embark on their journey with Continuous Integration and Continuous Deployment (CI/CD) full of optimism, yet the real-life experiences of countless developers reveal that the path to mastering CI/CD is fraught with complications, unexpected setbacks, and sometimes overwhelming obstacles. As we strip away the buzz and the lofty claims about CI/CD revolutionizing development, we often find developers entangled in tedious manual setups, scrambling to manage breakdowns in production, hindered by team silos, and grappling with complex, fragile systems.
 
@@ -316,6 +316,57 @@ Definition | Generic Term | Jenkins | GitHub Actions | GitLab CI/CD | CircleCI
 **Cache**: Stored build data (dependencies, compiled code) for faster runs. | Cache | Workspace | Cache | Cache | Cache
 **Parallelism**: Running multiple tasks concurrently to speed builds. | Parallelism | Parallel Builds | Matrix Builds | Parallel Matrix | Parallel Jobs
 **Build Status**: Indicator of build success or failure. | Build Status | Build Status | Build Status | Build Status | Build Status
+
+### What's Happening in the Pipeline
+
+After tasks are broken down, developers implement them and open a pull request (PR). This triggers a CI pipeline (build, test, lint). The pipeline must succeed before the PR is merged.
+
+A successful CI run publishes **build artifacts** to an artifact repository. At this stage, artifacts exist but are not yet customer-accessible.
+
+A deployment pipeline (CD) promotes a selected artifact to an environment using **infrastructure as code** (IaC) so infrastructure and configuration are reproducible (avoid "snowflake" machines).
+
+CD can deploy work-in-progress safely when the feature is gated behind a **feature flag** (code can be present in production but inactive).
+
+Common rollout strategies:
+
+- **Blue/green**: two environments (blue = current, green = new) for zero-downtime cutover.
+- **Incremental/canary**: release to a subset first, then gradually increase exposure.
+
+Deployment does not necessarily mean release: **deploy**, **deliver**, and **release** are distinct concepts in modern pipelines. Post-deploy, use continuous monitoring so issues can be detected quickly and rollbacks can occur if needed.
+
+### Common Steps in Build and Deploy Workflows
+
+- **Trigger**: pipeline runs on events (PR opened, merge to main, etc.).
+- **Checkout and dependencies**: runner checks out repo and restores dependencies from trusted sources.
+- **Compilation/build**: compile/transpile where applicable (language-dependent).
+- **Linting/static analysis (optional)**: style, quality, and some bug patterns.
+- **Automated tests**: unit, integration, and end-to-end tests.
+- **Artifact publishing**: publish immutable build outputs to an artifact repository.
+- **Deployment**: select an artifact and deploy to the target environment (often with additional checks).
+
+### Adopting CI/CD Incrementally
+
+Ensure the codebase is in version control and can be built from the command line before automating anything. Then start with a basic pipeline that builds and notifies on failure. Treat the pipeline as production infrastructure: **a broken pipeline must be fixed immediately**.
+
+Add capabilities incrementally:
+
+- Static analysis
+- Unit tests (start with new code and high-risk areas)
+- Formatting enforcement
+- Metrics and dashboards (build time, artifact size, coverage)
+
+A simple Makefile can be an effective first step for projects where the build involves multiple compiled targets:
+
+```makefile
+main.o: main.c mathFunctions.h utilFunctions.h
+	gcc -c main.c
+
+utilFunctions.o: utilFunctions.c utilFunctions.h
+	gcc -c utilFunctions.c
+
+mathFunctions.o: mathFunctions.c mathFunctions.h
+	gcc -c mathFunctions.c
+```
 
 ### Further readings
 

@@ -143,3 +143,31 @@ This file is a working backlog of **topics not yet fully covered** in the curren
  - Dagger (pipelines as code in real languages)
  - “run the exact CI pipeline locally” feedback loop patterns
 
+
+---
+
+## Open Questions and Tool References to Resolve
+
+The following are open questions and tool links that need to be investigated and worked into the manuscript:
+
+1. What about code formatting and linting tasks?
+2. [fkirc/skip-duplicate-actions](https://github.com/fkirc/skip-duplicate-actions) � Save time and cost when using GitHub Actions
+3. [corretto-8 submit.yml](https://github.com/corretto/corretto-8/blob/92a88d5bd8087f15f18222d87ddacf3a076628c0/.github/workflows/submit.yml#L39)
+4. [prisma/.github/workflows](https://github.com/prisma/prisma/tree/main/.github/workflows)
+5. GitHub bots to post on comments with test reports
+6. Ignore paths for pushes such as README.md and other paths (is there a template for this?)
+7. [yplatform main.yml](https://github.com/ysoftwareab/yplatform/blob/c4c188e21215efab824a3f14d80494c0071567e7/.github/workflows/main.yml#L33)
+8. [arm-oraclelinux-wls-cluster build.yml](https://github.com/wls-eng/arm-oraclelinux-wls-cluster/blob/develop/.github/workflows/build.yml)
+9. Lots of people use "working-directory" -- document the pattern
+10. Make sure that if you're running scripts, that someone who makes a PR can't just stick a script in that folder and have it run
+11. "There's a convention for tagging built images with metadata including the run id, CI event type, and commit sha."
+12. Updating Docker Hub description automatically
+13. Docker container security scanning
+14. The use of actions like jaywcjlove/create-tag-action and ncipollo/release-action to automate version bumping, tagging, and creating GitHub releases based on changes in package.json.
+15. Changelog generation
+16. buildx multi-platform builds documentation
+17. Python instead of Bash for advanced scripting in workflows
+18. Uploading logs as compliance to GitHub artifacts, BOMs?
+19. Bats for bash script testing
+20. Publishing debug symbols to private server
+21. Versioning tools to evaluate and document: GitVersion, standard-version, semantic-release, Nerdbank.GitVersioning, minver, conventional-changelog, release-please, changesets, release-it

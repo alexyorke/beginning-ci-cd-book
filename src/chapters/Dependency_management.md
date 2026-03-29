@@ -462,3 +462,56 @@ GitHub Actions dependencies change frequently: Node.js runtime versions are depr
 - Source Imports REST API deprecated
 
 Treat deprecation notices the same way you treat a dependency security alert: acknowledge, schedule, and resolve before the deadline.
+
+---
+
+## Dependabot and Updating Your Dependencies
+
+Setting up Dependabot in your GitHub repository automates the process of dependency updates, ensuring that your project regularly receives the latest patches and versions of libraries and packages, which improves security and performance.
+
+Typically, alerts have a priority associated with them such as critical and high. Start by addressing the critical and high priority alerts if you are receiving a lot of alerts initially.
+
+### High Toil Tasks
+
+- **Managing Dependabot Alerts**: High volume, false positives, and manual merging can flood teams with unnecessary work. Many repositories with numerous dependencies can be flooded with alerts, making triage difficult.
+- **Troubleshooting Failing Workflows**: Unclear error messages, inconsistent environments, and lack of monitoring make debugging time-consuming.
+- **Maintaining Self-Hosted Runners**: Infrastructure management, resource scaling, and software updates require ongoing effort.
+- **Managing Secrets and Credentials**: Manual rotation, insecure storage, and auditing create security risks.
+
+### Reducing Toil
+
+- **Auto-merge**: Configure Dependabot to automatically merge updates for low-risk dependencies or version ranges.
+- **Ignore Rules**: Define ignore rules to filter out unwanted alerts for specific dependencies or versions.
+- **Grouped Updates**: Enable Dependabot to group related updates into a single PR to reduce review volume.
+- **Structured Logging and Monitoring**: Capture useful debugging information and monitor workflow performance.
+- **Runner Infrastructure-as-Code**: Manage runner infrastructure with code (e.g., Terraform) for automation and reproducibility.
+- **Dedicated Secrets Manager**: Use a dedicated secrets management solution for secure storage, access control, and automated rotation.
+
+### Setting Up Dependabot
+
+1. Navigate to your repository on GitHub.
+2. Create a new file at `.github/dependabot.yml`.
+3. Add configuration:
+
+```yaml
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    ignore:
+      - dependency-name: "express"
+        versions: ["4.x.x"]
+```
+
+4. Commit the file — GitHub automatically activates Dependabot based on your configuration.
+5. Review and merge the pull requests Dependabot raises.
+
+For advanced configurations and ecosystem-specific settings (Maven, NuGet, Docker, etc.), refer to the [Dependabot documentation](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates).
+
+Setting up Dependabot not only maintains dependency health but also improves security by ensuring vulnerabilities are patched promptly.

@@ -1,4 +1,4 @@
-﻿## Getting started with GitHub Actions
+## Getting started with GitHub Actions
 
 Throughout this guide, we will explore the key features of GitHub Actions and how to effectively structure workflow files in YAML to maximize the benefits of CI/CD. We'll start by creating a somewhat simple weather application, but make it more complex over time. This is designed to simulate a real world application.
 
@@ -516,3 +516,85 @@ Set up a very simple pipeline. This pipeline should initially not be attached to
 Set up the continuous integration server (or build server) to compile and run the code. Using the information derived from the planning stage, set up the build server to compile and build the code as a baseline. Developers will perform changes on the codebase, and should have sufficient tooling on their workstation to test the changes. This tooling should match what is run on the continuous integration system. It is important that developers have a stable copy on their workstation so that they can perform changes to the code because otherwise it would be overwritten by other developers' work. It is important that the tooling on the developer's machines matches the tooling on the build server because the build server's artifacts will be what is deployed. There should be sufficient tooling on the continuous integration system to make sure that there is a reasonable level of confidence that the changes are good. Choose activities that are prime for automation and are difficult for humans to do, such as compiling code, checking (tests), etc.
 
 Continuously review and refine: Continuously review and refine the documented process. Encourage feedback from the team for improvements.
+
+---
+
+## Outputs and Job Communication
+
+### Step outputs (`$GITHUB_OUTPUT`)
+
+Use step outputs to pass small pieces of data (strings) to later steps in the *same job*.
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - id: version
+        run: echo "VERSION=1.2.3" >> "$GITHUB_OUTPUT"
+
+      - name: Use version
+        run: echo "Version is $VERSION"
+        env:
+          VERSION: ${{ steps.version.outputs.VERSION }}
+```
+
+### Job outputs (`jobs.<job>.outputs`)
+
+Use job outputs to pass data between jobs (requires `needs:` so the producer runs first).
+
+```yaml
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    outputs:
+      release_url: ${{ steps.create.outputs.url }}
+    steps:
+      - id: create
+        run: echo "url=https://example.com/release/123" >> "$GITHUB_OUTPUT"
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - run: echo "Release URL is ${{ needs.job1.outputs.release_url }}"
+```
+
+### Artifacts (files between jobs)
+
+If you need to share *files* (not small strings), upload/download artifacts between jobs using `actions/upload-artifact` and `actions/download-artifact`.
+
+---
+
+## Environments and Environment Variables
+
+Each step runs in its own process. Steps in the same job share the same workspace on disk (filesystem changes persist), but shell variables set inside a step do **not** automatically persist to the next step.
+
+### Persisting env vars across steps (`$GITHUB_ENV`)
+
+```yaml
+steps:
+  - name: Set env var for later steps
+    run: echo "FOO=bar" >> "$GITHUB_ENV"
+
+  - name: Read env var
+    run: echo "$FOO"
+```
+
+### Important caveat: secrets in `if:`
+
+GitHub does not allow `${{ secrets.X }}` directly in `if:`. If you need conditional logic, pass the secret to an `env:` variable and test that instead.
+
+---
+
+## Webhooks and External Notifications
+
+Webhooks let external systems trigger workflows. This enables ChatOps-style controls (e.g., triggering a deployment from Slack or Teams). For GitHub Actions, use `repository_dispatch` for externally-triggered workflows:
+
+```yaml
+on:
+  repository_dispatch:
+    types: [deploy-production]
+```
+
+Treat webhook triggers as **production-impacting**: require authentication and authorization. Store webhook URLs and tokens in GitHub Secrets, and limit who can trigger dispatch events.

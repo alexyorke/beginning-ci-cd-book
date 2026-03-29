@@ -505,3 +505,88 @@ This approach is useful when:
 - The business requires an audit trail that currently lives in Azure DevOps.
 - Some pipelines are complex and need time to be rewritten.
 - Different teams are at different stages of their migration.
+
+---
+
+## The Open-Core Model
+
+The open-core model is a business strategy where the core of a product is open source, but additional features — typically enterprise-focused — are offered under a proprietary license. It combines the benefits of open-source development (community contributions, transparency, trust) with a sustainable commercial revenue stream.
+
+### Further Reading
+
+- [The Cathedral & the Bazaar](https://www.amazon.ca/Cathedral-Bazaar-Musings-Accidental-Revolutionary/dp/0596001088/) by Eric Raymond — foundational essay on open-source development culture.
+- [Producing Open Source Software](https://producingoss.com/) by Karl Fogel — practical guide to running a successful open-source project.
+- [Open Core Business Model Handbook](https://handbook.opencoreventures.com/open-core-business-model) — detailed framework for structuring open-core products.
+- [Grafana: OSS vs Cloud](https://grafana.com/oss-vs-cloud/) — Grafana Labs' own explanation of their model.
+- [Archetypes of Open-Source Business Models](https://link.springer.com/article/10.1007/s12525-022-00557-9) (Springer) — academic taxonomy.
+
+**Video explanations:** [What does Open Core mean?](https://www.youtube.com/watch?v=DnjmsaAYZfc) | [Open Core vs Proprietary SaaS](https://www.youtube.com/watch?v=9Vj51JqQgzA) | [GitLab's Bet on Buyer-based Open Core](https://www.youtube.com/watch?v=Xt1kY7EEXb8)
+
+### Structuring Your Open-Core Repository
+
+**Scenario A: Proprietary plugins or small feature additions**
+
+If the proprietary components are small (extra integrations, enterprise authentication providers, admin dashboards), keep the open-source core as the primary repository and expose well-defined extension points. The proprietary additions are published as separate packages or plugins that consume the public core as a dependency.
+
+**Scenario B: Heavy-duty proprietary integration**
+
+If the proprietary code is deeply integrated (different application behavior, licensing enforcement, white-labeling), you need a more structured sync between a public and a private repository:
+
+- Do all work in the **public repo** by default. Only proprietary-specific code lives in the private repo.
+- The public repo's `main` branch is automatically synced to a `public` branch in the private repo (via a PAT stored as a GitHub secret and a push step in CI).
+- [Copybara](https://github.com/google/copybara) is a Google tool designed for this — it transforms and moves code between repositories, handling include/exclude rules cleanly.
+
+```yaml
+# In the public repo's workflow — push main to the private repo's public branch
+- name: Sync to private repo
+  run: |
+    git remote add private https://x-access-token:${{ secrets.PRIVATE_REPO_PAT }}@github.com/your-org/private-repo.git
+    git push private main:public --force
+  env:
+    PRIVATE_REPO_PAT: ${{ secrets.PRIVATE_REPO_PAT }}
+```
+
+**Before open-sourcing:** Audit the full git history for secrets, credentials, and internal hostnames. A leaked credential in git history is as dangerous as one in live code.
+
+### Companies Using the Open-Core Model
+
+| Company | Open-source core | Proprietary layer |
+|---------|-----------------|-------------------|
+| **GitLab** | GitLab Community Edition (CE) | Enterprise Edition (EE) |
+| **HashiCorp** | Terraform, Vault, Consul | Enterprise editions |
+| **Docker** | Docker Engine, Docker Compose | Docker Business/Enterprise |
+| **Elastic** | Elasticsearch, Kibana | Elastic Cloud, proprietary features |
+| **MongoDB** | MongoDB Community | Atlas managed service |
+| **CockroachDB** | CockroachDB Core | CockroachDB Enterprise |
+| **Grafana Labs** | Grafana OSS | Grafana Cloud, Enterprise features |
+
+---
+
+## Podcast Key Points: Complexity and Overcoming Blockers
+
+### Complexity
+
+*From the [Continuous Delivery Podcast: Complexity episode](https://1drv.ms/u/s!AOnf7tByrSaDkzU)*
+
+**What is complexity?**
+
+- Many dependencies, unreachable stakeholders, and external factors contribute to difficulty.
+- Inability to foresee how changes will impact the system.
+- Simple changes requiring extensive coordination and effort.
+- Difficulty understanding code structure, duplication, and fear of unintended consequences.
+
+**Causes:** Technical debt and legacy code; overly complex frameworks; designing for unknown future needs; Conway's Law (system complexity mirrors organizational complexity).
+
+**Combating complexity:** Merciless refactoring; true DevOps adoption (empowering developers to build automation); tight feedback loops with frequent feedback from product and end-users.
+
+**Tracking complexity:** Cyclomatic complexity, maintainability index, time to implement changes, throughput measurement, number of code changes to fix a single bug.
+
+### Overcoming Blockers
+
+*From the [Continuous Delivery Podcast: Overcoming Blockers episode](https://1drv.ms/u/s!AOnf7tByrSaDkz8)*
+
+**Common blockers:** Penetration testing as a bottleneck; bureaucracy in tool acquisition; fear and blame culture; outdated policies (code freezes, mandatory handoffs); lack of slack time.
+
+**Solutions:** Challenge assumptions and policies; focus on education and collaboration; start small with experiments; iterative improvement and automation; leadership buy-in; build trust through collaboration; advocate for dedicated time to experiment.
+
+**Overall conclusion:** While technical challenges exist, the most significant roadblocks to Continuous Delivery are often rooted in organizational culture, outdated policies, and a lack of slack. Overcoming them requires a shift in mindset, open communication, and a commitment to continuous improvement.

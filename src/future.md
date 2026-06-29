@@ -151,7 +151,7 @@ This file is a working backlog of **topics not yet fully covered** in the curren
 The following are open questions and tool links that need to be investigated and worked into the manuscript:
 
 1. What about code formatting and linting tasks?
-2. [fkirc/skip-duplicate-actions](https://github.com/fkirc/skip-duplicate-actions) — Save time and cost when using GitHub Actions
+2. [fkirc/skip-duplicate-actions](https://github.com/fkirc/skip-duplicate-actions) - Save time and cost when using GitHub Actions
 3. [corretto-8 submit.yml](https://github.com/corretto/corretto-8/blob/92a88d5bd8087f15f18222d87ddacf3a076628c0/.github/workflows/submit.yml#L39)
 4. [prisma/.github/workflows](https://github.com/prisma/prisma/tree/main/.github/workflows)
 5. GitHub bots to post on comments with test reports
